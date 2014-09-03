@@ -59,8 +59,8 @@ class Term extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'hemoglobins' => array(self::HAS_MANY, 'Hemoglobin', 'agreed_term'),
-			'student0' => array(self::BELONGS_TO, 'Student', 'student'),
-			'campaign0' => array(self::BELONGS_TO, 'Campaign', 'campaign'),
+			'studentFK' => array(self::BELONGS_TO, 'Student', 'student'),
+			'campaignFK' => array(self::BELONGS_TO, 'Campaign', 'campaign'),
 		);
 	}
 

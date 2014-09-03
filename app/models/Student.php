@@ -70,7 +70,7 @@ class Student extends CActiveRecord
 			'consultations' => array(self::HAS_MANY, 'Consultation', 'student'),
 			'classrooms' => array(self::MANY_MANY, 'Classroom', 'enrollment(student, classroom)'),
 			'personExternals' => array(self::MANY_MANY, 'PersonExternal', 'kinship(student, responsible)'),
-			'address0' => array(self::BELONGS_TO, 'Address', 'address'),
+			'addressFK' => array(self::BELONGS_TO, 'Address', 'address'),
 			'terms' => array(self::HAS_MANY, 'Term', 'student'),
 		);
 	}
