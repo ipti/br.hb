@@ -10,6 +10,7 @@
  * @property integer $address
  * @property string $birthday
  * @property string $gender
+ * @property string $responsible
  *
  * The followings are the available model relations:
  * @property Anatomy[] $anatomies
@@ -50,11 +51,11 @@ class Student extends CActiveRecord
 			array('name, address, birthday, gender', 'required'),
 			array('address', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>45),
-			array('name', 'length', 'max'=>150),
+			array('name, responsible', 'length', 'max'=>150),
 			array('gender', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fid, name, address, birthday, gender', 'safe', 'on'=>'search'),
+			array('id, fid, name, address, birthday, gender, responsible', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,6 +88,7 @@ class Student extends CActiveRecord
 			'address' => Yii::t('default', 'Address'),
 			'birthday' => Yii::t('default', 'Birthday'),
 			'gender' => Yii::t('default', 'Gender'),
+			'responsible' => Yii::t('default', 'Responsible'),
 		);
 	}
 
@@ -107,6 +109,7 @@ class Student extends CActiveRecord
 		$criteria->compare('address',$this->address);
 		$criteria->compare('birthday',$this->birthday,true);
 		$criteria->compare('gender',$this->gender,true);
+		$criteria->compare('responsible',$this->responsible,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

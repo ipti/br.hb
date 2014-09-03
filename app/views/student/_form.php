@@ -30,6 +30,11 @@
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>150)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'responsible'); ?>
+		<?php echo $form->textField($model,'responsible',array('size'=>60,'maxlength'=>150)); ?>
+		<?php echo $form->error($model,'responsible'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'address'); ?>
@@ -74,7 +79,7 @@
             ),
     ));
 
-    $model = $model->address0 == null ? Address::model() : $model->address0;
+    $model = $model->addressFK == null ? Address::model() : $model->addressFK;
     CController::renderPartial('/address/_form', array('model'=>  $model));
 
     $this->endWidget('zii.widgets.jui.CJuiDialog');?>
@@ -96,5 +101,9 @@
             $("#myAddress").attr('value',address);
             $("#addressForm").dialog("close");
         });
+    });
+    $(window).load(function(){
+        $("#addressForm").dialog("open");
+        $('#modalsave').trigger("click");
     });
 </script>
