@@ -151,7 +151,7 @@ class HemoglobinController extends Controller {
         foreach ($hemoglobins as $hb) {
             $has[$hb->sample] = true;
         }
-        $consultations = $model->agreedTerm->student0->consultations;
+        $consultations = $model->agreedTerm->studentFK->consultations;
         $consultation = null;
         if (count($consultations) > 0)
             $consultation = $consultations[count($consultations) - 1];
