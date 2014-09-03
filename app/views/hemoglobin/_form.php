@@ -24,7 +24,7 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'agreed_term'); ?>
         <?php
-        echo $form->dropDownList($model, 'agreed_term', CHtml::listData(Term::model()->findAll('agreed = true'), 'id', 'student0.name'), array(
+        echo $form->dropDownList($model, 'agreed_term', CHtml::listData(Term::model()->findAll('agreed = true'), 'id', 'studentFK.name'), array(
             'ajax' => array(
                 'type' => 'POST',
                 'url' => $this->createUrl('hemoglobin/getSampleByStudent'),
