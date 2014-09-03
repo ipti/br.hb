@@ -59,8 +59,8 @@ class Consultation extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'doctor0' => array(self::BELONGS_TO, 'PersonDoctor', 'doctor'),
-			'student0' => array(self::BELONGS_TO, 'Student', 'student'),
+			'doctorFK' => array(self::BELONGS_TO, 'PersonDoctor', 'doctor'),
+			'studentFK' => array(self::BELONGS_TO, 'Student', 'student'),
 			'stocks' => array(self::MANY_MANY, 'Stock', 'prescription(consultation, stock)'),
 		);
 	}
