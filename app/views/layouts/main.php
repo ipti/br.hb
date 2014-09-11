@@ -14,7 +14,18 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
+        
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+        <link href="https://code.jquery.com/ui/1.11.1/themes/ui-lightness/jquery-ui.css"></link>
+  
+<?php  
+            $baseUrl = Yii::app()->baseUrl; 
+            $cs = Yii::app()->getClientScript();
+            $cs->registerScriptFile($baseUrl.'/js/jQuery/select2/select2.js');
+            $cs->registerCssFile($baseUrl.'/js/jQuery/select2/select2.css');
+        ?>
+        
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 

@@ -2,7 +2,7 @@
 
 class ReportsController extends Controller
 {
-        public $layout = 'classic';
+        
         
 	public function actionIndex()
 	{
@@ -11,13 +11,13 @@ class ReportsController extends Controller
 
 	public function actionLetterReport()
 	{
-                $layout = 'reports';
+                $this->layout = 'null';
 		$this->render('letterReport');
 	}
 
 	public function actionTermReport()
 	{
-                $layout = 'reports';
+                $this->layout = 'null';
 		$this->render('termReport');
 	}
 

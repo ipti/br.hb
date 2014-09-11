@@ -48,7 +48,6 @@ class Address extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('state, city, neighborhood, street, number, postal_code', 'required'),
 			array('state', 'length', 'max'=>2),
 			array('city', 'length', 'max'=>60),
 			array('neighborhood', 'length', 'max'=>30),
