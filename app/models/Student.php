@@ -53,6 +53,7 @@ class Student extends CActiveRecord
 			array('fid', 'length', 'max'=>45),
 			array('name, responsible', 'length', 'max'=>150),
 			array('gender', 'length', 'max'=>6),
+			array('birthday', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, fid, name, address, birthday, gender, responsible', 'safe', 'on'=>'search'),

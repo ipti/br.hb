@@ -6,6 +6,14 @@ $this->breadcrumbs=array(
 	'FromTAG',
 );
 ?>        
+<style>
+    .no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+    
+</style>
+
+    
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
 
 <div class="form">
@@ -18,23 +26,30 @@ $this->breadcrumbs=array(
         <?php echo CHtml::button(yii::t('default','Import'), array('id'=>'import')); ?>
     </div>
 </div>
+
+
+
 <?php 
-    $schools = Yii::app()->db2->createCommand("SELECT inep_id as fid, `name` from school_identification;")->queryAll();
-    $schools_address = Yii::app()->db2->createCommand("
-        SELECT inep_id as school_id, uf.acronym as state, city.`name` as city, address_neighborhood as neighborhood, address as street, address_number as number, address_complement as complement, cep as postal_code from school_identification
-            JOIN edcenso_uf as uf on uf.id = edcenso_uf_fk
-            JOIN edcenso_city as city on city.id = edcenso_city_fk;")->queryAll();
-    
-    $classroom = Yii::app()->db2->createCommand("SELECT id as fid, `name`, turn as shift from classroom 
-            WHERE school_year = DATE_FORMAT(NOW(),'%Y')-1;")->queryAll();
-    
-    $enrollment = Yii::app()->db2->createCommand("SELECT student_fk as student, classroom_fk as classroom FROM student_enrollment;")->queryAll();
-    
-    $student = Yii::app()->db2->createCommand("SELECT id as fid, `name`, birthday,IF(sex=1, 'male','female') as gender, IF(mother_name IS NULL,father_name,mother_name) as responsible FROM TAG_SGE.student_identification;")->queryAll();
-    $student_address = Yii::app()->db2->createCommand("
-        SELECT sda.id as student_id, uf.acronym as state, city.`name` as city, neighborhood as neighborhood, address as street, number as number, complement as complement, cep as postal_code FROM TAG_SGE.student_documents_and_address as sda
-            JOIN edcenso_uf as uf on uf.id = edcenso_uf_fk
-            JOIN edcenso_city as city on city.id = edcenso_city_fk;")->queryAll();
+    $target = 'window.location='."'".$this->createUrl('import/index')."'";
+    $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id'=>'confirm',
+            // additional javascript options for the dialog plugin
+            'options'=>array(
+                    'title'=>yii::t('default','Information'),
+                    'dialogClass'=> "no-close",
+                    'autoOpen'=>false,
+                    'modal'=>true, 
+                    'buttons' => array(
+                        array('text'=>'OK','click'=> 'js:function(){'.$target.'}'),
+                    ),
+                )
+    ));
+
+    echo yii::t('default','Import completed successfully!');
+
+    $this->endWidget('zii.widgets.jui.CJuiDialog');
+
+
 ?>
 
 <script>
@@ -82,12 +97,16 @@ $(document).ready(function(){
             var schoolID = $(this).val();
             var classroomIDs = $("#classrom_"+schoolID).val();
             importArray[schoolID] = {};
+            importArray[schoolID]['Info'] = find(schools,'fid',schoolID);
+            importArray[schoolID]['Address'] = find(schools_address,'school_id',schoolID);
+            importArray[schoolID]['Classrooms']={};
             
             $(classroomIDs).each(function(i, e){
                 var classroomID = e;
-                importArray[schoolID][classroomID] = {};
-                importArray[schoolID]['Info'] = find(schools,'fid',schoolID)
-                importArray[schoolID]['Address'] = find(schools_address,'school_id',schoolID);
+                var classroomInfo = find(classroom, 'fid',classroomID);
+                importArray[schoolID]['Classrooms'][classroomID] = {};
+                importArray[schoolID]['Classrooms'][classroomID]['Info'] = classroomInfo;
+                importArray[schoolID]['Classrooms'][classroomID]['Students'] = {};
                 
                 var enrollments = findAll(enrollment, 'classroom', classroomID);
                 for(i in enrollments){
@@ -95,20 +114,28 @@ $(document).ready(function(){
                     var studentID = e.student;
                     var studentInfo = find(student, 'fid', studentID);
                     var studentAddress = find(student_address, 'student_id', studentID);
-                    importArray[schoolID][classroomID][studentID] = {};
-                    importArray[schoolID][classroomID][studentID]['Info'] = studentInfo;
-                    importArray[schoolID][classroomID][studentID]['Address'] = studentAddress;
+                    importArray[schoolID]['Classrooms'][classroomID]['Students'][studentID] = {};
+                    importArray[schoolID]['Classrooms'][classroomID]['Students'][studentID]['Info'] = studentInfo;
+                    importArray[schoolID]['Classrooms'][classroomID]['Students'][studentID]['Address'] = studentAddress;
                 }
             });
         });
         var url = 'index.php?r=import/tohb';
-        $.post(url,{import:JSON.stringify(importArray)}, function(){}, 'JSON');
+        $.post(url,{import:JSON.stringify(importArray)}, importConfirmed, 'JSON');
     d = new Date();
     var n2 = d.getTime(); 
     console.log(n2-n1 +"ms");
     });
     
 });
+
+/**
+ * Confirma que o import foi executado com sucesso.
+ * 
+ * @returns {void} */
+function importConfirmed(){
+    $("#confirm").dialog("open");
+}
 
 /**
  * Procura o objeto dentro de uma array que possui o valor em determinado campo.

@@ -45,7 +45,7 @@ class Classroom extends CActiveRecord
 		return array(
 			array('school, name, shift', 'required'),
 			array('fid, school', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>20),
+			array('name', 'length', 'max'=>50),
 			array('shift', 'length', 'max'=>9),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
