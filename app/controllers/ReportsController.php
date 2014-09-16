@@ -21,6 +21,17 @@ class ReportsController extends Controller
 		$this->render('termReport');
 	}
 
+	public function actionAnamineseReport()
+	{
+                $this->layout = 'null';
+		$this->render('anamineseReport');
+	}
+
+	public function actionPrescriptionReport()
+	{
+                $this->layout = 'null';
+		$this->render('prescriptionReport');
+	}
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
