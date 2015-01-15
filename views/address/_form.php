@@ -7,11 +7,27 @@ use yii\widgets\MaskedInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\address */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="address-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => $model->formName()
+    ]); ?>
+    
+    
+    <?php
+    //beforeSubmit
+    $js = "
+        $('form#".$model->formName()."').on('beforeSubmit', function(e){
+            var \$form = $(this);
+            submitAddressForm(\$form);
+        }).on('submit', function(e){
+            e.preventDefault();
+        });";
+    $this->registerJs($js);
+    ?>
 
     <?= $form->field($model, 'state')->dropDownList(['AC' => 'Acre',
         'AL' => 'Alagoas',

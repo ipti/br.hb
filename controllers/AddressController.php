@@ -63,13 +63,13 @@ class AddressController extends Controller
         $model = new address();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            $model->refresh();
+            Yii::$app->response->format = 'json';
+            return ['message' => Yii::t('app','Success Create!'), 'id'=>$model->id];
         }
+        return $this->renderAjax('create',['model'=>$model]);
     }
+    
 
     /**
      * Updates an existing address model.
@@ -82,12 +82,11 @@ class AddressController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            $model->refresh();
+            Yii::$app->response->format = 'json';
+            return ['message' => Yii::t('app','Success Update!'), 'id'=>$model->id];
         }
+        return $this->renderAjax('update',['model'=>$model]);
     }
 
     /**

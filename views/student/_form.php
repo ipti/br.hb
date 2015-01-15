@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\Dialog;
-use yii\web\View;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\student */
@@ -20,7 +21,16 @@ use yii\web\View;
     
     <?= Html::activeHiddenInput($model, 'address') ?>
     
-    <?= Html::button($model->getAttributeLabel('address').'...', ['id'=>'changeAddress', 'class'=>'btn btn-primary']) ?>
+    <?= Html::button(
+        $model->getAttributeLabel('address').'...', 
+        ['value' => $model->isNewRecord 
+                    ?Url::to(['address/create'])
+                    :Url::to(['address/update','id'=>$model->address]),
+            'id'=>'changeAddress',
+            'class'=>'btn btn-primary',
+            'for'=>'#student-address'
+        ]) 
+    ?>
 
     <?= $form->field($model, 'birthday')->textInput() ?>
 
@@ -37,26 +47,43 @@ use yii\web\View;
 </div>
 
 <?php
-Dialog::begin([
-    'clientOptions' => [
-        'id' => 'addressDialog',
-        'title' => 'Address Dialog',
-        'modal' => true,
-        'resizable' => false,
-        'height' => '300',
-        'autoOpen'=> false,
-    ],
-]);
+    Modal::begin([
+        'id' => 'addressModal'
+    ]);
+        echo "<div id='addressModalContent'></div>";
+        
+    Modal::end();
 
-echo 'Dialog contents here...';
-
-Dialog::end();
-
-
-$this->registerJs('
-    $("#changeAddress").on("click", function(){
-        $("#addressDialog").dialog("open");        
-    });');
+//    Dialog::begin([
+//        'clientOptions' => [
+//            'title' => 'Address Dialog',
+//            'modal' => true,
+//            'resizable' => false,
+//            'height' => '300',
+//            'autoOpen'=> false,
+//            'buttons' => [
+//                "Confirm" => "",
+//                "Cancel" => ""
+//            ]
+//        ],
+//        'id' => 'addressDialog',
+//    ]);
+//
+//    $address = new app\models\address();
+//    
+//  
+//    echo $this->render('@app/views/address/_form', [
+//        'model' => $model->isNewRecord ? $address : $model->address0,
+//        'isDialog' => true
+//    ]);
+//
+//    Dialog::end();
+//
+//
+//    $this->registerJs('   
+//        $("#changeAddress").click(function(){   
+//            $("#addressDialog").dialog("open");   
+//        });');
 
 
 ?>
