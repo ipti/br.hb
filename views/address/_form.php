@@ -2,12 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm; 
-use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\address */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="address-form">

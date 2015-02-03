@@ -874,60 +874,6 @@
         ]
     },
     {
-        "name": "bower-asset/jquery.inputmask",
-        "version": "3.1.56",
-        "version_normalized": "3.1.56.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-            "reference": "4551607fef63fd4bcd675479a8c347b668b915eb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/4551607fef63fd4bcd675479a8c347b668b915eb",
-            "reference": "4551607fef63fd4bcd675479a8c347b668b915eb",
-            "shasum": ""
-        },
-        "require": {
-            "bower-asset/jquery": ">=1.7"
-        },
-        "type": "bower-asset-library",
-        "extra": {
-            "bower-asset-main": [
-                "./dist/inputmask/jquery.inputmask.js",
-                "./dist/inputmask/jquery.inputmask.extensions.js",
-                "./dist/inputmask/jquery.inputmask.date.extensions.js",
-                "./dist/inputmask/jquery.inputmask.numeric.extensions.js",
-                "./dist/inputmask/jquery.inputmask.phone.extensions.js",
-                "./dist/inputmask/jquery.inputmask.regex.extensions.js"
-            ],
-            "bower-asset-ignore": [
-                "**/.*",
-                "qunit/",
-                "nuget/",
-                "tools/",
-                "js/",
-                "*.md",
-                "build.properties",
-                "build.xml",
-                "jquery.inputmask.jquery.json"
-            ]
-        },
-        "installation-source": "dist",
-        "license": [
-            "http://opensource.org/licenses/mit-license.php"
-        ],
-        "description": "jquery.inputmask is a jquery plugin which create an input mask.",
-        "keywords": [
-            "form",
-            "input",
-            "inputmask",
-            "jQuery",
-            "mask",
-            "plugins"
-        ]
-    },
-    {
         "name": "kartik-v/yii2-krajee-base",
         "version": "v1.7.1",
         "version_normalized": "1.7.1.0",
@@ -2167,6 +2113,593 @@
         "description": "The Jquery UI extension for the Yii framework",
         "keywords": [
             "jQuery UI",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-dropdown-x",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-dropdown-x.git",
+            "reference": "4689a7635e290ef1b71eb4f0962e3b77e347b6fe"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-dropdown-x/zipball/4689a7635e290ef1b71eb4f0962e3b77e347b6fe",
+            "reference": "4689a7635e290ef1b71eb4f0962e3b77e347b6fe",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "*"
+        },
+        "time": "2014-12-08 04:31:32",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\dropdown\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "An extended bootstrap dropdown widget for Yii 2 with submenu drilldown.",
+        "homepage": "https://github.com/kartik-v/yii2-dropdown-x",
+        "keywords": [
+            "Context",
+            "click",
+            "extension",
+            "menu",
+            "mouse",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-nav-x",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-nav-x.git",
+            "reference": "b4b03037131d9a8b29791984b80bf062bdb814e3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-nav-x/zipball/b4b03037131d9a8b29791984b80bf062bdb814e3",
+            "reference": "b4b03037131d9a8b29791984b80bf062bdb814e3",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-dropdown-x": "*"
+        },
+        "time": "2014-12-06 18:38:52",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\nav\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "An extended bootstrap Nav widget for Yii 2 with submenu drilldown.",
+        "homepage": "https://github.com/kartik-v/yii2-nav-x",
+        "keywords": [
+            "Context",
+            "click",
+            "extension",
+            "menu",
+            "mouse",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "bower-asset/jquery.inputmask",
+        "version": "3.1.57",
+        "version_normalized": "3.1.57.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
+            "reference": "d180082aa1ba98c85f85b2c4eebbfa195fd25613"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/d180082aa1ba98c85f85b2c4eebbfa195fd25613",
+            "reference": "d180082aa1ba98c85f85b2c4eebbfa195fd25613",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/jquery": ">=1.7"
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": [
+                "./dist/inputmask/jquery.inputmask.js",
+                "./dist/inputmask/jquery.inputmask.extensions.js",
+                "./dist/inputmask/jquery.inputmask.date.extensions.js",
+                "./dist/inputmask/jquery.inputmask.numeric.extensions.js",
+                "./dist/inputmask/jquery.inputmask.phone.extensions.js",
+                "./dist/inputmask/jquery.inputmask.regex.extensions.js"
+            ],
+            "bower-asset-ignore": [
+                "**/.*",
+                "qunit/",
+                "nuget/",
+                "tools/",
+                "js/",
+                "*.md",
+                "build.properties",
+                "build.xml",
+                "jquery.inputmask.jquery.json"
+            ]
+        },
+        "installation-source": "dist",
+        "license": [
+            "http://opensource.org/licenses/mit-license.php"
+        ],
+        "description": "jquery.inputmask is a jquery plugin which create an input mask.",
+        "keywords": [
+            "form",
+            "input",
+            "inputmask",
+            "jQuery",
+            "mask",
+            "plugins"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-context-menu",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-context-menu.git",
+            "reference": "fdd192dc3724c08ba3d7d0d2f4ffeb85be64bfda"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-context-menu/zipball/fdd192dc3724c08ba3d7d0d2f4ffeb85be64bfda",
+            "reference": "fdd192dc3724c08ba3d7d0d2f4ffeb85be64bfda",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "*"
+        },
+        "time": "2014-11-25 09:06:15",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\cmenu\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "A context menu extension for Yii framework 2.0",
+        "homepage": "https://github.com/kartik-v/yii2-context-menu",
+        "keywords": [
+            "Context",
+            "click",
+            "extension",
+            "menu",
+            "mouse",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "fortawesome/font-awesome",
+        "version": "v4.2.0",
+        "version_normalized": "4.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FortAwesome/Font-Awesome.git",
+            "reference": "a65bd93d81e9e6bd5ebfa41757a4474960b973b4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/a65bd93d81e9e6bd5ebfa41757a4474960b973b4",
+            "reference": "a65bd93d81e9e6bd5ebfa41757a4474960b973b4",
+            "shasum": ""
+        },
+        "require-dev": {
+            "jekyll": "1.0.2",
+            "lessc": "1.4.2"
+        },
+        "time": "2014-08-26 16:36:44",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "OFL-1.1",
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Dave Gandy",
+                "email": "dave@fontawesome.io",
+                "homepage": "http://twitter.com/davegandy",
+                "role": "Developer"
+            }
+        ],
+        "description": "The iconic font and CSS framework",
+        "homepage": "http://fontawesome.io/",
+        "keywords": [
+            "FontAwesome",
+            "awesome",
+            "bootstrap",
+            "font",
+            "icon"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-icons",
+        "version": "v1.3.0",
+        "version_normalized": "1.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-icons.git",
+            "reference": "0f739ba826171d5210621888453c384dc11db36c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/0f739ba826171d5210621888453c384dc11db36c",
+            "reference": "0f739ba826171d5210621888453c384dc11db36c",
+            "shasum": ""
+        },
+        "require": {
+            "fortawesome/font-awesome": "*",
+            "kartik-v/yii2-krajee-base": "*",
+            "yiisoft/yii2-jui": "*"
+        },
+        "time": "2014-12-18 17:32:49",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\icons\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://demos.krajee.com/"
+            }
+        ],
+        "description": "Set of icon frameworks for use in Yii Framework 2.0",
+        "homepage": "https://github.com/kartik-v/yii2-icons",
+        "keywords": [
+            "extension",
+            "font",
+            "icon",
+            "yii",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-helpers",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-helpers.git",
+            "reference": "b608b9b4b96d2e69173fd96911bbf5614bf10960"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-helpers/zipball/b608b9b4b96d2e69173fd96911bbf5614bf10960",
+            "reference": "b608b9b4b96d2e69173fd96911bbf5614bf10960",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2-bootstrap": "*"
+        },
+        "time": "2014-11-10 17:18:28",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\helpers\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "A collection of useful helper functions for Yii Framework 2.0",
+        "homepage": "https://github.com/kartik-v/yii2-helpers",
+        "keywords": [
+            "bootstrap",
+            "extension",
+            "helper",
+            "utilities",
+            "yii",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-grid",
+        "version": "v2.9.0",
+        "version_normalized": "2.9.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-grid.git",
+            "reference": "f98b3d767ea745ab7430cf06609fcadddf8437eb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/f98b3d767ea745ab7430cf06609fcadddf8437eb",
+            "reference": "f98b3d767ea745ab7430cf06609fcadddf8437eb",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "*"
+        },
+        "time": "2014-12-27 07:12:40",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\grid\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Yii 2 GridView on steroids. Various enhancements and utilities for the Yii 2.0 GridView widget.",
+        "homepage": "https://github.com/kartik-v/yii2-grid",
+        "keywords": [
+            "extension",
+            "grid",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-builder",
+        "version": "v1.5.0",
+        "version_normalized": "1.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-builder.git",
+            "reference": "628b6340bfcc1f8c31ef9ad279f4c57275660e88"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/628b6340bfcc1f8c31ef9ad279f4c57275660e88",
+            "reference": "628b6340bfcc1f8c31ef9ad279f4c57275660e88",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-grid": "*",
+            "kartik-v/yii2-krajee-base": "*",
+            "kartik-v/yii2-widget-activeform": "*"
+        },
+        "time": "2014-12-04 08:53:03",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\builder\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Build forms (single-row or multi-row/tabular) easily for Yii Framework 2.0",
+        "homepage": "https://github.com/kartik-v/yii2-builder",
+        "keywords": [
+            "builder",
+            "extension",
+            "form",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/mpdf",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/mpdf.git",
+            "reference": "46148a9d43b88f3832f6bc348b6a55d9a482187f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/mpdf/zipball/46148a9d43b88f3832f6bc348b6a55d9a482187f",
+            "reference": "46148a9d43b88f3832f6bc348b6a55d9a482187f",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=4.3.10"
+        },
+        "time": "2014-11-08 13:41:48",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "mpdf.php",
+                "classes"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-1.0+"
+        ],
+        "authors": [
+            {
+                "name": "Ian N Back"
+            }
+        ],
+        "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support. This is a fork of the official mPDF library.",
+        "homepage": "http://www.mpdf1.com/mpdf/index.php",
+        "keywords": [
+            "pdf",
+            "php",
+            "utf-8"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-mpdf",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-mpdf.git",
+            "reference": "4599a1d95d7e0afb3279322e302717b7e4f52dd3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/4599a1d95d7e0afb3279322e302717b7e4f52dd3",
+            "reference": "4599a1d95d7e0afb3279322e302717b7e4f52dd3",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/mpdf": "*"
+        },
+        "time": "2014-11-10 18:09:37",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\mpdf\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "A Yii2 wrapper component for the mPDF library which generates PDF files from UTF-8 encoded HTML.",
+        "homepage": "https://github.com/kartik-v/yii2-mpdf",
+        "keywords": [
+            "component",
+            "extension",
+            "html",
+            "mpdf",
+            "pdf",
+            "utf8",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-detail-view",
+        "version": "v1.5.0",
+        "version_normalized": "1.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-detail-view.git",
+            "reference": "bd1c498366a838d846e38f955ae1030274a08372"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/bd1c498366a838d846e38f955ae1030274a08372",
+            "reference": "bd1c498366a838d846e38f955ae1030274a08372",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-helpers": "*",
+            "kartik-v/yii2-krajee-base": "*"
+        },
+        "time": "2015-01-12 11:46:36",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\detail\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Various enhancements to the Yii 2 Detail View with ability to edit data and manage Bootstrap 3 styles.",
+        "homepage": "https://github.com/kartik-v/yii2-detail-view",
+        "keywords": [
+            "detail",
+            "detail view",
+            "extension",
+            "form",
+            "grid",
+            "widget",
             "yii2"
         ]
     }

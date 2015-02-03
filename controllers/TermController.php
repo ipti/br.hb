@@ -70,6 +70,16 @@ class TermController extends Controller
             ]);
         }
     }
+    
+    public function actionAdd($sid){
+        $model = new term();
+        $model->student = $sid;
+        $model->agreed = 0;
+        
+        if (!$model->save()) {
+            throw new Exception("Não salvo", "0001");
+        }
+    }
 
     /**
      * Updates an existing term model.

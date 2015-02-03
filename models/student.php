@@ -126,6 +126,7 @@ class student extends \yii\db\ActiveRecord
      */
     public function getTerms()
     {
-        return $this->hasMany(Term::className(), ['student' => 'id']);
+        return $this->hasMany(term::className(), ['student' => 'id']);
     }
+    
 }

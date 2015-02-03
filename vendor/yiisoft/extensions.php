@@ -246,4 +246,85 @@ return array (
       '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
     ),
   ),
+  'kartik-v/yii2-dropdown-x' => 
+  array (
+    'name' => 'kartik-v/yii2-dropdown-x',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@kartik/dropdown' => $vendorDir . '/kartik-v/yii2-dropdown-x',
+    ),
+  ),
+  'kartik-v/yii2-nav-x' => 
+  array (
+    'name' => 'kartik-v/yii2-nav-x',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@kartik/nav' => $vendorDir . '/kartik-v/yii2-nav-x',
+    ),
+  ),
+  'kartik-v/yii2-context-menu' => 
+  array (
+    'name' => 'kartik-v/yii2-context-menu',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@kartik/cmenu' => $vendorDir . '/kartik-v/yii2-context-menu',
+    ),
+  ),
+  'kartik-v/yii2-icons' => 
+  array (
+    'name' => 'kartik-v/yii2-icons',
+    'version' => '1.3.0.0',
+    'alias' => 
+    array (
+      '@kartik/icons' => $vendorDir . '/kartik-v/yii2-icons',
+    ),
+  ),
+  'kartik-v/yii2-helpers' => 
+  array (
+    'name' => 'kartik-v/yii2-helpers',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@kartik/helpers' => $vendorDir . '/kartik-v/yii2-helpers',
+    ),
+  ),
+  'kartik-v/yii2-grid' => 
+  array (
+    'name' => 'kartik-v/yii2-grid',
+    'version' => '2.9.0.0',
+    'alias' => 
+    array (
+      '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid',
+    ),
+  ),
+  'kartik-v/yii2-builder' => 
+  array (
+    'name' => 'kartik-v/yii2-builder',
+    'version' => '1.5.0.0',
+    'alias' => 
+    array (
+      '@kartik/builder' => $vendorDir . '/kartik-v/yii2-builder',
+    ),
+  ),
+  'kartik-v/yii2-mpdf' => 
+  array (
+    'name' => 'kartik-v/yii2-mpdf',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf',
+    ),
+  ),
+  'kartik-v/yii2-detail-view' => 
+  array (
+    'name' => 'kartik-v/yii2-detail-view',
+    'version' => '1.5.0.0',
+    'alias' => 
+    array (
+      '@kartik/detail' => $vendorDir . '/kartik-v/yii2-detail-view',
+    ),
+  ),
 );
