@@ -61,10 +61,23 @@ class CampaignController extends Controller
     public function actionCreate()
     {    
         $model = new Campaign();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
             Yii::$app->response->format = 'json';
+            
+            if(isset($_POST['selection'])){
+                foreach ($_POST['selection'] as $sid){
+                    $student = new \app\models\student();
+                    $student = $student->find()->where(['student' => $sid]);
+                    if($student != null){
+                        $term = new \app\models\term();
+                        $term->campaign = $model->id;
+                        $term->student = $sid;
+                        $term->save();
+                    }
+                }
+            }
+            
             return ['message' => Yii::t('app','Success Created!'), 'id'=>$model->id];
         } 
         return $this->renderAjax('create',['model'=>$model]);
