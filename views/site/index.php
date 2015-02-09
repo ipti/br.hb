@@ -24,9 +24,10 @@ $this->assetBundles['Site']->js = [
         $today = date("j-n-Y");
         $campaings = $campaing->find()->where('end > '.$today)->all();
         foreach ($campaings as $c){
-            //$c = new \app\models\Campaign();
+            $c = new \app\models\Campaign();
             
-            $campaingName = $c->name;
+            $campaing['Name'] = $c->name;
+            $campaing['Id'] = $c->id;
             
             $terms['Total'] = $c->getTerms()->count();
             $terms['Agreed'] = $c->getTerms()->count("agreed = true");
@@ -61,7 +62,7 @@ $this->assetBundles['Site']->js = [
             $hb3['Url'] = "";
         ?>
             <div class="campaign-box col-lg-2">
-                <div id="campaing-box-title" class="campaign-box-container"><?= Html::label($campaingName,'') ?></div>
+                <div id="campaing-box-title" class="campaign-box-container"><?= Html::label($campaing['Name'],'') ?></div>
                 <div id="campaing-box-terms" class="campaign-box-container">
                     <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Terms').': ')?></div>
                     <div class="campaing-box-content">

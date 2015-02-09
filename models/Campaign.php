@@ -164,7 +164,7 @@ class Campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getHemoglobins(){
-        return $this->hasMany(hemoglobin::className(), ['id'=>'agreed_term'])
+        return $this->hasMany(hemoglobin::className(), ['id'=>'agreed'])
                 ->via('terms');
     }
     
@@ -172,7 +172,7 @@ class Campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getConsults(){
-        return $this->hasMany(consultation::className(), ['id'=>'student'])
+        return $this->hasMany(consultation::className(), ['student'=>'id'])
                 ->via('students');
     }
     
