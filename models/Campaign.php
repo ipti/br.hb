@@ -43,6 +43,13 @@ class Campaign extends \yii\db\ActiveRecord {
             [['coordinator'], 'integer'],
             [['name', 'begin', 'end'], 'required'],
             [['begin', 'end'], 'safe'],
+            [['begin', 'end'],  'date'],
+//            ['begin', 
+//                'compare', 
+//                'compareValue'=>date("Y-m-j"),
+//                'operator'=>'>',
+//                'message'=>'{value} must be greater than {compareValue}.'],
+//            ['end', 'compare', 'compareAttribute'=>'begin','operator'=>'>','message'=>'{value} must be greater than {compareValue}.'],
             [['name'], 'string', 'max' => 20]
         ];
     }
@@ -172,8 +179,8 @@ class Campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getConsults(){
-        return $this->hasMany(consultation::className(), ['student'=>'id'])
-                ->via('students');
+        return $this->hasMany(consultation::className(), ['term'=>'id'])
+                ->via('terms');
     }
     
 }

@@ -143,26 +143,23 @@ a.desc:after {
     cursor:pointer;
 }
 
-
-#campaing-box-title{
+.campaing-box-title{
     font-size: x-large;
-    height: 30px;
+    height: 25px;
 }
-#campaing-box-terms{}
-#campaing-box-anatomies{} 
-#campaing-box-hb1{} 
-#campaing-box-consults{} 
-#campaing-box-hb2{} 
-#campaing-box-hb3{}
+.campaing-box-progress-bar{
+    width: 105px;
+}
+
+.text-black-bar{
+    color: black;
+}
+
 
 #newCampaignBox{ 
     padding: 0px;
-    
 }
 #newCampaign{
     width: 100%;
     height: 100%;  
-}
-#campaing-box-progress-bar{
-    height: 15px;
 }

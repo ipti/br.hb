@@ -73,6 +73,7 @@ class CampaignController extends Controller
                         $term = new \app\models\term();
                         $term->campaign = $model->id;
                         $term->student = $sid;
+                        $term->agreed = 0;
                         $term->save();
                     }
                 }

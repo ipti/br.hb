@@ -9,12 +9,12 @@ use Yii;
  *
  * @property integer $id
  * @property integer $doctor
- * @property integer $student
  * @property integer $attended
  * @property integer $delivered
+ * @property integer $term
  *
+ * @property Term $term0
  * @property PersonDoctor $doctor0
- * @property Student $student0
  * @property Prescription[] $prescriptions
  * @property Stock[] $stocks
  */
@@ -34,8 +34,7 @@ class consultation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doctor', 'student', 'attended', 'delivered'], 'integer'],
-            [['student'], 'required']
+            [['doctor', 'attended', 'delivered', 'term'], 'integer']
         ];
     }
 
@@ -47,10 +46,18 @@ class consultation extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'doctor' => Yii::t('app', 'Doctor'),
-            'student' => Yii::t('app', 'Student'),
             'attended' => Yii::t('app', 'Attended'),
             'delivered' => Yii::t('app', 'Delivered'),
+            'term' => Yii::t('app', 'Term'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTerm0()
+    {
+        return $this->hasOne(Term::className(), ['id' => 'term']);
     }
 
     /**
@@ -59,14 +66,6 @@ class consultation extends \yii\db\ActiveRecord
     public function getDoctor0()
     {
         return $this->hasOne(PersonDoctor::className(), ['id' => 'doctor']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getStudent0()
-    {
-        return $this->hasOne(Student::className(), ['id' => 'student']);
     }
 
     /**

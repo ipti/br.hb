@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'doctor')->textInput() ?>
 
-    <?= $form->field($model, 'student')->textInput() ?>
+    <?= $form->field($model, 'term')->textInput() ?>
 
     <?= $form->field($model, 'attended')->textInput() ?>
 
