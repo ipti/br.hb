@@ -17,25 +17,26 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>HB - <?= Html::encode($this->title) ?></title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
     <?php $this->head() ?>
 </head>
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap navbar-">
+    <div class="navbar">
         <?php
             NavBar::begin([
-                'brandLabel' => 'HB',
+                'brandLabel' => '<img src="images/logo-85.png" width="50" class="img-responsive">',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-default navbar-fixed-top',
+                    'class' => 'navbar-default',
                 ],
             ]);
+            echo '<h1 class="navbar-text">' . Html::encode($this->title) . '</h1>';
             echo NavX::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => yii::t('app', 'Campaign'), 'url' => ['/Campaign']],
                     ['label' => yii::t('app', 'HB'),
                         'items' => [
                             ['label' => yii::t('app', 'Student'), 'url' => ['/student']],

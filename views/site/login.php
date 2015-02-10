@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'username',[
         'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel(yii::t('app', 'User')),
+            'placeholder' => $model->getAttributeLabel(yii::t('app', 'Username')),
         ],
     ])->textInput()->label(false) ?>
 

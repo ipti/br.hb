@@ -5,7 +5,7 @@ use \yii\helpers\Url;
 use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
-$this->title = 'HB - IPTI';
+$this->title = yii::t('app', 'Campaigns');
 
 
 $this->assetBundles['Site'] = new app\assets\AppAsset();
@@ -61,83 +61,85 @@ $this->assetBundles['Site']->js = [
             $hb3['UnDone'] = $hb3['Total'] - $hb3['Done'];
             $hb3['Url'] = "";
         ?>
-            <div id="campaing-box[<?= $campaing['Id'] ?>]" class="campaign-box col-lg-2">
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-title" class="campaign-box-container campaing-box-title"><?= Html::label($campaing['Name'],'') ?></div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-terms" class="campaign-box-container">
-                    <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Terms').': ')?></div>
-                    <div class="campaing-box-content">
-                        <?= Html::a($terms['Agreed'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
-                                [$terms['Url']])?>&nbsp;
-                        <?= Html::a($terms['UnAgreed'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
-                                [$terms['Url']])?>
+            <div id="campaing-col[<?= $campaing['Id'] ?>]" class="campaign-col col-lg-3">
+                <div id="campaing-box[<?= $campaing['Id'] ?>]" class="campaign-box">
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-title" class="campaign-box-container campaing-box-title"><?= Html::label($campaing['Name'],'') ?></div>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-terms" class="campaign-box-container">
+                        <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Terms').': ')?></div>
+                        <div class="campaing-box-content">
+                            <?= Html::a($terms['Agreed'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
+                                    [$terms['Url']])?>&nbsp;
+                            <?= Html::a($terms['UnAgreed'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
+                                    [$terms['Url']])?>
+                        </div>
                     </div>
-                </div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
-                    <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Anatomies').': ')?></div>
-                    <div class="campaing-box-content">
-                        <?= Html::a($anatomies['Updated'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
-                                [$anatomies['Url']])?>&nbsp;
-                        <?= Html::a($anatomies['OutOfDate'].Icon::show('info-sign', ['class'=>'alert-warning'], Icon::BSG, false),
-                                [$anatomies['Url']])?>&nbsp;
-                        <?= Html::a($anatomies['Unknown'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
-                                [$anatomies['Url']])?>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
+                        <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Anatomies').': ')?></div>
+                        <div class="campaing-box-content">
+                            <?= Html::a($anatomies['Updated'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
+                                    [$anatomies['Url']])?>&nbsp;
+                            <?= Html::a($anatomies['OutOfDate'].Icon::show('info-sign', ['class'=>'alert-warning'], Icon::BSG, false),
+                                    [$anatomies['Url']])?>&nbsp;
+                            <?= Html::a($anatomies['Unknown'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
+                                    [$anatomies['Url']])?>
+                        </div>
                     </div>
-                </div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-hb1" class="campaign-box-container">
-                    <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'HB1').': ')?></div>
-                    <div class="campaing-box-content">
-                        <?= Html::a($hb1['Done'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
-                                [$hb1['Url']])?>&nbsp;
-                        <?= Html::a($hb1['UnDone'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
-                                [$hb1['Url']])?>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-hb1" class="campaign-box-container">
+                        <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'HB1').': ')?></div>
+                        <div class="campaing-box-content">
+                            <?= Html::a($hb1['Done'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
+                                    [$hb1['Url']])?>&nbsp;
+                            <?= Html::a($hb1['UnDone'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
+                                    [$hb1['Url']])?>
+                        </div>
                     </div>
-                </div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-consults" class="campaign-box-container">
-                    <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Consults').': ')?></div>
-                    <div class="campaing-box-content">
-                        <?= Html::a($consults['Attended'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
-                                [$consults['Url']])?>&nbsp;
-                        <?= Html::a($consults['NotAttended'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
-                                [$consults['Url']])?>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-consults" class="campaign-box-container">
+                        <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'Consults').': ')?></div>
+                        <div class="campaing-box-content">
+                            <?= Html::a($consults['Attended'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
+                                    [$consults['Url']])?>&nbsp;
+                            <?= Html::a($consults['NotAttended'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
+                                    [$consults['Url']])?>
+                        </div>
                     </div>
-                </div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-hb2" class="campaign-box-container">
-                    <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'HB2').': ')?></div>
-                    <div class="campaing-box-content">
-                        <?= Html::a($hb2['Done'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
-                                [$hb2['Url']])?>&nbsp;
-                        <?= Html::a($hb2['UnDone'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
-                                [$hb2['Url']])?>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-hb2" class="campaign-box-container">
+                        <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'HB2').': ')?></div>
+                        <div class="campaing-box-content">
+                            <?= Html::a($hb2['Done'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
+                                    [$hb2['Url']])?>&nbsp;
+                            <?= Html::a($hb2['UnDone'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
+                                    [$hb2['Url']])?>
+                        </div>
                     </div>
-                </div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-hb3" class="campaign-box-container">
-                    <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'HB3').': ')?></div>
-                    <div class="campaing-box-content">
-                        <?= Html::a($hb3['Done'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
-                                [$hb3['Url']])?>&nbsp;
-                        <?= Html::a($hb3['UnDone'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
-                                [$hb3['Url']])?>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-hb3" class="campaign-box-container">
+                        <div class="campaing-box-label"><?= Html::label(Yii::t('app', 'HB3').': ')?></div>
+                        <div class="campaing-box-content">
+                            <?= Html::a($hb3['Done'].Icon::show('ok-sign', ['class'=>'alert-success'], Icon::BSG, false),
+                                    [$hb3['Url']])?>&nbsp;
+                            <?= Html::a($hb3['UnDone'].Icon::show('remove-sign', ['class'=>'alert-danger'],  Icon::BSG, false),
+                                    [$hb3['Url']])?>
+                        </div>
                     </div>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-progress" class="campaign-box-container">
+                        <div class="campaing-box-label"><label><?= yii::t("app","Days").": " ?></label></div>
+                        <?php
+                            $now = time(); // or your date as well
+                            $begin = strtotime($c["begin"]);
+                            $end = strtotime($c["end"]);
+                            $tot = floor(($end-$begin)/(60*60*24));
+                            $act = floor(($now-$begin)/(60*60*24));
+                            $tot = $tot == 0 ? 1 : $tot;
+                        ?>
+
+                        <?= yii\bootstrap\Progress::widget([
+                            'percent' => $act/$tot * 100,
+                            'label' => $act.'/'.$tot,
+                            'options'=>[
+                                'class' => 'active progress-striped campaing-box-content campaing-box-progress-bar'],
+                            'barOptions' => ['class' => 'progress-bar-success text-black-bar']
+                        ]);?>
+                    </div> 
                 </div>
-                <div id="campaing-box[<?= $campaing['Id'] ?>]-progress" class="campaign-box-container">
-                    <div class="campaing-box-label"><label><?= yii::t("app","Days").": " ?></label></div>
-                    <?php
-                        $now = time(); // or your date as well
-                        $begin = strtotime($c["begin"]);
-                        $end = strtotime($c["end"]);
-                        $tot = floor(($end-$begin)/(60*60*24));
-                        $act = floor(($now-$begin)/(60*60*24));
-                        $tot = $tot == 0 ? 1 : $tot;
-                    ?>
-                    
-                    <?= yii\bootstrap\Progress::widget([
-                        'percent' => $act/$tot * 100,
-                        'label' => $act.'/'.$tot,
-                        'options'=>[
-                            'class' => 'active progress-striped campaing-box-content campaing-box-progress-bar'],
-                        'barOptions' => ['class' => 'progress-bar-success text-black-bar']
-                    ]);?>
-                </div> 
             </div>
         <?php }?>
             <div class="campaign-box col-lg-2" id="newCampaignBox">

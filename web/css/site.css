@@ -1,3 +1,26 @@
+/* Theme */
+
+html,
+body {
+    height: 100%;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    background-color: #F7F7F7;
+}
+
+h1 {
+    font-size: 27px;
+}
+
+.navbar-default {
+    border: none;
+}
+
+.navbar-text {
+    margin-top: 30px;
+    margin-left: 0;
+    color: #333 !important;
+}
+
 /* Login */
 #login {
     background-image: url('../images/bg.jpg');
@@ -10,12 +33,12 @@
 }
 
 #login .form-control {
-color: rgba(255, 255, 255, 0.5);
-background-color: rgba(0, 0, 0, 0.37);
-border: 1px solid rgba(0, 0, 0, 0.27);
-border-left: 3px solid rgba(0,0,0,0.37);
-border-radius: 0px 2px 2px 0px;
-box-shadow: none;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    border-left: 3px solid rgba(0,0,0,0.37);
+    border-radius: 0px 2px 2px 0px;
+    box-shadow: none;
 }
 
 #login .form-group {
@@ -49,17 +72,6 @@ box-shadow: none;
     border: none;
     border-radius: 2px;
 }
-
-html,
-body {
-    height: 100%;
-    font-family: Lato, Helvetica, Arial, sans-serif;   
-}
-
-.wrap {
-    padding-top: 80px;
-}
-
 
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
@@ -119,11 +131,13 @@ a.desc:after {
 
 /** Campaing **/
 .campaign-box{
-    height: 200px;
-    border: 1px solid black;
     border-radius: 5px;
-    padding-left: 5px;
-    margin: 5px;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
 }
 .campaign-box-container{
     height: 25px;

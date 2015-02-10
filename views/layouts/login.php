@@ -1,8 +1,5 @@
 <?php
 use yii\helpers\Html;
-use kartik\nav\NavX;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -18,8 +15,8 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?> - HB</title>
-    <?php $this->head() ?>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+    <?php $this->head() ?>
 </head>
 
 <body id="login">
