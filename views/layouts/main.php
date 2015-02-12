@@ -20,6 +20,7 @@ AppAsset::register($this);
     <title>HB - <?= Html::encode($this->title) ?></title>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
     <?php $this->head() ?>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -48,7 +49,7 @@ AppAsset::register($this);
                     ],
                     Yii::$app->user->isGuest ?
                         ['label' => yii::t('app', 'Login'), 'url' => ['/site/login']] :
-                        ['label' => yii::t('app', 'Logout'). ' (' . Yii::$app->user->identity->username . ')',
+                        ['label' => yii::t('app', 'Logout'),
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],

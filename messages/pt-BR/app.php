@@ -13,7 +13,7 @@ return [
     'Password'=>'Senha',
     'Remember Me'=>'Lembrar-me',
     'Login'=>'Login',
-    'Logout'=>'Logout',
+    'Logout'=>'Sair',
     'Incorrect username or password.'=>'Usuário ou senha incorretos.',
     
     // Menu

@@ -11,6 +11,10 @@ h1 {
     font-size: 27px;
 }
 
+h2 {
+    font-size: 20px;
+}
+
 .navbar-default {
     border: none;
 }
@@ -141,15 +145,18 @@ a.desc:after {
 }
 .campaign-box-container{
     height: 25px;
-    width: 185px;
 }
-.campaing-box-label{
+.campaign-box-label{
     float: left;
 }
-.campaing-box-content{
+
+.campaign-box-label label {
+    font-weight: normal;
+}
+.campaign-box-content{
     float: right;
 }
-.campaing-box-content > a{
+.campaign-box-content > a{
     position: relative;
     width: 35px;
     color: black;
@@ -157,11 +164,23 @@ a.desc:after {
     cursor:pointer;
 }
 
-.campaing-box-title{
-    font-size: x-large;
-    height: 25px;
+.campaign-box-title{
+    margin: 0 0 15px 0;
 }
-.campaing-box-progress-bar{
+
+.campaign-box-edit {
+    display: none;
+}
+
+.campaign-box:hover .campaign-box-edit {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 11px;
+    color: #C2151C;
+}
+.campaign-box-progress-bar{
     width: 105px;
 }
 
