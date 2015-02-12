@@ -47,5 +47,6 @@ return [
     // Utils
     'Create'=>'Criar',
     'Select'=>'Selecione',
+    'edit'=>'editar',
     
 ];
