@@ -145,6 +145,7 @@ a.desc:after {
 }
 .campaign-box-container{
     height: 25px;
+    border-bottom: 1px solid #E8E8E8;
 }
 .campaign-box-label{
     float: left;
@@ -186,6 +187,18 @@ a.desc:after {
 
 .text-black-bar{
     color: black;
+}
+
+.icon-sucess {
+    color: #4cae4c;
+}
+
+.icon-error {
+    color: #C2151C;
+}
+
+.icon-info {
+    color: #C08F37;
 }
 
 
