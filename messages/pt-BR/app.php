@@ -31,7 +31,7 @@ return [
     'Terms'=>'Termos',
     'Anatomies'=>'Anatomias',
     'Consults'=>'Consultas',
-    'Days'=>'Dias',
+    'Day'=>'Dia',
     'HB1'=>'HB1',
     'HB2'=>'HB2',
     'HB3'=>'HB3',

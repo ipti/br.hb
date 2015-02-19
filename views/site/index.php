@@ -125,32 +125,31 @@ $this->assetBundles['Site']->js = [
                                     [$hb3['Url']])?>
                         </div>
                     </div>
-                    <div id="campaing-box[<?= $campaing['Id'] ?>]-progress" class="campaign-box-container">
-                        <div class="campaign-box-label"><label><?= yii::t("app","Days").": " ?></label></div>
-                        <?php
-                            $now = time(); // or your date as well
-                            $begin = strtotime($c["begin"]);
-                            $end = strtotime($c["end"]);
-                            $tot = floor(($end-$begin)/(60*60*24));
-                            $act = floor(($now-$begin)/(60*60*24));
-                            $tot = $tot == 0 ? 1 : $tot;
-                        ?>
+                    <?php
+                        $now = time(); // or your date as well
+                        $begin = strtotime($c["begin"]);
+                        $end = strtotime($c["end"]);
+                        $tot = floor(($end-$begin)/(60*60*24));
+                        $act = floor(($now-$begin)/(60*60*24));
+                        $tot = $tot == 0 ? 1 : $tot;
+                    ?>
 
-                        <?= yii\bootstrap\Progress::widget([
-                            'percent' => $act/$tot * 100,
-                            'label' => $act.'/'.$tot,
-                            'options'=>[
-                                'class' => 'active progress-striped campaign-box-content campaign-box-progress-bar'],
-                            'barOptions' => ['class' => 'progress-bar-success text-black-bar']
-                        ]);?>
-                    </div> 
+                    <?= yii\bootstrap\Progress::widget([
+                        'percent' => $act/$tot * 100,
+                        'label' => yii::t("app","Day")." ".$act.'/'.$tot,
+                        'options'=>[
+                            'class' => 'active campaign-box-content campaign-box-progress-bar'],
+                        'barOptions' => ['class' => 'progress-bar-success text-black-bar']
+                    ]);?>
                     <div class="clearfix"></div>
                 </div>
             </div>
+            
             <?php if ($count % 4 == 0 ) { ?>
                 </div>
                 <div class="row">
             <?php } ?>
+                    
         <?php }?>
             <div class="campaign-box col-lg-2" id="newCampaignBox">
                 <?= Html::button(Icon::show('plus',[], Icon::BSG).
