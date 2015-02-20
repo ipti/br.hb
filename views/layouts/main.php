@@ -25,6 +25,9 @@ AppAsset::register($this);
 <body>
 
 <?php $this->beginBody() ?>
+    
+<?php //  var_dump($this->context->id); exit(); ?>
+
     <div class="navbar">
         <?php
             NavBar::begin([

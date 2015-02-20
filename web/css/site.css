@@ -137,15 +137,20 @@ a.desc:after {
 .campaign-box{
     border-radius: 5px;
     background: #fff;
-    padding: 15px;
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
     border-left: 1px solid #DDDDDD;
     border-right: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 30px;
 }
 .campaign-box-container{
     height: 25px;
+    margin: 0 15px;
+    border-bottom: 1px solid #E8E8E8;
 }
+/*.campaign-box:last-child {
+    border: 0;
+}*/
 .campaign-box-label{
     float: left;
 }
@@ -165,7 +170,9 @@ a.desc:after {
 }
 
 .campaign-box-title{
-    margin: 0 0 15px 0;
+    margin: 0 0 25px 0;
+    padding: 15px 15px 0;
+    border: 0;
 }
 
 .campaign-box-edit {
@@ -180,13 +187,31 @@ a.desc:after {
     font-size: 11px;
     color: #C2151C;
 }
-.campaign-box-progress-bar{
-    width: 105px;
-}
 
 .text-black-bar{
     color: black;
 }
+
+.icon-sucess {
+    color: #4cae4c;
+}
+
+.icon-error {
+    color: #C2151C;
+}
+
+.icon-info {
+    color: #C08F37;
+}
+
+/** Progress bar **/
+.campaign-box-progress-bar{
+    width: 100%;
+    margin: 10px 0 0;
+    border-radius: 0 0 4px 4px;
+}
+
+
 
 
 #newCampaignBox{ 

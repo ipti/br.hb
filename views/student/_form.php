@@ -43,7 +43,7 @@ $this->assetBundles['Student']->js = [
         ]) 
     ?>
 
-    <?= $form->field($model, 'birthday')->textInput() ?>
+    <?= $form->field($model, 'birthday')->input('date') ?>
 
     <?= $form->field($model, 'gender')->dropDownList([ 'male' => Yii::t('app', 'Male'), 'female' => Yii::t('app', 'Female'), ], ['prompt' => '']) ?>
 
