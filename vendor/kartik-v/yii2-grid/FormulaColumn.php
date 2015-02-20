@@ -1,16 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-grid
- * @version 2.9.0
+ * @package   yii2-grid
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version   3.0.0
  */
 
 namespace kartik\grid;
 
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * A FormulaColumn to calculate values based on other column indexes
@@ -39,11 +40,12 @@ class FormulaColumn extends DataColumn
      * @param integer $i the index of the grid column (the first column
      * in the grid will be zero indexed). Note a column's index is to be
      * considered, even if the `visible` property is set to false.
-     * @param array $params which will contain these keys:
+     * @param array   $params which will contain these keys:
      * - model: mixed the data model being rendered
      * - key: mixed the key associated with the data model
      * - index: integer the zero-based index of the data item among
      *   the item array returned by [[GridView::dataProvider]].
+     * - widget: the current column widget instance
      * @throws InvalidConfigException
      */
     public function col($i, $params = [])
@@ -52,7 +54,9 @@ class FormulaColumn extends DataColumn
             throw new InvalidConfigException("Invalid column index {$i} used in FormulaColumn.");
         }
         if (!isset($this->value) || !$this->value instanceof \Closure) {
-            throw new InvalidConfigException("The 'value' must be set and defined as a `Closure` function for a FormulaColumn.");
+            throw new InvalidConfigException(
+                "The 'value' must be set and defined as a `Closure` function for a FormulaColumn."
+            );
         }
         $col = $this->grid->columns[$i];
         if ($col === $this) {
@@ -79,7 +83,7 @@ class FormulaColumn extends DataColumn
     protected function getFooterCellContent()
     {
         if ($this->autoFooter) {
-            return call_user_func($this->value, null, self::FOOTER, $this);
+            return call_user_func($this->value, null, self::FOOTER, self::FOOTER, $this);
         }
         return parent::getFooterCellContent();
     }

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.2.0
+ * @version 1.3.1
  */
 
 namespace kartik\date;
@@ -137,7 +137,8 @@ class DatePicker extends \kartik\base\InputWidget
         if (isset($this->form) && ($this->type === self::TYPE_RANGE) && (!isset($this->attribute2))) {
             throw new InvalidConfigException("The 'attribute2' property must be set for a 'range' type markup and a defined 'form' property.");
         }
-        $this->setLanguage('bootstrap-datepicker.', __DIR__ . '/assets/');
+        $s = DIRECTORY_SEPARATOR;
+        $this->setLanguage('bootstrap-datepicker.', __DIR__ . "{$s}assets{$s}", null, '.min.js');
         $this->parseDateFormat('date');
         $this->_id = ($this->type == self::TYPE_INPUT) ? 'jQuery("#' . $this->options['id'] . '")' : 'jQuery("#' . $this->options['id'] . '").parent()';
         $this->registerAssets();
@@ -259,6 +260,7 @@ class DatePicker extends \kartik\base\InputWidget
             DatePickerAsset::register($view);
         }
         $id = "jQuery('#" . $this->options['id'] . "')";
+        $this->options['data-datepicker-type'] = $this->type;
         if ($this->type == self::TYPE_INLINE) {
             $this->pluginEvents = ArrayHelper::merge($this->pluginEvents, ['changeDate' => 'function (e) { ' . $id . '.val(e.format());} ']);
         }

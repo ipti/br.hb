@@ -1,19 +1,20 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-grid
- * @version 2.9.0
+ * @package   yii2-grid
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version   3.0.0
  */
 
 namespace kartik\grid\controllers;
 
+use kartik\grid\GridView;
 use Yii;
+use yii\data\DataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\data\DataProvider;
 use yii\web\Response;
-use kartik\grid\GridView;
 use kartik\mpdf\Pdf;
 
 class ExportController extends \yii\web\Controller
@@ -21,6 +22,8 @@ class ExportController extends \yii\web\Controller
 
     /**
      * Download the exported file
+     *
+     * @return string
      */
     public function actionDownload()
     {
@@ -38,9 +41,15 @@ class ExportController extends \yii\web\Controller
         $this->setHttpHeaders($type, $name, $mime, $encoding);
         return $content;
     }
-    
+
     /**
      * Generates the PDF file
+     *
+     * @param string $content  the file content
+     * @param string $filename the file name
+     * @param array  $config   the configuration for yii2-mpdf component
+     *
+     * @return void
      */
     protected function generatePDF($content, $filename, $config = [])
     {
@@ -52,9 +61,16 @@ class ExportController extends \yii\web\Controller
         $pdf = new Pdf($config);
         echo $pdf->render();
     }
-    
+
     /**
      * Sets the HTTP headers needed by file download action.
+     *
+     * @param string $type     the file type
+     * @param string $name     the file name
+     * @param string $mime     the mime time for the file
+     * @param string $encoding the encoding for the file content
+     *
+     * @return void
      */
     protected function setHttpHeaders($type, $name, $mime, $encoding = 'utf-8')
     {

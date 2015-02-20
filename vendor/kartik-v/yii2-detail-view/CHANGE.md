@@ -1,3 +1,11 @@
+version 1.6.0
+=============
+**Date:** 28-Jan-2015
+
+- (enh #27): Romanian translation added.
+- (bug #28): Revert #20 Undo fix for switch inputs addressed now by plugin upgrade.
+- (enh #29): Russian translation added.
+
 version 1.5.0
 =============
 **Date:** 12-Jan-2015

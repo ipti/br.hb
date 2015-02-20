@@ -1,3 +1,34 @@
+version 4.1.7
+=============
+**Date**: 13-Feb-2015
+
+1. (enh #149): Custom tags support for layoutTemplates and previewTemplates (new properties `customLayoutTags` and `customPreviewTags` included).
+2. (enh #151): New `filebatchselected` event triggered after every batch of files are selected.
+3. (enh #152): New faster `replaceAll` method instead of regexp parsing to replace tags in templates.
+4. (enh #153): Improve error handler for trapping FileReader security exceptions and new property `msgFileSecured` will display the security exception message.
+5. (enh #154): Code cleanup and restructure for JS lint changes (using JSHint Code cleanup library).
+6. (enh #155): Allow display of long file names without spaces/word breaks.
+7. (enh #156): Fix reset of file stack for various upload modes (single, batch async and batch sync).
+8. (enh #157): Upload progress bar styling enhancements.
+    - Allow upload progress bar css class to be configurable 
+    - Create and allow two different styles/css classes for progress bar
+       - `progressClass`: styling for progress bar when upload is in process
+       - `progressCompleteClass`: styling for progress bar when upload is complete
+9. (bug #159): Ensure filestack is passed correctly with `outData` for events.
+10. (bug #160): Correct documentation typo for usage.
+11. (enh #162): New property ajaxSettings to allow configuring ajax params.
+12. Set copyright year to current.
+
+version 4.1.6
+=============
+**Date:** 20-Jan-2015
+
+1. (enh #124): Allow submission of extra data even if no files are selected.
+2. (enh #131): Allow empty values in extra data to be submitted.
+3. (enh #136):Create new upload method that can be called externally.
+4. (enh #137): Trigger new events - `filedisabled` and `fileenabled`.
+5. (enh #139): Reset file stack correctly on ajax upload completion.
+
 version 4.1.5
 =============
 **Date:** 12-Jan-2015

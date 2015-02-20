@@ -1,17 +1,18 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-grid
- * @version 2.5.0
+ * @package   yii2-grid
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version   3.0.0
  */
 
 namespace kartik\grid;
 
 use Yii;
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * Extends the Yii's SerialColumn for the Grid widget [[\kartik\widgets\GridView]]
@@ -25,22 +26,22 @@ use yii\base\InvalidConfigException;
 class SerialColumn extends \yii\grid\SerialColumn
 {
     use ColumnTrait;
-    
+
     /**
-     * @var boolean whether the column is hidden from display. This is different 
+     * @var boolean whether the column is hidden from display. This is different
      * than the `visible` property, in the sense, that the column is rendered,
      * but hidden from display. This will allow you to still export the column
      * using the export function.
      */
     public $hidden;
-    
+
     /**
-     * @var boolean|array whether the column is hidden in export output. If set to boolean `true`, 
-     * it will hide the column for all export formats. If set as an array, it will accept the 
+     * @var boolean|array whether the column is hidden in export output. If set to boolean `true`,
+     * it will hide the column for all export formats. If set as an array, it will accept the
      * list of GridView export `formats` and hide output only for them.
      */
     public $hiddenFromExport = false;
-    
+
     /**
      * @var string the horizontal alignment of each column. Should be one of
      * 'left', 'right', or 'center'.
@@ -102,6 +103,9 @@ class SerialColumn extends \yii\grid\SerialColumn
      */
     private $_rows = [];
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         $this->parseFormat();
@@ -109,5 +113,13 @@ class SerialColumn extends \yii\grid\SerialColumn
         parent::init();
         $this->setPageRows();
     }
-    
+
+    /**
+     * @inheritdoc
+     */
+    public function renderDataCell($model, $key, $index)
+    {
+        $options = $this->fetchContentOptions($model, $key, $index);
+        return Html::tag('td', $this->renderDataCellContent($model, $key, $index), $options);
+    }
 }

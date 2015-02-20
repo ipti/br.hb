@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-grid
- * @version 2.9.0
+ * @package   yii2-grid
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version   3.0.0
  */
 
 namespace kartik\grid;
 
-use kartik\base\AssetBundle;
 use yii\web\View;
 
 /**
@@ -17,13 +17,16 @@ use yii\web\View;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
-class ExpandRowColumnAsset extends AssetBundle
+class ExpandRowColumnAsset extends \kartik\base\AssetBundle
 {
-	public function init()
-	{
-		$this->setSourcePath(__DIR__ . '/assets');
-		$this->setupAssets('js', ['js/kv-grid-expand']);
-		$this->setupAssets('css', ['css/kv-grid-expand']);
-		parent::init();
-	}
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->setSourcePath(__DIR__ . '/assets');
+        $this->setupAssets('js', ['js/kv-grid-expand']);
+        $this->setupAssets('css', ['css/kv-grid-expand']);
+        parent::init();
+    }
 }

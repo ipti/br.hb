@@ -1,6 +1,28 @@
+version 1.7.4
+=============
+**Date:** 13-Feb-2015
+
+- (enh #28): Create WidgetTrait for better code reuse.
+- Code cleanup and reformatting.
+- (enh #29): New `getModule` and `initModule` methods in `Config`.
+- Set copyright year to current.
+
+version 1.7.3
+=============
+**Date:** 25-Jan-2015
+
+- (enh #26): Enhance `Widget` options to store multiple plugin config.
+- (enh #27): Set directory and URL separator rightly for the setLanguage validation.
+
+version 1.7.2
+=============
+**Date:** 20-Jan-2015
+
+- (enh #24): Revert use of DIRECTORY_SEPARATOR and use forward slash instead.
+
 version 1.7.1
 =============
-**Date:** 14-Jan-2015
+**Date:** 15-Jan-2015
 
 - (enh #23): Enhance AssetBundle for over riding empty assets from AssetManager.
 

@@ -43,17 +43,24 @@ class Campaign extends \yii\db\ActiveRecord {
             [['coordinator'], 'integer'],
             [['name', 'begin', 'end'], 'required'],
             [['begin', 'end'], 'safe'],
-            [['begin', 'end'],  'date'],
+            [['begin', 'end'], 'string'],
+            ['begin', \yii\validators\CompareValidator::className(),
+                'type' => 'string', 
+                'compareValue'=>Yii::$app->formatter->asDate('now', 'yyyy-MM-dd'),
+                'operator' => '>',
+                'message'=>'{value} must be greater than {compareValue}.'],
 //            ['begin', 
 //                'compare', 
+//                'type'=>'string',
 //                'compareValue'=>date("Y-m-j"),
 //                'operator'=>'>',
-//                'message'=>'{value} must be greater than {compareValue}.'],
+//                //'message'=>'{value} must be greater than {compareValue}.'
+//                ],
 //            ['end', 'compare', 'compareAttribute'=>'begin','operator'=>'>','message'=>'{value} must be greater than {compareValue}.'],
             [['name'], 'string', 'max' => 20]
         ];
     }
-
+    
     /**
      * @inheritdoc
      */

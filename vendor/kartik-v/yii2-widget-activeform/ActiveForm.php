@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-activeform
- * @version 1.3.0
+ * @version 1.4.1
  */
 
 namespace kartik\form;
@@ -80,16 +80,24 @@ class ActiveForm extends \yii\widgets\ActiveForm
      *   for screen reader (ActiveForm::SCREEN_READER). This is mainly useful for inline forms.
      * - showErrors: boolean, whether to show errors (true) or hide errors (false).
      *   This is mainly useful for inline forms.
+     * - showHints: boolean, whether to show hints (true) or hide errors (false). Defaults to `true`.
+     *   The hint will be rendered only if a valid hint has been set through the `hint()` method.
      * ```
      * [
      *      'labelSpan' => 2,
      *      'deviceSize' => ActiveForm::SIZE_MEDIUM,
      *      'showLabels' => true,
-     *      'showErrors' => true 
+     *      'showErrors' => true,
+     *      'showHints' => true 
      * ],
      * ```
      */
     public $formConfig = [];
+    
+    /**
+     * @var boolean whether all data in form are to be static inputs
+     */
+    public $staticOnly = false;
     
     /**
      * @var boolean whether all inputs in form are to be disabled
@@ -122,18 +130,21 @@ class ActiveForm extends \yii\widgets\ActiveForm
             'deviceSize' => self::NOT_SET, // must be one of the SIZE modifiers
             'showLabels' => true, // show or hide labels (mainly useful for inline type form)
             'showErrors' => true, // show or hide errors (mainly useful for inline type form)
+            'showHints' => true  // show or hide hints below the input
         ],
         self::TYPE_HORIZONTAL => [
             'labelSpan' => self::DEFAULT_LABEL_SPAN,
             'deviceSize' => self::SIZE_MEDIUM,
             'showLabels' => true,
-            'showErrors' => true
+            'showErrors' => true,
+            'showHints' => true
         ],
         self::TYPE_INLINE => [
             'labelSpan' => self::NOT_SET,
             'deviceSize' => self::NOT_SET,
             'showLabels' => self::SCREEN_READER,
-            'showErrors' => false
+            'showErrors' => false,
+            'showHints' => true
         ],
     ];
 

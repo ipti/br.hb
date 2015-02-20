@@ -4,10 +4,10 @@ yii2-grid
 Yii2 GridView on steroids. A module with various modifications and enhancements to one of the most used widgets by Yii developers. The widget contains new additional Grid Columns with enhanced settings for Yii Framework 2.0. The widget also incorporates various Bootstrap 3.x styling options.
 Refer [detailed documentation](http://demos.krajee.com/grid) and/or a [complete demo](http://demos.krajee.com/grid-demo).
 
-![GridView Screenshot](https://lh5.googleusercontent.com/--KIuWE6iZYc/VFjWSphRmYI/AAAAAAAAAQA/EmL3jMMXW94/w795-h528-no/yii2-grid.png)
+![GridView Screenshot](https://lh4.googleusercontent.com/-4x-CdyyZAsY/VNxLPmaaAXI/AAAAAAAAAQ8/XYYxTiQZvJk/w868-h516-no/krajee-yii2-grid.jpg)
 
 ## Latest Release
-The latest version of the module is v2.9.0 released on 26-Dec-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-grid/blob/master/CHANGE.md) for details. 
+The latest version of the module is v3.0.0. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-grid/blob/master/CHANGE.md) for details. 
 
 New features with release 2.7.0.
 
@@ -53,6 +53,9 @@ Inbuilt support for Pjax. Enhancements for grid and columns to work with `yii\wi
 
 ### Custom Header & Footer (New)
 Add custom header or footer rows, above / below your default grid header and footer.
+
+### Resizing Columns (New)
+Allows resizing of the columns just like a spreadsheet (since v3.0.0). Uses the [JQuery ResizableColumns plugin](https://github.com/dobtco/jquery-resizable-columns) for resize and [store.js](https://github.com/marcuswestin/store.js/) for localStorage persistence.
 
 ### Floating Header (New)
 Allows the grid table to have a floating table header. Uses the [JQuery Float THead plugin](http://mkoryak.github.io/floatThead) to display a seamless floating table header. 
@@ -133,6 +136,11 @@ This is a new grid column class that extends the \kartik\grid\DataColumn class. 
 Refer [documentation](http://demos.krajee.com/grid#boolean-column) for details. The following are new features added since release v1.6.0:
 
 - `BooleanColumn` icons have been setup as `ICON_ACTIVE` and `ICON_INACTIVE` constants in GridView.
+
+## Radio Column (New)
+### \kartik\grid\RadioColumn
+This is a new grid column that works similar to the `CheckboxColumn`, but allows and restricts only a single row to be selected using radio inputs. In addition, it includes a header level clear button to clear the selected rows. It automatically works with the new pageSummary and includes a default styling to work for many scenarios. Refer [documentation](http://demos.krajee.com/grid#radio-column) for details.
+
 
 ## Action Column (Enhanced)
 ### \kartik\grid\ActionColumn

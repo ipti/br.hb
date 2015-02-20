@@ -7,7 +7,7 @@ The plugin incorporates a simple HTML markup with enhanced CSS styling of a HTML
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v4.1.5 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.1.7 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -108,10 +108,10 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="path/to/js/fileinput.min.js" media="all" rel="stylesheet" type="text/javascript" />
 ```
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`.
@@ -284,6 +284,10 @@ The `preview` and `caption` templates can understand the following special tags 
 
 - `{class}`: the CSS class as set in the `mainClass`, `captionClass` or `previewClass` properties.
 
+Similarly, the `progress` layout template can understand the following special tags which will be replaced:
+
+- `{class}`: the CSS class as set in the `progressClass` or `progressCompleteClass` properties.
+
 The `layoutTemplates` if not set will default to:
 
 ```js
@@ -329,7 +333,7 @@ The `layoutTemplates` if not set will default to:
         '  </div>\n' +
         '</div>',
     progress: '<div class="progress">\n' +
-        '    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
+        '    <div class="{class}" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
         '        {percent}%\n' +
         '     </div>\n' +
         '</div>',
@@ -483,10 +487,55 @@ This is by default setup as following:
 
 #### allowedPreviewMimeTypes
 
-_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination
-with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/)
-to add to this list if needed.
+_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/) to add to this list if needed.
 
+#### customLayoutTags
+
+_object_ the list of additional custom tags that will be replaced in the **layout** templates. This should be an associative array object of `key: value` pairs, where:
+
+- `key`: _string_, is the tag to be replaced and as a standard is recommended to be enclosed between braces.
+- `value`: _string|function_, is the value that will replace the tag key above. This can be setup either as a string or callback function.
+
+For example:
+
+```js
+// example 1 - tags with value set as string
+customLayoutTags: {
+    '{tagA}': '<span class="label label-default">Tag A</span>',
+    '{tagB}': 'Tag B',
+}
+
+// example 2 - tags with value set as callback
+customLayoutTags: {
+    '{tagC}': function() {
+        return $("#element-id").val();
+    }
+}
+```
+
+#### customPreviewTags
+
+_object_ the list of additional custom tags that will be replaced in the **preview** templates. This should be an associative array object of `key: value` pairs, where:
+
+- `key`: _string_, is the tag to be replaced and as a standard is recommended to be enclosed between braces.
+- `value`: _string|function_, is the value that will replace the tag key above. This can be setup either as a string or callback function.
+
+For example:
+
+```js
+// example 1 - tags with value set as string
+customPreviewTags: {
+    '{tagA}': '<span class="label label-default">Tag A</span>',
+    '{tagB}': 'Tag B',
+}
+
+// example 2 - tags with value set as callback
+customPreviewTags: {
+    '{tagC}': function() {
+        return $("#element-id").val();
+    }
+}
+```
 #### previewSettings
 
 _object_ the format settings (width and height) for rendering each preview file type. This is by default setup as following:
@@ -639,6 +688,16 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
+#### msgFileSecured
+_string_ the exception message to be displayed when the file selected is not allowed to be accessed due to a security exception. Defaults to:
+
+```
+Security restrictions prevent reading the file "{name}".
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+
 #### msgFileNotReadable
 _string_ the exception message to be displayed when the file selected is not readable by the FileReader API. Defaults to:
 
@@ -729,6 +788,11 @@ _string_ the progress message displayed in caption window when multiple (more th
 
 - `{n}`: the number of files selected.
 
+#### progressClass
+_string_ the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads). Defaults to `progress-bar progress-bar-success progress-bar-striped active`. 
+
+#### progressCompleteClass
+_string_ the upload progress bar CSS class to be applied when AJAX upload is complete. Defaults to `progress-bar progress-bar-success`. 
 
 #### previewFileType
 _string_ the type of files that are to be displayed in the preview window. Defaults to `image`. Can be one of the following:
@@ -830,6 +894,9 @@ _string_ markup for additional action buttons to display within the initial prev
 #### textEncoding
 _string_ the encoding to be used while reading a text file. Applicable only for previewing text files. Defaults to `UTF-8`. 
 
+#### ajaxSettings
+_object_ additional ajax settings to pass to the plugin before submitting the ajax request. Applicable only for ajax uploads. This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases. Refer the [jQuery ajax documentation](http://api.jquery.com/jQuery.ajax/) for the various settings you can configure.
+
 ### Plugin Events
 The plugin supports these events:
 
@@ -914,6 +981,18 @@ This event is triggered when the file browse button is clicked to open the file 
 ```js
 $('#input-id').on('filebrowse', function(event) {
     console.log("File browse triggered.");
+});
+```
+
+#### filebatchselected
+This event is triggered after a batch of files are selected and displayed in the preview.
+Additional parameters available are: 
+
+- `files`: the file stack array (or empty object if not available).
+
+```js
+$('#input-id').on('filebatchselected', function(event, files) {
+    console.log('File batch selected triggered');
 });
 ```
 
@@ -1131,6 +1210,24 @@ $('#input-id').on('filebatchuploadcomplete', function(event, files, extra) {
 });
 ```
 
+#### filedisabled
+This event is triggered when the file input widget is disabled (prevents any modification) using the `disable` method.
+
+```js
+$('#input-id').on('filedisabled', function(event) {
+    console.log('File disabled.');
+});
+```
+
+#### fileenabled
+This event is triggered when the file input widget is enabled (allows modification) using the `enable` method.
+
+```js
+$('#input-id').on('fileenabled', function(event) {
+    console.log('File enabled.');
+});
+```
+
 ### Plugin Methods
 The plugin supports these methods:
 
@@ -1152,12 +1249,6 @@ Reset the file input.
 $('#input-id').fileinput('reset');
 ```
 
-#### clear
-Clear the file input.
-```js
-$('#input-id').fileinput('clear');
-```
-
 #### refresh
 Refreshes the file input plugin based on options provided. You can supply an array of plugin options as a parameter.
 ```js
@@ -1167,6 +1258,40 @@ $('#input-id').fileinput('refresh');
 
 // example 2 (modify plugin options at runtime)
 $('#input-id').fileinput('refresh', {browseLabel: 'Select...', removeLabel: 'Delete'});
+```
+
+#### clear
+Clear the file input and all files from preview.
+```js
+$('#input-id').fileinput('clear');
+```
+
+#### upload
+Trigger ajax upload of the files that are selected. Applicable only if `uploadUrl` is set.
+
+```js
+$('#input-id').fileinput('upload');
+```
+
+#### cancel
+Cancel an ongoing ajax upload of the files.
+
+```js
+$('#input-id').fileinput('cancel');
+```
+
+#### lock
+Locks the file input by disabling all actions/buttons except a cancel button to abort ongoing AJAX requests (for ajax uploads only).
+
+```js
+$('#input-id').fileinput('lock');
+```
+
+#### unlock
+Unlocks and enables the file input back again by reversing the outcome of the `lock` action.
+
+```js
+$('#input-id').fileinput('unlock');
 ```
 
 ## License

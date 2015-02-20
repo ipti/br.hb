@@ -48,4 +48,5 @@ return array(
     'kartik\\alert\\' => array($vendorDir . '/kartik-v/yii2-widget-alert'),
     'kartik\\affix\\' => array($vendorDir . '/kartik-v/yii2-widget-affix'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
+    'nepstor\\validators\\' => array($vendorDir . '/nepstor/yii2-datetime-compare-validator'),
 );

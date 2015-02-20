@@ -47,7 +47,7 @@ to the ```require``` section of your `composer.json` file.
 
 ## Latest Release
 
-> NOTE: The latest version of the module is v1.3.0 released on 04-Dec-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-activeform/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the module is v1.4.1. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-activeform/blob/master/CHANGE.md) for details.
 
 ## Demo
 
@@ -118,9 +118,9 @@ echo $form->field($model, 'phone', [
 echo $form->field($model, 'phone', [
     'addon' => [
         'prepend' => [
-            'content' => Html::button('Go', ['class'=>'btn btn-primary'])
+            'content' => Html::button('Go', ['class'=>'btn btn-primary']),
+            'asButton' => true
         ]
-        'asButton' => true
     ]
 ]);
 ```

@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-grid
- * @version 2.5.0
+ * @package   yii2-grid
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version   3.0.0
  */
 
 namespace kartik\grid;
@@ -16,36 +17,22 @@ use Yii;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
-class Module extends \yii\base\Module
+class Module extends \kartik\base\Module
 {
+    const MODULE = "gridview";
+
     /**
      * @var mixed the action (url) used for downloading exported file
      */
     public $downloadAction = '/gridview/export/download';
-    
-    /**
-     * @var array the the internalization configuration for this module
-     */
-    public $i18n = [];
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
+        $this->_msgCat = 'kvgrid';
         parent::init();
-        $this->initI18N();
-
-    }
-
-    public function initI18N()
-    {
-        Yii::setAlias('@kvgrid', dirname(__FILE__));
-        if (empty($this->i18n)) {
-            $this->i18n = [
-                'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@kvgrid/messages',
-                'forceTranslation' => true
-            ];
-        }
-        Yii::$app->i18n->translations['kvgrid'] = $this->i18n;
         if (isset($dummyDemoTranslations)) {
             $messages = Yii::t('kvgrid', 'Add Book') .
                 Yii::t('kvgrid', 'Book Listing') .
@@ -53,7 +40,8 @@ class Module extends \yii\base\Module
                 Yii::t('kvgrid', 'Library') .
                 Yii::t('kvgrid', 'Reset Grid') .
                 Yii::t('kvgrid', 'The page summary displays SUM for first 3 amount columns and AVG for the last.') .
-                Yii::t('kvgrid', 'The table header sticks to the top in this demo as you scroll');
+                Yii::t('kvgrid', 'The table header sticks to the top in this demo as you scroll') .
+                Yii::t('kvgrid', 'Resize table columns just like a spreadsheet by dragging the column edges.');
         }
     }
 }

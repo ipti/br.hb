@@ -10,7 +10,22 @@ use yii\widgets\ActiveForm;
 
 <div class="term-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+   <?php $form = ActiveForm::begin([
+        'id' => $model->formName(),
+    ]); ?>
+    
+    
+    <?php
+    //beforeSubmit
+    $js = "
+        $('form#".$model->formName()."').on('beforeSubmit', function(e){
+            var \$form = $(this);
+            //submitCampaignForm(\$form);
+        }).on('submit', function(e){
+            e.preventDefault();
+        });";
+    $this->registerJs($js);
+    ?>
 
     <?= $form->field($model, 'student')->textInput() ?>
 

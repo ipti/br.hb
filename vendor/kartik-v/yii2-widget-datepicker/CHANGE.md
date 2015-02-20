@@ -1,3 +1,20 @@
+version 1.3.1
+=============
+**Date:** 13-Feb-2015
+
+- (enh #19): Store date picker widget type as data attribute
+- Update datepicker plugin to the latest release.
+- Use minified js files for locales.
+- Set copyright year to current.
+
+version 1.3.0
+=============
+**Date:** 25-Jan-2015
+
+- Update to latest release of datepicker plugin.
+- (enh #8): Create Tajikistan translations.
+- (bug #16): Fix directory separator for assets path in setLanguage.
+
 version 1.2.0
 =============
 **Date:** 04-Dec-2014

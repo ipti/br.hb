@@ -1,14 +1,13 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-grid
- * @version 2.9.0
+ * @package   yii2-grid
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version   3.0.0
  */
 
 namespace kartik\grid;
-
-use kartik\base\AssetBundle;
 
 /**
  * Asset bundle for GridView Widget (for floating header)
@@ -16,13 +15,15 @@ use kartik\base\AssetBundle;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
-class GridFloatHeadAsset extends AssetBundle
+class GridFloatHeadAsset extends \kartik\base\AssetBundle
 {
-	public function init()
-	{
-		$this->setSourcePath(__DIR__ . '/assets');
-		$this->setupAssets('js', ['js/jquery.floatThead']);
-		parent::init();
-	}
-
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->setSourcePath(__DIR__ . '/assets');
+        $this->setupAssets('js', ['js/jquery.floatThead']);
+        parent::init();
+    }
 }

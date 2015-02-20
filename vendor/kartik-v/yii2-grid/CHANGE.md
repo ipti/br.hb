@@ -1,3 +1,36 @@
+Version 3.0.0
+=============
+**Date:** 13-Feb-2015
+
+1. (bug #178): Enhance CheckboxColumn to allow contentOptions to be set as Closure.
+2. (enh #178): New validation of contentOptions for all the extended grid Columns.
+3. Code formatting updates as per Yii2 coding style.
+4. (bug #180): Fix namespaces of classes.
+5. Revamp to use new Krajee base Module and TranslationTrait.
+6. (bug #183): Implement alignment validation for content within ActionColumn.
+7. (bug #184): Correct the dependency on kartik\mpdf\Pdf for export.
+8. (bug #185): Set right jQuery selector for grid table export.
+9. (enh #186): New feature - Allow resizing of columns like a spreadsheet.
+10. (enh #188): Eliminate filter row and all form inputs from export.
+11. (enh #189): Various performance enhancements to client script and plugin registrations.
+12. (bug #190): Allow editable beforeInput in EditableColumn to be passed as Closure.
+13. (bug #191): Correct Closure namespace for `value` validation in GridView.
+14. (bug #192): Correct value callback in `FormulaColumn`.
+15. (enh #198): Better container for initializing `resizableColumns`.
+16. (enh #200): Expand row loading indicator reset for ajax load.
+17. (enh #202, #203): Fix grid container overflow and responsive property.
+18. (enh #207): Fix EditableColumn to have absolute reference to Closure.
+19. (enh #209): Code cleanup and restructure for various JS lint changes (using JSHint Code cleanup library).
+20. (enh #213): Default `persistResize` to false to prevent client caching of column widths.
+21. (bug #214): Fix EditableColumn Closure use bug.
+22. (bug #215): Add Simplified Chinese message translations. 
+23. (bug #216): Fix resizable columns container identifier.
+24. (enh #218): Allow gridview to be used as a sub-module.
+25. (enh #221): Trim json exported fields by default.
+26. (enh #226): Updated Russian Translations.
+27. (enh #227): New grid column extension RadioColumn.
+28. Set copyright year to current.
+
 Version 2.9.0
 =============
 **Date:** 26-Dec-2014
