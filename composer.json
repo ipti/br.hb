@@ -30,7 +30,8 @@
         "kartik-v/yii2-mpdf": "1.0.0",
         "kartik-v/yii2-detail-view": "*",
         "kartik-v/yii2-grid": "*",
-        "fortawesome/font-awesome": "*"
+        "fortawesome/font-awesome": "*",
+        "kartik-v/yii2-datecontrol": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

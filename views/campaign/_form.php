@@ -5,6 +5,7 @@ use yii\data\ActiveDataProvider;
 
 use kartik\grid\GridView;
 use kartik\grid\CheckboxColumn;
+use kartik\datecontrol\DateControl;
 
 use app\models\student;
 
@@ -17,7 +18,6 @@ use app\models\student;
    <?php $form = ActiveForm::begin([
         'id' => $model->formName(),
     ]); ?>
-    
     
     <?php
     //beforeSubmit

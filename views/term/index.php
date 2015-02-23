@@ -11,24 +11,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="term-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Create {modelClass}', [
     'modelClass' => 'Term',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+]), ['create',['c'=>$campaign]], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'student',
-            'campaign',
-            'agreed',
-
+            //'agreed',
+            [
+                'class' => '\kartik\grid\BooleanColumn',
+                'attribute' => 'agreed',
+                'trueLabel' => '1', 
+                'falseLabel' => '0'
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

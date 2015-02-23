@@ -28,6 +28,7 @@ return array(
     'kartik\\plugins\\rating\\' => array($vendorDir . '/kartik-v/bootstrap-star-rating'),
     'kartik\\plugins\\fileinput\\' => array($vendorDir . '/kartik-v/bootstrap-fileinput'),
     'kartik\\plugins\\depdrop\\' => array($vendorDir . '/kartik-v/dependent-dropdown'),
+    'kartik\\plugins\\dateformatter\\' => array($vendorDir . '/kartik-v/php-date-formatter'),
     'kartik\\nav\\' => array($vendorDir . '/kartik-v/yii2-nav-x'),
     'kartik\\mpdf\\' => array($vendorDir . '/kartik-v/yii2-mpdf'),
     'kartik\\icons\\' => array($vendorDir . '/kartik-v/yii2-icons'),
@@ -40,6 +41,7 @@ return array(
     'kartik\\detail\\' => array($vendorDir . '/kartik-v/yii2-detail-view'),
     'kartik\\depdrop\\' => array($vendorDir . '/kartik-v/yii2-widget-depdrop'),
     'kartik\\datetime\\' => array($vendorDir . '/kartik-v/yii2-widget-datetimepicker'),
+    'kartik\\datecontrol\\' => array($vendorDir . '/kartik-v/yii2-datecontrol'),
     'kartik\\date\\' => array($vendorDir . '/kartik-v/yii2-widget-datepicker'),
     'kartik\\color\\' => array($vendorDir . '/kartik-v/yii2-widget-colorinput'),
     'kartik\\cmenu\\' => array($vendorDir . '/kartik-v/yii2-context-menu'),
@@ -48,5 +50,4 @@ return array(
     'kartik\\alert\\' => array($vendorDir . '/kartik-v/yii2-widget-alert'),
     'kartik\\affix\\' => array($vendorDir . '/kartik-v/yii2-widget-affix'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
-    'nepstor\\validators\\' => array($vendorDir . '/nepstor/yii2-datetime-compare-validator'),
 );

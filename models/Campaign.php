@@ -42,23 +42,18 @@ class Campaign extends \yii\db\ActiveRecord {
         return [
             [['coordinator'], 'integer'],
             [['name', 'begin', 'end'], 'required'],
-            [['begin', 'end'], 'safe'],
-            [['begin', 'end'], 'string'],
-            ['begin', \yii\validators\CompareValidator::className(),
-                'type' => 'string', 
-                'compareValue'=>Yii::$app->formatter->asDate('now', 'yyyy-MM-dd'),
-                'operator' => '>',
+            //[['begin', 'end'], 'safe'],
+            //[['begin', 'end'], 'string'],
+            ['begin', 'date', 'format' => 'php:Y-m-d', 'timestampAttribute' => 'begin'],
+            ['begin', 'compare', 'type' => 'number', 'compareValue' => time(), 'operator' => '>',
                 'message'=>'{value} must be greater than {compareValue}.'],
-//            ['begin', 
-//                'compare', 
-//                'type'=>'string',
-//                'compareValue'=>date("Y-m-j"),
-//                'operator'=>'>',
-//                //'message'=>'{value} must be greater than {compareValue}.'
-//                ],
-//            ['end', 'compare', 'compareAttribute'=>'begin','operator'=>'>','message'=>'{value} must be greater than {compareValue}.'],
             [['name'], 'string', 'max' => 20]
         ];
+    }
+    
+    public function beforeValidate() {
+        var_dump($this->begin);exit;
+        parent::beforeValidate();
     }
     
     /**
