@@ -30,14 +30,21 @@ class TermController extends Controller
      * Lists all term models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($c=null)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => term::find(),
-        ]);
+        if($c == null){
+            $dataProvider = new ActiveDataProvider([
+                'query' => term::find(),
+            ]);
+        }else{
+            $dataProvider = new ActiveDataProvider([
+                'query' => term::find()->where("campaign = :c1", ["c1"=>$c]),
+            ]);
+        }
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'campaign'=>$c,
         ]);
     }
 
