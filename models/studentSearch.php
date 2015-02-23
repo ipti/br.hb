@@ -10,7 +10,7 @@ use app\models\student;
 /**
  * StudentSearch represents the model behind the search form about `app\models\student`.
  */
-class StudentSearch extends student
+class studentSearch extends student
 {
     /**
      * @inheritdoc

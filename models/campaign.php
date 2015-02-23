@@ -26,7 +26,7 @@ use Yii;
  * @property Team[] $teams
  * @property Term[] $terms
  */
-class Campaign extends \yii\db\ActiveRecord {
+class campaign extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
@@ -42,18 +42,13 @@ class Campaign extends \yii\db\ActiveRecord {
         return [
             [['coordinator'], 'integer'],
             [['name', 'begin', 'end'], 'required'],
-            //[['begin', 'end'], 'safe'],
-            //[['begin', 'end'], 'string'],
-            ['begin', 'date', 'format' => 'php:Y-m-d', 'timestampAttribute' => 'begin'],
-            ['begin', 'compare', 'type' => 'number', 'compareValue' => time(), 'operator' => '>',
-                'message'=>'{value} must be greater than {compareValue}.'],
+            [['begin', 'end'], 'safe'],
+            [['begin', 'end'], 'string'],
+            //['begin', 'date', 'format' => 'php:Y-m-d', 'timestampAttribute' => 'begin'],
+            //['begin', 'compare', 'type' => 'string', 'compareValue' => date("Y-m-d"), 'operator' => '>',
+            //    'message'=>'{value} must be greater than {compareValue}.'],
             [['name'], 'string', 'max' => 20]
         ];
-    }
-    
-    public function beforeValidate() {
-        var_dump($this->begin);exit;
-        parent::beforeValidate();
     }
     
     /**
@@ -73,77 +68,77 @@ class Campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getCoordinator0() {
-        return $this->hasOne(PersonUser::className(), ['id' => 'coordinator']);
+        return $this->hasOne(personUser::className(), ['id' => 'coordinator']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCampaignHasDrivers() {
-        return $this->hasMany(CampaignHasDriver::className(), ['campaign' => 'id']);
+        return $this->hasMany(campaignHasDriver::className(), ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getDrivers() {
-        return $this->hasMany(PersonDriver::className(), ['id' => 'driver'])->viaTable('campaign_has_driver', ['campaign' => 'id']);
+        return $this->hasMany(personDriver::className(), ['id' => 'driver'])->viaTable('campaign_has_driver', ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCampaignHasSchools() {
-        return $this->hasMany(CampaignHasSchool::className(), ['campaign' => 'id']);
+        return $this->hasMany(campaignHasSchool::className(), ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getSchools() {
-        return $this->hasMany(School::className(), ['id' => 'school'])->viaTable('campaign_has_school', ['campaign' => 'id']);
+        return $this->hasMany(school::className(), ['id' => 'school'])->viaTable('campaign_has_school', ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCampaignHasVehicles() {
-        return $this->hasMany(CampaignHasVehicle::className(), ['campaign' => 'id']);
+        return $this->hasMany(campaignHasVehicle::className(), ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getVehicles() {
-        return $this->hasMany(Vehicle::className(), ['id' => 'vehicle'])->viaTable('campaign_has_vehicle', ['campaign' => 'id']);
+        return $this->hasMany(vehicle::className(), ['id' => 'vehicle'])->viaTable('campaign_has_vehicle', ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getEvents() {
-        return $this->hasMany(Event::className(), ['campaign' => 'id']);
+        return $this->hasMany(event::className(), ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getRoutes() {
-        return $this->hasMany(Route::className(), ['campaign' => 'id']);
+        return $this->hasMany(route::className(), ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getStocks() {
-        return $this->hasMany(Stock::className(), ['campaign' => 'id']);
+        return $this->hasMany(stock::className(), ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getTeams() {
-        return $this->hasMany(Team::className(), ['campaign' => 'id']);
+        return $this->hasMany(team::className(), ['campaign' => 'id']);
     }
 
     /**

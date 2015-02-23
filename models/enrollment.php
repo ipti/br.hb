@@ -48,16 +48,16 @@ class enrollment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClassroom0()
+    public function getClassrooms()
     {
-        return $this->hasOne(Classroom::className(), ['id' => 'classroom']);
+        return $this->hasOne(classroom::className(), ['id' => 'classroom']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStudent0()
+    public function getStudents()
     {
-        return $this->hasOne(Student::className(), ['id' => 'student']);
+        return $this->hasOne(student::className(), ['id' => 'student']);
     }
 }

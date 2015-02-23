@@ -55,17 +55,17 @@ class consultation extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTerm0()
+    public function getTerms()
     {
-        return $this->hasOne(Term::className(), ['id' => 'term']);
+        return $this->hasOne(term::className(), ['id' => 'term']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDoctor0()
+    public function getDoctors()
     {
-        return $this->hasOne(PersonDoctor::className(), ['id' => 'doctor']);
+        return $this->hasOne(personDoctor::className(), ['id' => 'doctor']);
     }
 
     /**
@@ -73,7 +73,7 @@ class consultation extends \yii\db\ActiveRecord
      */
     public function getPrescriptions()
     {
-        return $this->hasMany(Prescription::className(), ['consultation' => 'id']);
+        return $this->hasMany(prescription::className(), ['consultation' => 'id']);
     }
 
     /**
@@ -81,6 +81,7 @@ class consultation extends \yii\db\ActiveRecord
      */
     public function getStocks()
     {
-        return $this->hasMany(Stock::className(), ['id' => 'stock'])->viaTable('prescription', ['consultation' => 'id']);
+        return $this->hasMany(stock::className(), ['id' => 'stock'])
+                ->viaTable('prescription', ['consultation' => 'id']);
     }
 }

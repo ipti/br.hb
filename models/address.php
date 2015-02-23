@@ -69,7 +69,7 @@ class address extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['address' => 'id']);
+        return $this->hasMany(event::className(), ['address' => 'id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class address extends \yii\db\ActiveRecord
      */
     public function getPeople()
     {
-        return $this->hasMany(Person::className(), ['address' => 'id']);
+        return $this->hasMany(person::className(), ['address' => 'id']);
     }
 
     /**
@@ -85,7 +85,7 @@ class address extends \yii\db\ActiveRecord
      */
     public function getRoutes()
     {
-        return $this->hasMany(Route::className(), ['address' => 'id']);
+        return $this->hasMany(route::className(), ['address' => 'id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class address extends \yii\db\ActiveRecord
      */
     public function getSchools()
     {
-        return $this->hasMany(School::className(), ['address' => 'id']);
+        return $this->hasMany(school::className(), ['address' => 'id']);
     }
 
     /**
@@ -101,6 +101,6 @@ class address extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasMany(Student::className(), ['address' => 'id']);
+        return $this->hasMany(student::className(), ['address' => 'id']);
     }
 }

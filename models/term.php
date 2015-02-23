@@ -12,9 +12,9 @@ use Yii;
  * @property integer $campaign
  * @property integer $agreed
  *
- * @property Hemoglobin[] $hemoglobins
- * @property Campaign $campaign0
- * @property Student $student0
+ * @property hemoglobin[] $hemoglobins
+ * @property campaign $campaigns
+ * @property student $students
  */
 class term extends \yii\db\ActiveRecord
 {
@@ -55,22 +55,22 @@ class term extends \yii\db\ActiveRecord
      */
     public function getHemoglobins()
     {
-        return $this->hasMany(Hemoglobin::className(), ['agreed_term' => 'id']);
+        return $this->hasMany(hemoglobin::className(), ['agreed_term' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCampaign0()
+    public function getCampaigns()
     {
-        return $this->hasOne(Campaign::className(), ['id' => 'campaign']);
+        return $this->hasOne(campaign::className(), ['id' => 'campaign']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStudent0()
+    public function getStudents()
     {
-        return $this->hasOne(Student::className(), ['id' => 'student']);
+        return $this->hasOne(student::className(), ['id' => 'student']);
     }
 }

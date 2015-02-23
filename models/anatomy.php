@@ -55,8 +55,8 @@ class anatomy extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStudent0()
+    public function getStudents()
     {
-        return $this->hasOne(Student::className(), ['id' => 'student']);
+        return $this->hasOne(student::className(), ['id' => 'student']);
     }
 }

@@ -40,7 +40,7 @@ class student extends \yii\db\ActiveRecord {
         return [
             [['name', 'address', 'birthday', 'gender'], 'required'],
             [['address'], 'integer'],
-            [['birthday'], 'safe'],
+            [['birthday', 'name'], 'safe'],
             [['gender'], 'string'],
             [['fid'], 'string', 'max' => 45],
             [['name', 'responsible'], 'string', 'max' => 150]

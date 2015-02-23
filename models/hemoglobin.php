@@ -54,6 +54,6 @@ class hemoglobin extends \yii\db\ActiveRecord
      */
     public function getAgreedTerm()
     {
-        return $this->hasOne(Term::className(), ['id' => 'agreed_term']);
+        return $this->hasOne(term::className(), ['id' => 'agreed_term']);
     }
 }

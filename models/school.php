@@ -66,7 +66,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getCampaignHasSchools()
     {
-        return $this->hasMany(CampaignHasSchool::className(), ['school' => 'id']);
+        return $this->hasMany(campaignHasSchool::className(), ['school' => 'id']);
     }
 
     /**
@@ -74,7 +74,8 @@ class school extends \yii\db\ActiveRecord
      */
     public function getCampaigns()
     {
-        return $this->hasMany(Campaign::className(), ['id' => 'campaign'])->viaTable('campaign_has_school', ['school' => 'id']);
+        return $this->hasMany(campaign::className(), ['id' => 'campaign'])
+                ->viaTable('campaign_has_school', ['school' => 'id']);
     }
 
     /**
@@ -82,23 +83,23 @@ class school extends \yii\db\ActiveRecord
      */
     public function getClassrooms()
     {
-        return $this->hasMany(Classroom::className(), ['school' => 'id']);
+        return $this->hasMany(classroom::className(), ['school' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAddress0()
+    public function getAddresses()
     {
-        return $this->hasOne(Address::className(), ['id' => 'address']);
+        return $this->hasOne(address::className(), ['id' => 'address']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPrincipal0()
+    public function getPrincipals()
     {
-        return $this->hasOne(PersonExternal::className(), ['id' => 'principal']);
+        return $this->hasOne(personExternal::className(), ['id' => 'principal']);
     }
 
     /**
@@ -106,7 +107,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getSchoolHasEvents()
     {
-        return $this->hasMany(SchoolHasEvent::className(), ['school' => 'id']);
+        return $this->hasMany(schoolHasEvent::className(), ['school' => 'id']);
     }
 
     /**
@@ -114,6 +115,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['id' => 'event'])->viaTable('school_has_event', ['school' => 'id']);
+        return $this->hasMany(event::className(), ['id' => 'event'])
+                ->viaTable('school_has_event', ['school' => 'id']);
     }
 }

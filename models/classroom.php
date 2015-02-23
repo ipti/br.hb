@@ -59,9 +59,9 @@ class classroom extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSchool0()
+    public function getSchools()
     {
-        return $this->hasOne(School::className(), ['id' => 'school']);
+        return $this->hasOne(school::className(), ['id' => 'school']);
     }
 
     /**
@@ -69,7 +69,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getClassroomHasEvents()
     {
-        return $this->hasMany(ClassroomHasEvent::className(), ['classroom' => 'id']);
+        return $this->hasMany(classroomHasEvent::className(), ['classroom' => 'id']);
     }
 
     /**
@@ -77,7 +77,8 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['id' => 'event'])->viaTable('classroom_has_event', ['classroom' => 'id']);
+        return $this->hasMany(event::className(), ['id' => 'event'])
+                ->viaTable('classroom_has_event', ['classroom' => 'id']);
     }
 
     /**
@@ -85,7 +86,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getEnrollments()
     {
-        return $this->hasMany(Enrollment::className(), ['classroom' => 'id']);
+        return $this->hasMany(enrollment::className(), ['classroom' => 'id']);
     }
 
     /**
@@ -93,6 +94,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasMany(Student::className(), ['id' => 'student'])->viaTable('enrollment', ['classroom' => 'id']);
+        return $this->hasMany(student::className(), ['id' => 'student'])
+                ->viaTable('enrollment', ['classroom' => 'id']);
     }
 }
