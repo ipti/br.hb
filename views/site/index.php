@@ -139,7 +139,7 @@ $this->assetBundles['Site']->js = [
                         'label' => yii::t("app","Day")." ".$act.'/'.$tot,
                         'options'=>[
                             'class' => 'active campaign-box-content campaign-box-progress-bar'],
-                        'barOptions' => ['class' => 'progress-bar-success text-black-bar']
+                        'barOptions' => ['class' => 'progress-bar-campaign text-black-bar']
                     ]);?>
                     <div class="clearfix"></div>
                 </div>
