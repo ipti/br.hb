@@ -1,10 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $campaign integer */
+
+$this->assetBundles['Term'] = new app\assets\AppAsset();
+$this->assetBundles['Term']->js = [
+    'scripts/TermView/Functions.js',
+    'scripts/TermView/Click.js'
+];
 
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,23 +22,38 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Term',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?=
+        Html::a(Yii::t('app', 'Create {modelClass}', [
+                    'modelClass' => 'Term',
+                ]), ['create', 'c' => $campaign], ['class' => 'btn btn-success'])
+        ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
+        'id' => 'termsGridView',
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'student',
-            'campaign',
-            'agreed',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            'students.name',
+            ['class' => '\kartik\grid\BooleanColumn',
+                'contentOptions' => ['class' => 'agreedClick'],
+                'attribute' => 'agreed',
+                'vAlign' => 'middle',
+            ],
         ],
-    ]); ?>
-
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+            'options' => [
+                'id' => 'pjaxTerm'
+            ],
+        ],
+    ]);
+    ?>
 </div>
+
+<?php
+Modal::begin(['id' => 'updateModal']);
+    echo "<div id='updateModalContent'></div>";
+Modal::end();
+?>

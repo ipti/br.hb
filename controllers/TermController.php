@@ -65,9 +65,10 @@ class TermController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($c)
     {
         $model = new term();
+        $model->campaign = $c;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -87,6 +88,16 @@ class TermController extends Controller
             throw new Exception("Não salvo", "0001");
         }
     }
+    
+    public function actionUp($id){
+        $model = $this->findModel($id);
+        $model->agreed = 1;
+        
+        if (!$model->save()) {
+            throw new Exception("Não atualizado", "0002");
+        }
+    }
+
 
     /**
      * Updates an existing term model.

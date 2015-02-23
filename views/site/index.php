@@ -20,7 +20,7 @@ $this->assetBundles['Site']->js = [
 
         <div class="row">
         <?php
-        $campaing = new \app\models\Campaign();
+        $campaing = new \app\models\campaign();
         $today = date("j-n-Y");
         $count = 0;
         $campaings = $campaing->find()->where('end > '.$today)->orderBy('begin, end asc')->all();
@@ -70,7 +70,7 @@ $this->assetBundles['Site']->js = [
                     <h2 id="campaing-box[<?= $campaing['Id'] ?>]-title" class="campaign-box-container campaign-box-title"><?php echo $campaing['Name']  ?></h2>
                     <a id="campaing-box[<?= $campaing['Id'] ?>]-edit" class="campaign-box-edit" href="#"><?= yii::t('app', 'edit') . ' ' . Icon::show('edit')?></a>
                     <div id="campaing-box[<?= $campaing['Id'] ?>]-terms" class="campaign-box-container">
-                        <div class="campaign-box-label"><?= Html::label(Yii::t('app', 'Terms').': ')?></div>
+                        <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Terms').': ',$terms['Url'])?></div>
                         <div class="campaign-box-content">
                             <?= Html::a($terms['Agreed'].' '.Icon::show('check', ['class'=>'icon-sucess']),
                                     $terms['Url'])?>&nbsp;
@@ -168,9 +168,5 @@ $this->assetBundles['Site']->js = [
 <?php
     Modal::begin(['id' => 'campignModal']);
         echo "<div id='campignModalContent'></div>";
-    Modal::end();
-    
-    Modal::begin(['id' => 'termModal']);
-        echo "<div id='termModalContent'></div>";
     Modal::end();
 ?>

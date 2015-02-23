@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\student;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\term */
@@ -13,25 +15,14 @@ use yii\widgets\ActiveForm;
    <?php $form = ActiveForm::begin([
         'id' => $model->formName(),
     ]); ?>
-    
-    
-    <?php
-    //beforeSubmit
-    $js = "
-        $('form#".$model->formName()."').on('beforeSubmit', function(e){
-            var \$form = $(this);
-            //submitCampaignForm(\$form);
-        }).on('submit', function(e){
-            e.preventDefault();
-        });";
-    $this->registerJs($js);
-    ?>
 
-    <?= $form->field($model, 'student')->textInput() ?>
+    <?= $form->field($model, 'student')
+            ->dropDownList(ArrayHelper::map(student::find()->all(), 'id', 'name'),
+                    [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
 
-    <?= $form->field($model, 'campaign')->textInput() ?>
+    <?= Html::activeHiddenInput($model, 'campaign') ?>
 
-    <?= $form->field($model, 'agreed')->textInput() ?>
+    <?= $form->field($model, 'agreed')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
