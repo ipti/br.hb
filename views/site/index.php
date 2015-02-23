@@ -36,7 +36,7 @@ $this->assetBundles['Site']->js = [
             $terms['Total'] = $c->getTerms()->count();
             $terms['Agreed'] = $c->getTerms()->where(["agreed" => true])->count();
             $terms['UnAgreed'] = $terms['Total']-$terms['Agreed'];
-            $terms['Url'] = "";
+            $terms['Url'] = Url::to(['term/index', 'c' => $campaing['Id']]);
             
             $anatomies['Total'] = $c->getStudentsAnatomies()->count();
             $anatomies['Updated'] = $c->getStudentsAnatomies()->where('date >= :date', ['date'=>$c->begin])->count();
@@ -73,7 +73,7 @@ $this->assetBundles['Site']->js = [
                         <div class="campaign-box-label"><?= Html::label(Yii::t('app', 'Terms').': ')?></div>
                         <div class="campaign-box-content">
                             <?= Html::a($terms['Agreed'].' '.Icon::show('check', ['class'=>'icon-sucess']),
-                                    [$terms['Url']])?>&nbsp;
+                                    $terms['Url'])?>&nbsp;
                             <?= Html::a($terms['UnAgreed'].' '.Icon::show('remove', ['class'=>'icon-error']),
                                     [$terms['Url']])?>
                         </div>
