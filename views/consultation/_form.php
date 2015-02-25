@@ -12,13 +12,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'doctor')->textInput() ?>
+    <?= $form->field($model, 'term')
+            ->dropDownList(\yii\helpers\ArrayHelper::map(
+                    $campaign->getHemoglobins()->where('sample = 1')->all(), 'agreed_term', 'agreedTerm.students.name'),
+                    [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
+    
+    <?= Html::activeHiddenInput($model, 'doctor') ?>
+    
+    <?= $form->field($model, 'attended')->checkbox() ?>
 
-    <?= $form->field($model, 'term')->textInput() ?>
-
-    <?= $form->field($model, 'attended')->textInput() ?>
-
-    <?= $form->field($model, 'delivered')->textInput() ?>
+    <?= $form->field($model, 'delivered')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

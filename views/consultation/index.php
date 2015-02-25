@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,21 +16,29 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create {modelClass}', [
     'modelClass' => 'Consultation',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+]), ['create', 'cid'=>$campaign->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'doctor',
-            'term',
-            'attended',
-            'delivered',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class'=> kartik\grid\DataColumn::className(),
+                'attribute' => 'terms',
+                'content' => function ($model, $key, $index, $column){
+                    return $model->terms->students->name;
+                }
+            ],
+            //'doctor',
+            ['class' => \kartik\grid\BooleanColumn::className(),
+                'contentOptions' => ['class' => 'attendedClick'],
+                'attribute' => 'attended',
+                'vAlign' => 'middle',
+            ],
+            ['class' => \kartik\grid\BooleanColumn::className(),
+                'contentOptions' => ['class' => 'deliveredClick'],
+                'attribute' => 'delivered',
+                'vAlign' => 'middle',
+            ],
         ],
     ]); ?>
 

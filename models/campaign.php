@@ -155,20 +155,24 @@ class campaign extends \yii\db\ActiveRecord {
         return $this->hasMany(student::className(), ['id' => 'student'])
                         ->via('terms');
     }
-
+    
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getStudentsAnatomies() {
-        return $this->hasMany(anatomy::className(), ['student' => 'id'])
-                        ->via('students');
+        $anatomies = $this->hasMany(anatomy::className(), ['student' => 'id'])
+                ->via('students')
+                ->from(['(SELECT * from anatomy order by date DESC, id DESC) as anatomy'])
+                ->select('anatomy.*')
+                ->groupBy('student');
+        return $anatomies;
     }
     
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getHemoglobins(){
-        return $this->hasMany(hemoglobin::className(), ['id'=>'agreed'])
+        return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
                 ->via('terms');
     }
     

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use \yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\hemoglobin */
@@ -12,11 +13,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'agreed_term')->textInput() ?>
+    <?php if($sample == 1){?>
+    <?= $form->field($model, 'agreed_term')
+            ->dropDownList(ArrayHelper::map(
+                    $campaign->getTerms() ->where('agreed = true') ->all(), 'id', 'students.name'),
+                    [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
+    <?php }else{?>
+    <?=  $form->field($model, 'agreed_term')
+            ->dropDownList(ArrayHelper::map(
+                    $campaign->getConsults() ->where('attended = true') ->all(), 'id', 'terms.students.name'),
+                    [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
+    <?php }?>
 
-    <?= $form->field($model, 'rate')->textInput() ?>
+    <?= $form->field($model, 'rate')->input('number',['min'=>0, 'step'=>'0.1']) ?>
 
-    <?= $form->field($model, 'sample')->textInput() ?>
+    <?= Html::activeHiddenInput($model, 'sample', ['value'=>$sample]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

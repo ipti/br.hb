@@ -30,14 +30,22 @@ class AnatomyController extends Controller
      * Lists all anatomy models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($c=null)
     {
+        if($c == null){
+            $q = anatomy::find();
+        }else{
+            $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+            $q = $campaign->getStudentsAnatomies();
+        }
+        
         $dataProvider = new ActiveDataProvider([
-            'query' => anatomy::find(),
+            'query' => $q
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'campaign'=>$campaign,
         ]);
     }
 
@@ -58,15 +66,17 @@ class AnatomyController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cid)
     {
         $model = new anatomy();
+        $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'c' => $cid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'campaign'=> $campaign,
             ]);
         }
     }
@@ -118,4 +128,5 @@ class AnatomyController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
 }

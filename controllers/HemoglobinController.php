@@ -30,14 +30,23 @@ class HemoglobinController extends Controller
      * Lists all hemoglobin models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($c, $s)
     {
+        if($c == null){
+            $q = hemoglobin::find()->where('sample = :s',['s'=>$s]);
+        }else{
+            $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+            $q = $campaign->getHemoglobins()->where('sample = :s',['s'=>$s]);
+        }
+        
         $dataProvider = new ActiveDataProvider([
-            'query' => hemoglobin::find(),
+            'query' => $q
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'campaign'=>$campaign,
+            'sample'=>$s
         ]);
     }
 
@@ -58,15 +67,18 @@ class HemoglobinController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cid, $s)
     {
         $model = new hemoglobin();
+        $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'c' => $cid, 's'=>$s]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'campaign'=> $campaign,
+                'sample' => $s
             ]);
         }
     }

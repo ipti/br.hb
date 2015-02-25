@@ -34,7 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'termsGridView',
         'dataProvider' => $dataProvider,
         'columns' => [
-            'students.name',
+            ['class'=> kartik\grid\DataColumn::className(),
+                'attribute' => 'student',
+                'content' => function ($model, $key, $index, $column){
+                    return $model->students->name;
+                }
+            ],
             ['class' => '\kartik\grid\BooleanColumn',
                 'contentOptions' => ['class' => 'agreedClick'],
                 'attribute' => 'agreed',

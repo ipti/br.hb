@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Campaign;
+use app\models\campaign;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -60,7 +60,7 @@ class CampaignController extends Controller
      */
     public function actionCreate()
     {    
-        $model = new Campaign();
+        $model = new campaign();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
             Yii::$app->response->format = 'json';

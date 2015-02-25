@@ -1,13 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $campaign app\models\campaign */
 
 $this->title = Yii::t('app', 'Anatomies');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="anatomy-index">
 
@@ -16,21 +19,38 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create {modelClass}', [
     'modelClass' => 'Anatomy',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+]), ['create','cid'=>$campaign->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'student',
+            ['class'=> kartik\grid\DataColumn::className(),
+                'attribute' => 'student',
+                'content' => function ($model, $key, $index, $column){
+                    return $model->students->name;
+                }
+            ],
             'weight',
             'height',
             'date',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class'=> kartik\grid\BooleanColumn::className(),
+                'header'=>'Updated',
+                'options'=>['mydate'=>$campaign->begin],
+                'contentOptions' => ['class' => 'agreedClick'],
+                'content' => function ($model, $key, $index, $column){
+                    return $model->date >= $column->options['mydate'] 
+                            ? '<span class="glyphicon glyphicon-ok text-success"></span>'
+                            : '<span class="icon-info fa fa-info"></span>';
+                }
+            ],
+        ],
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+            'options' => [
+                'id' => 'pjaxAnatomies'
+            ],
         ],
     ]); ?>
 

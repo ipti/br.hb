@@ -30,15 +30,23 @@ class ConsultationController extends Controller
      * Lists all consultation models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($c)
     {
+        if($c == null){
+            $q = consultation::find();
+        }else{
+            $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+            $q = $campaign->getConsults();
+        }
+        
         $dataProvider = new ActiveDataProvider([
-            'query' => consultation::find(),
+            'query' => $q
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-        ]);
+            'campaign' => $campaign, 
+       ]);
     }
 
     /**
@@ -58,15 +66,17 @@ class ConsultationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cid)
     {
         $model = new consultation();
+        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$cid])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id, 'c' => $cid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'campaign' => $campaign,
             ]);
         }
     }
