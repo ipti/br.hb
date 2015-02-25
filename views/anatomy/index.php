@@ -14,10 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="anatomy-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
+        <?= Html::a(Yii::t('app', 'Create Anatomy', [
     'modelClass' => 'Anatomy',
 ]), ['create','cid'=>$campaign->id], ['class' => 'btn btn-success']) ?>
     </p>
@@ -35,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'height',
             'date',
             ['class'=> kartik\grid\BooleanColumn::className(),
-                'header'=>'Updated',
+                'header'=> Yii::t('app', 'Updated'),
                 'options'=>['mydate'=>$campaign->begin],
                 'contentOptions' => ['class' => 'agreedClick'],
                 'content' => function ($model, $key, $index, $column){

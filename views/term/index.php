@@ -19,11 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="term-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?=
-        Html::a(Yii::t('app', 'Create {modelClass}', [
+        Html::a(Yii::t('app', 'Create Term', [
                     'modelClass' => 'Term',
                 ]), ['create', 'c' => $campaign], ['class' => 'btn btn-success'])
         ?>

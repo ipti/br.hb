@@ -1,6 +1,9 @@
 /* Theme */
 
-html,
+html {
+    overflow-y: scroll;
+    height: 100%;
+}
 body {
     height: 100%;
     font-family: Lato, Helvetica, Arial, sans-serif;
@@ -27,7 +30,7 @@ h2 {
 
 /* Login */
 #login {
-    background-image: url('../images/bg.jpg');
+    background-image: url('../images/IMG_7542.JPG');
     background-size: cover;
     padding-top: 80px;
 }
@@ -160,6 +163,7 @@ a.desc:after {
 }
 .campaign-box-content{
     float: right;
+    position: relative;
 }
 .campaign-box-content > a{
     position: relative;
@@ -186,6 +190,11 @@ a.desc:after {
     right: 30px;
     font-size: 11px;
     color: #C2151C;
+}
+
+.progress-bar-campaign p {
+    width: 100%;
+    position: absolute;
 }
 
 .text-black-bar{

@@ -13,10 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="hemoglobin-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
+        <?= Html::a(Yii::t('app', 'Create Hemoglobin', [
     'modelClass' => 'Hemoglobin',
 ]), ['create','cid'=>$campaign->id,'s'=>$sample], ['class' => 'btn btn-success']) ?>
     </p>

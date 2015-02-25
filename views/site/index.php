@@ -134,7 +134,7 @@ $this->assetBundles['Site']->js = [
 
                     <?= yii\bootstrap\Progress::widget([
                         'percent' => $act/$tot * 100,
-                        'label' => yii::t("app","Day")." ".$act.'/'.$tot,
+                        'label' => '<p>'. yii::t("app","Day")." ".$act.' de '.$tot . '</p>',
                         'options'=>[
                             'class' => 'active campaign-box-content campaign-box-progress-bar'],
                         'barOptions' => ['class' => 'progress-bar-campaign text-black-bar']

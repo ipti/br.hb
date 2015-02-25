@@ -25,28 +25,47 @@ return [
     'Anatomy'=>'Anatomia',
     'Hemoglobin'=>'Hemoglobina',
     'Consultation'=>'Consulta',
-    
-    // Index
-    'New Campaign'=>'Nova Campanha',
-    'Terms'=>'Termos',
-    'Anatomies'=>'Anatomias',
-    'Consults'=>'Consultas',
-    'Day'=>'Dia',
-    'HB1'=>'HB1',
-    'HB2'=>'HB2',
-    'HB3'=>'HB3',
-    
+
     // Campaign
+    'New Campaign'=>'Nova Campanha',
     'Create Campaign'=>'Criar campanha',
     'Coordinator'=>'Coordenador',
     'Name'=>'Nome',
     'Begin'=>'Início',
     'End'=>'Fim',
     'Responsible'=>'Responsável',
+    'Day'=>'Dia',
+    'Student'=>'Aluno',
+    
+    // Anatomies
+    'Create Anatomy'=>'Criar Anatomia',
+    'Anatomies'=>'Anatomias',
+    'Weight'=>'Peso',
+    'Height'=>'Altura',
+    
+    // Terms
+    'Create Term'=>'Criar termo',
+    'Terms'=>'Termos',
+    
+    // Hemoglobin
+    'Create Hemoglobin'=>'Criar hemoglobina',
+    'Hemoglobins'=>'Hemoglobinas',
+    'HB1'=>'HB1',
+    'HB2'=>'HB2',
+    'HB3'=>'HB3',
+    
+    // Consultations
+    'Create Consultation'=>'Criar Consulta',
+    'Consults'=>'Consultas',
+    'Consultations'=>'Consultas',
     
     // Utils
     'Create'=>'Criar',
     'Select'=>'Selecione',
     'edit'=>'editar',
+    'Agreed'=>'Aceito',
+    'Date'=>'Data',
+    'Updated'=>'Atualizado',
+    
     
 ];
