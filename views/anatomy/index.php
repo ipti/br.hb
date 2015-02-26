@@ -10,15 +10,13 @@ use yii\bootstrap\Modal;
 
 $this->title = Yii::t('app', 'Anatomies');
 $this->params['breadcrumbs'][] = $this->title;
-
+$this->params['button'] = 
+        Html::a(Yii::t('app', 'Create Anatomy', [
+                    'modelClass' => 'Anatomy',
+                ]), ['create', 'cid' => $campaign->id], ['class' => 'btn btn-success navbar-btn']);
 ?>
-<div class="anatomy-index">
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Anatomy', [
-    'modelClass' => 'Anatomy',
-]), ['create','cid'=>$campaign->id], ['class' => 'btn btn-success']) ?>
-    </p>
+<div class="anatomy-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

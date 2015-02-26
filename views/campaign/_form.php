@@ -31,18 +31,22 @@ use app\models\student;
     $this->registerJs($js);
     ?>
 
-    <?= $form->field($model, 'coordinator')->hiddenInput() ?>
+    <?= Html::activeHiddenInput($model, 'coordinator') ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => 20]) ?>
     <?= $form->field($model, 'begin')->input("date") ?>
     <?= $form->field($model, 'end')->input("date") ?>
     <?php 
-    
-        echo GridView::widget([
+        echo $model->isNewRecord ? 
+         GridView::widget([
+            'tableOptions'=>[ 
+                    'id' => 'tableStudents',
+                    'class'=>'header-fixed',
+                ],
             //'filterModel' => new app\models\StudentSearch(),
             'dataProvider' => new ActiveDataProvider([
                 'query' => student::find()->asArray(),
                 'pagination' => [
-                    'pageSize' => 5,
+                    'pageSize' => 0,
                 ],
             ]),
             'columns' => [
@@ -60,7 +64,8 @@ use app\models\student;
                 ],
             ],
             'hover'=>true,
-        ]); 
+        ])
+            : ""; 
     ?>
 
     <div class="form-group">

@@ -38,25 +38,15 @@ AppAsset::register($this);
                 ],
             ]);
             echo '<h1 class="navbar-text">' . Html::encode($this->title) . '</h1>';
-            echo NavX::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    ['label' => yii::t('app', 'HB'),
-                        'items' => [
-                            ['label' => yii::t('app', 'Student'), 'url' => ['/student']],
-                            ['label' => yii::t('app', 'Term'), 'url' => ['/term']],
-                            ['label' => yii::t('app', 'Anatomy'), 'url' => ['/anatomy']],
-                            ['label' => yii::t('app', 'Hemoglobin'), 'url' => ['/hemoglobin']],
-                            ['label' => yii::t('app', 'Consultation'), 'url' => ['/consultation']],
-                        ],
-                    ],
-                    Yii::$app->user->isGuest ?
-                        ['label' => yii::t('app', 'Login'), 'url' => ['/site/login']] :
-                        ['label' => yii::t('app', 'Logout'),
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                ],
-            ]);
+            echo "<div class='pull-right'>";
+            if(isset($this->params['buttonOthersCampaigns']))
+                echo $this->params['buttonOthersCampaigns'];
+            if(isset($this->params['button']))
+                echo $this->params['button'];
+            echo Yii::$app->user->isGuest 
+                ? Html::a(yii::t('app', 'Login'), ['/site/login'],['class'=>'btn btn-info navbar-btn'])
+                : Html::a(yii::t('app', 'Logout'), ['/site/logout'],['class'=>'btn btn-danger navbar-btn']);
+            echo "</div>";
             NavBar::end();
         ?>
 

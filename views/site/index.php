@@ -13,6 +13,15 @@ $this->assetBundles['Site']->js = [
     'scripts/SiteView/Functions.js',
     'scripts/SiteView/Click.js'
 ];
+$this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
+                    yii::t('app', 'New Campaign'), 
+                    ['value' => Url::to(['campaign/create']),
+                        'id'=>'newCampaign',
+                        'class'=>'btn btn-success navbar-btn',
+                        'for'=>'#'
+                    ]);
+$this->params['buttonOthersCampaigns'] = Html::a(yii::t('app', 'Old Campaigns'),'#', ['class'=>'btn btn-default navbar-btn']);
+
 
 ?>
 <div class="site-index">
@@ -23,10 +32,9 @@ $this->assetBundles['Site']->js = [
         $campaing = new \app\models\campaign();
         $today = date("j-n-Y");
         $count = 0;
-        $campaings = $campaing->find()->where('end > '.$today)->orderBy('begin, end asc')->all();
+        $campaings = $campaing->find()->where('end > '.$today)->orderBy('end, end asc')->all();
         foreach ($campaings as $c){
             /* @var $c \app\models\Campaign*/
-            $count++;
             
             $campaing = [];
             $campaing['Name'] = $c->name;
@@ -62,11 +70,24 @@ $this->assetBundles['Site']->js = [
             $hb3['Done'] = $c->getHemoglobins()->where(["sample" => '3'])->count();
             $hb3['UnDone'] = $hb3['Total'] - $hb3['Done'];
             $hb3['Url'] = Url::to(['hemoglobin/index', 'c' => $campaing['Id'], 's' => '3']);
-        ?>
+            
+            $now = time(); // or your date as well
+            $begin = strtotime($c["begin"]);
+            $end = strtotime($c["end"]);
+            $tot = floor(($end-$begin)/(60*60*24));
+            $act = floor(($now-$begin)/(60*60*24));
+            $tot = $tot == 0 ? 1 : $tot;
+                
+            $count++;
+            ?>
             <div id="campaing-col[<?= $campaing['Id'] ?>]" class="campaign-col col-sm-6 col-md-3">
                 <div id="campaing-box[<?= $campaing['Id'] ?>]" class="campaign-box">
                     <h2 id="campaing-box[<?= $campaing['Id'] ?>]-title" class="campaign-box-container campaign-box-title"><?php echo $campaing['Name']  ?></h2>
-                    <a id="campaing-box[<?= $campaing['Id'] ?>]-edit" class="campaign-box-edit" href="#"><?= yii::t('app', 'edit') . ' ' . Icon::show('edit')?></a>
+                    <?= Html::button(yii::t('app', 'edit') . ' ' . Icon::show('edit'), 
+                    ['value' => Url::to(['campaign/update', 'id'=> $campaing['Id']]),
+                        'class'=>'updateCampaign campaign-box-edit',
+                        'for'=>'#'
+                    ]);?>
                     <div id="campaing-box[<?= $campaing['Id'] ?>]-terms" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Terms').': ',$terms['Url'])?></div>
                         <div class="campaign-box-content">
@@ -123,42 +144,31 @@ $this->assetBundles['Site']->js = [
                                     $hb3['Url'])?>
                         </div>
                     </div>
-                    <?php
-                        $now = time(); // or your date as well
-                        $begin = strtotime($c["begin"]);
-                        $end = strtotime($c["end"]);
-                        $tot = floor(($end-$begin)/(60*60*24));
-                        $act = floor(($now-$begin)/(60*60*24));
-                        $tot = $tot == 0 ? 1 : $tot;
-                    ?>
-
+                    <?php 
+                    $percent = $act/$tot * 100 ;
+                    $color = ($percent <= 30)?'progress-bar-info'
+                            :(($percent > 30 && $percent <= 60 )?'progress-bar-success'
+                                :(($percent > 60 && $percent <= 90 )?'progress-bar-warning'
+                                    :'progress-bar-danger'))  ;?>
                     <?= yii\bootstrap\Progress::widget([
-                        'percent' => $act/$tot * 100,
-                        'label' => '<p>'. yii::t("app","Day")." ".$act.' de '.$tot . '</p>',
+                        'percent' => $percent,
+                        'label' => '<p>'. yii::t("app","Terminate day: {date}", ['date'=>  date('d/m/Y', $end)]).'</p>',
                         'options'=>[
-                            'class' => 'active campaign-box-content campaign-box-progress-bar'],
-                        'barOptions' => ['class' => 'progress-bar-campaign text-black-bar']
+                            'class' =>   'active campaign-box-content campaign-box-progress-bar'],
+                            
+                        'barOptions' => ['class' => 'progress-bar-campaign text-black-bar '.$color]
                     ]);?>
                     <div class="clearfix"></div>
                 </div>
             </div>
             
-            <?php if ($count % 4 == 0 ) { ?>
-                </div>
-                <div class="row">
-            <?php } ?>
-                    
+                <?php
+                if ($count % 4 == 0 ) { ?>
+                    </div>
+                    <div class="row">
+                <?php } ?>    
         <?php }?>
-            <div class="campaign-box col-lg-2" id="newCampaignBox">
-                <?= Html::button(Icon::show('plus',[], Icon::BSG).
-                    yii::t('app', 'New Campaign'), 
-                    ['value' => Url::to(['campaign/create']),
-                        'id'=>'newCampaign',
-                        'class'=>'btn btn-success',
-                        'for'=>'#'
-                    ]) 
-                ?>
-            </div>
+           
         </div>
 
     </div>

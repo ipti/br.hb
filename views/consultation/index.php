@@ -8,14 +8,13 @@ use kartik\grid\GridView;
 
 $this->title = Yii::t('app', 'Consultations');
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['button'] =
+        Html::a(Yii::t('app', 'Create Consultation', [
+                    'modelClass' => 'Consultation',
+                ]), ['create', 'cid' => $campaign->id], ['class' => 'btn btn-success navbar-btn'])
 ?>
-<div class="consultation-index">
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Consultation', [
-    'modelClass' => 'Consultation',
-]), ['create', 'cid'=>$campaign->id], ['class' => 'btn btn-success']) ?>
-    </p>
+<div class="consultation-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

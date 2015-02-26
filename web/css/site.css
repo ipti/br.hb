@@ -28,6 +28,9 @@ h2 {
     color: #333 !important;
 }
 
+.navbar-collapse {
+    padding-right: 0;
+}
 /* Login */
 #login {
     background-image: url('../images/IMG_7542.JPG');
@@ -151,6 +154,9 @@ a.desc:after {
     margin: 0 15px;
     border-bottom: 1px solid #E8E8E8;
 }
+.campaign-box-container:hover{
+    background-color: lightcyan;
+}
 /*.campaign-box:last-child {
     border: 0;
 }*/
@@ -181,6 +187,8 @@ a.desc:after {
 
 .campaign-box-edit {
     display: none;
+    background: #fff;
+    border: 0;
 }
 
 .campaign-box:hover .campaign-box-edit {
@@ -190,6 +198,10 @@ a.desc:after {
     right: 30px;
     font-size: 11px;
     color: #C2151C;
+}
+.campaign-box .campaign-box-edit:hover {
+    font-weight:bolder;
+    
 }
 
 .progress-bar-campaign p {
@@ -225,7 +237,7 @@ a.desc:after {
 }
 
 .progress-bar-campaign {
-    background-color: #C4C4C4;
+    /*background-color: #C4C4C4;*/
 }
 
 
@@ -233,15 +245,20 @@ a.desc:after {
 #newCampaignBox{ 
     padding: 0px;
 }
-#newCampaign{
-    width: 100%;
-    height: 100%;  
+
+.navbar-btn{
+    margin-left: 5px;
+    margin-top: 28px;
 }
-
-
 
 /* Terms */
 
 .agreedClick{
     cursor:pointer;
 }
+
+#pjaxStudents {
+    max-height: 200px;
+    overflow-y: auto;
+}
+

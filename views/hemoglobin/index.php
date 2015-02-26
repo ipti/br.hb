@@ -10,14 +10,13 @@ use kartik\grid\GridView;
 
 $this->title = Yii::t('app', 'Hemoglobins');
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['button'] =
+        Html::a(Yii::t('app', 'Create Hemoglobin', [
+                    'modelClass' => 'Hemoglobin',
+                ]), ['create', 'cid' => $campaign->id, 's' => $sample], ['class' => 'btn btn-success navbar-btn']);
 ?>
-<div class="hemoglobin-index">
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Hemoglobin', [
-    'modelClass' => 'Hemoglobin',
-]), ['create','cid'=>$campaign->id,'s'=>$sample], ['class' => 'btn btn-success']) ?>
-    </p>
+<div class="hemoglobin-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

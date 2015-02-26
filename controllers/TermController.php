@@ -71,7 +71,7 @@ class TermController extends Controller
         $model->campaign = $c;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'cid' => $c]);
         } else {
             return $this->render('create', [
                 'model' => $model,

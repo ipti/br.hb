@@ -45,6 +45,7 @@ return [
     
     // Terms
     'Create Term'=>'Criar termo',
+    'Term'=>'Termo',
     'Terms'=>'Termos',
     
     // Hemoglobin
@@ -66,6 +67,9 @@ return [
     'Agreed'=>'Aceito',
     'Date'=>'Data',
     'Updated'=>'Atualizado',
+    
+    'Create {modelClass}'=>'Criar {modelClass}',
+    'Terminate day: {date}' => 'Dia de término: {date}',
     
     
 ];
