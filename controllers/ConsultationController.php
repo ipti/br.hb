@@ -99,6 +99,28 @@ class ConsultationController extends Controller
             ]);
         }
     }
+    /**
+     * Updates an existing consultation model on Attended or Delivered attribute.
+     * 
+     * @param integer $t    Type, 1 = Attended; 2 = Delivered;
+     * @param integer $id   Consultation ID
+     * 
+     */
+    public function actionUp($t, $id){
+        $model = $this->findModel($id);
+        
+        if($t == 1){
+            $model->attended = 1;
+        }else if($t == 2){
+            $model->delivered = 1;
+        }
+        
+        if (!$model->save()) {
+            throw new Exception("Não atualizado", "0004");
+        }
+    }
+
+
 
     /**
      * Deletes an existing consultation model.

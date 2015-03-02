@@ -32,12 +32,9 @@ class HemoglobinController extends Controller
      */
     public function actionIndex($c, $s)
     {
-        if($c == null){
-            $q = hemoglobin::find()->where('sample = :s',['s'=>$s]);
-        }else{
-            $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
-            $q = $campaign->getHemoglobins()->where('sample = :s',['s'=>$s]);
-        }
+        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+        /* @var $campaign \app\models\campaign */
+        $q = $campaign->getHemoglobins()->where('sample = :s',['s'=>$s]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $q

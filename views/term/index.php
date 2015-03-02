@@ -36,7 +36,7 @@ $this->params['button'] =
                 }
             ],
             ['class' => '\kartik\grid\BooleanColumn',
-                'contentOptions' => ['class' => 'agreedClick'],
+                'contentOptions' => ['class' => 'agreedClick cursor-pointer'],
                 'attribute' => 'agreed',
                 'vAlign' => 'middle',
             ],

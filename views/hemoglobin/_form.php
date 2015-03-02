@@ -19,9 +19,9 @@ use \yii\helpers\ArrayHelper;
                     $campaign->getTerms() ->where('agreed = true') ->all(), 'id', 'students.name'),
                     [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
     <?php }else{?>
-    <?=  $form->field($model, 'agreed_term')
+    <?= $form->field($model, 'agreed_term')
             ->dropDownList(ArrayHelper::map(
-                    $campaign->getConsults() ->where('attended = true') ->all(), 'id', 'terms.students.name'),
+                    $campaign->getConsults() ->where('attended = true') ->all(), 'terms.id', 'terms.students.name'),
                     [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
     <?php }?>
 

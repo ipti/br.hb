@@ -20,7 +20,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         'class'=>'btn btn-success navbar-btn',
                         'for'=>'#'
                     ]);
-$this->params['buttonOthersCampaigns'] = Html::a(yii::t('app', 'Old Campaigns'),'#', ['class'=>'btn btn-default navbar-btn']);
+//$this->params['buttonOthersCampaigns'] = Html::a(yii::t('app', 'Old Campaigns'),'#', ['class'=>'btn btn-default navbar-btn']);
 
 
 ?>
