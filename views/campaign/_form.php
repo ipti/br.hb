@@ -35,6 +35,26 @@ use app\models\student;
     <?= $form->field($model, 'name')->textInput(['maxlength' => 20]) ?>
     <?= $form->field($model, 'begin')->input("date") ?>
     <?= $form->field($model, 'end')->input("date") ?>
+    <?= $form->field($model, 'end')->input("date") ?>
+    <?php
+        $data = \yii\helpers\ArrayHelper::map(app\models\school::find()->all(), 'id', 'name');
+        echo Html::label(yii::t('app','Schools'));
+        echo \kartik\select2\Select2::widget([
+            'name' => 'schools', 
+            'data' => array_merge(["" => ""], $data),
+            'options' => [
+                'placeholder' => yii::t('app', 'Select School'),
+                'multiple' => true,
+                ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    
+    ?>
+    
+    
+    
     <?php 
         echo $model->isNewRecord ? 
          GridView::widget([

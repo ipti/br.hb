@@ -71,7 +71,7 @@ class TermController extends Controller
         $model->campaign = $c;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'cid' => $c]);
+            return $this->redirect(['index', 'c' => $c]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -79,9 +79,9 @@ class TermController extends Controller
         }
     }
     
-    public function actionAdd($sid){
+    public function actionAdd($eid){
         $model = new term();
-        $model->student = $sid;
+        $model->enrollment = $eid;
         $model->agreed = 0;
         
         if (!$model->save()) {

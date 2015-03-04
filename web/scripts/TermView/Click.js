@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-$(".agreedClick").click(function () {
+$(document).on('click',".agreedClick",function () {
     /**
      *  Altere isso!!!
      * Precisa alterar isso para usar modal e não confirm!!!

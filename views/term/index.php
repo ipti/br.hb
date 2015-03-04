@@ -28,7 +28,8 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
-                'attribute' => 'student',
+                'attribute' => 'enrollment',
+                'label' => yii::t('app','Student'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->students->name;
                 }

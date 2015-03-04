@@ -32,8 +32,8 @@ class term extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student', 'agreed'], 'required'],
-            [['student', 'campaign', 'agreed'], 'integer']
+            [['enrollment', 'agreed'], 'required'],
+            [['enrollment', 'campaign', 'agreed'], 'integer']
         ];
     }
 
@@ -44,7 +44,7 @@ class term extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'student' => Yii::t('app', 'Student'),
+            'enrollment' => Yii::t('app', 'Enrollment'),
             'campaign' => Yii::t('app', 'Campaign'),
             'agreed' => Yii::t('app', 'Agreed'),
         ];
@@ -71,6 +71,14 @@ class term extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasOne(student::className(), ['id' => 'student']);
+        return $this->hasOne(student::className(), ['id' => 'student'])
+            ->via('enrollments');
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnrollments()
+    {
+        return $this->hasOne(enrollment::className(), ['id' => 'enrollment']);
     }
 }

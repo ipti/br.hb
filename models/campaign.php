@@ -88,20 +88,6 @@ class campaign extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCampaignHasSchools() {
-        return $this->hasMany(campaignHasSchool::className(), ['campaign' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSchools() {
-        return $this->hasMany(school::className(), ['id' => 'school'])->viaTable('campaign_has_school', ['campaign' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getCampaignHasVehicles() {
         return $this->hasMany(campaignHasVehicle::className(), ['campaign' => 'id']);
     }
@@ -147,13 +133,38 @@ class campaign extends \yii\db\ActiveRecord {
     public function getTerms() {
         return $this->hasMany(term::className(), ['campaign' => 'id']);
     }
+    
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getStudents() {
         return $this->hasMany(student::className(), ['id' => 'student'])
+                        ->via('enrollments');
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnrollments() {
+        return $this->hasMany(enrollment::className(), ['id' => 'enrollment'])
                         ->via('terms');
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getClassrooms() {
+        return $this->hasMany(classroom::className(), ['id' => 'classroom'])
+                        ->via('enrollments');
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSchools() {
+        return $this->hasMany(school::className(), ['id' => 'school'])
+                        ->via('classrooms');
     }
     
     /**

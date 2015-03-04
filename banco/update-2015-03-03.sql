@@ -1,0 +1,1 @@
+drop table campaign_has_school
