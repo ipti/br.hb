@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use app\models\student;
+use app\models\enrollment;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\term */
@@ -16,8 +16,8 @@ use app\models\student;
         'id' => $model->formName(),
     ]); ?>
 
-    <?= $form->field($model, 'student')
-            ->dropDownList(ArrayHelper::map(student::find()->all(), 'id', 'name'),
+    <?= $form->field($model, 'enrollment')
+            ->dropDownList(ArrayHelper::map(enrollment::find()->all(), 'id', 'students.name'),
                     [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
 
     <?= Html::activeHiddenInput($model, 'campaign') ?>

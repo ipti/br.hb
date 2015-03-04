@@ -1,7 +1,7 @@
 /**
  * Post the FORM to add a new Address.
  * 
- * @param {form} $form
+ * @param {integer} tid
  */
 function submitUpdateTerm(tid) {
     $.ajax({
