@@ -24,7 +24,7 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
-                'attribute' => 'terms',
+                'attribute' => 'term',
                 'content' => function ($model, $key, $index, $column){
                     return $model->terms->students->name;
                 }

@@ -37,6 +37,7 @@ return [
     'Responsible'=>'Responsável',
     'Day'=>'Dia',
     'Student'=>'Aluno',
+    'Schools' => 'Escolas',
     
     // Address
     'Address' => 'Endereço',
@@ -66,6 +67,7 @@ return [
     'Update Term' => 'Editar termo',
     'New Term' => 'Novo termo',
     'Terms'=>'Termos',
+    'Enrollment' => 'Aluno', //enrollment = matricula, mas no campo da pagina = aluno
     
     // Hemoglobin
     'Create Hemoglobin'=>'Criar hemoglobina',
