@@ -8,9 +8,7 @@ use yii\helpers\Html;
 /* @var $capaign Integer */
 /* @var $sample Integer */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Hemoglobin',
-]);
+$this->title = Yii::t('app', 'Create Hemoglobin');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Hemoglobins'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

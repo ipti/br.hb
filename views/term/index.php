@@ -17,9 +17,7 @@ $this->assetBundles['Term']->js = [
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] = 
-        Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => Yii::t('app', 'Term'),
-                ]), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
+        Html::a(Yii::t('app', 'Create Term'), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
 ?>
 <div class="term-index">
 

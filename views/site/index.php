@@ -145,7 +145,8 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         </div>
                     </div>
                     <?php 
-                    $percent = $act/$tot * 100 ;
+                    //$percent = $act/$tot * 100 ;
+                    $percent = ($act/$tot * 100) < 0 ? 0 : (($act/$tot * 100) > 100 ? 100 : $act/$tot * 100);
                     $color = ($percent <= 30)?'progress-bar-info'
                             :(($percent > 30 && $percent <= 60 )?'progress-bar-success'
                                 :(($percent > 60 && $percent <= 90 )?'progress-bar-warning'
