@@ -8,13 +8,13 @@ use Yii;
  * This is the model class for table "term".
  *
  * @property integer $id
- * @property integer $student
+ * @property integer $enrollment
  * @property integer $campaign
  * @property integer $agreed
  *
  * @property hemoglobin[] $hemoglobins
  * @property campaign $campaigns
- * @property student $students
+ * @property enrollment $enrollments
  */
 class term extends \yii\db\ActiveRecord
 {

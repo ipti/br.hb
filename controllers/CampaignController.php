@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * CampaignController implements the CRUD actions for Campaign model.
@@ -52,6 +53,33 @@ class CampaignController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    
+    /**
+     * Get the classrooms.
+     * 
+     * @return Json
+     */
+    public function actionGetClassroomsList() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $schools = end($_POST['depdrop_parents']);
+            
+            foreach ($schools as $sid){
+                $school = \app\models\school::find($sid)->one();
+                /* @var $school \app\models\school */
+                $classrooms = $school->getClassrooms()->asArray()->all();
+                foreach($classrooms as $i => $classroom){
+                    $out[] = ['id'=> $classroom['id'], 'name'=>$school->name.' - '.$classroom['name']];
+                }
+            }
+            echo Json::encode(['output' => $out, 'selected'=>'']);
+            return;
+        }
+        echo Json::encode(['output' => '', 'selected'=>'']);
+    }
+    
+    
+    
 
     /**
      * Creates a new Campaign model.
@@ -65,16 +93,21 @@ class CampaignController extends Controller
             $model->refresh();
             Yii::$app->response->format = 'json';
             
-            if(isset($_POST['selection'])){
-                foreach ($_POST['selection'] as $sid){
-                    $student = new \app\models\student();
-                    $student = $student->find()->where(['student' => $sid]);
-                    if($student != null){
-                        $term = new \app\models\term();
-                        $term->campaign = $model->id;
-                        $term->student = $sid;
-                        $term->agreed = 0;
-                        $term->save();
+            if(isset($_POST['classrooms'])){
+                foreach ($_POST['classrooms'] as $cid){
+                    if(!empty($cid )){
+                        $classroom = \app\models\classroom::find($cid)->one();
+                        /* @var $classroom \app\models\classroom */
+                        $enrollments = $classroom->getEnrollments()->asArray()->all();
+                        
+                        foreach ($enrollments as $enrollment){
+                            /* @var $enrollment array */
+                            $term = new \app\models\term();
+                            $term->campaign = $model->id;
+                            $term->enrollment = $enrollment['id'];
+                            $term->agreed = 0;
+                            $term->save();
+                        }
                     }
                 }
             }

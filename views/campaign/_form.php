@@ -1,12 +1,19 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+
 use yii\widgets\ActiveForm;
 use yii\data\ActiveDataProvider;
 
 use kartik\grid\GridView;
 use kartik\grid\CheckboxColumn;
 
-use app\models\student;
+use app\models\school;
+
+use kartik\widgets\DepDrop;
+use kartik\select2\Select2;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Campaign */
@@ -35,59 +42,42 @@ use app\models\student;
     <?= $form->field($model, 'name')->textInput(['maxlength' => 20]) ?>
     <?= $form->field($model, 'begin')->input("date") ?>
     <?= $form->field($model, 'end')->input("date") ?>
-    <?= $form->field($model, 'end')->input("date") ?>
     <?php
-        $data = \yii\helpers\ArrayHelper::map(app\models\school::find()->all(), 'id', 'name');
-        echo Html::label(yii::t('app','Schools'));
-        echo \kartik\select2\Select2::widget([
-            'name' => 'schools', 
-            'data' => array_merge(["" => ""], $data),
-            'options' => [
-                'placeholder' => yii::t('app', 'Select School'),
-                'multiple' => true,
+        if($model->isNewRecord){
+            $data = ArrayHelper::map(school::find()->all(), 'id', 'name');
+            echo Html::label(yii::t('app','Schools'));
+            echo Select2::widget([
+                'name' => 'schools', 
+                'id'=>'campaign_schools',
+                'data' => $data,
+                'options' => [
+                    'placeholder' => yii::t('app', 'Select Schools...'),
+                    'multiple' => true,
                 ],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]);
-    
-    ?>
-    
-    
-    
-    <?php 
-        echo $model->isNewRecord ? 
-         GridView::widget([
-            'tableOptions'=>[ 
-                    'id' => 'tableStudents',
-                    'class'=>'header-fixed',
-                ],
-            //'filterModel' => new app\models\StudentSearch(),
-            'dataProvider' => new ActiveDataProvider([
-                'query' => student::find()->asArray(),
-                'pagination' => [
-                    'pageSize' => 0,
-                ],
-            ]),
-            'columns' => [
-                'name',
-                'responsible',
-                ['class' => CheckboxColumn::className(),
-                    'header' => yii::t('app', 'Select')
-                ],
-            ],
-            'pjax'=>true,
-            'pjaxSettings'=>[
-                'neverTimeout'=>true,
-                'options'=>[
-                    'id'=>'pjaxStudents'
-                ],
-            ],
-            'hover'=>true,
-        ])
-            : ""; 
-    ?>
+                'pluginOptions'=>['allowClear'=>true]
+            ]);
 
+            echo Html::label(yii::t('app','Classrooms'));
+            echo DepDrop::widget([
+                'name'=>'classrooms',
+                'id'=>'campaign_classrooms',
+                'data'=> [],
+                'options' => [
+                    'placeholder' => yii::t('app', 'Select Classrooms...'),
+                    'multiple'=>true,
+                    ],
+                'type' => DepDrop::TYPE_SELECT2,
+                'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                'pluginOptions'=>[
+                    'depends'=>['campaign_schools'],
+                    'url' => Url::to(['/campaign/get-classrooms-list']),
+                    'loadingText' => yii::t('app', 'Loading Classrooms ...'),
+                ]
+            ]);
+        }
+    ?>
+    
+    <br>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

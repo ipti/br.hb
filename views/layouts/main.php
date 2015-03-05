@@ -1,9 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\nav\NavX;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+use kartik\icons\Icon;
 use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -37,13 +36,18 @@ AppAsset::register($this);
             ]);
             echo '<h1 class="navbar-text">' . Html::encode($this->title) . '</h1>';
             echo "<div class='pull-right'>";
-            if (isset($this->params['buttonOthersCampaigns'])) {
-                echo $this->params['buttonOthersCampaigns'];
-            }
             if (isset($this->params['button'])){
                 echo $this->params['button'];
             }
-            echo Yii::$app->user->isGuest ? Html::a(yii::t('app', 'Login'), ['/site/login'], ['class' => 'btn btn-info navbar-btn']) : Html::a(yii::t('app', 'Logout'), ['/site/logout'], ['class' => 'btn btn-danger navbar-btn', 'data-method' => "post"]);
+            if(!isset($this->params['siteIndex'])){
+                echo Html::a(Icon::show('arrow-left',[], Icon::FA).yii::t('app', 'Back'), 
+                        yii\helpers\Url::previous(),['class' => 'btn btn-warning navbar-btn']);
+            }
+            echo Html::a(Icon::show('print',[], Icon::FA).yii::t('app', 'Reports'), ['/reports/index'], 
+                ['class' => 'btn btn-info navbar-btn']);
+            echo Yii::$app->user->isGuest 
+                    ? Html::a(Icon::show('sign-in',[], Icon::FA).yii::t('app', 'Login'), ['/site/login'], ['class' => 'btn btn-info navbar-btn']) 
+                    : Html::a(Icon::show('sign-out',[], Icon::FA).yii::t('app', 'Logout'), ['/site/logout'], ['class' => 'btn btn-danger navbar-btn', 'data-method' => "post"]);
             echo "</div>";
             NavBar::end();
             ?>
@@ -62,4 +66,5 @@ AppAsset::register($this);
         <?php $this->endBody() ?>
     </body>
 </html>
-<?php $this->endPage() ?>
+<?php $this->endPage();
+yii\helpers\Url::remember();?>

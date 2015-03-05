@@ -64,23 +64,6 @@ class school extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCampaignHasSchools()
-    {
-        return $this->hasMany(campaignHasSchool::className(), ['school' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCampaigns()
-    {
-        return $this->hasMany(campaign::className(), ['id' => 'campaign'])
-                ->viaTable('campaign_has_school', ['school' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getClassrooms()
     {
         return $this->hasMany(classroom::className(), ['school' => 'id']);
