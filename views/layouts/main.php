@@ -40,11 +40,12 @@ AppAsset::register($this);
                 echo $this->params['button'];
             }
             if(!isset($this->params['siteIndex'])){
-                echo Html::a(Icon::show('arrow-left',[], Icon::FA).yii::t('app', 'Back'), 
-                        yii\helpers\Url::previous(),['class' => 'btn btn-warning navbar-btn']);
+                echo Html::a(Icon::show('heartbeat',[], Icon::FA).yii::t('app', 'Campaigns'),['/site/index'],
+                    ['class' => 'btn btn-warning navbar-btn']);
+            }else{
+                echo Html::a(Icon::show('print',[], Icon::FA).yii::t('app', 'Reports'), ['/reports/index'], 
+                    ['class' => 'btn btn-info navbar-btn']);
             }
-            echo Html::a(Icon::show('print',[], Icon::FA).yii::t('app', 'Reports'), ['/reports/index'], 
-                ['class' => 'btn btn-info navbar-btn']);
             echo Yii::$app->user->isGuest 
                     ? Html::a(Icon::show('sign-in',[], Icon::FA).yii::t('app', 'Login'), ['/site/login'], ['class' => 'btn btn-info navbar-btn']) 
                     : Html::a(Icon::show('sign-out',[], Icon::FA).yii::t('app', 'Logout'), ['/site/logout'], ['class' => 'btn btn-danger navbar-btn', 'data-method' => "post"]);
