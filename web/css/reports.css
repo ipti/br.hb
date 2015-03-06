@@ -1,0 +1,18 @@
+
+.report-body p{
+    text-indent: 50px;
+}
+.report-content{
+    margin: auto;
+    border: 1px solid #000000;
+    padding: 10px 5px 0;
+    width: 700px;
+}
+.report-body{
+    width: 100%;
+    text-align: justify;
+}
+.report-footer{
+    width: 100%;
+    text-align: center;
+}

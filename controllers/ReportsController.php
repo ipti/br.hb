@@ -24,4 +24,9 @@ class ReportsController extends \yii\web\Controller
         return $this->render('terms');
     }
 
+    public function actionAnamnese()
+    {
+        return $this->render('anamnese');
+    }
+
 }

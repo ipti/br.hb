@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\campaign;
+use app\models\classroom;
+use app\models\school;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -13,10 +15,9 @@ use yii\helpers\Json;
 /**
  * CampaignController implements the CRUD actions for Campaign model.
  */
-class CampaignController extends Controller
-{
-    public function behaviors()
-    {
+class CampaignController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -31,14 +32,13 @@ class CampaignController extends Controller
      * Lists all Campaign models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Campaign::find(),
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -47,13 +47,35 @@ class CampaignController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
-    
+
+    /**
+     * Get the Schools.
+     * 
+     * @return Json
+     */
+    public function actionGetSchoolsList() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $cid = end($_POST['depdrop_parents']);
+            if (!empty($cid)) {
+                $campaign = campaign::find()->where('id = :cid',['cid'=>$cid])->one();
+                /* @var $campaign \app\models\campaign */
+                $schools = $campaign->getSchools()->asArray()->all();
+
+                foreach ($schools as $i => $school) {
+                    $out[] = ['id' => $school['id'], 'name' => $school['name']];
+                }
+            }
+            echo Json::encode(['output' => $out, 'selected' => '']);
+            return;
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
     /**
      * Get the classrooms.
      * 
@@ -62,45 +84,68 @@ class CampaignController extends Controller
     public function actionGetClassroomsList() {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
-            $schools = end($_POST['depdrop_parents']);
-            
-            foreach ($schools as $sid){
-                $school = \app\models\school::find($sid)->one();
-                /* @var $school \app\models\school */
-                $classrooms = $school->getClassrooms()->asArray()->all();
-                foreach($classrooms as $i => $classroom){
-                    $out[] = ['id'=> $classroom['id'], 'name'=>$school->name.' - '.$classroom['name']];
+            $sids = end($_POST['depdrop_parents']);
+            if (!is_array($sids) && !empty($sids)) {
+                $sids = [$sids];
+            }
+            if(is_array($sids)){
+                foreach ($sids as $sid) {
+                    $school = school::find()->where('id = :sid',['sid'=>$sid])->one();
+                    /* @var $school \app\models\school */
+                    $classrooms = $school->getClassrooms()->asArray()->all();
+                    foreach ($classrooms as $i => $classroom) {
+                        $out[] = ['id' => $classroom['id'], 'name' => $classroom['name']];
+                    }
                 }
             }
-            echo Json::encode(['output' => $out, 'selected'=>'']);
+            echo Json::encode(['output' => $out, 'selected' => '']);
             return;
         }
-        echo Json::encode(['output' => '', 'selected'=>'']);
+        echo Json::encode(['output' => '', 'selected' => '']);
     }
-    
-    
-    
 
+    /**
+     * Get the classrooms.
+     * 
+     * @return Json
+     */
+    public function actionGetStudentsList() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $cid = end($_POST['depdrop_parents']);
+            if (!empty($cid)) {
+                $classroom = classroom::find()->where('id = :cid',['cid'=>$cid])->one();
+                /* @var $classroom \app\models\classroom */
+                $students = $classroom->getStudents()->asArray()->all();
+
+                foreach ($students as $i => $student) {
+                    $out[] = ['id' => $student['id'], 'name' => $student['name']];
+                }
+            }
+            echo Json::encode(['output' => $out, 'selected' => '']);
+            return;
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
     /**
      * Creates a new Campaign model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {    
+    public function actionCreate() {
         $model = new campaign();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
             Yii::$app->response->format = 'json';
-            
-            if(isset($_POST['classrooms'])){
-                foreach ($_POST['classrooms'] as $cid){
-                    if(!empty($cid )){
+
+            if (isset($_POST['classrooms'])) {
+                foreach ($_POST['classrooms'] as $cid) {
+                    if (!empty($cid)) {
                         $classroom = \app\models\classroom::find($cid)->one();
                         /* @var $classroom \app\models\classroom */
                         $enrollments = $classroom->getEnrollments()->asArray()->all();
-                        
-                        foreach ($enrollments as $enrollment){
+
+                        foreach ($enrollments as $enrollment) {
                             /* @var $enrollment array */
                             $term = new \app\models\term();
                             $term->campaign = $model->id;
@@ -111,10 +156,10 @@ class CampaignController extends Controller
                     }
                 }
             }
-            
-            return ['message' => Yii::t('app','Success Created!'), 'id'=>$model->id];
-        } 
-        return $this->renderAjax('create',['model'=>$model]);
+
+            return ['message' => Yii::t('app', 'Success Created!'), 'id' => $model->id];
+        }
+        return $this->renderAjax('create', ['model' => $model]);
     }
 
     /**
@@ -123,16 +168,15 @@ class CampaignController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {    
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
             Yii::$app->response->format = 'json';
-            return ['message' => Yii::t('app','Success Updated!'), 'id'=>$model->id];
-        } 
-        return $this->renderAjax('update',['model'=>$model]);
+            return ['message' => Yii::t('app', 'Success Updated!'), 'id' => $model->id];
+        }
+        return $this->renderAjax('update', ['model' => $model]);
     }
 
     /**
@@ -141,8 +185,7 @@ class CampaignController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -155,12 +198,12 @@ class CampaignController extends Controller
      * @return Campaign the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Campaign::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

@@ -57,6 +57,14 @@ use kartik\select2\Select2;
                 'pluginOptions'=>['allowClear'=>true]
             ]);
 
+            $js = "
+                $('#campaign_classrooms').on('change', function(e){
+                    var val = $('#campaign_classrooms option:selected');
+                    if(val.attr('value') === '')
+                       val.remove();
+                });";
+            $this->registerJs($js);
+            
             echo Html::label(yii::t('app','Classrooms'));
             echo DepDrop::widget([
                 'name'=>'classrooms',
