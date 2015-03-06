@@ -38,6 +38,9 @@ return [
     'Day'=>'Dia',
     'Student'=>'Aluno',
     'Schools' => 'Escolas',
+    'Classrooms' => 'Turmas',
+    'Select Schools...' => 'Selecione escolas...',
+    'Select Classrooms...' => 'Selecione turmas...',
     
     // Address
     'Address' => 'Endereço',
@@ -98,6 +101,9 @@ return [
     'Gender' => 'Sexo',
     'Male' => 'Masculino',
     'Female' => 'Feminino',        
+    
+    // Reports
+    
     
     // Utils
     'Create'=>'Criar',
