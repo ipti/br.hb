@@ -103,7 +103,21 @@ return [
     'Female' => 'Feminino',        
     
     // Reports
+    'Reports' => 'Relatórios',
+    'Letter' => 'Carta',
+    'Prescription' => 'Prescrição',
+    'Anamnese' => 'Anamnese',
     
+    // Letter
+    'Select Campaign...' => 'Selecione a campanha...',
+    'Select School...' => 'Selecione a escola...',
+    'Select Classroom...' => 'Selecione a turma...',
+    'Select Student...' => 'Selecione o aluno...',
+    'School' => 'Escola',
+    'Classroom' => 'Turma',
+    'Loading Schools...' => 'Carregando escolas...',
+    'Loading Classrooms...' => 'Carregando turmas...',
+    'Loading Student...' => 'Carregando alunos...',
     
     // Utils
     'Create'=>'Criar',
@@ -118,6 +132,8 @@ return [
     'No' => 'Não',
     'Search' => 'Pesquisar',
     'Reset' => 'Resetar',
+    'Success Updated!' => 'Atualizado com sucesso!',
+    'Success Created!' => 'Criado com sucesso!',
     
     'Are you sure you want to delete this item?' => 'Deseja mesmo excluir este item?',
     
