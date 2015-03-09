@@ -1,9 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\enrollment;
+
+
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\term */
@@ -12,22 +16,45 @@ use app\models\enrollment;
 
 <div class="term-form">
 
-   <?php $form = ActiveForm::begin([
-        'id' => $model->formName(),
-    ]); ?>
+    <?php
+    $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
+    echo Form::widget([
+        'model' => $model,
+        'form' => $form,
+        'columns' => 1,
+        'attributes' => [
+            'enrollment' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => Select2::className(),
+                'options' => [
+                    'data' => ArrayHelper::map(enrollment::find()->all(), 'id', 'students.name'),
+                    'options' => [
+                        'placeholder' => Yii::t('app', 'Select Student...'),
+                        $model->isNewRecord ? "" : "disabled" => "disabled"
+                    ]
+                ],
+            ],
+            'campaign'=>['type'=>FORM::INPUT_RAW, 
+                'value'=>Html::activeHiddenInput($model, 'campaign')
+                ],
+            'agreed' => ['type'=>Form::INPUT_CHECKBOX],
 
-    <?= $form->field($model, 'enrollment')
-            ->dropDownList(ArrayHelper::map(enrollment::find()->all(), 'id', 'students.name'),
-                    [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
+        ]
+        
+    ]);
+    
+    echo Html::submitButton($model->isNewRecord 
+            ? Yii::t('app', 'Create') 
+            : Yii::t('app', 'Update'), [
+                'class' => 
+                    $model->isNewRecord 
+                        ? 'btn btn-success' 
+                        : 'btn btn-primary']);
 
-    <?= Html::activeHiddenInput($model, 'campaign') ?>
+    ActiveForm::end();
+    ?>
 
-    <?= $form->field($model, 'agreed')->checkbox() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
 
-    <?php ActiveForm::end(); ?>
 
 </div>

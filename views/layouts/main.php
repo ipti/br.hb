@@ -53,9 +53,9 @@ AppAsset::register($this);
             NavBar::end();
             ?>
 
-            <div class="container">
-                <?= $content ?>
-            </div>
+        </div>
+        <div class="container">
+            <?= $content ?>
         </div>
 
         <footer class="footer">
