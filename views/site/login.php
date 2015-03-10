@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <img src="images/logo-85.png">
 
-<div id="login-container">
+<div id="login-container ">
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
