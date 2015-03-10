@@ -4,6 +4,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use kartik\icons\Icon;
 
 use app\models\campaign;
 
@@ -131,9 +132,8 @@ $this->assetBundles['Reports']->js = [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
-                        Html::button('Print', ['class'=>'btn btn-primary', 'onclick'=>'window.print()']) . ' ' .
-                        Html::resetButton('Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button('Submit', ['id'=>'submit-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::resetButton(Icon::show('recycle',[], Icon::FA).'Reset', ['class'=>'btn btn-default']) . ' ' .
+                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -159,5 +159,8 @@ $this->assetBundles['Reports']->js = [
             Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.<br/><br/>
         </div>
         <div id="report-footer">Muito obrigado pela atenção.</div>
+    </div>
+    <div class="pull-right hidden-print">
+    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', ['class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
 </div>
