@@ -142,6 +142,29 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+/* Modal */
+.modal-backdrop.in {
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+}
+
+.modal-content {
+    border: 0;
+    border-radius: 2px;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-form {
+    padding: 15px;
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
 /** Forms **/
 .form-control {
     border-radius: 0px 2px 2px 0px;
@@ -280,19 +303,4 @@ label {
 #pjaxStudents {
     max-height: 200px;
     overflow-y: auto;
-}
-
-/* Modal */
-.modal-backdrop.in {
-    filter: alpha(opacity=20);
-    opacity: 0.2;
-}
-
-.modal-content {
-    border: 0;
-    border-radius: 2px;
-}
-
-.modal-header h3 {
-    margin: 0;
 }

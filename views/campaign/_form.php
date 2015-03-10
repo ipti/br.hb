@@ -21,6 +21,16 @@ use kartik\select2\Select2;
 ?>
 
 <div class="campaign-form form">
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3><?= $model->isNewRecord ? Yii::t('app', 'Create Campaign') : Yii::t('app', 'Update Campaign') ?></h3>
+    <?= $model->isNewRecord ? '' : $model->name ?>
+</div>
+
+<div class="modal-form">
+
+
    <?php $form = ActiveForm::begin([
         'id' => $model->formName(),
     ]); ?>
@@ -84,12 +94,13 @@ use kartik\select2\Select2;
             ]);
         }
     ?>
-    
-    <br>
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
 
-    <?php ActiveForm::end(); ?>
+</div>
+
+<div class="modal-footer">
+<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
 
 </div>

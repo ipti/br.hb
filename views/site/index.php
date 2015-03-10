@@ -175,9 +175,7 @@ $this->params['siteIndex'] = true;
 </div>
 <?php
     Modal::begin(['id' => 'campignModal',
-                    'header'=>'<h3>' . Yii::t('app', 'Create Campaign') . '</h3>',
-                    'footer'=>Html::a(Icon::show('heartbeat',[], Icon::FA).yii::t('app', 'Campaigns'),['/site/index'])
-                ]);
+                    'closeButton'=>false,                ]);
         echo "<div id='campignModalContent'></div>";
     Modal::end();
 ?>
