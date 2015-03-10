@@ -63,6 +63,7 @@ use kartik\select2\Select2;
                 'options' => [
                     'placeholder' => yii::t('app', 'Select Schools...'),
                     'multiple' => true,
+                    'class' => 'form-select2',
                 ],
                 'pluginOptions'=>['allowClear'=>true]
             ]);
@@ -83,6 +84,7 @@ use kartik\select2\Select2;
                 'options' => [
                     'placeholder' => yii::t('app', 'Select Classrooms...'),
                     'multiple'=>true,
+                    'class' => 'form-select2',
                     ],
                 'type' => DepDrop::TYPE_SELECT2,
                 'select2Options'=>['pluginOptions'=>['allowClear'=>true]],

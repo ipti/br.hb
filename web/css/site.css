@@ -36,58 +36,6 @@ h2 {
     padding-right: 0;
 }
 
-/* Login */
-#login {
-    background-image: url('../images/IMG_7542.JPG');
-    background-size: cover;
-    padding-top: 80px;
-}
-
-#login #login-container{
-    padding-top: 25px;
-}
-
-#login .form-control {
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(0, 0, 0, 0.37);
-    border: 1px solid rgba(0, 0, 0, 0.27);
-    border-left: 3px solid rgba(0,0,0,0.37);
-    border-radius: 0px 2px 2px 0px;
-    box-shadow: none;
-}
-
-#login .form-group {
-    margin-bottom: 5px;
-}
-
-#login .form-control:focus {
-    border-left-color: rgba(0,0,0,0.7);
-}
-
-#login .help-block {
-    margin-bottom: 8px;
-}
-
-#login .has-error .form-control {
-    border-left-color: rgba(228, 4, 0, 0.27);
-}
-
-#login .has-success .form-control {
-    border-left-color: rgba(37, 98, 38, 0.48);
-}
-
-#login .checkbox {
-    padding-left: 15px;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-#login .btn-primary {
-    color: #fff;
-    background-color: rgba(178, 178, 178, 0.28);
-    border: none;
-    border-radius: 2px;
-}
-
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
