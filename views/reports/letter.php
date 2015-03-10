@@ -13,14 +13,19 @@ use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 
-
 $this->title = yii::t('app', 'Letter');
+
+$this->assetBundles['Reports'] = new app\assets\AppAsset();
+$this->assetBundles['Reports']->js = [
+    'scripts/ReportsView/Functions.js',
+    'scripts/ReportsView/Click.js'
+];
 ?>
 
 <div class="report">
     <div class="report-head hidden-print">
         <?php
-        echo Html::beginForm('','',['class'=>'form-vertical']);
+        echo Html::beginForm(Url::toRoute('reports/get-letter'),'POST',['id'=>'form-letter', 'class'=>'form-vertical']);
         
         echo Form::widget([
             'formName' => 'letter-form',
@@ -126,8 +131,9 @@ $this->title = yii::t('app', 'Letter');
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
+                        Html::button('Print', ['class'=>'btn btn-primary', 'onclick'=>'window.print()']) . ' ' .
                         Html::resetButton('Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button('Submit', ['type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::button('Submit', ['id'=>'submit-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -139,7 +145,7 @@ $this->title = yii::t('app', 'Letter');
             Prezados Pais,
             <br/>
             <br/>
-            <p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo do seu filho(a) <span id="student-name"></span>, um exame que diagnostica a
+            <p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo do seu filho(a) ____________________________________________________________________, um exame que diagnostica a
                 anemia.</p>
             <p>Ficamos preocupados, pois o resultado mostrou que a sua criança encontra-se com anemia. Vocês deverão levar seu filho(a) à consulta médica, para que ele receba o tratamento:</p>
             <b>Dia da Consulta:</b>____/____/____<br/>
