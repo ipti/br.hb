@@ -97,11 +97,12 @@ $this->title = yii::t('app', 'Termos');
         <div class="report">
             <br> <br> <br> 
             <div class="report-content">
-                <div> <b> <p align="center"> Autorização para que seu filho participe de uma campanha de saúde na escola <br>
+                <div> <b> <p align="center"> 
+                             <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
+                             <br><br>
+                            Autorização para que seu filho participe de uma campanha de saúde na escola <br>
                         </p></b></div>
                 <br>
-                
-                <img src="/images/reporters/prefeitura.jpg">
                 
                 <p>
                     Prezado(a) Senhor(a) <br><br>
