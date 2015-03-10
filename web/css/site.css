@@ -18,6 +18,10 @@ h2 {
     font-size: 20px;
 }
 
+.navbar {
+  margin-bottom: 10px;
+}
+
 .navbar-default {
     border: none;
 }
@@ -138,6 +142,21 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+/** Forms **/
+.form-control {
+    border-radius: 0px 2px 2px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    border-left: 3px solid rgba(0,0,0,0.37);
+}
+
+.form-control:focus, .has-error .form-control:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
+label {
+    font-size: 15px
+}
 
 
 /** Campaing **/
@@ -272,4 +291,8 @@ a.desc:after {
 .modal-content {
     border: 0;
     border-radius: 2px;
+}
+
+.modal-header h3 {
+    margin: 0;
 }
