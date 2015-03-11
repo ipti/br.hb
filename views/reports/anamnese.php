@@ -16,7 +16,7 @@ $this->title = yii::t('app', 'Anamnese');
 <div class="report">
     <div class="report-filter hidden-print">
 <?php
-        echo Html::beginForm(Url::toRoute('reports/get-letter'),'POST',['id'=>'form-letter', 'class'=>'form-vertical']);
+        echo Html::beginForm(Url::toRoute('reports/get-anaminese'),'POST',['id'=>'form-letter', 'class'=>'form-vertical']);
         
         echo Form::widget([
             'formName' => 'letter-form',
@@ -187,4 +187,9 @@ $this->title = yii::t('app', 'Anamnese');
             <hr class="answer-line">
             <hr class="answer-line">
         </div>
+        
+        
+</div>
+    <div class="pull-right hidden-print">
+    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', ['class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
