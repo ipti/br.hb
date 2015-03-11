@@ -2,14 +2,18 @@
  * Bootstrap 3.0 styling
  * for JQuery Select2 Plugin
  *
- * Author: Kartik Visweswaran 
- * Year: 2014
+ * Author: IPTI 
+ * Year: 2015
  */
 .form-select2.select2-container.form-control {
     border-radius: 0px 2px 2px 0px;
     border: 1px solid rgba(0, 0, 0, 0.27);
     border-left: 3px solid rgba(0,0,0,0.37);
     margin-bottom: 15px;
+}
+
+.form-select2.select2-container-active.form-control {
+    border-color: #66afe9
 }
 
 .form-select2.select2-container .select2-choices .select2-search-field input,
@@ -38,3 +42,14 @@
   border-radius: 0;
   border: none;
 }
+
+.form-select2.select2-container .select2-choices .select2-search-field input, .form-select2.select2-container .select2-choice, .form-select2.select2-container .select2-choices {
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    background: none;
+}
+
+#select2-drop {
+    border-color: #66afe9;
+    border-left: 3px solid #66afe9;
+}
+

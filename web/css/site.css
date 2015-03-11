@@ -118,6 +118,7 @@ a.desc:after {
     border-radius: 0px 2px 2px 0px;
     border: 1px solid rgba(0, 0, 0, 0.27);
     border-left: 3px solid rgba(0,0,0,0.37);
+    height: 36px;
 }
 
 .form-control:focus, .has-error .form-control:focus {
