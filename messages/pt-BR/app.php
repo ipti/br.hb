@@ -104,7 +104,7 @@ return [
     
     // Reports
     'Reports' => 'Relatórios',
-    'Letter' => 'Carta',
+    "Letter of Consultation's Notice" => 'Carta de Aviso de Consulta',
     'Prescription' => 'Prescrição',
     'Anamnese' => 'Anamnese',
     

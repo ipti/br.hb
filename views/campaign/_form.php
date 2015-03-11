@@ -28,12 +28,12 @@ use kartik\select2\Select2;
     <?= $model->isNewRecord ? '' : $model->name ?>
 </div>
 
+<?php $form = ActiveForm::begin([
+     'id' => $model->formName(),
+ ]); ?>
 <div class="modal-form">
 
 
-   <?php $form = ActiveForm::begin([
-        'id' => $model->formName(),
-    ]); ?>
     
     
     <?php
@@ -62,7 +62,7 @@ use kartik\select2\Select2;
                 'data' => $data,
                 'options' => [
                     'placeholder' => yii::t('app', 'Select Schools...'),
-                    'multiple' => true,
+                    //'multiple' => true,
                     'class' => 'form-select2',
                 ],
                 'pluginOptions'=>['allowClear'=>true]
@@ -96,7 +96,6 @@ use kartik\select2\Select2;
             ]);
         }
     ?>
-
 </div>
 
 <div class="modal-footer">

@@ -9,9 +9,9 @@ class ReportsController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    public function actionLetter()
+    public function actionConsultationLetter()
     {
-        return $this->render('letter');
+        return $this->render('consultationLetter');
     }
 
     public function actionPrescription()
@@ -29,15 +29,15 @@ class ReportsController extends \yii\web\Controller
         return $this->render('anamnese');
     }
     
-    public function actionGetLetter(){
+    public function actionGetConsultationLetter(){
         $name = "____________________________________________________________________";
         $date = "____/____/____";
         $time = "____:____";
         $place = "____________________________________";    
         $sex = true;
         
-        if (isset($_POST['letter-form'])) {
-            $letter = $_POST['letter-form'];
+        if (isset($_POST['consultation-letter-form'])) {
+            $letter = $_POST['consultation-letter-form'];
             if(isset($letter['campaign-student']) && !empty($letter['campaign-student'])){
                 $student = \app\models\student::find()->where("id = :sid", ['sid'=>$letter["campaign-student"]])->one();
                 /* @var $student \app\models\student*/
@@ -54,7 +54,7 @@ class ReportsController extends \yii\web\Controller
         echo "<br/>";
         echo "<br/>";   
         echo "<p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo "; echo $sex ? "do seu filho" : "da sua filha"; echo " <b><u>"; echo $name; echo"</u></b>, um exame que diagnostica a anemia.</p>";   
-        echo "<p>Ficamos preocupados, pois o resultado mostrou que ". $sex ? "ele" : "ela" ." encontra-se com anemia. Vocês deverão levar ";echo $sex ? "seu filho" : "sua filha"; echo" à consulta médica, para que ele receba o tratamento:</p>";   
+        echo "<p>Ficamos preocupados, pois o resultado mostrou que ";echo $sex ? "ele" : "ela"; echo " encontra-se com anemia. Vocês deverão levar ";echo $sex ? "seu filho" : "sua filha"; echo" à consulta médica, para que ele receba o tratamento:</p>";   
         echo "<b>Dia da Consulta:</b>"; echo " <b><u>"; echo $date; echo"</u></b><br/>";   
         echo "<b>Hora da Consulta:</b>"; echo " <b><u>"; echo $time; echo"</u></b><br/>";   
         echo "<b>Local da Consula:</b>"; echo " <b><u>"; echo $place; echo"</u></b><br/>";   

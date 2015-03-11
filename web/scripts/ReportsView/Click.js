@@ -1,5 +1,5 @@
 
-    $("#submit-letter").click(function () {
-        var $form = $('form#form-letter');
-        submitLetter($form);
+    $("#submit-consultation-letter").click(function () {
+        var $form = $('form#form-consultation-letter');
+        submitConsultationLetter($form);
     });

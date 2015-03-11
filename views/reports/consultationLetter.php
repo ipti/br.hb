@@ -14,7 +14,7 @@ use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 
-$this->title = yii::t('app', 'Letter');
+$this->title = yii::t('app', "Letter of Consultation's Notice");
 
 $this->assetBundles['Reports'] = new app\assets\AppAsset();
 $this->assetBundles['Reports']->js = [
@@ -24,12 +24,12 @@ $this->assetBundles['Reports']->js = [
 ?>
 
 <div class="report">
-    <div class="report-head hidden-print">
+    <div class="report-filter hidden-print">
         <?php
-        echo Html::beginForm(Url::toRoute('reports/get-letter'),'POST',['id'=>'form-letter', 'class'=>'form-vertical']);
+        echo Html::beginForm(Url::toRoute('reports/get-consultation-letter'),'POST',['id'=>'form-consultation-letter', 'class'=>'form-vertical']);
         
         echo Form::widget([
-            'formName' => 'letter-form',
+            'formName' => 'consultation-letter-form',
             'columns'=>4,
             'attributes' => [
                 'campaign' => [
@@ -56,7 +56,7 @@ $this->assetBundles['Reports']->js = [
                         'type' => DepDrop::TYPE_SELECT2,
                         'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                         'pluginOptions' => [
-                            'depends' => ['letter-form-campaign'],
+                            'depends' => ['consultation-letter-form-campaign'],
                             'url' => Url::to(['/campaign/get-schools-list']),
                             'loadingText' => yii::t('app', 'Loading Schools...'),
                         ]
@@ -74,8 +74,8 @@ $this->assetBundles['Reports']->js = [
                         'type' => DepDrop::TYPE_SELECT2,
                         'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                         'pluginOptions' => [
-                            'depends' => ['letter-form-campaign'],
-                            'depends' => ['letter-form-campaign-school'],
+                            'depends' => ['consultation-letter-form-campaign'],
+                            'depends' => ['consultation-letter-form-campaign-school'],
                             'url' => Url::to(['/campaign/get-classrooms-list']),
                             'loadingText' => yii::t('app', 'Loading Classrooms...'),
                         ]
@@ -93,9 +93,9 @@ $this->assetBundles['Reports']->js = [
                         'type' => DepDrop::TYPE_SELECT2,
                         'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                         'pluginOptions' => [
-                            'depends' => ['letter-form-campaign'],
-                            'depends' => ['letter-form-campaign-school'],
-                            'depends' => ['letter-form-campaign-classroom'],
+                            'depends' => ['consultation-letter-form-campaign'],
+                            'depends' => ['consultation-letter-form-campaign-school'],
+                            'depends' => ['consultation-letter-form-campaign-classroom'],
                             'url' => Url::to(['/campaign/get-students-list']),
                             'loadingText' => yii::t('app', 'Loading Students...'),
                         ]
@@ -104,7 +104,7 @@ $this->assetBundles['Reports']->js = [
             ]
         ]); 
         echo Form::widget([
-            'formName' => 'letter-form',
+            'formName' => 'consultation-letter-form',
             'columns'=>3,
             'attributes' => [
                 'consult-date' => [
@@ -126,14 +126,14 @@ $this->assetBundles['Reports']->js = [
             ]
         ]); 
         echo Form::widget([
-            'formName' => 'letter-form',
+            'formName' => 'consultation-letter-form',
             'columns'=>1,
             'attributes' => [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
                         Html::resetButton(Icon::show('recycle',[], Icon::FA).'Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-consultation-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -141,6 +141,9 @@ $this->assetBundles['Reports']->js = [
         echo Html::endForm(); ?>
     </div>
     <div class="report-content">
+        <div class="report-head">
+            <div class="report-head-image"></div>
+        </div>
         <div class="report-body">
             Prezados Pais,
             <br/>

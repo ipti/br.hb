@@ -3,7 +3,7 @@
  * 
  * @param {form} $form
  */
-function submitLetter($form) {
+function submitConsultationLetter($form) {
     $.ajax({
         url: $form.attr("action"),
         method: $form.attr("method"),
