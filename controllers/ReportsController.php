@@ -30,7 +30,51 @@ class ReportsController extends \yii\web\Controller
     {
         return $this->render('anamnese');
     }
-    
+    public function actionGetAnamnese(){
+        /* @var $enrollment \app\models\enrollment*/
+        /* @var $student \app\models\student*/
+        /* @var $term \app\models\term*/
+        /* @var $hb1 \app\models\hemoglobin*/
+        /* @var $anatomy \app\models\anatomy*/
+        
+        $anamnese= isset($_POST['anamnese-form']) ? $_POST['anamnese-form'] : null;
+        $eid     = isset($anamnese['campaign-enrollment']) && !empty($anamnese['campaign-enrollment']) ? $anamnese['campaign-enrollment'] : null;
+        $enrollment = $eid      !=null   ? \app\models\enrollment::find()->where("id = :eid", [ 'eid' =>$eid])->one() : null;
+        $student    = $enrollment != null? $enrollment->students : null;
+        $term       = $eid      != null  ? \app\models\term::find()->where("enrollment = :eid", ['eid' => $eid])->one() : null;
+        $hb1        = $term     != null  ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+        $anatomy    = $student  != null  ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+        
+        $name       = $student  != null  ? $student->name : "";
+        $birthday   = $student  != null  ? date("d/m/Y", strtotime($student->birthday)) : "";
+        $b          = $student  != null  ? $student->birthday : "";
+        $today      = $student  != null  ? new \DateTime(date("Y-m-d")) : "";
+        $age        = $student  != null  ? $today->diff(new \DateTime($b))->format("%y") : "";
+        $sex        = $student  != null  ? \yii::t('app',$student->gender) : "";
+        $weight     = $anatomy  != null  ? $anatomy->weight."kg" : "";
+        $height     = $anatomy  != null  ? $anatomy->height."m" : "";
+        $imc        = $anatomy  != null  ? number_format($weight / ($height*$height), 2) : "";
+        $rate1      = $hb1      != null  ? $hb1->rate : "";
+        
+        echo "<tr>";
+        echo "<th>Nome:</th><td colspan='5'>"; echo $name; echo"</td>";
+        echo "</tr>";
+        echo "<tr>";
+            echo "<th>Nascimento:</th><td>"; echo $birthday; echo"</td>";
+            echo "<th>Idade:</th><td colspan='3'>"; echo $age; echo"</td>";
+        echo "</tr>";
+        echo "<tr>";
+            echo "<th>Sexo:</th><td>"; echo $sex; echo"</td>";
+            echo "<th>Peso:</th><td>"; echo $weight; echo"</td>";
+            echo "<th>Altura:</th><td>"; echo $height; echo"</td>";
+        echo "</tr>";
+        echo "<tr>";
+            echo "<th>IMC:</th><td>"; echo $imc; echo"</td>";
+            echo "<th>Hb1:</th><td colspan='3'>"; echo $rate1; echo"</td>";
+        echo "</tr>";
+        
+        
+    }
     public function actionGetConsultationLetter($student = null){
         $letter= isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
         $sid   = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;

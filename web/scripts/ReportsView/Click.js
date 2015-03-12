@@ -9,3 +9,9 @@
         $("#print-button").hide();
         submitConsultationLetter($form);
     });
+     $("#submit-anamnese").click(function () {
+        var $form = $('form#form-anamnese');
+        $(".report-content").hide();
+        $("#print-button").hide();
+        submitAnamnese($form);
+    });

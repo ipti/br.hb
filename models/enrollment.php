@@ -10,8 +10,8 @@ use Yii;
  * @property integer $student
  * @property integer $classroom
  *
- * @property Classroom $classroom0
- * @property Student $student0
+ * @property Classroom $classrooms
+ * @property Student $students
  */
 class enrollment extends \yii\db\ActiveRecord
 {
