@@ -9,11 +9,18 @@ use app\models\school;
 use kartik\widgets\DepDrop;
 use kartik\select2\Select2;
 
-include_once __DIR__ . '/../../web/libs/mpdf60/mpdf.php';
+ $this->assetBundles['Reports'] = new app\assets\AppAsset();
+ $this->assetBundles['Reports']->js = [
+    'scripts/ReportsView/Term.js'
+    ];
+ 
+ 
 
+include_once __DIR__ . '/../../web/libs/mpdf60/mpdf.php';
 
 $this->title = yii::t('app', 'Termos');
 ?>
+
 <div class="report">
     <div class="report-head hidden-print">
         <div class="row">
@@ -32,69 +39,7 @@ $this->title = yii::t('app', 'Termos');
                 ]);
                 ?>
             </div>
-            <div class="campaign-col col-sm-6 col-md-3">
-                <?php
-                echo Html::label(yii::t('app', 'School'));
-                echo DepDrop::widget([
-                    'name' => 'school',
-                    'id' => 'campaign_school',
-                    'data' => [],
-                    'options' => [
-                        'placeholder' => yii::t('app', 'Select School...'),
-                    ],
-                    'type' => DepDrop::TYPE_SELECT2,
-                    'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                    'pluginOptions' => [
-                        'depends' => ['campaign'],
-                        'url' => Url::to(['/campaign/get-schools-list']),
-                        'loadingText' => yii::t('app', 'Loading Schools...'),
-                    ]
-                ]);
-                ?>
-            </div>
-            <div class="campaign-col col-sm-6 col-md-3">
-                <?php
-                echo Html::label(yii::t('app', 'Classroom'));
-                echo DepDrop::widget([
-                    'name' => 'classroom',
-                    'id' => 'campaign_classroom',
-                    'data' => [],
-                    'options' => [
-                        'placeholder' => yii::t('app', 'Select Classroom...'),
-                    ],
-                    'type' => DepDrop::TYPE_SELECT2,
-                    'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                    'pluginOptions' => [
-                        'depends' => ['campaign'],
-                        'depends' => ['campaign_school'],
-                        'url' => Url::to(['/campaign/get-classrooms-list']),
-                        'loadingText' => yii::t('app', 'Loading Classrooms...'),
-                    ]
-                ]);
-                ?>
-            </div>
-            <div class="campaign-col col-sm-6 col-md-3">
-                <?php
-                echo Html::label(yii::t('app', 'Student'));
-                echo DepDrop::widget([
-                    'name' => 'student',
-                    'id' => 'campaign_Student',
-                    'data' => [],
-                    'options' => [
-                        'placeholder' => yii::t('app', 'Select Student...'),
-                    ],
-                    'type' => DepDrop::TYPE_SELECT2,
-                    'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                    'pluginOptions' => [
-                        'depends' => ['campaign'],
-                        'depends' => ['campaign_school'],
-                        'depends' => ['campaign_classroom'],
-                        'url' => Url::to(['/campaign/get-students-list']),
-                        'loadingText' => yii::t('app', 'Loading Student...'),
-                    ]
-                ]);
-                ?>
-            </div>
+            
         </div>
 
 
