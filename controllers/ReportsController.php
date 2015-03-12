@@ -32,22 +32,13 @@ class ReportsController extends \yii\web\Controller
     }
     
     public function actionGetConsultationLetter($student = null){
-        /* @var $app yii\web\Request*/
-        $request = \Yii::$app->request;
-        $letter = $request->post('consultation-letter-form');
-       
-        if ($letter != null) {
-            $sid   = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
-            $date  = isset($letter['campaign-date'])    && !empty($letter['campaign-date'])    ? $letter['campaign-date']    : "____/____/____";
-            $time  = isset($letter['campaign-time'])    && !empty($letter['campaign-time'])    ? $letter['campaign-time']    : "____:____";
-            $place = isset($letter['campaign-location'])&& !empty($letter['campaign-location'])? $letter['campaign-location']: "____________________________________";
+        $letter= isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
+        $sid   = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
+        $date  = isset($letter['consult-date'])     && !empty($letter['consult-date'])    ? $letter['consult-date']    : "____/____/____";
+        $time  = isset($letter['consult-time'])     && !empty($letter['consult-time'])    ? $letter['consult-time']    : "____:____";
+        $place = isset($letter['consult-location'])  && !empty($letter['consult-location'])? $letter['consult-location']: "____________________________________";
             
-            if($sid != null){
-                $student = \app\models\student::find()->where("id = :sid", ['sid'=>$letter["campaign-student"]])->one();
-            }else{
-                $student = null;
-            }
-        }
+        $student = ($letter != null && $sid != null) ? \app\models\student::find()->where("id = :sid", ['sid'=>$letter["campaign-student"]])->one() : null;
         /* @var $student \app\models\student*/
         $name = $student != null ? $student->name : "____________________________________________________________________";
         $sex  = $student == null ? true : ($student->gender == "male" ? true : false); /* male or female*/

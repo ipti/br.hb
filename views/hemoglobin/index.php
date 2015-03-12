@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use kartik\icons\Icon;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -47,6 +49,14 @@ $columns = [['class'=> kartik\grid\DataColumn::className(),
                 }
             ]];
 $columns = array_merge($columns, [$sample1]);
+if($sample == 1) $columns = array_merge($columns, [[
+    'class'=> kartik\grid\DataColumn::className(),
+    'label'=>yii::t('app', 'Print'), 
+    'content'=>function($model, $key, $index, $column){
+    /* @var $model \app\models\hemoglobin */
+        return Html::a(Icon::show('print',[], Icon::FA),  Url::toRoute(['reports/consultation-letter', 'sid' => $model->agreedTerm->enrollments->student]));
+    }
+    ]]);
 if($sample >=2)$columns = array_merge($columns, [$sample2]);
 if($sample >=3)$columns = array_merge($columns, [$sample3]);
             
