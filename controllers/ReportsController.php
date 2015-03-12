@@ -80,6 +80,7 @@ class ReportsController extends \yii\web\Controller
         $sid   = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
         $date  = isset($letter['consult-date'])     && !empty($letter['consult-date'])    ? $letter['consult-date']    : "____/____/____";
         $time  = isset($letter['consult-time'])     && !empty($letter['consult-time'])    ? $letter['consult-time']    : "____:____";
+        $place = isset($letter['consult-location'])  && !empty($letter['consult-location'])? $letter['consult-location']: "____________________________________";
         $place = isset($letter['consultlocation'])  && !empty($letter['consult-location'])? $letter['consult-location']: "____________________________________";
             
         $student = ($letter != null && $sid != null) ? \app\models\student::find()->where("id = :sid", ['sid'=>$letter["campaign-student"]])->one() : null;
