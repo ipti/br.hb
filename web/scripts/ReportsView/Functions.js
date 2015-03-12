@@ -11,5 +11,7 @@ function submitConsultationLetter($form) {
     }).done(function (result) {
         $(".report-body *").remove();
         $(".report-body").html(result);
+        $(".report-content").show();
+        $("#print-button").show();
     });
 };

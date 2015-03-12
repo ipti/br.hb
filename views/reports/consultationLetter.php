@@ -1,5 +1,6 @@
 <?php
-/* @var $this yii\web\View */
+/* @var $this yii\web\View  */
+/* @var $student \app\models\student */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -27,7 +28,23 @@ $this->assetBundles['Reports']->js = [
     <div class="report-filter hidden-print">
         <?php
         echo Html::beginForm(Url::toRoute('reports/get-consultation-letter'),'POST',['id'=>'form-consultation-letter', 'class'=>'form-vertical']);
-        
+        if(isset($student) && $student != null){
+            echo Form::widget([
+                'formName' => 'consultation-letter-form',
+                'columns'=>1,
+                'attributes' => [
+                    'campaign-student'=>[
+                        'type'=>Form::INPUT_RAW,
+                        'value' => Html::hiddenInput('consultation-letter-form[campaign-student]', $student->id)
+                    ],
+                    'name'=>[
+                        'label'=>yii::t('app', 'Student'), 
+                        'type'=>Form::INPUT_STATIC,
+                        'value'=>$student->name
+                    ],
+                ]
+            ]);
+        }else{
         echo Form::widget([
             'formName' => 'consultation-letter-form',
             'columns'=>4,
@@ -103,6 +120,7 @@ $this->assetBundles['Reports']->js = [
                 ],
             ]
         ]); 
+        }
         echo Form::widget([
             'formName' => 'consultation-letter-form',
             'columns'=>3,
@@ -142,7 +160,7 @@ $this->assetBundles['Reports']->js = [
     </div>
     <div class="report-content">
         <div class="report-head">
-            <div class="report-head-image"></div>
+            <div class="report-head-image "></div>
         </div>
         <div class="report-body">
             Prezados Pais,
@@ -164,6 +182,6 @@ $this->assetBundles['Reports']->js = [
         <div id="report-footer">Muito obrigado pela atenção.</div>
     </div>
     <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', ['class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
+    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', ['id'=>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
 </div>

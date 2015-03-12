@@ -9,9 +9,11 @@ class ReportsController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    public function actionConsultationLetter()
+    public function actionConsultationLetter($sid = null)
     {
-        return $this->render('consultationLetter');
+        $options = $sid == null ? [] : ['student'=>\app\models\student::find()->where('id = :sid', ['sid'=>$sid])->one()];
+        
+        return $this->render('consultationLetter',$options);
     }
 
     public function actionPrescription()
@@ -29,27 +31,27 @@ class ReportsController extends \yii\web\Controller
         return $this->render('anamnese');
     }
     
-    public function actionGetConsultationLetter(){
-        $name = "____________________________________________________________________";
-        $date = "____/____/____";
-        $time = "____:____";
-        $place = "____________________________________";    
-        $sex = true;
-        
-        if (isset($_POST['consultation-letter-form'])) {
-            $letter = $_POST['consultation-letter-form'];
-            if(isset($letter['campaign-student']) && !empty($letter['campaign-student'])){
+    public function actionGetConsultationLetter($student = null){
+        /* @var $app yii\web\Request*/
+        $request = \Yii::$app->request;
+        $letter = $request->post('consultation-letter-form');
+       
+        if ($letter != null) {
+            $sid   = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
+            $date  = isset($letter['campaign-date'])    && !empty($letter['campaign-date'])    ? $letter['campaign-date']    : "____/____/____";
+            $time  = isset($letter['campaign-time'])    && !empty($letter['campaign-time'])    ? $letter['campaign-time']    : "____:____";
+            $place = isset($letter['campaign-location'])&& !empty($letter['campaign-location'])? $letter['campaign-location']: "____________________________________";
+            
+            if($sid != null){
                 $student = \app\models\student::find()->where("id = :sid", ['sid'=>$letter["campaign-student"]])->one();
-                /* @var $student \app\models\student*/
-                $name = $student->name;
-                $sex = $student->gender == "male" ? true : false; /* male or female*/
+            }else{
+                $student = null;
             }
-            if(isset($letter['consult-date']) && !empty($letter['consult-date'])){$date = $letter['consult-date'];}
-            if(isset($letter['consult-time']) && !empty($letter['consult-time'])){$time = $letter['consult-time'];}
-            if(isset($letter['consult-location']) && !empty($letter['consult-location'])){$place = $letter['consult-location'];}
         }
-        
-        
+        /* @var $student \app\models\student*/
+        $name = $student != null ? $student->name : "____________________________________________________________________";
+        $sex  = $student == null ? true : ($student->gender == "male" ? true : false); /* male or female*/
+
         echo "Prezados Pais,";
         echo "<br/>";
         echo "<br/>";   
