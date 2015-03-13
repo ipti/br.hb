@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\icons\Icon;
 use yii\helpers\Url;
+use kartik\grid\DataColumn;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,47 +19,53 @@ $this->params['button'] =
                 ]), ['create', 'cid' => $campaign->id, 's' => $sample], ['class' => 'btn btn-success navbar-btn']);
 
 
-$sample1 = ['class'=> kartik\grid\DataColumn::className(),
+$sample1 = ['class'=> DataColumn::className(),
             'label' => yii::t('app', 'Rate')." 1",
-            'content' => function ($model, $key, $index, $column){
+            'content' => function ($model){
                 /* @var $model \app\models\hemoglobin */
                 return $model->getHemoglobin(1)->rate;
             }
         ];
             
-$sample2 = $sample < 2 ? "" : ['class'=> kartik\grid\DataColumn::className(),
+$sample2 = $sample < 2 ? "" : ['class'=> DataColumn::className(),
                 'label' => yii::t('app', 'Rate')." 2",
-                'content' => function ($model, $key, $index, $column){
-                /* @var $model \app\models\hemoglobin */
-                if($model->getHemoglobin(2) == null)
-                    return "-----";
-                return $model->getHemoglobin(2)->rate;
+                'content' => function ($model){
+                    /* @var $model \app\models\hemoglobin */
+                    return ($model->getHemoglobin(2) == null ) ? "-----"  : $model->getHemoglobin(2)->rate;
                 }
             ];
-$sample3 = ['class'=> kartik\grid\DataColumn::className(),
+$sample3 = ['class'=> DataColumn::className(),
                 'label' => yii::t('app', 'Rate')." 3",
-                'content' => function ($model, $key, $index, $column){
+                'content' => function ($model){
                 /* @var $model \app\models\hemoglobin */
                 return $model->getHemoglobin(3)->rate;
                 }
             ];
-$columns = [['class'=> kartik\grid\DataColumn::className(),
+$columns = [['class'=> DataColumn::className(),
                 'attribute' => 'agreed_term',
-                'content' => function ($model, $key, $index, $column){
+                'content' => function ($model){
                     return $model->agreedTerm->students->name;
                 }
             ]];
 $columns = array_merge($columns, [$sample1]);
-if($sample == 1) $columns = array_merge($columns, [[
-    'class'=> kartik\grid\DataColumn::className(),
-    'label'=>yii::t('app', 'Print'), 
-    'content'=>function($model, $key, $index, $column){
-    /* @var $model \app\models\hemoglobin */
-        return Html::a(Icon::show('print',[], Icon::FA),  Url::toRoute(['reports/consultation-letter', 'sid' => $model->agreedTerm->enrollments->student]));
+
+
+if ($sample == 1) {
+    $columns = array_merge($columns, [[
+    'class' => DataColumn::className(),
+    'label' => yii::t('app', 'Print'),
+    'content' => function($model, $key, $index, $column) {
+        /* @var $model \app\models\hemoglobin */
+        $sid = $model->agreedTerm->enrollments->student;
+        $eid = $model->agreedTerm->enrollment;
+        return Html::a(Icon::show('envelope-o', [], Icon::FA), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
+              .Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/anamnese', 'eid' => $eid]));
     }
     ]]);
-if($sample >=2)$columns = array_merge($columns, [$sample2]);
-if($sample >=3)$columns = array_merge($columns, [$sample3]);
+}
+
+if ($sample >= 2) { $columns = array_merge($columns, [$sample2]); }
+if ($sample >= 3) { $columns = array_merge($columns, [$sample3]); }
             
 ?>
 
