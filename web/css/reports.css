@@ -106,6 +106,9 @@
     margin-top: 0px;
     margin-left: 30px;
 }
+.report-body td.answer-line{
+    border-bottom: 1px solid black;
+}
 .report-body hr.answer-line-full{
     border-color: black;
     width: calc(100% - 10px);
@@ -113,8 +116,10 @@
     margin-bottom: 5px;
 }
 
-
-
+td.dedinho-term-report{
+    width: 124px;
+    height: 155px;
+}
 
 
 /* Footer */

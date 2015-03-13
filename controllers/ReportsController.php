@@ -153,13 +153,13 @@ class ReportsController extends \yii\web\Controller {
                         $html .= '<div class="report">
             <br> <br>
             <div class="report-content">
-                <div>  <p align="center"> 
+                <div class="report-head">  <p align="center"> 
                             <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
                             <br><br> 
                         <b>  Autorização para que seu filho participe de uma campanha de saúde na escola <br>
                         </b> </p></div>
                 <br>
-
+                <div class="report-body">
                 <p style="text-align: justify;
     text-justify: inter-word;">
                     Prezado(a) Senhor(a) <br><br>
@@ -171,7 +171,7 @@ class ReportsController extends \yii\web\Controller {
                     será utilizado para o diagnóstico de anemia.
                     <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Caso o senhor concorde, por favor preencha o nome de seu filho e assine.
+                    Caso o senhor concorde, por favor assine este termo.
                 </p>
                 <br>
 
@@ -179,22 +179,28 @@ class ReportsController extends \yii\web\Controller {
                 <br>
                 <table>
                     <tr>
-                        <td>
-                            <pre><p>[ ] - Nome da Mãe: '. $currentMotherNameStudent . 
-                           ' <br><br> ____________________________________________________________ </p> </pre>
-                            <br>
-                            <pre><p>[ ] - Outro: _____________________
-                            <br><br> <br> ____________________________________________________________</p></pre>
-                        </td>
-
-                        <td style="
-                            width: 124px;
-                            height: 155px;
-                            border: #000000 solid 3px; 
-                            ">
+                        <td>[ ] - Nome da Mãe: '. $currentMotherNameStudent .'</td>
+                        <td rowspan="4" class="dedinho-term-report">
+                            <img src="/images/reporters/dedinho.png">
                         </td>
                     </tr>
-
+                    <tr>
+                        <td>
+                            <br>
+                            <hr class="answer-line">
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="answer-line">[ ] - Outro:</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            <hr class="answer-line">
+                            <br>
+                        </td>
+                    </tr>
                 </table>  
                <br>
 
@@ -249,7 +255,7 @@ class ReportsController extends \yii\web\Controller {
                 <br>   
 
                 <pre> [ ] - Sulfato ferroso: __________________________________________________ </pre> 
-                <pre> [ ] - Vermifugo: _____________________________________________________ </pre> 
+                <pre> [ ] - Vermifugo: _____________________________________________________ </pre> </div>
             </div>
         </div>
             '."<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
