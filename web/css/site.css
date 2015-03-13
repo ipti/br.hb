@@ -18,6 +18,10 @@ h2 {
     font-size: 20px;
 }
 
+.navbar {
+  margin-bottom: 10px;
+}
+
 .navbar-default {
     border: none;
 }
@@ -30,58 +34,6 @@ h2 {
 
 .navbar-collapse {
     padding-right: 0;
-}
-
-/* Login */
-#login {
-    background-image: url('../images/IMG_7542.JPG');
-    background-size: cover;
-    padding-top: 80px;
-}
-
-#login #login-container{
-    padding-top: 25px;
-}
-
-#login .form-control {
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(0, 0, 0, 0.37);
-    border: 1px solid rgba(0, 0, 0, 0.27);
-    border-left: 3px solid rgba(0,0,0,0.37);
-    border-radius: 0px 2px 2px 0px;
-    box-shadow: none;
-}
-
-#login .form-group {
-    margin-bottom: 5px;
-}
-
-#login .form-control:focus {
-    border-left-color: rgba(0,0,0,0.7);
-}
-
-#login .help-block {
-    margin-bottom: 8px;
-}
-
-#login .has-error .form-control {
-    border-left-color: rgba(228, 4, 0, 0.27);
-}
-
-#login .has-success .form-control {
-    border-left-color: rgba(37, 98, 38, 0.48);
-}
-
-#login .checkbox {
-    padding-left: 15px;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-#login .btn-primary {
-    color: #fff;
-    background-color: rgba(178, 178, 178, 0.28);
-    border: none;
-    border-radius: 2px;
 }
 
 /* add sorting icons to gridview sort links */
@@ -138,6 +90,45 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+/* Modal */
+.modal-backdrop.in {
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+}
+
+.modal-content {
+    border: 0;
+    border-radius: 2px;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-form {
+    padding: 15px;
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+/** Forms **/
+.form-control {
+    border-radius: 0px 2px 2px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    border-left: 3px solid rgba(0,0,0,0.37);
+    height: 36px;
+}
+
+.form-control:focus, .has-error .form-control:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
+label {
+    font-size: 15px
+}
 
 
 /** Campaing **/
@@ -261,15 +252,4 @@ a.desc:after {
 #pjaxStudents {
     max-height: 200px;
     overflow-y: auto;
-}
-
-/* Modal */
-.modal-backdrop.in {
-    filter: alpha(opacity=20);
-    opacity: 0.2;
-}
-
-.modal-content {
-    border: 0;
-    border-radius: 2px;
 }

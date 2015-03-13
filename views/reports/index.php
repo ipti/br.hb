@@ -8,7 +8,7 @@ $this->title = yii::t('app', 'Reports');
 
 <?php
 
-    echo Html::a(yii::t('app', 'Letter'), \yii\helpers\Url::toRoute('reports/letter'));
+    echo Html::a(yii::t('app', "Letter of Consultation's Notice"), \yii\helpers\Url::toRoute('reports/consultation-letter'));
     echo "<br>";
     echo Html::a(yii::t('app', 'Prescription'), \yii\helpers\Url::toRoute('prescription'));
     echo "<br>";

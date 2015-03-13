@@ -53,6 +53,7 @@ class CampaignController extends Controller {
         ]);
     }
 
+    
     /**
      * Get the Schools.
      * 
@@ -105,7 +106,7 @@ class CampaignController extends Controller {
     }
 
     /**
-     * Get the classrooms.
+     * Get the students.
      * 
      * @return Json
      */
@@ -127,6 +128,32 @@ class CampaignController extends Controller {
         }
         echo Json::encode(['output' => '', 'selected' => '']);
     }
+    
+    /**
+     * Get the enrollments.
+     * 
+     * @return Json
+     */
+    public function actionGetEnrollmentsList() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $cid = end($_POST['depdrop_parents']);
+            if (!empty($cid)) {
+                $classroom = classroom::find()->where('id = :cid',['cid'=>$cid])->one();
+                /* @var $classroom \app\models\classroom */
+                $enrollments = $classroom->getEnrollments()->all();
+
+                foreach ($enrollments as $i => $enrollment) {
+                    /* @var $enrollment \app\models\enrollment*/
+                    $out[] = ['id' => $enrollment->id , 'name' => $enrollment->students->name];
+                }
+            }
+            echo Json::encode(['output' => $out, 'selected' => '']);
+            return;
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
+    
     /**
      * Creates a new Campaign model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -141,7 +168,7 @@ class CampaignController extends Controller {
             if (isset($_POST['classrooms'])) {
                 foreach ($_POST['classrooms'] as $cid) {
                     if (!empty($cid)) {
-                        $classroom = \app\models\classroom::find($cid)->one();
+                        $classroom = \app\models\classroom::find()->where('id = :cid',['cid'=>$cid])->one();
                         /* @var $classroom \app\models\classroom */
                         $enrollments = $classroom->getEnrollments()->asArray()->all();
 

@@ -31,7 +31,7 @@ class anatomy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student', 'date'], 'required'],
+            [['student','weight', 'height', 'date'], 'required'],
             [['student'], 'integer'],
             [['weight', 'height'], 'number'],
             [['date'], 'safe']

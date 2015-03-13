@@ -21,9 +21,19 @@ use kartik\select2\Select2;
 ?>
 
 <div class="campaign-form form">
-   <?php $form = ActiveForm::begin([
-        'id' => $model->formName(),
-    ]); ?>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3><?= $model->isNewRecord ? Yii::t('app', 'Create Campaign') : Yii::t('app', 'Update Campaign') ?></h3>
+    <?= $model->isNewRecord ? '' : $model->name ?>
+</div>
+
+<?php $form = ActiveForm::begin([
+     'id' => $model->formName(),
+ ]); ?>
+<div class="modal-form">
+
+
     
     
     <?php
@@ -52,7 +62,8 @@ use kartik\select2\Select2;
                 'data' => $data,
                 'options' => [
                     'placeholder' => yii::t('app', 'Select Schools...'),
-                    'multiple' => true,
+                    //'multiple' => true,
+                    'class' => 'form-select2',
                 ],
                 'pluginOptions'=>['allowClear'=>true]
             ]);
@@ -73,6 +84,7 @@ use kartik\select2\Select2;
                 'options' => [
                     'placeholder' => yii::t('app', 'Select Classrooms...'),
                     'multiple'=>true,
+                    'class' => 'form-select2',
                     ],
                 'type' => DepDrop::TYPE_SELECT2,
                 'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
