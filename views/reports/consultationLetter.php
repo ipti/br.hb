@@ -163,8 +163,9 @@ $this->assetBundles['Reports']->js = [
     </div>
     <div class="report-content">
         <div class="report-head">
-            <div class="report-head-image "></div>
+            <div class="report-head-image "><img src="/images/reporters/boquim/prefeitura.jpg" width="200"></div>
         </div>
+        <br>
         <div class="report-body">
             Prezados Pais,
             <br/>

@@ -12,9 +12,11 @@
 /* Content */
 .report-content{
     margin: auto;
-    border: 1px solid black;
-    padding: 10px 0;
+    padding: 20px;
     width: 700px;
+    background: #fff;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DDDDDD;
 }
 
 
@@ -29,11 +31,18 @@
 }
 .report-head-image{
     margin: 0 auto;
-    background-image: url('../images/reporters/boquim/prefeitura.jpg');
-    background-size: cover;
+    /*background-image: url('../images/reporters/boquim/prefeitura.jpg') !important;
+    background-size: cover !important;
     height: 100px;
-    width: 220px;
+    width: 220px;*/
     
+}
+
+@media print {
+
+    .report-content {
+        border: none;
+    }
 }
 
 .report-head hr{
