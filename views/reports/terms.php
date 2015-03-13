@@ -43,7 +43,6 @@ $this->title = yii::t('app', 'Termos');
         </div>
 
 
-
         <?php
         $html = '<div class="report">
             <br> <br> <br> 

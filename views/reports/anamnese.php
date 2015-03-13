@@ -12,14 +12,19 @@ use kartik\widgets\DepDrop;
 use kartik\select2\Select2;
 
 $this->title = yii::t('app', 'Anamnese');
+$this->assetBundles['Reports'] = new app\assets\AppAsset();
+$this->assetBundles['Reports']->js = [
+    'scripts/ReportsView/Functions.js',
+    'scripts/ReportsView/Click.js'
+];
 ?>
 <div class="report">
     <div class="report-filter hidden-print">
 <?php
-        echo Html::beginForm(Url::toRoute('reports/get-anaminese'),'POST',['id'=>'form-letter', 'class'=>'form-vertical']);
+        echo Html::beginForm(Url::toRoute('reports/get-anamnese'),'POST',['id'=>'form-anamnese', 'class'=>'form-vertical']);
         
         echo Form::widget([
-            'formName' => 'letter-form',
+            'formName' => 'anamnese-form',
             'columns'=>4,
             'attributes' => [
                 'campaign' => [
@@ -46,7 +51,7 @@ $this->title = yii::t('app', 'Anamnese');
                         'type' => DepDrop::TYPE_SELECT2,
                         'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                         'pluginOptions' => [
-                            'depends' => ['letter-form-campaign'],
+                            'depends' => ['anamnese-form-campaign'],
                             'url' => Url::to(['/campaign/get-schools-list']),
                             'loadingText' => yii::t('app', 'Loading Schools...'),
                         ]
@@ -64,14 +69,14 @@ $this->title = yii::t('app', 'Anamnese');
                         'type' => DepDrop::TYPE_SELECT2,
                         'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                         'pluginOptions' => [
-                            'depends' => ['letter-form-campaign'],
-                            'depends' => ['letter-form-campaign-school'],
+                            'depends' => ['anamnese-form-campaign'],
+                            'depends' => ['anamnese-form-campaign-school'],
                             'url' => Url::to(['/campaign/get-classrooms-list']),
                             'loadingText' => yii::t('app', 'Loading Classrooms...'),
                         ]
                     ],
                 ],
-                'campaign-student' => [
+                'campaign-enrollment' => [
                     'label'=>yii::t('app', 'Student'), 
                     'type' => Form::INPUT_WIDGET,
                     'widgetClass' => DepDrop::className(),
@@ -83,10 +88,10 @@ $this->title = yii::t('app', 'Anamnese');
                         'type' => DepDrop::TYPE_SELECT2,
                         'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                         'pluginOptions' => [
-                            'depends' => ['letter-form-campaign'],
-                            'depends' => ['letter-form-campaign-school'],
-                            'depends' => ['letter-form-campaign-classroom'],
-                            'url' => Url::to(['/campaign/get-students-list']),
+                            'depends' => ['anamnese-form-campaign'],
+                            'depends' => ['anamnese-form-campaign-school'],
+                            'depends' => ['anamnese-form-campaign-classroom'],
+                            'url' => Url::to(['/campaign/get-enrollments-list']),
                             'loadingText' => yii::t('app', 'Loading Students...'),
                         ]
                     ],
@@ -94,14 +99,14 @@ $this->title = yii::t('app', 'Anamnese');
             ]
         ]); 
         echo Form::widget([
-            'formName' => 'letter-form',
+            'formName' => 'anamnese-form',
             'columns'=>1,
             'attributes' => [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
                         Html::resetButton(Icon::show('recycle',[], Icon::FA).'Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-anamnese', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -116,7 +121,7 @@ $this->title = yii::t('app', 'Anamnese');
             QUESTIONÁRIO DE ANAMNESE<br>
             Tecnologia Social Hb
             <hr >
-            <table class="table-bordered">
+            <table id="anamnese-header" class="table-bordered">
                 <tr>
                     <th>Nome:</th><td colspan="5"></td>
                 </tr>
@@ -191,5 +196,5 @@ $this->title = yii::t('app', 'Anamnese');
         
 </div>
     <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', ['class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
+    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
