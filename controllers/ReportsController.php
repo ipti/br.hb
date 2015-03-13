@@ -104,7 +104,7 @@ class ReportsController extends \yii\web\Controller {
     public function actionBuildTerms() {
         $campaignID = $_REQUEST['campaignID'];
         $html = "";
-
+        
         if (isset($campaignID)) {
             $arrayOfschools = array();
 
@@ -125,8 +125,8 @@ class ReportsController extends \yii\web\Controller {
                 $arrayOfschools[$school->id]['classroons'][$classroom->id]['students'][$student->id]['name'] = $student->name;
                 $arrayOfschools[$school->id]['classroons'][$classroom->id]['students'][$student->id]['nameMother'] = $student->responsible;
             endforeach;
-
-
+        
+        
             foreach ($arrayOfschools as $keySchool => $valueSchool):
                 $currentNameSchool = $valueSchool['name'];
                 $currentArrayClassRooms = $valueSchool['classroons'];
@@ -274,7 +274,7 @@ class ReportsController extends \yii\web\Controller {
 
             $mpdf->Output('terms.pdf', 'I');
             exit;
-        }
+    }
     }
 
     public function actionGetConsultationLetter($student = null) {

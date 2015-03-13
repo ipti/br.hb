@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
-
+use kartik\icons\Icon;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $campaign integer */
@@ -20,8 +21,11 @@ $this->params['button'] =
         Html::a(Yii::t('app', 'Create Term'), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
 ?>
 <div class="term-index">
-
-
+<?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Generate')." PDF",Url::toRoute(['reports/build-terms', 'campaignID' => $campaign]),
+         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
+    
+    <br>
+    <br>
     <?=
     GridView::widget([
         'id' => 'termsGridView',
@@ -52,7 +56,20 @@ $this->params['button'] =
 </div>
 
 <?php
-Modal::begin(['id' => 'updateModal']);
-    echo "<div id='updateModalContent'></div>";
-Modal::end();
+    Modal::begin([
+        'size'=>Modal::SIZE_SMALL,
+        'id'=>'updateModal',
+        'closeButton'=>false
+    ]);
+    echo "<p>";
+    echo Yii::t("app","Are you sure you want to update?");
+    echo "</p>";
+    echo "<br>";
+    echo "<div>";
+    echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>'modal', 'class'=>'btn btn-danger pull-left'])
+        .Html::button(Yii::t('app', 'Confirm'), ['id'=>'updateModal-confirm', 'class'=>'btn btn-success pull-right']);
+    echo "</div>";
+    echo "<br>";
+    echo "<br>";
+    Modal::end();
 ?>

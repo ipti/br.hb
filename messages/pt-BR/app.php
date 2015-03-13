@@ -12,7 +12,7 @@ return [
     'Username'=>'Usuário',
     'Password'=>'Senha',
     'Remember Me'=>'Lembrar-me',
-    'Login'=>'Login',
+    'Login'=>'Entrar',
     'Logout'=>'Sair',
     'Incorrect username or password.'=>'Usuário ou senha incorretos.',
     
@@ -118,6 +118,9 @@ return [
     'Loading Schools...' => 'Carregando escolas...',
     'Loading Classrooms...' => 'Carregando turmas...',
     'Loading Student...' => 'Carregando alunos...',
+    'Consult Date' => 'Data da consulta',
+    'Consult Time' => 'Hora da consulta',
+    'Consult Location' => 'Local da consulta',
     
     // Utils
     'Create'=>'Criar',
@@ -132,9 +135,14 @@ return [
     'No' => 'Não',
     'Search' => 'Pesquisar',
     'Reset' => 'Resetar',
+    'Generate' => 'Gerar',
+    'Cancel' => 'Cancelar',
+    'Confirm' => 'Confirmar',
     'Success Updated!' => 'Atualizado com sucesso!',
     'Success Created!' => 'Criado com sucesso!',
+    'Print' => 'Imprimir',
     
+    'Are you sure you want to update?' => 'Tem certeza de que deseja atualizar?',
     'Are you sure you want to delete this item?' => 'Deseja mesmo excluir este item?',
     
     'Create {modelClass}'=>'Criar {modelClass}',
