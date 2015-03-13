@@ -101,12 +101,17 @@ a.desc:after {
     border-radius: 2px;
 }
 
+.modal-content p{
+    text-align:center;
+    font-size:16px;
+}
+
 .modal-body {
-    padding: 0;
+    padding: 15px;
 }
 
 .modal-form {
-    padding: 15px;
+    padding: 0px;
 }
 
 .modal-header h3 {

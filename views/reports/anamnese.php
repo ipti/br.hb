@@ -126,8 +126,7 @@ $this->assetBundles['Reports']->js = [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
-                        Html::resetButton(Icon::show('recycle',[], Icon::FA).'Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-anamnese', 'type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::button(Icon::show('refresh',[], Icon::FA).Yii::t('app', 'Generate'), ['id'=>'submit-anamnese', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -217,5 +216,5 @@ $this->assetBundles['Reports']->js = [
         
 </div>
     <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
+    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>

@@ -58,7 +58,9 @@ $this->params['button'] =
         'id' => 'updateAttendedModal',
         'closeButton'=>false,
     ]);
-    echo "<p style='text-align:center; font-size:16px'>Tem certeza de que deseja atualizar?</p>";
+    echo "<p>";
+    echo Yii::t("app","Are you sure you want to update?");
+    echo "</p>";
     echo "<br>";
     echo "<div>";
     echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])
@@ -73,7 +75,9 @@ $this->params['button'] =
         'id' => 'updateDeliveredModal',
         'closeButton'=>false,
     ]);
-    echo "<p style='text-align:center; font-size:16px'>Tem certeza de que deseja atualizar?</p>";
+    echo "<p>";
+    echo Yii::t("app","Are you sure you want to update?");
+    echo "</p>";
     echo "<br>";
     echo "<div>";
     echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])

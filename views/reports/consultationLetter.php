@@ -123,13 +123,16 @@ $this->assetBundles['Reports']->js = [
         }
         echo Form::widget([
             'formName' => 'consultation-letter-form',
-            'columns'=>3,
+            'columns'=>3,            
             'attributes' => [
                 'consult-date' => [
                     'label'=>yii::t('app', 'Consult Date'), 
                     'type' => Form::INPUT_WIDGET,
                     'widgetClass' => DatePicker::className(),
-                    'hint' => yii::t('app', 'Enter consult date (mm/dd/yyyy)')
+                    'options'=>[
+                        'pluginOptions' => ['format' => 'dd/mm/yyyy'],
+                    ],
+                    'hint' => yii::t('app', 'Enter consult date (dd/mm/yyyy)')
                 ],
                 'consult-time' => [
                     'label' => yii::t('app', 'Consult Time'),
@@ -150,8 +153,8 @@ $this->assetBundles['Reports']->js = [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
-                        Html::resetButton(Icon::show('recycle',[], Icon::FA).'Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-consultation-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::resetButton(Icon::show('recycle',[], Icon::FA).Yii::t('app', 'Reset'), ['class'=>'btn btn-default']) . ' ' .
+                        Html::button(Icon::show('refresh',[], Icon::FA).Yii::t('app','Generate'), ['id'=>'submit-consultation-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -182,6 +185,6 @@ $this->assetBundles['Reports']->js = [
         <div id="report-footer">Muito obrigado pela atenção.</div>
     </div>
     <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', ['id'=>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
+    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
 </div>
