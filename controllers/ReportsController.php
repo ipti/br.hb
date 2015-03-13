@@ -5,6 +5,10 @@ namespace app\controllers;
 use app\models\campaign;
 use app\models\term;
 use app\models\enrollment;
+use app\models\classroom;
+use app\models\school;
+use app\models\student;
+use mPDF;
 
 class ReportsController extends \yii\web\Controller {
 
@@ -96,25 +100,187 @@ class ReportsController extends \yii\web\Controller {
      * @return Json
      */
     public function actionBuildTerms() {
-        $campaignID = $_POST['campaignID'];
-        
+        $campaignID = $_REQUEST['campaignID'];
+        $html = "";
+
         if (isset($campaignID)) {
-            $shools = array();
+            $arrayOfschools = array();
+
             $campaign = campaign::find()->where('id = :sid', ['sid' => $campaignID])->one();
 
             $terms = term::find()->where('campaign = :scampaign', ['scampaign' => $campaign->id])->all();
 
             foreach ($terms as $term):
                 //Para cada Termo para esta Capanha
-                $enrollments = enrollment::find()->where('id = :sid', ['sid' => $term->enrollment])->one();
-                //CRIAR MAPEAMENTO !
+                $enrollment = enrollment::find()->where('id = :sid', ['sid' => $term->enrollment])->one();
+
+                $classroom = classroom::find()->where('id = :sid', ['sid' => $enrollment->classroom])->one();
+                $school = school::find()->where('id = :sid', ['sid' => $classroom->school])->one();
+                $student = student::find()->where('id = :sid', ['sid' => $enrollment->student])->one();
+
+                $arrayOfschools[$school->id]['name'] = $school->name;
+                $arrayOfschools[$school->id]['classroons'][$classroom->id]['name'] = $classroom->name;
+                $arrayOfschools[$school->id]['classroons'][$classroom->id]['students'][$student->id]['name'] = $student->name;
+                $arrayOfschools[$school->id]['classroons'][$classroom->id]['students'][$student->id]['nameMother'] = $student->responsible;
+            endforeach;
+
+
+            foreach ($arrayOfschools as $keySchool => $valueSchool):
+                $currentNameSchool = $valueSchool['name'];
+                $currentArrayClassRooms = $valueSchool['classroons'];
+                //School
+                $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
+                        . 
+                        "<br><br><br><br><br><br><br> <p class='page-white'> Escola: ".$currentNameSchool."</p> "
+                        . "<br><br><br><br><br><br><br><br>" . 
+                        "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>". 
+                        "<br><br><br><br><br>&nbsp;";
+                        
+                foreach ($currentArrayClassRooms as $keyClassRoom => $valueClassRoom):
+                    $currentNameClassRoom = $valueClassRoom['name'];
+                    $currentArrayStudents = $valueClassRoom['students'];
+                  //Turma
+                 $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
+                        . 
+                        "<br><br><br><br><br><br><br> <p class='page-white'> Turma: ".$currentNameClassRoom."</p> "
+                        . "<br><br><br><br><br><br><br><br>" . 
+                        "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>". 
+                        "<br><br><br><br><br>&nbsp;";
+                
+                    foreach ($currentArrayStudents as $keyStudent => $valueStudent):
+                        $currentNameStudent = $valueStudent['name'];
+                        $currentMotherNameStudent = $valueStudent['nameMother'];
+
+
+                        //========================================================  
+
+                        $html .= '<div class="report">
+            <br> <br> <br> 
+            <div class="report-content">
+                <div>  <p align="center"> 
+                            <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
+                            <br><br> 
+                        <b>  Autorização para que seu filho participe de uma campanha de saúde na escola <br>
+                        </b> </p></div>
+                <br>
+
+                <p style="text-align: justify;
+    text-justify: inter-word;">
+                    Prezado(a) Senhor(a) <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Caso o senhor(a) concorde, o seu filho(a) será submetido a uma punção da extremidade do dedo médio da
+                    mão esquerda, com lancetador de lancetas descartáveis, para a obtenção de uma pequena gota de sangue. Esta
+                    punção será feita por profissional treinado e a criança sentirá somente um pequeno desconforto, sendo que não
+                    há riscos à sua saúde. Com esta gota de sangue, faremos a dosagem da concentração de hemoglobina, dado que
+                    será utilizado para o diagnóstico de anemia.
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Caso o senhor concorde, por favor preencha o nome de seu filho e assine.
+                </p>
+                <br>
+
+                <pre><b>Nome da criança ou adolescente: ' . $currentNameStudent . ' </b> </pre>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            <pre><p>[ ] - Nome da Mãe: '. $currentMotherNameStudent . 
+                           ' <br><br> ____________________________________________________________ </p> </pre>
+                            <br>
+                            <pre><p>[ ] - Outro: _____________________
+                            <br><br> <br> ____________________________________________________________</p></pre>
+                        </td>
+
+                        <td style="
+                            width: 124px;
+                            height: 155px;
+                            border: #000000 solid 3px; 
+                            ">
+                        </td>
+                    </tr>
+
+                </table>  
+               <br>
+
+                <table class="table-term">
+                    <tr>
+                        <td>Peso</td>
+                        <td>Altura</td>
+                        <td>Data de Coleta</td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br>
+
+                <table class="table-term">
+                    <tr>
+                        <td><b>HB 1</b></td>
+                        <td><b>Data Coleta</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>HB 2</b></td>
+                        <td><b>Data Coleta</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+
+
+                    <tr>
+                        <td><b>HB 3</b></td>
+                        <td><b>Data Coleta</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+
+                </table>
+                <br>   
+
+                <pre> [ ] - Sulfato ferroso: __________________________________________________ </pre> 
+                <pre> [ ] - Vermifugo: _____________________________________________________ </pre> 
+            </div>
+        </div>
+            
+            ';
+
+                        //========================================================  
+
+                    endforeach;
+
+                endforeach;
 
             endforeach;
-        }
-        
-        
-    }
+            
+            $mpdf = new mPDF();
 
+            $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+            $mpdf->WriteHTML($css1, 1);
+
+            $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+            $mpdf->WriteHTML($css2, 1);
+
+            $mpdf->WriteHTML($html);
+
+            $mpdf->Output('terms.pdf', 'I');
+            exit;
+        }
+    }
 
     public function actionGetConsultationLetter($student = null) {
         $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
