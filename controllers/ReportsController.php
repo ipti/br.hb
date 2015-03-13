@@ -26,8 +26,10 @@ class ReportsController extends \yii\web\Controller {
         return $this->render('terms');
     }
 
-    public function actionAnamnese() {
-        return $this->render('anamnese');
+    public function actionAnamnese($eid = null) {
+        $options = $eid == null ? [] : ['enrollment' => \app\models\enrollment::find()->where('id = :eid', ['eid' => $eid])->one()];
+
+        return $this->render('anamnese',$options);
     }
 
     public function actionGetAnamnese() {
