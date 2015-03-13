@@ -275,8 +275,8 @@ class ReportsController extends \yii\web\Controller {
             $mpdf->Output('terms.pdf', 'I');
             exit;
     }
-    }
-
+        }
+        
     public function actionGetConsultationLetter($student = null) {
         $letter     = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
         $sid        = isset($letter['campaign-student'])    && !empty($letter['campaign-student'])  ? $letter['campaign-student']   : null;
