@@ -151,7 +151,6 @@ class ReportsController extends \yii\web\Controller {
                         //========================================================  
 
                         $html .= '<div class="report">
-            <br> <br>
             <div class="report-content">
                 <div class="report-head">  <p align="center"> 
                             <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
@@ -164,11 +163,11 @@ class ReportsController extends \yii\web\Controller {
     text-justify: inter-word;">
                     Prezado(a) Senhor(a) <br><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Caso o senhor(a) concorde, o seu filho(a) será submetido a uma punção da extremidade do dedo médio da
+                    Caso o senhor(a) concorde, o seu filho(a) será submetido(a) a uma punção da extremidade do dedo médio da
                     mão esquerda, com lancetador de lancetas descartáveis, para a obtenção de uma pequena gota de sangue. Esta
                     punção será feita por profissional treinado e a criança sentirá somente um pequeno desconforto, sendo que não
                     há riscos à sua saúde. Com esta gota de sangue, faremos a dosagem da concentração de hemoglobina, dado que
-                    será utilizado para o diagnóstico de anemia.
+                    será utilizada para o diagnóstico de anemia.
                     <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     Caso o senhor concorde, por favor assine este termo.
@@ -185,23 +184,17 @@ class ReportsController extends \yii\web\Controller {
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <br>
-                            <hr class="answer-line">
-                            <br>
-                        </td>
+                        <td class="answer-line"></td>
                     </tr>
                     <tr>
-                        <td class="answer-line">[ ] - Outro:</td>
+                        <td><br>[ ] - Outro: ____________________________________</td>
                     </tr>
                     <tr>
-                        <td>
-                            <br>
-                            <hr class="answer-line">
-                            <br>
+                        <td class="answer-line">
                         </td>
                     </tr>
                 </table>  
+               <br>
                <br>
 
                 <table class="table-term">
@@ -222,7 +215,7 @@ class ReportsController extends \yii\web\Controller {
                 <table class="table-term">
                     <tr>
                         <td><b>HB 1</b></td>
-                        <td><b>Data Coleta</b></td>
+                        <td><b>Data de Coleta</b></td>
                     </tr>
 
                     <tr>
@@ -232,7 +225,7 @@ class ReportsController extends \yii\web\Controller {
 
                     <tr>
                         <td><b>HB 2</b></td>
-                        <td><b>Data Coleta</b></td>
+                        <td><b>Data de Coleta</b></td>
                     </tr>
 
                     <tr>
@@ -243,7 +236,7 @@ class ReportsController extends \yii\web\Controller {
 
                     <tr>
                         <td><b>HB 3</b></td>
-                        <td><b>Data Coleta</b></td>
+                        <td><b>Data de Coleta</b></td>
                     </tr>
 
                     <tr>
