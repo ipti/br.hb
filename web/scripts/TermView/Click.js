@@ -1,18 +1,11 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 $(document).on('click',".agreedClick",function () {
-    /**
-     *  Altere isso!!!
-     * Precisa alterar isso para usar modal e não confirm!!!
-     * Modal que deve ser utilizado: #updateModal
-     * 
-     * */
+    $("#updateModal").modal('show');   
+    $("#updateModal").attr("data-key", $(this).parent().attr('data-key'));
+});
+
+$(document).on('click',"#updateModal-confirm",function () {
+    var key = $("#updateModal").attr('data-key');
+    submitUpdateTerm(key);
+    $("#updateModal").modal('hide'); 
     
-    if($(this).children(".text-danger").length>0)
-        if(confirm("Deseja Realmente Atualizar?") == true)
-            submitUpdateTerm($(this).parent().attr('data-key'));
 });

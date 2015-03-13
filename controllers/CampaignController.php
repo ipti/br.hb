@@ -168,7 +168,7 @@ class CampaignController extends Controller {
             if (isset($_POST['classrooms'])) {
                 foreach ($_POST['classrooms'] as $cid) {
                     if (!empty($cid)) {
-                        $classroom = \app\models\classroom::find($cid)->one();
+                        $classroom = \app\models\classroom::find()->where('id = :cid',['cid'=>$cid])->one();
                         /* @var $classroom \app\models\classroom */
                         $enrollments = $classroom->getEnrollments()->asArray()->all();
 

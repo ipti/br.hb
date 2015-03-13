@@ -52,7 +52,20 @@ $this->params['button'] =
 </div>
 
 <?php
-Modal::begin(['id' => 'updateModal']);
-    echo "<div id='updateModalContent'></div>";
-Modal::end();
+    Modal::begin([
+        'size'=>Modal::SIZE_SMALL,
+        'id'=>'updateModal',
+        'closeButton'=>false
+    ]);
+    echo "<p>";
+    echo Yii::t("app","Are you sure you want to update?");
+    echo "</p>";
+    echo "<br>";
+    echo "<div>";
+    echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>'modal', 'class'=>'btn btn-danger pull-left'])
+        .Html::button(Yii::t('app', 'Confirm'), ['id'=>'updateModal-confirm', 'class'=>'btn btn-success pull-right']);
+    echo "</div>";
+    echo "<br>";
+    echo "<br>";
+    Modal::end();
 ?>

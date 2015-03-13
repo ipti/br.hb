@@ -1,4 +1,6 @@
 <?php
+/* @var $this yii\web\View  */
+/* @var $enrollment \app\models\enrollment */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -22,82 +24,101 @@ $this->assetBundles['Reports']->js = [
     <div class="report-filter hidden-print">
 <?php
         echo Html::beginForm(Url::toRoute('reports/get-anamnese'),'POST',['id'=>'form-anamnese', 'class'=>'form-vertical']);
-        
-        echo Form::widget([
-            'formName' => 'anamnese-form',
-            'columns'=>4,
-            'attributes' => [
-                'campaign' => [
-                    'label'=>yii::t('app', 'Campaign'), 
-                    'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => Select2::className(),
-                    'options'=>[
-                        'data' => ArrayHelper::map(campaign::find()->all(), 'id', 'name'),
-                        'options' => [
-                            'placeholder' => yii::t('app', 'Select Campaign...'),
-                        ],
-                        'pluginOptions' => ['allowClear' => true]
+                if(isset($enrollment) && $enrollment != null){
+            echo Form::widget([
+                'formName' => 'anamnese-form',
+                'columns'=>1,
+                'attributes' => [
+                    'campaign-enrollment'=>[
+                        'type'=>Form::INPUT_RAW,
+                        'value' => Html::hiddenInput('anamnese-form[campaign-enrollment]', $enrollment->id)
                     ],
-                ],
-                'campaign-school' => [
-                    'label'=>yii::t('app', 'School'), 
-                    'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DepDrop::className(),
-                    'options'=>[
-                        'data' => [],
-                        'options' => [
-                            'placeholder' => yii::t('app', 'Select School...'),
-                        ],
-                        'type' => DepDrop::TYPE_SELECT2,
-                        'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                        'pluginOptions' => [
-                            'depends' => ['anamnese-form-campaign'],
-                            'url' => Url::to(['/campaign/get-schools-list']),
-                            'loadingText' => yii::t('app', 'Loading Schools...'),
-                        ]
+                    'name'=>[
+                        'label'=>yii::t('app', 'Student'), 
+                        'type'=>Form::INPUT_STATIC,
+                        'value'=>$enrollment->students->name
                     ],
-                ],
-                'campaign-classroom' => [
-                    'label'=>yii::t('app', 'Classroom'), 
-                    'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DepDrop::className(),
-                    'options'=>[
-                        'data' => [],
-                        'options' => [
-                            'placeholder' => yii::t('app', 'Select Classroom...'),
+                ]
+            ]);
+            $js = "$('#submit-anamnese').trigger('click')";
+            $this->registerJs($js,$this::POS_READY);
+        }else{
+            echo Form::widget([
+                'formName' => 'anamnese-form',
+                'columns'=>4,
+                'attributes' => [
+                    'campaign' => [
+                        'label'=>yii::t('app', 'Campaign'), 
+                        'type' => Form::INPUT_WIDGET,
+                        'widgetClass' => Select2::className(),
+                        'options'=>[
+                            'data' => ArrayHelper::map(campaign::find()->all(), 'id', 'name'),
+                            'options' => [
+                                'placeholder' => yii::t('app', 'Select Campaign...'),
+                            ],
+                            'pluginOptions' => ['allowClear' => true]
                         ],
-                        'type' => DepDrop::TYPE_SELECT2,
-                        'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                        'pluginOptions' => [
-                            'depends' => ['anamnese-form-campaign'],
-                            'depends' => ['anamnese-form-campaign-school'],
-                            'url' => Url::to(['/campaign/get-classrooms-list']),
-                            'loadingText' => yii::t('app', 'Loading Classrooms...'),
-                        ]
                     ],
-                ],
-                'campaign-enrollment' => [
-                    'label'=>yii::t('app', 'Student'), 
-                    'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DepDrop::className(),
-                    'options'=>[
-                        'data' => [],
-                        'options' => [
-                            'placeholder' => yii::t('app', 'Select Student...'),
+                    'campaign-school' => [
+                        'label'=>yii::t('app', 'School'), 
+                        'type' => Form::INPUT_WIDGET,
+                        'widgetClass' => DepDrop::className(),
+                        'options'=>[
+                            'data' => [],
+                            'options' => [
+                                'placeholder' => yii::t('app', 'Select School...'),
+                            ],
+                            'type' => DepDrop::TYPE_SELECT2,
+                            'select2Options' => ['pluginOptions' => ['allowClear' => true]],
+                            'pluginOptions' => [
+                                'depends' => ['anamnese-form-campaign'],
+                                'url' => Url::to(['/campaign/get-schools-list']),
+                                'loadingText' => yii::t('app', 'Loading Schools...'),
+                            ]
                         ],
-                        'type' => DepDrop::TYPE_SELECT2,
-                        'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                        'pluginOptions' => [
-                            'depends' => ['anamnese-form-campaign'],
-                            'depends' => ['anamnese-form-campaign-school'],
-                            'depends' => ['anamnese-form-campaign-classroom'],
-                            'url' => Url::to(['/campaign/get-enrollments-list']),
-                            'loadingText' => yii::t('app', 'Loading Students...'),
-                        ]
                     ],
-                ],
-            ]
-        ]); 
+                    'campaign-classroom' => [
+                        'label'=>yii::t('app', 'Classroom'), 
+                        'type' => Form::INPUT_WIDGET,
+                        'widgetClass' => DepDrop::className(),
+                        'options'=>[
+                            'data' => [],
+                            'options' => [
+                                'placeholder' => yii::t('app', 'Select Classroom...'),
+                            ],
+                            'type' => DepDrop::TYPE_SELECT2,
+                            'select2Options' => ['pluginOptions' => ['allowClear' => true]],
+                            'pluginOptions' => [
+                                'depends' => ['anamnese-form-campaign'],
+                                'depends' => ['anamnese-form-campaign-school'],
+                                'url' => Url::to(['/campaign/get-classrooms-list']),
+                                'loadingText' => yii::t('app', 'Loading Classrooms...'),
+                            ]
+                        ],
+                    ],
+                    'campaign-enrollment' => [
+                        'label'=>yii::t('app', 'Student'), 
+                        'type' => Form::INPUT_WIDGET,
+                        'widgetClass' => DepDrop::className(),
+                        'options'=>[
+                            'data' => [],
+                            'options' => [
+                                'placeholder' => yii::t('app', 'Select Student...'),
+                            ],
+                            'type' => DepDrop::TYPE_SELECT2,
+                            'select2Options' => ['pluginOptions' => ['allowClear' => true]],
+                            'pluginOptions' => [
+                                'depends' => ['anamnese-form-campaign'],
+                                'depends' => ['anamnese-form-campaign-school'],
+                                'depends' => ['anamnese-form-campaign-classroom'],
+                                'url' => Url::to(['/campaign/get-enrollments-list']),
+                                'loadingText' => yii::t('app', 'Loading Students...'),
+                            ]
+                        ],
+                    ],
+                ]
+            ]); 
+        }
         echo Form::widget([
             'formName' => 'anamnese-form',
             'columns'=>1,
@@ -105,8 +126,7 @@ $this->assetBundles['Reports']->js = [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
-                        Html::resetButton(Icon::show('recycle',[], Icon::FA).'Reset', ['class'=>'btn btn-default']) . ' ' .
-                        Html::button(Icon::show('refresh',[], Icon::FA).'Generate', ['id'=>'submit-anamnese', 'type'=>'button', 'class'=>'btn btn-primary']) . 
+                        Html::button(Icon::show('refresh',[], Icon::FA).Yii::t('app', 'Generate'), ['id'=>'submit-anamnese', 'type'=>'button', 'class'=>'btn btn-primary']) . 
                     '</div>'
                 ],
             ]
@@ -196,5 +216,5 @@ $this->assetBundles['Reports']->js = [
         
 </div>
     <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).'Print', [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
+    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
