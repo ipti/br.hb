@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -49,5 +50,36 @@ $this->params['button'] =
             ],
         ],
     ]); ?>
-
 </div>
+
+<?php
+    Modal::begin([
+        'size' => Modal::SIZE_SMALL,
+        'id' => 'updateAttendedModal',
+        'closeButton'=>false,
+    ]);
+    echo "<p style='text-align:center; font-size:16px'>Tem certeza de que deseja atualizar?</p>";
+    echo "<br>";
+    echo "<div>";
+    echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])
+        .Html::button(Yii::t('app', 'Confirm'), ['id'=>'updateAttendedModal-confirm', 'class' => 'btn btn-success pull-right']);
+    echo "</div>";
+    echo "<br>";
+    echo "<br>";
+    Modal::end();
+    
+    Modal::begin([
+        'size' => Modal::SIZE_SMALL,
+        'id' => 'updateDeliveredModal',
+        'closeButton'=>false,
+    ]);
+    echo "<p style='text-align:center; font-size:16px'>Tem certeza de que deseja atualizar?</p>";
+    echo "<br>";
+    echo "<div>";
+    echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])
+        .Html::button(Yii::t('app', 'Confirm'), ['id'=>'updateDeliveredModal-confirm', 'class' => 'btn btn-success pull-right']);
+    echo "</div>";
+    echo "<br>";
+    echo "<br>";
+    Modal::end();
+?>
