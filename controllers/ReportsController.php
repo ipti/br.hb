@@ -131,10 +131,7 @@ class ReportsController extends \yii\web\Controller {
                 //School
                 $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
                         . 
-                        "<br><br><br><br><br><br><br> <p class='page-white'> Escola: ".$currentNameSchool."</p> "
-                        . "<br><br><br><br><br><br><br><br>" . 
-                        "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>". 
-                        "<br><br><br><br><br>&nbsp;";
+                        "<br><br><br><br><br><br><br> <p class='page-white'> Escola: ".$currentNameSchool."</p> <pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
                         
                 foreach ($currentArrayClassRooms as $keyClassRoom => $valueClassRoom):
                     $currentNameClassRoom = $valueClassRoom['name'];
@@ -142,10 +139,7 @@ class ReportsController extends \yii\web\Controller {
                   //Turma
                  $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
                         . 
-                        "<br><br><br><br><br><br><br> <p class='page-white'> Turma: ".$currentNameClassRoom."</p> "
-                        . "<br><br><br><br><br><br><br><br>" . 
-                        "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>". 
-                        "<br><br><br><br><br>&nbsp;";
+                        "<br><br><br><br><br><br><br> <p class='page-white'> Turma: ".$currentNameClassRoom."</p> <pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
                 
                     foreach ($currentArrayStudents as $keyStudent => $valueStudent):
                         $currentNameStudent = $valueStudent['name'];
@@ -155,7 +149,7 @@ class ReportsController extends \yii\web\Controller {
                         //========================================================  
 
                         $html .= '<div class="report">
-            <br> <br> <br> 
+            <br> <br>
             <div class="report-content">
                 <div>  <p align="center"> 
                             <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
@@ -256,8 +250,7 @@ class ReportsController extends \yii\web\Controller {
                 <pre> [ ] - Vermifugo: _____________________________________________________ </pre> 
             </div>
         </div>
-            
-            ';
+            '."<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
 
                         //========================================================  
 
