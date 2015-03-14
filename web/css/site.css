@@ -128,11 +128,11 @@ a.desc:after {
 }
 
 .modal-body {
-    padding: 15px;
+    padding: 0px;
 }
 
-.modal-form {
-    padding: 0px;
+.modal-container {
+    padding: 15px;
 }
 
 .modal-header h3 {

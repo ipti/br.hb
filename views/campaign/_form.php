@@ -31,7 +31,7 @@ use kartik\select2\Select2;
 <?php $form = ActiveForm::begin([
      'id' => $model->formName(),
  ]); ?>
-<div class="modal-form">
+<div class="modal-container">
 
 
     
@@ -96,13 +96,12 @@ use kartik\select2\Select2;
             ]);
         }
     ?>
+    </div>
     
-    <br>
-    <div class="form-group">
+    <div class="form-group modal-footer">
         <?= Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])
             .Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success pull-right' : 'btn btn-primary pull-right']) ?>
     </div>
-    <br>
     <?php ActiveForm::end(); ?>
 
-</div>
+
