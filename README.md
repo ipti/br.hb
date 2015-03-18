@@ -10,6 +10,9 @@
 * Traduzido para pt-br 
 * Traduzido para en-us (menos relatórios)
 
+# Change-log 0.9.1
+* Arquivo .sql do banco
+* Usuário do sistema: admin/admin
 
 # Todo 1.0
 * Calculo do HB
