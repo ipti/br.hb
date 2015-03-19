@@ -123,7 +123,7 @@ $this->assetBundles['Reports']->js = [
         }
         echo Form::widget([
             'formName' => 'consultation-letter-form',
-            'columns'=>3,            
+            'columns'=>4,            
             'attributes' => [
                 'consult-date' => [
                     'label'=>yii::t('app', 'Consult Date'), 
@@ -144,18 +144,12 @@ $this->assetBundles['Reports']->js = [
                     'label'=>yii::t('app', 'Consult Location'), 
                     'type' => Form::INPUT_TEXT,
                 ],
-            ]
-        ]); 
-        echo Form::widget([
-            'formName' => 'consultation-letter-form',
-            'columns'=>1,
-            'attributes' => [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
-                        Html::resetButton(Icon::show('recycle',[], Icon::FA).Yii::t('app', 'Reset'), ['class'=>'btn btn-default']) . ' ' .
-                        Html::button(Icon::show('refresh',[], Icon::FA).Yii::t('app','Generate'), ['id'=>'submit-consultation-letter', 'type'=>'button', 'class'=>'btn btn-primary']) . 
-                    '</div>'
+                        Html::resetButton(Icon::show('recycle',[], Icon::FA).Yii::t('app', 'Reset'), ['class'=>'btn btn-default btn-actions']) . ' ' .
+                        Html::button(Icon::show('refresh',[], Icon::FA).Yii::t('app','Generate'), ['id'=>'submit-consultation-letter', 'type'=>'button', 'class'=>'btn btn-primary btn-actions']) . 
+                    '</div>',
                 ],
             ]
         ]); 
@@ -163,9 +157,13 @@ $this->assetBundles['Reports']->js = [
     </div>
     <div class="report-content">
         <div class="report-head">
-            <div class="report-head-image "><img src="/images/reporters/boquim/prefeitura.jpg" width="200"></div>
+            <div class="report-head-image">
+                <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
+                <img src="/images/reporters/hb.png" class="pull-right" height="50px;">
+                <div class="clear">
+            </div>
+            <h4 class="report-title">Carta de Aviso de Consulta</h4>
         </div>
-        <br>
         <div class="report-body">
             Prezados Pais,
             <br/>
@@ -173,9 +171,10 @@ $this->assetBundles['Reports']->js = [
             <p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo do seu filho(a) ____________________________________________________________________, um exame que diagnostica a
                 anemia.</p>
             <p>Ficamos preocupados, pois o resultado mostrou que a sua criança encontra-se com anemia. Vocês deverão levar seu filho(a) à consulta médica, para que ele receba o tratamento:</p>
+            <p>
             <b>Dia da Consulta:</b>____/____/____<br/>
             <b>Hora da Consulta:</b> ____:____<br/>
-            <b>Local da Consula:</b> ____________________________________<br/>
+            <b>Local da Consula:</b> ____________________________________<br/><p>
             <p>Gostaríamos de pedir a vocês para já prestarem atenção na alimentação da sua criança, principalmente nestes pontos:<br/><br/>
                 <b>1 – Devemos oferecer às crianças, sempre que possível, carnes (de boi, frango ou peixe), feijão e folhas escuras, como couve e brócolis;<br/><br/>
                     2 – Devemos oferecer às crianças, logo após as refeições, sucos de frutas, principalmente as cítricas, como laranja e limão;<br/><br/>

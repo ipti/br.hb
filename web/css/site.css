@@ -1,5 +1,9 @@
 /* Theme */
 
+.clear {
+    clear: both;
+}
+
 html {
     overflow-y: scroll;
     height: 100%;
@@ -155,6 +159,10 @@ a.desc:after {
 
 label {
     font-size: 15px
+}
+
+.btn-actions {
+    margin-top: 26px;
 }
 
 

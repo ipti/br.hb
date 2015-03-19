@@ -27,7 +27,6 @@
 
 .report-head{
     text-align: center;
-    font-weight: bold;
 }
 .report-head-image{
     margin: 0 auto;
@@ -36,13 +35,6 @@
     height: 100px;
     width: 220px;*/
     
-}
-
-@media print {
-
-    .report-content {
-        border: none;
-    }
 }
 
 .report-head hr{
@@ -150,4 +142,18 @@ td.dedinho-term-report{
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+}
+
+
+@media print {
+
+    .report-title{
+        margin-top: 10mm;
+        margin-bottom: 10mm;
+        font-weight: bold;
+    }
+
+    .report-content {
+        border: none;
+    }
 }
