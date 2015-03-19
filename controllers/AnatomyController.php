@@ -36,7 +36,7 @@ class AnatomyController extends Controller
             $q = anatomy::find();
         }else{
             $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
-            $q = $campaign->getStudentsAnatomies();
+            $q = $campaign->getEnrollments();
         }
         
         $dataProvider = new ActiveDataProvider([

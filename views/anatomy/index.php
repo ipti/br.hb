@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,22 +21,56 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
-                'attribute' => 'student',
+                'header'=> Yii::t('app', 'Student'),
+                'filterType' => GridView::FILTER_SELECT2, 
                 'content' => function ($model, $key, $index, $column){
-                    return $model->students->name;
+                    return $model->getStudents()->one()->name;
                 }
             ],
-            'weight',
-            'height',
-            'date',
+            ['class'=> kartik\grid\DataColumn::className(),
+                'header'=> Yii::t('app', 'Classroom'),
+                'content' => function ($model, $key, $index, $column){
+                    return $model->getClassrooms()->one()->name;
+                }
+            ],
+            ['class'=> kartik\grid\DataColumn::className(),
+                'header'=> Yii::t('app', 'weight'),
+                'content' => function ($model, $key, $index, $column){
+                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomie != null)
+                        return $anatomie->weight;
+                    return null;
+                }
+            ],
+            ['class'=> kartik\grid\DataColumn::className(),
+                'header'=> Yii::t('app', 'height'),
+                'content' => function ($model, $key, $index, $column){
+                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomie != null)
+                        return $anatomie->height;
+                    return null;
+                }
+            ],
+            ['class'=> kartik\grid\DataColumn::className(),
+                'header'=> Yii::t('app', 'date'),
+                'content' => function ($model, $key, $index, $column){
+                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomie != null)
+                        return $anatomie->date;
+                    return null;
+                }
+            ],
             ['class'=> kartik\grid\BooleanColumn::className(),
                 'header'=> Yii::t('app', 'Updated'),
                 'options'=>['mydate'=>$campaign->begin],
                 'contentOptions' => ['class' => 'agreedClick'],
                 'content' => function ($model, $key, $index, $column){
-                    return $model->date >= $column->options['mydate'] 
-                            ? '<span class="glyphicon glyphicon-ok text-success"></span>'
-                            : '<span class="icon-info fa fa-info"></span>';
+                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomie != null)
+                        return $anatomie->date >= $column->options['mydate'] 
+                                ? '<span class="glyphicon glyphicon-ok text-success"></span>'
+                                : '<span class="icon-info fa fa-info"></span>';
+                    return '<span class="icon-error fa fa-remove"></span>';
                 }
             ],
         ],

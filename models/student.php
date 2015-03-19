@@ -13,7 +13,8 @@ use Yii;
  * @property integer $address
  * @property string $birthday
  * @property string $gender
- * @property string $responsible
+ * @property string $mother
+ * @property string $father
  *
  * @property Anatomy[] $anatomies
  * @property Consultation[] $consultations
@@ -43,7 +44,7 @@ class student extends \yii\db\ActiveRecord {
             [['birthday', 'name'], 'safe'],
             [['gender'], 'string'],
             [['fid'], 'string', 'max' => 45],
-            [['name', 'responsible'], 'string', 'max' => 150]
+            [['name', 'mother', 'father'], 'string', 'max' => 150]
         ];
     }
 
@@ -58,7 +59,8 @@ class student extends \yii\db\ActiveRecord {
             'address' => Yii::t('app', 'Address'),
             'birthday' => Yii::t('app', 'Birthday'),
             'gender' => Yii::t('app', 'Gender'),
-            'responsible' => Yii::t('app', 'Responsible'),
+            'mother' => Yii::t('app', 'Mother'),
+            'father' => Yii::t('app', 'Father'),
         ];
     }
 
