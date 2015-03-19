@@ -1,0 +1,6 @@
+ALTER TABLE `student` 
+CHANGE COLUMN `responsible` `mother` VARCHAR(150) NULL DEFAULT NULL ,
+ADD COLUMN `father` VARCHAR(150) NULL DEFAULT NULL AFTER `mother`;
+
+ALTER TABLE `classroom` 
+ADD COLUMN `year` INT(4) NOT NULL AFTER `shift`;

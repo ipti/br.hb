@@ -21,7 +21,7 @@ $this->params['button'] =
         Html::a(Yii::t('app', 'Create Term'), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
 ?>
 <div class="term-index">
-<?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Generate')." PDF",Url::toRoute(['reports/build-terms', 'campaignID' => $campaign]),
+<?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Generate')." PDF",Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
     
     <br>

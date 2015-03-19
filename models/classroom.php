@@ -12,6 +12,7 @@ use Yii;
  * @property integer $school
  * @property string $name
  * @property string $shift
+ * @property string $year
  *
  * @property School $school0
  * @property ClassroomHasEvent[] $classroomHasEvents
@@ -35,8 +36,8 @@ class classroom extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fid', 'school'], 'integer'],
-            [['school', 'name', 'shift'], 'required'],
+            [['fid', 'school','year'], 'integer'],
+            [['school', 'name', 'shift','year'], 'required'],
             [['shift'], 'string'],
             [['name'], 'string', 'max' => 20]
         ];
@@ -53,6 +54,7 @@ class classroom extends \yii\db\ActiveRecord
             'school' => Yii::t('app', 'School'),
             'name' => Yii::t('app', 'Name'),
             'shift' => Yii::t('app', 'Shift'),
+            'year' => Yii::t('app', 'Year'),
         ];
     }
 
