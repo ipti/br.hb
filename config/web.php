@@ -10,6 +10,20 @@ $config = [
     'modules'=>[
         'gridview' =>[
             'class' => '\kartik\grid\Module'
+        ],
+        'datecontrol' =>[
+            'class' => 'kartik\datecontrol\Module',
+            'displaySettings' => [
+                'date' => 'd-m-Y',
+                'time' => 'H:i:s A',
+                'datetime' => 'd-m-Y H:i:s A',
+            ],
+            'saveSettings' => [
+                'date' => 'Y-m-d', 
+                'time' => 'H:i:s',
+                'datetime' => 'Y-m-d H:i:s',
+            ],
+            'autoWidget' => true,
         ]
     ],
     'components' => [
@@ -54,7 +68,11 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = 'yii\gii\Module';
-}
+    $config['modules']['gii']['class'] = 'yii\gii\Module';
+    $config['modules']['gii']['generators'] = [
+        'kartikgii-crud' => ['class'=>'warrence\kartikgii\crud\Generator']
+    ];
+    
+}   
 
 return $config;
