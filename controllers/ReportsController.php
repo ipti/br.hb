@@ -96,6 +96,76 @@ class ReportsController extends \yii\web\Controller {
         echo "</tr>";
     }
 
+    public function actionAgreedTerms($cid,$sid){
+        /* @var $campaign campaign*/
+        /* @var $school school*/
+        $html = "";
+        $school = school::find()->where("id = :sid",['sid'=>$sid])->one();
+        $terms = $school->getTerms()
+                ->where("term.campaign = :cid and term.agreed = true",['cid'=>$cid])
+                ->all();
+        
+        $tAgreed = [];
+        foreach ($terms as $term):
+            /* @var $term       \app\models\term */
+            /* @var $enrollment \app\models\enrollment */
+            /* @var $classroom  \app\models\classroom */
+            /* @var $student    \app\models\student */
+            $enrollment     = $term->getEnrollments()->one();
+            $classroom      = $enrollment->getClassrooms()->orderBy('name')->one();
+            $student        = $enrollment->getStudents()->orderBy('name')->one();
+            
+            if (isset($tAgreed[$classroom->name])) {
+                $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], [$student->name => $student->birthday]);
+            } else{
+                $tAgreed[$classroom->name] = [$student->name => $student->birthday];
+            }
+        endforeach;
+        foreach ($tAgreed as $cName => $students){
+            $header = "<table class='kv-grid-table table table-bordered table-striped'>"
+                    . "<tr>"
+                        . "<th>$cName</th>"
+                    . "</tr>"
+                    . "<tr>"
+                        . "<th>Aluno</th>"
+                        . "<th>Data Nascimento</th>"
+                        . "<th>Taxa 1</th>"
+                        . "<th>Taxa 2</th>"
+                        . "<th>Taxa 3</th>"
+                    . "</tr>";
+            $body = "";
+            foreach ($students as $sName => $sBirthday){
+                $body .= "<tr>"
+                            . "<td>$sName</td>"
+                            . "<td>$sBirthday</td>"
+                            . "<td></td>"
+                            . "<td></td>"
+                            . "<td></td>"
+                        . "</tr>";
+            }
+            $footer = "</table>"
+                    . "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
+            
+            $html .= $header.$body.$footer;
+        }
+
+
+        $mpdf = new mPDF();
+
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+
+        $mpdf->WriteHTML($html);
+
+        $mpdf->Output('agreedTerms.pdf', 'I');
+        exit;
+        
+    }
+    
+    
     /**
      * Build Terms
      * 

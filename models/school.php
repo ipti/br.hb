@@ -66,9 +66,26 @@ class school extends \yii\db\ActiveRecord
      */
     public function getClassrooms()
     {
-        return $this->hasMany(classroom::className(), ['school' => 'id']);
+        return $this->hasMany(classroom::className(), ['school' => 'id'])->orderBy('name asc');
     }
-
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnrollments()
+    {
+        return $this->hasMany(enrollment::className(), ['classroom' => 'id'])
+            ->via("classrooms");
+    } 
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTerms()
+    {
+        return $this->hasMany(term::className(), ['enrollment' => 'id'])
+            ->via("enrollments");
+    } 
     /**
      * @return \yii\db\ActiveQuery
      */

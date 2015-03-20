@@ -7,11 +7,13 @@ use Yii;
 /**
  * This is the model class for table "enrollment".
  *
+ * @property integer $id
  * @property integer $student
  * @property integer $classroom
  *
- * @property Classroom $classrooms
- * @property Student $students
+ * @property term $terms
+ * @property classroom $classrooms
+ * @property student $students
  */
 class enrollment extends \yii\db\ActiveRecord
 {
@@ -29,8 +31,8 @@ class enrollment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student', 'classroom'], 'required'],
-            [['student', 'classroom'], 'integer']
+            [['id','student', 'classroom'], 'required'],
+            [['id','student', 'classroom'], 'integer']
         ];
     }
 
@@ -40,6 +42,7 @@ class enrollment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('app', 'Id'),
             'student' => Yii::t('app', 'Student'),
             'classroom' => Yii::t('app', 'Classroom'),
         ];
