@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\enrollment;
-use yii\data\ActiveDataProvider;
+use app\models\enrollmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,26 +32,29 @@ class EnrollmentController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => enrollment::find(),
-        ]);
+        $searchModel = new enrollmentSearch;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
 
     /**
      * Displays a single enrollment model.
-     * @param integer $student
-     * @param integer $classroom
+     * @param integer $id
      * @return mixed
      */
-    public function actionView($student, $classroom)
+    public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($student, $classroom),
-        ]);
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+        return $this->render('view', ['model' => $model]);
+}
     }
 
     /**
@@ -61,10 +64,10 @@ class EnrollmentController extends Controller
      */
     public function actionCreate()
     {
-        $model = new enrollment();
+        $model = new enrollment;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'student' => $model->student, 'classroom' => $model->classroom]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,16 +78,15 @@ class EnrollmentController extends Controller
     /**
      * Updates an existing enrollment model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $student
-     * @param integer $classroom
+     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($student, $classroom)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($student, $classroom);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'student' => $model->student, 'classroom' => $model->classroom]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -95,13 +97,12 @@ class EnrollmentController extends Controller
     /**
      * Deletes an existing enrollment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $student
-     * @param integer $classroom
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete($student, $classroom)
+    public function actionDelete($id)
     {
-        $this->findModel($student, $classroom)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -109,14 +110,13 @@ class EnrollmentController extends Controller
     /**
      * Finds the enrollment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $student
-     * @param integer $classroom
+     * @param integer $id
      * @return enrollment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($student, $classroom)
+    protected function findModel($id)
     {
-        if (($model = enrollment::findOne(['student' => $student, 'classroom' => $classroom])) !== null) {
+        if (($model = enrollment::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

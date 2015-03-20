@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel app\models\enrollmentSearch */
 /* @var $campaign app\models\campaign */
 
 $this->title = Yii::t('app', 'Anatomies');
@@ -19,15 +20,17 @@ $this->params['button'] =
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
+                'attribute'=>'student',
                 'header'=> Yii::t('app', 'Student'),
-                'filterType' => GridView::FILTER_SELECT2, 
                 'content' => function ($model, $key, $index, $column){
                     return $model->getStudents()->one()->name;
                 }
             ],
             ['class'=> kartik\grid\DataColumn::className(),
+                'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;

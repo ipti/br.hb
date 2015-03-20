@@ -14,7 +14,6 @@ $this->assetBundles['Term']->js = [
     'scripts/TermView/Functions.js',
     'scripts/TermView/Click.js'
 ];
-
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] = 
@@ -30,17 +29,31 @@ $this->params['button'] =
     GridView::widget([
         'id' => 'termsGridView',
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $column){
+                    return ['term-key'=>$model->getTerms()->one()->id];
+                },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
-                'attribute' => 'enrollment',
-                'label' => yii::t('app','Student'),
+                'attribute'=>'student',
+                'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
-                    return $model->students->name;
+                    return $model->getStudents()->one()->name;
+                }
+            ],
+            ['class'=> kartik\grid\DataColumn::className(),
+                'attribute'=>'classroom',
+                'header'=> Yii::t('app', 'Classroom'),
+                'content' => function ($model, $key, $index, $column){
+                    return $model->getClassrooms()->one()->name;
                 }
             ],
             ['class' => '\kartik\grid\BooleanColumn',
                 'contentOptions' => ['class' => 'agreedClick cursor-pointer'],
-                'attribute' => 'agreed',
+                'header'=> Yii::t('app', 'Agreed'),
+                'value' => function ($model, $key, $index, $column){
+                    return $model->getTerms()->one()->agreed;
+                },
                 'vAlign' => 'middle',
             ],
         ],

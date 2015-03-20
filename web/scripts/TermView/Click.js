@@ -1,10 +1,10 @@
 $(document).on('click',".agreedClick",function () {
     $("#updateModal").modal('show');   
-    $("#updateModal").attr("data-key", $(this).parent().attr('data-key'));
+    $("#updateModal").attr("term-key", $(this).parent().attr('term-key'));
 });
 
 $(document).on('click',"#updateModal-confirm",function () {
-    var key = $("#updateModal").attr('data-key');
+    var key = $("#updateModal").attr('term-key');
     submitUpdateTerm(key);
     $("#updateModal").modal('hide'); 
     

@@ -30,20 +30,15 @@ class TermController extends Controller
      * Lists all term models.
      * @return mixed
      */
-    public function actionIndex($c=null)
+    public function actionIndex($c)
     {
-        if($c == null){
-            $dataProvider = new ActiveDataProvider([
-                'query' => term::find(),
-            ]);
-        }else{
-            $dataProvider = new ActiveDataProvider([
-                'query' => term::find()->where("campaign = :c1", ["c1"=>$c]),
-            ]);
-        }
+        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+        $searchModel = new \app\models\enrollmentSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
             'campaign'=>$c,
         ]);
     }

@@ -33,18 +33,18 @@ class AnatomyController extends Controller
     public function actionIndex($c=null)
     {
         if($c == null){
-            $q = anatomy::find();
+            $dataProvider = new ActiveDataProvider([
+                'query' => anatomy::find()
+            ]); 
         }else{
             $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
-            $q = $campaign->getEnrollments();
+            $searchModel = new \app\models\enrollmentSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
         }
         
-        $dataProvider = new ActiveDataProvider([
-            'query' => $q
-        ]);
-
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
             'campaign'=>$campaign,
         ]);
     }

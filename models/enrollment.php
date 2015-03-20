@@ -60,4 +60,11 @@ class enrollment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(student::className(), ['id' => 'student']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTerms()
+    {
+        return $this->hasOne(term::className(), ['enrollment' => 'id']);
+    }
 }
