@@ -250,7 +250,7 @@ class ReportsController extends \yii\web\Controller {
                     foreach ($students as $k => $student):
                         $sName = $student['name'];
                         $sMother = $student['nameMother'];
-                        $sFather = $student['nameMother'];
+                        $sFather = $student['nameFather'];
 
 
                         //========================================================  
