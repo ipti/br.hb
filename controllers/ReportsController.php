@@ -124,7 +124,7 @@ class ReportsController extends \yii\web\Controller {
         foreach ($tAgreed as $cName => $students){
             $header = "<table class='kv-grid-table table table-bordered table-striped'>"
                     . "<tr>"
-                        . "<th>$cName</th>"
+                    . "<th>$cName</th>"
                     . "</tr>"
                     . "<tr>"
                         . "<th>Aluno</th>"
