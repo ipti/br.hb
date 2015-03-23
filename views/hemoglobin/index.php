@@ -49,17 +49,19 @@ $columns = [['class'=> DataColumn::className(),
             ]];
 $columns = array_merge($columns, [$sample1]);
 
+//$campaigID = $campaign->id;
 
 if ($sample == 1) {
     $columns = array_merge($columns, [[
     'class' => DataColumn::className(),
-    'label' => yii::t('app', 'Print'),
+    'label' => yii::t('app', 'Actions'),
     'content' => function($model, $key, $index, $column) {
         /* @var $model \app\models\hemoglobin */
         $sid = $model->agreedTerm->enrollments->student;
         $eid = $model->agreedTerm->enrollment;
         return Html::a(Icon::show('envelope-o', [], Icon::FA), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
-              .Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/anamnese', 'eid' => $eid]));
+              .Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/anamnese', 'eid' => $eid]))
+              .Html::a(Icon::show('edit', [], Icon::FA),Url::toRoute(['hemoglobin/update', 'id' => $model->id]));
     }
     ]]);
 }

@@ -160,11 +160,24 @@ class campaign extends \yii\db\ActiveRecord {
     }
     
     /**
+     * @return array
+     */
+    public function getClassroomsWithAgreedTerms() {
+        /* @var $term \app\models\term*/
+        $terms = $this->getTerms()->where("agreed")->all();
+        
+        $result = [];
+        foreach($terms as $term){
+            $result[$term->enrollments->classrooms->id] = $term->enrollments->classrooms->name;
+        }
+        return $result;
+    }
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getSchools() {
         return $this->hasMany(school::className(), ['id' => 'school'])
-                        ->via('classrooms');
+                ->via('classrooms');
     }
     
     /**

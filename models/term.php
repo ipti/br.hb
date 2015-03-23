@@ -81,4 +81,12 @@ class term extends \yii\db\ActiveRecord
     {
         return $this->hasOne(enrollment::className(), ['id' => 'enrollment']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConsults()
+    {
+        return $this->hasOne(consultation::className(), ['term' => 'id']);
+    }
 }

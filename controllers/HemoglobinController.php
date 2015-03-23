@@ -59,7 +59,48 @@ class HemoglobinController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
+    
+    /**
+     * Get a list with terms agreeded by classroom.
+     * 
+     * @param integer $cid
+     * @return json
+     */
+    public function actionGetAgreedTerms($clid, $cid,$samp) {
+        /* @var $classroom \app\models\classroom */
+        /* @var $term \app\models\term */
+        $classroom = \app\models\classroom::find()->where("id = :clid",["clid"=>$clid])->one();
+        $terms = $classroom->getTerms()->where("agreed = true and campaign = :cid", ['cid'=>$cid])->all();
+        
+        $response = [];
+        foreach($terms as $term){
+            $hbs = $term->getHemoglobins()->where("sample = :samp",["samp"=>$samp])->count();
+            if($hbs == 0)
+                $response[$term->enrollments->students->name] = $term->id;
+        }
+        
+        echo \yii\helpers\Json::encode($response);
+        exit;
+    }
+    /**
+     * Get a list with consults attended by classroom.
+     * 
+     * @param integer $cid
+     * @return json
+     */
+    public function actionGetAttendedConsults($clid, $cid,$samp) {
+        /* @var $classroom \app\models\classroom */
+        /* @var $consult \app\models\consultation */
+        $classroom = \app\models\classroom::find()->where("id = :clid",["clid"=>$clid])->one();
+        $consults = $classroom->getConsults()->where("attended = true and campaign = :cid", ['cid'=>$cid])->all();
+        
+        $response = [];
+        foreach($consults as $consult){
+            $response[$consult->terms->enrollments->students->name] = $consult->terms->id;
+        }
+        echo \yii\helpers\Json::encode($response);
+        exit;
+    }
     /**
      * Creates a new hemoglobin model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -67,12 +108,24 @@ class HemoglobinController extends Controller
      */
     public function actionCreate($cid, $s)
     {
-        $model = new hemoglobin();
-        $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if(Yii::$app->request->post() != null){
+            $clid = Yii::$app->request->post()['classroom'];
+            $hemoglobins = Yii::$app->request->post()['hemoglobin'];
+            $sample = $s;
+            foreach($hemoglobins as $term => $rate){
+                $model = new hemoglobin();
+                if(!empty($rate)){
+                    $model->agreed_term = $term;
+                    $model->rate = $rate;
+                    $model->sample = $sample;
+                    $model->save();
+                }
+            }
             return $this->redirect(['index', 'c' => $cid, 's'=>$s]);
         } else {
+            $model = new hemoglobin();
+            $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
+            
             return $this->render('create', [
                 'model' => $model,
                 'campaign'=> $campaign,
@@ -92,7 +145,7 @@ class HemoglobinController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'c' => $model->agreedTerm->campaigns->id, 's' => $model->sample]);
         } else {
             return $this->render('update', [
                 'model' => $model,
