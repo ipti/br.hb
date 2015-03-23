@@ -94,6 +94,24 @@ class classroom extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTerms()
+    {
+        return $this->hasMany(term::className(), ['enrollment' => 'id'])
+            ->via("enrollments");
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConsults()
+    {
+        return $this->hasMany(consultation::className(), ['term' => 'id'])
+            ->via("terms");
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getStudents()
     {
         return $this->hasMany(student::className(), ['id' => 'student'])

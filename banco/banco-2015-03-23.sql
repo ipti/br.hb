@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `hbdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hbdb`;
+CREATE DATABASE  IF NOT EXISTS `hbdb_real` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `hbdb_real`;
 -- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
 --
--- Host: 192.168.25.209    Database: hbdb
+-- Host: 192.168.25.209    Database: hbdb_real
 -- ------------------------------------------------------
 -- Server version	5.5.40-1
 
@@ -35,7 +35,7 @@ CREATE TABLE `address` (
   `postal_code` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ CREATE TABLE `anatomy` (
   PRIMARY KEY (`id`),
   KEY `fk_anatomia_aluno1_idx` (`student`),
   CONSTRAINT `fk_anatomy_student` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `campaign` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_campanha_usuario1_idx` (`coordinator`),
   CONSTRAINT `fk_campaign_person_user` FOREIGN KEY (`coordinator`) REFERENCES `person_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,8 +90,8 @@ CREATE TABLE `campaign_has_driver` (
   PRIMARY KEY (`campaign`,`driver`),
   KEY `fk_campanha_has_Motorista_Motorista1_idx` (`driver`),
   KEY `fk_campanha_has_Motorista_campanha1_idx` (`campaign`),
-  CONSTRAINT `fk_campaign_has_driver_person_driver` FOREIGN KEY (`driver`) REFERENCES `person_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_campaign_has_driver_campaign` FOREIGN KEY (`campaign`) REFERENCES `campaign` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_campaign_has_driver_campaign` FOREIGN KEY (`campaign`) REFERENCES `campaign` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_campaign_has_driver_person_driver` FOREIGN KEY (`driver`) REFERENCES `person_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,8 +108,8 @@ CREATE TABLE `campaign_has_vehicle` (
   PRIMARY KEY (`campaign`,`vehicle`),
   KEY `fk_campanha_has_veiculo_veiculo1_idx` (`vehicle`),
   KEY `fk_campanha_has_veiculo_campanha1_idx` (`campaign`),
-  CONSTRAINT `fk_campaign_has_vehicle_vehicle` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_campaign_has_vehicle_campaign` FOREIGN KEY (`campaign`) REFERENCES `campaign` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_campaign_has_vehicle_campaign` FOREIGN KEY (`campaign`) REFERENCES `campaign` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_campaign_has_vehicle_vehicle` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,11 +126,12 @@ CREATE TABLE `classroom` (
   `school` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `shift` enum('day','morning','afternoon','night') NOT NULL,
+  `year` int(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_turma_escola2_idx` (`school`),
   CONSTRAINT `fk_classroom_school` FOREIGN KEY (`school`) REFERENCES `school` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20152021 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,9 +149,9 @@ CREATE TABLE `classroom_has_event` (
   KEY `fk_turma_has_equipe_equipe1_idx` (`team`),
   KEY `fk_turma_has_equipe_turma1_idx` (`classroom`),
   KEY `fk_turma_has_equipe_evento1_idx` (`event`),
+  CONSTRAINT `fk_classroom_has_event_classroom` FOREIGN KEY (`classroom`) REFERENCES `classroom` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_classroom_has_event_event` FOREIGN KEY (`event`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_classroom_has_event_team` FOREIGN KEY (`team`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_classroom_has_event_classroom` FOREIGN KEY (`classroom`) REFERENCES `classroom` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_classroom_has_event_team` FOREIGN KEY (`team`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -173,7 +174,7 @@ CREATE TABLE `consultation` (
   KEY `fk_consultation_term` (`term`),
   CONSTRAINT `fk_consultation_person_doctor` FOREIGN KEY (`doctor`) REFERENCES `person_doctor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_consultation_term` FOREIGN KEY (`term`) REFERENCES `term` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,10 +196,10 @@ CREATE TABLE `drives` (
   KEY `fk_Motorista_has_veiculo_rota1_idx` (`start`),
   KEY `fk_Motorista_has_veiculo_Motorista1_idx` (`driver`),
   KEY `fk_motorista_has_veiculo_evento1_idx` (`event`),
+  CONSTRAINT `fk_drives_event` FOREIGN KEY (`event`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_drives_person_driver` FOREIGN KEY (`driver`) REFERENCES `person_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_drives_route` FOREIGN KEY (`start`) REFERENCES `route` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_drives_vehicle` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_drives_event` FOREIGN KEY (`event`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_drives_vehicle` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -216,9 +217,9 @@ CREATE TABLE `enrollment` (
   PRIMARY KEY (`id`),
   KEY `fk_aluno_has_turma_turma1_idx` (`classroom`),
   KEY `fk_aluno_has_turma_aluno1_idx` (`student`),
-  CONSTRAINT `fk_enrollment_student` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_enrollment_classroom` FOREIGN KEY (`classroom`) REFERENCES `classroom` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_enrollment_classroom` FOREIGN KEY (`classroom`) REFERENCES `classroom` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_enrollment_student` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +262,7 @@ CREATE TABLE `hemoglobin` (
   PRIMARY KEY (`id`),
   KEY `fk_hemoglobina_aluno_has_campanha1_idx` (`agreed_term`),
   CONSTRAINT `fk_hemoglobin_term` FOREIGN KEY (`agreed_term`) REFERENCES `term` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,12 +547,13 @@ CREATE TABLE `student` (
   `address` int(11) NOT NULL,
   `birthday` date NOT NULL,
   `gender` enum('male','female') NOT NULL,
-  `responsible` varchar(150) DEFAULT NULL,
+  `mother` varchar(150) DEFAULT NULL,
+  `father` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_aluno_Endereco1_idx` (`address`),
   CONSTRAINT `fk_student_address` FOREIGN KEY (`address`) REFERENCES `address` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -589,7 +591,7 @@ CREATE TABLE `term` (
   KEY `fk_term_enrollment_idx` (`enrollment`),
   CONSTRAINT `fk_term_campaign` FOREIGN KEY (`campaign`) REFERENCES `campaign` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_term_enrollment` FOREIGN KEY (`enrollment`) REFERENCES `enrollment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,4 +623,4 @@ CREATE TABLE `vehicle` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-13 19:01:52
+-- Dump completed on 2015-03-23 12:54:43
