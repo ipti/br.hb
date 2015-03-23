@@ -70,4 +70,12 @@ class enrollment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(term::className(), ['enrollment' => 'id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHemoglobins()
+    {
+        return $this->hasMany(hemoglobin::className(), ['agreed_term' => 'id'])
+            ->via("terms");
+    }
 }

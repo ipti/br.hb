@@ -114,37 +114,69 @@ class ReportsController extends \yii\web\Controller {
             $enrollment     = $term->getEnrollments()->one();
             $classroom      = $enrollment->getClassrooms()->orderBy('name')->one();
             $student        = $enrollment->getStudents()->orderBy('name')->one();
+            $hemoglobin1    = $enrollment->getHemoglobins()->where('sample = 1')->one();
+            $hemoglobin2    = $enrollment->getHemoglobins()->where('sample = 2')->one();          
+            $hemoglobin3    = $enrollment->getHemoglobins()->where('sample = 3')->one();  
             
             if (isset($tAgreed[$classroom->name])) {
-                $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], [$student->name => $student->birthday]);
+                $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], 
+                    [['name'=> $student->name, 
+                        'birthday' => $student->birthday,
+                        'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
+                        'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
+                        'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                        ]
+                        ]);
             } else{
-                $tAgreed[$classroom->name] = [$student->name => $student->birthday];
+                $tAgreed[$classroom->name] = 
+                    [['name'=> $student->name, 
+                        'birthday' => $student->birthday,
+                        'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
+                        'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
+                        'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                        ]];
             }
         endforeach;
         foreach ($tAgreed as $cName => $students){
-            $header = "<table class='kv-grid-table table table-bordered table-striped'>"
+            $header = "<div class='agreed-terms-list'>"
+                    . "<table>"
                     . "<tr>"
-                        . "<th>$cName</th>"
+                    . "<th colspan='5' class='list-header'>Escola: $school->name</th>"
                     . "</tr>"
                     . "<tr>"
-                        . "<th>Aluno</th>"
-                        . "<th>Data Nascimento</th>"
-                        . "<th>Taxa 1</th>"
-                        . "<th>Taxa 2</th>"
-                        . "<th>Taxa 3</th>"
+                    . "<th colspan='5' class='list-header'>Turma: $cName</th>"
+                    . "</tr>"
+                    . "<tr><td colspan='5' style='border:0'></td></tr>"
+                    . "<tr>"
+                        . "<th class='student'>Aluno</th>"
+                        . "<th class='birthday'>Nascimento</th>"
+                        . "<th class='rate'>Taxa 1</th>"
+                        . "<th class='rate'>Taxa 2</th>"
+                        . "<th class='rate'>Taxa 3</th>"
                     . "</tr>";
             $body = "";
-            foreach ($students as $sName => $sBirthday){
+            
+         
+            foreach ($students as $s ){
+                $sName = $s['name'];
+                $sBirthday = $s['birthday'];
+                $sHb1 = $s['hb1'];
+                $sHb2 = $s['hb2'];
+                $sHb3 = $s['hb3'];
                 $body .= "<tr>"
-                            . "<td>$sName</td>"
-                            . "<td>$sBirthday</td>"
-                            . "<td></td>"
-                            . "<td></td>"
-                            . "<td></td>"
+                        . "<td class='student'>$sName</td>"
+                        . "<td class='birthday'>".date("d/m/Y",strtotime($sBirthday))."</td>"
+                        . "<td class='rate'>".$sHb1."</td>"
+                        . "<td class='rate'>".$sHb2."</td>"
+                        . "<td class='rate'>".$sHb3."</td>"
                         . "</tr>";
             }
             $footer = "</table>"
-                    . "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
+                    . "</div>";
+                    
+            if (end($tAgreed) !== $students){
+                $footer .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
+            }
             
             $html .= $header.$body.$footer;
         }
@@ -228,7 +260,7 @@ class ReportsController extends \yii\web\Controller {
                             <div class="report-content">
                                 <div class="report-head">  
                                     <p align="center"> 
-                                        <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
+                                        <img src="/images/reporters/prefeitura.png" width="260" height="120">
                                         <br>
                                         <br> 
                                         <b>Autorização para que seu filho participe de uma campanha de saúde na escola</b>  
@@ -246,7 +278,7 @@ class ReportsController extends \yii\web\Controller {
                                     será utilizada para o diagnóstico de anemia.
                                     <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Caso o senhor concorde, por favor assine este termo.
+                                    Caso o senhor(a) concorde, por favor assine este termo.
                                 </p>
                                 <br>
 
@@ -336,7 +368,7 @@ class ReportsController extends \yii\web\Controller {
         echo " <b><u>";
         echo $time;
         echo"</u></b><br/>";
-        echo "<b>Local da Consula:</b>";
+        echo "<b>Local da Consulta:</b>";
         echo " <b><u>";
         echo $place;
         echo"</u></b><br/>";
