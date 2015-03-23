@@ -28,11 +28,21 @@ class enrollmentSearch extends enrollment
 
     public function search($params)
     {
+        $actualController = Yii::$app->controller->className();
+       
         $c = $params['c'];
         /* @var $campaign \app\models\campaign */
         $campaign = \app\models\campaign::find()->where("id = :c",["c"=>$c])->one();
+    
         $query = $campaign->getEnrollments();
-
+        
+        $query->select("enrollment.*");
+        
+        if($actualController == \app\controllers\ConsultationController::className()){
+            $query->innerJoin('term as t', 't.enrollment = enrollment.id and t.agreed = true');
+            $query->innerJoin('consultation as co', 'co.term = t.id');
+        }
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -46,19 +56,14 @@ class enrollmentSearch extends enrollment
             $params["enrollmentSearch"]['student'] = "";
             $params["enrollmentSearch"]['classroom'] = "";
         }
-        
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
         
-        $query->select("enrollment.*");
         $query->innerJoin('student as s', 's.id = enrollment.student');
         $query->innerJoin('classroom as c', 'c.id = enrollment.classroom');
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-        
+        $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['like', 's.name', $sName])
               ->andFilterWhere(['like', 'c.name', $cName]);
         

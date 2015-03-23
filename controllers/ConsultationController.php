@@ -32,21 +32,15 @@ class ConsultationController extends Controller
      */
     public function actionIndex($c)
     {
-        if($c == null){
-            $q = consultation::find();
-        }else{
-            $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
-            $q = $campaign->getConsults();
-        }
-        
-        $dataProvider = new ActiveDataProvider([
-            'query' => $q
-        ]);
+        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+        $searchModel = new \app\models\enrollmentSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'campaign' => $campaign, 
-       ]);
+            'searchModel' => $searchModel,
+            'campaign'=>$c,
+        ]);
     }
 
     /**

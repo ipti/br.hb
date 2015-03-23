@@ -6,6 +6,8 @@ use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var searchModel app\models\enrollmentSearch */
+/* @var campaign integer */
 
 $this->assetBundles['Consultation'] = new app\assets\AppAsset();
 $this->assetBundles['Consultation']->js = [
@@ -16,29 +18,47 @@ $this->assetBundles['Consultation']->js = [
 $this->title = Yii::t('app', 'Consultations');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] =
-        Html::a(Yii::t('app', 'Create Consultation'), ['create', 'cid' => $campaign->id], ['class' => 'btn btn-success navbar-btn'])
+        Html::a(Yii::t('app', 'Create Consultation'), ['create', 'cid' => $campaign], ['class' => 'btn btn-success navbar-btn'])
 ?>
 
 <div class="consultation-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $column){
+                    return ['consultation-key'=>$model->getConsults()->one()->id];
+                },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
-                'attribute' => 'term',
+                'attribute'=>'student',
+                'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
-                    return $model->terms->students->name;
+                    return $model->getStudents()->one()->name;
                 }
             ],
-            //'doctor',
+            ['class'=> kartik\grid\DataColumn::className(),
+                'attribute'=>'classroom',
+                'header'=> Yii::t('app', 'Classroom'),
+                'content' => function ($model, $key, $index, $column){
+                    return $model->getClassrooms()->one()->name;
+                }
+            ],
+                    
             ['class' => \kartik\grid\BooleanColumn::className(),
                 'contentOptions' => ['class' => 'attendedClick cursor-pointer'],
-                'attribute' => 'attended',
+                'header'=> Yii::t('app', 'Attended'),
+                'value' => function ($model, $key, $index, $column){
+                    return $model->getConsults()->one()->attended;
+                },
                 'vAlign' => 'middle',
             ],
             ['class' => \kartik\grid\BooleanColumn::className(),
                 'contentOptions' => ['class' => 'deliveredClick cursor-pointer'],
-                'attribute' => 'delivered',
+                'header'=> Yii::t('app', 'Delivered'),
+                'value' => function ($model, $key, $index, $column){
+                    return $model->getConsults()->one()->delivered;
+                },
                 'vAlign' => 'middle',
             ],
         ],
