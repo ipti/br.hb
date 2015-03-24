@@ -137,10 +137,14 @@ $this->assetBundles['Reports']->js = [
 
     <div class="report-content">
         <div class="report-head">
-            <div class="report-head-image"></div>
-            QUESTIONÁRIO DE ANAMNESE<br>
-            Tecnologia Social Hb
-            <hr >
+            
+            <div class="report-head-image">
+                <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
+                <img src="/images/reporters/hb.png" class="pull-right" height="50px;">
+                <div class="clear"></div>
+            </div>
+            <h4 class="report-title">QUESTIONÁRIO DE ANAMNESE<br>
+            Tecnologia Social Hb</h4>
             <table id="anamnese-header" class="table-bordered">
                 <tr>
                     <th>Nome:</th><td colspan="5"></td>
@@ -161,7 +165,7 @@ $this->assetBundles['Reports']->js = [
                     <th>Hb1:</th><td colspan="3"></td>
                 </tr>
             </table>
-            <hr>
+            <br>
         </div>
         <div class="report-body">
             <div id='impar'>
@@ -174,7 +178,7 @@ $this->assetBundles['Reports']->js = [
                 Já teve Pneumonia?
                 <pre>(    ) SIM             (    ) NÃO</pre>
                 Quantas vezes?
-                <pre>(    ) 1               (    ) 2              (    ) 3              (    ) 4 ou mais</pre>
+                <pre>(    ) 1               (    ) 2              (    ) 3            (    ) 4 ou mais</pre>
             </div>
             <div id='impar'>
                 Tem alergia a algum medicamento?
@@ -194,9 +198,9 @@ $this->assetBundles['Reports']->js = [
                 Já teve anemia anteriormente?
                 <pre>(    ) SIM             (    ) NÃO</pre>
                 Quantas vezes?
-                <pre>(    ) 1               (    ) 2            (    ) 3                (    ) 4 ou mais</pre>
+                <pre>(    ) 1               (    ) 2            (    ) 3              (    ) 4 ou mais</pre>
                 Como foi tratada?
-                <pre>(    ) Sulfato Ferroso (    ) Dieta        (    ) Outros: _________________________</pre>
+                <pre>(    ) Sulfato Ferroso (    ) Dieta        (    ) Outros: _______________________</pre>
                 Melhorou com o tratamento:
                 <pre>(    ) SIM             (    ) NÃO          (    ) Não completou o tratamento</pre>
             </div>
@@ -205,7 +209,7 @@ $this->assetBundles['Reports']->js = [
                 <pre>(    ) SIM             (    ) NÃO</pre>
 
                 Se SIM, quem?   
-                <pre>(    ) Irmão(a)        (    ) Pai ou Mãe   (    ) Outros: _________________________</pre>
+                <pre>(    ) Irmão(a)        (    ) Pai ou Mãe   (    ) Outros: _______________________</pre>
             </div>
 
             OBS:

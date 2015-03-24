@@ -22,8 +22,41 @@ class ReportsController extends \yii\web\Controller {
         return $this->render('consultationLetter', $options);
     }
 
-    public function actionPrescription() {
-        return $this->render('prescription');
+    public function actionPrescription($eid) {
+        /* @var $enrollment \app\models\enrollment*/
+        /* @var $student \app\models\student */
+        /* @var $anatomy \app\models\anatomy */
+        
+        $enrollment = enrollment::find()->where("id = :eid",["eid"=>$eid])->one();
+        $student = $enrollment->getStudents()->one();
+        $name = $student->name;
+        
+        $anatomy = $student->getAnatomies()->orderBy("date desc")->one();
+        if($anatomy == null){
+            $sulfato = "<br>";
+            $vermifugo = "<br>";
+            
+        } else{
+            $peso = $anatomy->weight;
+
+            $concentracaoPorML = 125;
+            $gotasPorML = 20;
+            $concentracaoPorGora = $concentracaoPorML/$gotasPorML;
+            $gotasPor3 = $concentracaoPorGora/3;
+            $gotasPorPeso = ceil($gotasPor3 * $peso);
+
+            if($peso > 30){
+                $sulfato = "<b>Sulfato Ferroso</b> em comprimido, <b>1 Comprimido a cada 12h</b>.";
+            }else{
+                $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$gotasPorPeso gotas</b>, uma vez ao dia (após o jantar).";
+            }
+            $vermifugo = "<b>Albendazol</b> em comprimido, <b>1 Comprimido a cada 12h</b> (pode disolver em como com água ou suco).";
+        }
+        return $this->render('prescription', [
+            "name" => $name,
+            "sulfato" => $sulfato,
+            "vermifugo" => $vermifugo
+        ]);
     }
 
     public function actionTerms() {
