@@ -16,7 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] =
         Html::a(Yii::t('app', 'Create Hemoglobin', [
                     'modelClass' => 'Hemoglobin',
-                ]), ['create', 'cid' => $campaign->id, 's' => $sample], ['class' => 'btn btn-success navbar-btn']);
+                ]), ['create', 'cid' => $campaign->id, 's' => $sample],
+                ['class' => 'btn btn-success navbar-btn'] );
+
+
 
 
 $sample1 = ['class'=> DataColumn::className(),
@@ -72,6 +75,11 @@ if ($sample >= 3) { $columns = array_merge($columns, [$sample3]); }
 ?>
 
 <div class="hemoglobin-index">
+    <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Anemics Lists...'),Url::toRoute(['anemics-lists', 'cid' => $campaign->id, 's' => $sample ]),
+         ['id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right']) ?>
+    <br>
+    <br>
+    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
