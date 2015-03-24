@@ -37,29 +37,29 @@ $this->params['button'] =
                 }
             ],
             ['class'=> kartik\grid\DataColumn::className(),
-                'header'=> Yii::t('app', 'weight'),
+                'header'=> Yii::t('app', 'Weight'),
                 'content' => function ($model, $key, $index, $column){
-                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
-                    if($anatomie != null)
-                        return $anatomie->weight;
+                    $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomy != null)
+                        return $anatomy->weight;
                     return null;
                 }
             ],
             ['class'=> kartik\grid\DataColumn::className(),
-                'header'=> Yii::t('app', 'height'),
+                'header'=> Yii::t('app', 'Height'),
                 'content' => function ($model, $key, $index, $column){
-                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
-                    if($anatomie != null)
-                        return $anatomie->height;
+                    $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomy != null)
+                        return $anatomy->height;
                     return null;
                 }
             ],
             ['class'=> kartik\grid\DataColumn::className(),
-                'header'=> Yii::t('app', 'date'),
+                'header'=> Yii::t('app', 'Date'),
                 'content' => function ($model, $key, $index, $column){
-                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
-                    if($anatomie != null)
-                        return $anatomie->date;
+                    $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomy != null)
+                        return $anatomy->date;
                     return null;
                 }
             ],
@@ -68,9 +68,9 @@ $this->params['button'] =
                 'options'=>['mydate'=>$campaign->begin],
                 'contentOptions' => ['class' => 'agreedClick'],
                 'content' => function ($model, $key, $index, $column){
-                    $anatomie = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
-                    if($anatomie != null)
-                        return $anatomie->date >= $column->options['mydate'] 
+                    $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomy != null)
+                        return $anatomy->date >= $column->options['mydate'] 
                                 ? '<span class="glyphicon glyphicon-ok text-success"></span>'
                                 : '<span class="icon-info fa fa-info"></span>';
                     return '<span class="icon-error fa fa-remove"></span>';

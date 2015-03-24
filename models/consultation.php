@@ -13,7 +13,7 @@ use Yii;
  * @property integer $delivered
  * @property integer $term
  *
- * @property Term $term0
+ * @property Term $terms
  * @property PersonDoctor $doctor0
  * @property Prescription[] $prescriptions
  * @property Stock[] $stocks

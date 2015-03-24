@@ -73,9 +73,9 @@ class enrollment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getConsults()
+    public function getHemoglobins()
     {
-        return $this->hasOne(consultation::className(), ['term' => 'id'])
-            ->via('terms');
+        return $this->hasMany(hemoglobin::className(), ['agreed_term' => 'id'])
+            ->via("terms");
     }
 }

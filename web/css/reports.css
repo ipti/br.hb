@@ -1,4 +1,64 @@
+/* Termos consentidos */
 
+.agreed-terms-list{
+    margin: auto;
+    padding: 20px;
+    width: 700px;
+    background: #fff;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DDDDDD;
+}
+
+.agreed-terms-list table{
+    width: 100%;
+}
+
+.agreed-terms-list table th{
+    height: 25px;
+    text-align: center;
+    border: 1px solid #686868;
+}
+
+.agreed-terms-list table th.list-header{
+    height: 25px;
+    text-align: left;
+    font-size: 16px;
+    border: 0;
+}
+
+.agreed-terms-list table td{
+    height: 25px;
+    text-align: center;    
+    border: 1px solid #686868;
+}
+
+.agreed-terms-list table th.student{   
+    text-align: left;
+    width: 350px;     
+    padding: 0 10px;
+}
+
+.agreed-terms-list table th.birthday{
+    width: 125px;        
+}
+
+.agreed-terms-list table th.rate{   
+    width: 75px;        
+}
+
+.agreed-terms-list table td.student{    
+    text-align: left;
+    width: 350px;
+    padding: 0 10px;
+}
+
+.agreed-terms-list table td.birthday{
+    width: 125px;
+}
+
+.agreed-terms-list table td.rate{    
+    width: 75px;
+}
 
 
 /* Filter */

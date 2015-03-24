@@ -71,6 +71,8 @@ return [
     'New Term' => 'Novo termo',
     'Terms'=>'Termos',
     'Enrollment' => 'Aluno', //enrollment = matricula, mas no campo da pagina = aluno
+    'All Terms' => 'Todos os termos',
+    'Agreed Terms...' => 'Termos consentidos...',
     
     // Hemoglobin
     'Create Hemoglobin'=>'Criar hemoglobina',
@@ -82,6 +84,7 @@ return [
     'HB3'=>'HB3',
     'Agreed Term' => 'Termo consentido',
     'Rate' => 'Taxa',
+    'Classrooms with Agreed Terms...' => 'Turmas com termos consentidos...',
     
     // Consultations
     'Create Consultation'=>'Criar consulta',
@@ -141,6 +144,7 @@ return [
     'Success Updated!' => 'Atualizado com sucesso!',
     'Success Created!' => 'Criado com sucesso!',
     'Print' => 'Imprimir',
+    'Actions' => 'Ações',
     
     'Are you sure you want to update?' => 'Tem certeza de que deseja atualizar?',
     'Are you sure you want to delete this item?' => 'Deseja mesmo excluir este item?',

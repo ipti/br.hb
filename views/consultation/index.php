@@ -27,7 +27,7 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $column){
-                    return ['consultation-key'=>$model->getConsults()->one()->id];
+                    return ['consultation-key'=>$model->getTerms()->one()->getConsults()->one()->id];
                 },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
@@ -49,7 +49,8 @@ $this->params['button'] =
                 'contentOptions' => ['class' => 'attendedClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Attended'),
                 'value' => function ($model, $key, $index, $column){
-                    return $model->getConsults()->one()->attended;
+                /* @var $model \app\models\enrollment */
+                    return $model->getTerms()->one()->getConsults()->one()->attended;
                 },
                 'vAlign' => 'middle',
             ],
@@ -57,7 +58,7 @@ $this->params['button'] =
                 'contentOptions' => ['class' => 'deliveredClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Delivered'),
                 'value' => function ($model, $key, $index, $column){
-                    return $model->getConsults()->one()->delivered;
+                    return $model->getTerms()->one()->getConsults()->one()->delivered;
                 },
                 'vAlign' => 'middle',
             ],

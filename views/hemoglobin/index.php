@@ -57,7 +57,7 @@ $columns = array_merge($columns, [$sample1]);
 if ($sample == 1) {
     $columns = array_merge($columns, [[
     'class' => DataColumn::className(),
-    'label' => yii::t('app', 'Print'),
+    'label' => yii::t('app', 'Actions'),
     'content' => function($model, $key, $index, $column) {
         /* @var $model \app\models\hemoglobin */
         $sid = $model->agreedTerm->enrollments->student;

@@ -147,7 +147,7 @@ $this->assetBundles['Reports']->js = [
                 'actions'=>[
                     'type'=>Form::INPUT_RAW, 
                     'value'=>'<div class="pull-right">' . 
-                        Html::resetButton(Icon::show('recycle',[], Icon::FA).Yii::t('app', 'Reset'), ['class'=>'btn btn-default btn-actions']) . ' ' .
+                        Html::Button(Icon::show('recycle',[], Icon::FA).Yii::t('app', 'Reset'), ['id' => 'reset-consultation-letter', 'class'=>'btn btn-default btn-actions']) . ' ' .
                         Html::button(Icon::show('refresh',[], Icon::FA).Yii::t('app','Generate'), ['id'=>'submit-consultation-letter', 'type'=>'button', 'class'=>'btn btn-primary btn-actions']) . 
                     '</div>',
                 ],
