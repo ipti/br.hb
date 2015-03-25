@@ -30,6 +30,7 @@ class anatomy extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        
         return [
             [['student','weight', 'height', 'date'], 'required'],
             [['student'], 'integer'],
