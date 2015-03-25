@@ -160,7 +160,7 @@ $this->assetBundles['Reports']->js = [
             <div class="report-head-image">
                 <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
                 <img src="/images/reporters/hb.png" class="pull-right" height="50px;">
-                <div class="clear">
+                <div class="clear"></div>
             </div>
             <h4 class="report-title">Carta de Aviso de Consulta</h4>
         </div>

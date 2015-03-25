@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
+use \kartik\icons\Icon;
+use \yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -61,7 +63,20 @@ $this->params['button'] =
                     return $model->getTerms()->one()->getConsults()->one()->delivered;
                 },
                 'vAlign' => 'middle',
-            ],
+            ],[
+                'class' => kartik\grid\DataColumn::className(),
+                'label' => yii::t('app', 'Actions'),
+                'content' => function($model, $key, $index, $column) {
+                    
+                    $consultation = $model;
+                    $hemoglobin = $consultation->terms->getHemoglobins()->where("sample = 1")->one();
+                    $link = $hemoglobin->isAnemic() 
+                            ? Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
+                            : Html::a(Icon::show('file-text-o', [], Icon::FA), "#",["class"=>"text-muted disabled"]);
+                    
+                    return $link;
+                }
+            ]
         ],
         'pjax' => true,
         'pjaxSettings' => [
