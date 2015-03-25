@@ -8,15 +8,14 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use mPDF;
 
 /**
  * HemoglobinController implements the CRUD actions for hemoglobin model.
  */
-class HemoglobinController extends Controller
-{
-    public function behaviors()
-    {
+class HemoglobinController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -31,20 +30,19 @@ class HemoglobinController extends Controller
      * Lists all hemoglobin models.
      * @return mixed
      */
-    public function actionIndex($c, $s)
-    {
-        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+    public function actionIndex($c, $s) {
+        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $c])->one();
         /* @var $campaign \app\models\campaign */
-        $q = $campaign->getHemoglobins()->where('sample = :s',['s'=>$s]);
-        
+        $q = $campaign->getHemoglobins()->where('sample = :s', ['s' => $s]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $q
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'campaign'=>$campaign,
-            'sample'=>$s
+                    'dataProvider' => $dataProvider,
+                    'campaign' => $campaign,
+                    'sample' => $s
         ]);
     }
 
@@ -53,83 +51,83 @@ class HemoglobinController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
-    
+
     /**
      * Get a list with terms agreeded by classroom.
      * 
      * @param integer $cid
      * @return json
      */
-    public function actionGetAgreedTerms($clid, $cid,$samp) {
+    public function actionGetAgreedTerms($clid, $cid, $samp) {
         /* @var $classroom \app\models\classroom */
         /* @var $term \app\models\term */
-        $classroom = \app\models\classroom::find()->where("id = :clid",["clid"=>$clid])->one();
-        $terms = $classroom->getTerms()->where("agreed = true and campaign = :cid", ['cid'=>$cid])->all();
-        
+        $classroom = \app\models\classroom::find()->where("id = :clid", ["clid" => $clid])->one();
+        $terms = $classroom->getTerms()->where("agreed = true and campaign = :cid", ['cid' => $cid])->all();
+
         $response = [];
-        foreach($terms as $term){
-            $hbs = $term->getHemoglobins()->where("sample = :samp",["samp"=>$samp])->count();
-            if($hbs == 0)
+        foreach ($terms as $term) {
+            $hbs = $term->getHemoglobins()->where("sample = :samp", ["samp" => $samp])->count();
+            if ($hbs == 0)
                 $response[$term->enrollments->students->name] = $term->id;
         }
-        
+
         echo \yii\helpers\Json::encode($response);
         exit;
     }
+
     /**
      * Get a list with consults attended by classroom.
      * 
      * @param integer $cid
      * @return json
      */
-    public function actionGetAttendedConsults($clid, $cid,$samp) {
+    public function actionGetAttendedConsults($clid, $cid, $samp) {
         /* @var $classroom \app\models\classroom */
         /* @var $consult \app\models\consultation */
-        $classroom = \app\models\classroom::find()->where("id = :clid",["clid"=>$clid])->one();
-        $consults = $classroom->getConsults()->where("attended = true and campaign = :cid", ['cid'=>$cid])->all();
-        
+        $classroom = \app\models\classroom::find()->where("id = :clid", ["clid" => $clid])->one();
+        $consults = $classroom->getConsults()->where("attended = true and campaign = :cid", ['cid' => $cid])->all();
+
         $response = [];
-        foreach($consults as $consult){
+        foreach ($consults as $consult) {
             $response[$consult->terms->enrollments->students->name] = $consult->terms->id;
         }
         echo \yii\helpers\Json::encode($response);
         exit;
     }
+
     /**
      * Creates a new hemoglobin model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($cid, $s)
-    {
-        if(Yii::$app->request->post() != null){
+    public function actionCreate($cid, $s) {
+        if (Yii::$app->request->post() != null) {
             $clid = Yii::$app->request->post()['classroom'];
             $hemoglobins = Yii::$app->request->post()['hemoglobin'];
             $sample = $s;
-            foreach($hemoglobins as $term => $rate){
+            foreach ($hemoglobins as $term => $rate) {
                 $model = new hemoglobin();
-                if(!empty($rate)){
+                if (!empty($rate)) {
                     $model->agreed_term = $term;
                     $model->rate = $rate;
                     $model->sample = $sample;
                     $model->save();
                 }
             }
-            return $this->redirect(['index', 'c' => $cid, 's'=>$s]);
+            return $this->redirect(['index', 'c' => $cid, 's' => $s]);
         } else {
             $model = new hemoglobin();
-            $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
-            
+            $campaign = \app\models\campaign::find()->where("id=:id", ['id' => $cid])->one();
+
             return $this->render('create', [
-                'model' => $model,
-                'campaign'=> $campaign,
-                'sample' => $s
+                        'model' => $model,
+                        'campaign' => $campaign,
+                        'sample' => $s
             ]);
         }
     }
@@ -140,156 +138,136 @@ class HemoglobinController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'c' => $model->agreedTerm->campaigns->id, 's' => $model->sample]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
-    
-    
-    
-    public function actionAnemicsLists(){
-        
-        var_dump($_GET['cid']);exit();
-        
-        $campaignID = $cid;
-        $html = "";
-        
-        if (isset($campaignID)) {
-            $schools = array();
-            /* @var $campaign \app\models\campaign */
-            $campaign   = campaign::find()->where('id = :sid', ['sid' => $campaignID])->one();
-            $terms      = $campaign->getTerms()->all();
 
-            foreach ($terms as $term):
-                /* @var $term       \app\models\term */
-                /* @var $enrollment \app\models\enrollment */
-                /* @var $classroom  \app\models\classroom */
-                /* @var $student    \app\models\student */
-                $enrollment     = $term->getEnrollments()->one();
-                $classroom      = $enrollment->getClassrooms()->orderBy('name')->one();
-                $school         = $classroom->getSchools()->orderBy('name')->one();
-                $student        = $enrollment->getStudents()->orderBy('name')->one();
+    public function actionAnemicsLists() {
 
-                $schools[$school->id]['name'] = $school->name;
-                $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name;
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
-            endforeach;
-        
-        
-            foreach ($schools as $i => $school):
-                $sName = $school['name'];
-                $classrooms = $school['classrooms'];
-                //School
-                $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> "
-                        . "<p class='page-white'> Escola: ".$sName."</p> "
-                        . "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                        
-                foreach ($classrooms as $j => $classroom):
-                    $cName = $classroom['name'];
-                    $students = $classroom['students'];
-                  //Turma
-                 $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> "
-                         . "<p class='page-white'> Turma: ".$cName."</p> "
-                         . "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                
-                    foreach ($students as $k => $student):
-                        $sName = $student['name'];
-                        $sMother = $student['nameMother'];
-                        $sFather = $student['nameMother'];
+        $cid = $_GET['cid'];
+        $sample = $_GET['s'];
 
+        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $cid])->one();
+        /* @var $campaign \app\models\campaign */
+        $terms = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $cid])->all();
 
-                        //========================================================  
-
-                        $html .= '
-                        <div class="report">
-                            <div class="report-content">
-                                <div class="report-head">  
+        $html = '  
                                     <p align="center"> 
-                                        <img src="/images/reporters/boquim/prefeitura.jpg" width="260" height="120">
+                                        <b>Lista de Alunos Com Anemia</b>  
                                         <br>
-                                        <br> 
-                                        <b>Autorização para que seu filho participe de uma campanha de saúde na escola</b>  
-                                        <br>
-                                        </p>
-                                    </div>
-                            <br>
-                            <div class="report-body">
-                                <p style="text-align: justify; text-justify: inter-word;"> Prezado(a) Senhor(a) <br><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Caso o senhor(a) concorde, o seu filho(a) será submetido(a) a uma punção da extremidade do dedo médio da
-                                    mão esquerda, com lancetador de lancetas descartáveis, para a obtenção de uma pequena gota de sangue. Esta
-                                    punção será feita por profissional treinado e a criança sentirá somente um pequeno desconforto, sendo que não
-                                    há riscos à sua saúde. Com esta gota de sangue, faremos a dosagem da concentração de hemoglobina, dado que
-                                    será utilizada para o diagnóstico de anemia.
-                                    <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Caso o senhor concorde, por favor assine este termo.
-                                </p>
-                                <br>
+                                        </p>  ';
 
-                                <pre><b>Nome da criança ou adolescente: ' . $sName . ' </b> </pre>
-                                <br>
-                                <table>
-                                    <tr>
-                                        <td>[ ] - Nome da Mãe: '. $sMother .'</td>
-                                        <td rowspan="4" class="dedinho-term-report">
-                                            <img src="/images/reporters/dedinho.png">
-                                        </td>
-                                    </tr>
-                                    <tr><td class="answer-line"></td></tr>
-                                    <tr><td><br>[ ] - Nome do Pai: '. $sFather .'</td></tr>
-                                    <tr><td class="answer-line"></td></tr>
-                                </table>  
-                                <br>
-                                <br>
-                                <table class="table-term">
-                                    <tr><td>Peso</td><td>Altura</td><td>Data de Coleta</td></tr>
-                                    <tr><td>&nbsp;</td><td></td><td></td></tr>
-                                </table>
-                                <br>
-                                <table class="table-term">
-                                    <tr><td><b>HB 1</b></td><td><b>Data de Coleta</b></td></tr>
-                                    <tr><td>&nbsp;</td><td></td></tr>
-                                    <tr><td><b>HB 2</b></td><td><b>Data de Coleta</b></td></tr>
-                                    <tr><td>&nbsp;</td><td></td></tr>
-                                    <tr><td><b>HB 3</b></td><td><b>Data de Coleta</b></td></tr>
-                                    <tr><td>&nbsp;</td><td></td></tr>
-                                </table>
-                                <br>   
-                                <pre> [ ] - Sulfato ferroso: __________________________________________________ </pre> 
-                                <pre> [ ] - Vermifugo: _____________________________________________________ </pre> </div>
-                            </div>
-                        </div>'
-                        ."<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                    endforeach;
+        $schoolsAnemics = array();
+
+        foreach ($terms AS $termAgreed):
+            // Somente possui uma hemoglobin por termo
+            $hemoglobin = \app\models\hemoglobin::find()->where("agreed_term = :a AND sample = :s", ["a" => $termAgreed->id, "s" => $sample])->one();
+
+            if (isset($hemoglobin)) {
+                //Então pesquisa o student atravez do $termAgreed
+
+                $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $termAgreed->enrollment])->one();
+                $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
+                $classroom = \app\models\classroom::find()->where("id = :a", ["a" => $enrollment->classroom])->one();
+                $school = \app\models\school::find()->where("id = :a", ["a" => $classroom->school])->one();
+
+                $rate = $hemoglobin->rate;
+                $nameStudent = $student->name;
+                $genderStudent = $student->gender;
+                $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+
+
+                $isAnemic = false;
+                if (($ageStudent > 24) && ($ageStudent < 60)) {
+                    $isAnemic = !($rate >= 11);
+                } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                    $isAnemic = !($rate >= 11.5);
+                } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
+                    $isAnemic = !($rate >= 12);
+                } else if ($ageStudent >= 180) {
+
+                    if ($genderStudent == "male") {
+                        $isAnemic = !($rate >= 13);
+                    } else {
+                        //female
+                        $isAnemic = !($rate >= 12);
+                    }
+                }
+
+                if ($isAnemic) {
+                    //Se for anêmico, dá push no array
+                    $schoolsAnemics[$school->id]['name'] = $school->name;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $nameStudent;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['rate'] = $rate;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['gender'] = $genderStudent;
+                }
+            }
+
+        endforeach;
+
+
+        foreach ($schoolsAnemics as $i => $school):
+            foreach ($school['classrooms'] as $j => $classroom):
+                $html .= "<div class='agreed-terms-list'>"
+                        . "<table>"
+                        . "<tr>"
+                        . "<th colspan='5' class='list-header'>Escola:" . $school['name'] . "</th>"
+                        . "</tr>"
+                        . "<tr>"
+                        . "<th colspan='5' class='list-header'>Turma:" . $classroom['name'] . "</th>"
+                        . "</tr>"
+                        . "<tr><td colspan='5' style='border:0'></td></tr>"
+                        . "<tr>"
+                        . "<th class='student'>Aluno</th>"
+                        . "<th class='sexo'>Sexo</th>"
+                        . "<th class='rate'>Taxa</th>"
+                        . "</tr>";
+
+                foreach ($classroom['students'] as $k => $student):
+
+                    $html .= "<tr>"
+                            . "<td class='student'>" . $student['name'] . "</td>"
+                            . "<td class='sexo'>" . Yii::t('app', $student['gender']) . "</td>"
+                            . "<td class='rate'>" . $student['rate'] . "</td>"
+                            . "</tr>";
+
                 endforeach;
+
+                $html .= "</table>"
+                        . "</div>";
+
+                if (end($school['classrooms']) !== $classroom) {
+                    $html .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
+                }
+
+
             endforeach;
-            
-            $mpdf = new mPDF();
 
-            $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
-            $mpdf->WriteHTML($css1, 1);
+        endforeach;
 
-            $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
-            $mpdf->WriteHTML($css2, 1);
 
-            $mpdf->WriteHTML($html);
+        $mpdf = new mPDF();
 
-            $mpdf->Output('terms.pdf', 'I');
-            exit;
-        }
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+
+        $mpdf->WriteHTML($html);
+
+        $mpdf->Output('ListAnemicsStudents.pdf', 'I');
+        exit;
     }
-    
 
     /**
      * Deletes an existing hemoglobin model.
@@ -297,8 +275,7 @@ class HemoglobinController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -311,12 +288,12 @@ class HemoglobinController extends Controller
      * @return hemoglobin the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = hemoglobin::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }
