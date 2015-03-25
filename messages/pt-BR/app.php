@@ -85,6 +85,7 @@ return [
     'Agreed Term' => 'Termo consentido',
     'Rate' => 'Taxa',
     'Classrooms with Agreed Terms...' => 'Turmas com termos consentidos...',
+    'Anemics Lists...' => 'Alunos anêmicos...',
     
     // Consultations
     'Create Consultation'=>'Criar consulta',
@@ -104,6 +105,8 @@ return [
     'Gender' => 'Sexo',
     'Male' => 'Masculino',
     'Female' => 'Feminino',        
+    'male' => 'Masculino',
+    'female' => 'Feminino',
     
     // Reports
     'Reports' => 'Relatórios',

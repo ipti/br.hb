@@ -41,7 +41,7 @@ $this->params['button'] =
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
                     if($anatomy != null)
-                        return $anatomy->weight;
+                        return $anatomy->weight . "kg";
                     return null;
                 }
             ],
@@ -50,7 +50,7 @@ $this->params['button'] =
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
                     if($anatomy != null)
-                        return $anatomy->height;
+                        return $anatomy->height . "m";
                     return null;
                 }
             ],
@@ -59,7 +59,7 @@ $this->params['button'] =
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
                     if($anatomy != null)
-                        return $anatomy->date;
+                        return date("d/m/Y", strtotime($anatomy->date));
                     return null;
                 }
             ],

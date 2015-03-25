@@ -39,18 +39,22 @@ class ReportsController extends \yii\web\Controller {
         } else{
             $peso = $anatomy->weight;
 
-            $concentracaoPorML = 125;
+            $concentracaoPorML = 25;
             $gotasPorML = 20;
-            $concentracaoPorGora = $concentracaoPorML/$gotasPorML;
-            $gotasPor3 = $concentracaoPorGora/3;
-            $gotasPorPeso = ceil($gotasPor3 * $peso);
+            $concentracaoPorGota = $concentracaoPorML/$gotasPorML;
+
+            $posologia = ceil($peso / $concentracaoPorGota);
+            
+            
+//            $gotasPor3 = $concentracaoPorGota/3;
+//            $gotasPorPeso = ceil($gotasPor3 * $peso);
 
             if($peso > 30){
                 $sulfato = "<b>Sulfato Ferroso</b> em comprimido, <b>1 Comprimido a cada 12h</b>.";
             }else{
-                $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$gotasPorPeso gotas</b>, uma vez ao dia (após o jantar).";
+                $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$posologia gotas</b>, três vezes ao dia.";
             }
-            $vermifugo = "<b>Albendazol</b> em comprimido, <b>1 Comprimido a cada 12h</b> (pode disolver em como com água ou suco).";
+            $vermifugo = "<b>Albendazol</b> em comprimido, <b>1 Comprimido a cada 12h</b> (pode dissolver em água ou suco).";
         }
         return $this->render('prescription', [
             "name" => $name,
