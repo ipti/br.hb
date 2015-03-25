@@ -26,7 +26,7 @@ $sample1 = ['class'=> DataColumn::className(),
             'label' => yii::t('app', 'Rate')." 1",
             'content' => function ($model){
                 /* @var $model \app\models\hemoglobin */
-                return $model->getHemoglobin(1)->rate;
+                return $model->getHemoglobin(1)->rate . "g/dL";
             }
         ];
             
@@ -34,14 +34,14 @@ $sample2 = $sample < 2 ? "" : ['class'=> DataColumn::className(),
                 'label' => yii::t('app', 'Rate')." 2",
                 'content' => function ($model){
                     /* @var $model \app\models\hemoglobin */
-                    return ($model->getHemoglobin(2) == null ) ? "-----"  : $model->getHemoglobin(2)->rate;
+                    return ($model->getHemoglobin(2) == null ) ? "-----"  : $model->getHemoglobin(2)->rate . "g/dL";
                 }
             ];
 $sample3 = ['class'=> DataColumn::className(),
                 'label' => yii::t('app', 'Rate')." 3",
                 'content' => function ($model){
                 /* @var $model \app\models\hemoglobin */
-                return $model->getHemoglobin(3)->rate;
+                return $model->getHemoglobin(3)->rate . "g/dL";
                 }
             ];
 $columns = [['class'=> DataColumn::className(),

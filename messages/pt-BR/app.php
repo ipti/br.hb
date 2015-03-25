@@ -103,6 +103,7 @@ return [
     'New Student' => 'Novo aluno',
     'Birthday' => 'Data de nascimento',
     'Gender' => 'Sexo',
+    'years old' => "anos",
     'Male' => 'Masculino',
     'Female' => 'Feminino',        
     'male' => 'Masculino',

@@ -220,10 +220,10 @@ class HemoglobinController extends Controller {
                 $html .= "<div class='agreed-terms-list'>"
                         . "<table>"
                         . "<tr>"
-                        . "<th colspan='5' class='list-header'>Escola:" . $school['name'] . "</th>"
+                        . "<th colspan='5' class='list-header'>Escola: " . $school['name'] . "</th>"
                         . "</tr>"
                         . "<tr>"
-                        . "<th colspan='5' class='list-header'>Turma:" . $classroom['name'] . "</th>"
+                        . "<th colspan='5' class='list-header'>Turma: " . $classroom['name'] . "</th>"
                         . "</tr>"
                         . "<tr><td colspan='5' style='border:0'></td></tr>"
                         . "<tr>"
@@ -237,7 +237,7 @@ class HemoglobinController extends Controller {
                     $html .= "<tr>"
                             . "<td class='student'>" . $student['name'] . "</td>"
                             . "<td class='sexo'>" . Yii::t('app', $student['gender']) . "</td>"
-                            . "<td class='rate'>" . $student['rate'] . "</td>"
+                            . "<td class='rate'>" . $student['rate'] . "g/dL</td>"
                             . "</tr>";
 
                 endforeach;

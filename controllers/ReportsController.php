@@ -92,12 +92,12 @@ class ReportsController extends \yii\web\Controller {
         $birthday   = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
         $b          = $student != null ? $student->birthday : "";
         $today      = $student != null ? new \DateTime(date("Y-m-d")) : "";
-        $age        = $student != null ? $today->diff(new \DateTime($b))->format("%y") : "";
+        $age        = $student != null ? $today->diff(new \DateTime($b))->format("%y") . " " . \yii::t('app', 'years old') : "";
         $sex        = $student != null ? \yii::t('app', $student->gender) : "";
         $weight     = $anatomy != null ? $anatomy->weight . "kg" : "";
         $height     = $anatomy != null ? $anatomy->height . "m" : "";
         $imc        = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
-        $rate1      = $hb1     != null ? $hb1->rate : "";
+        $rate1      = $hb1     != null ? $hb1->rate . "g/dL" : "";
 
         echo "<tr>";
         echo "<th>Nome:</th><td colspan='5'>";
@@ -203,9 +203,9 @@ class ReportsController extends \yii\web\Controller {
                 $body .= "<tr>"
                         . "<td class='student'>$sName</td>"
                         . "<td class='birthday'>".date("d/m/Y",strtotime($sBirthday))."</td>"
-                        . "<td class='rate'>".$sHb1."</td>"
-                        . "<td class='rate'>".$sHb2."</td>"
-                        . "<td class='rate'>".$sHb3."</td>"
+                        . "<td class='rate'>".($sHb1 == null ? '' : $sHb1 . 'g/dL')."</td>"
+                        . "<td class='rate'>".($sHb2 == null ? '' : $sHb2 . 'g/dL')."</td>"
+                        . "<td class='rate'>".($sHb3 == null ? '' : $sHb3 . 'g/dL')."</td>"
                         . "</tr>";
             }
             $footer = "</table>"
