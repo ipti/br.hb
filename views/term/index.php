@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use kartik\icons\Icon;
 use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $campaign integer */
@@ -17,8 +18,15 @@ $this->assetBundles['Term']->js = [
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] = 
-        Html::a(Yii::t('app', 'Create Term'), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
+        Html::button(Icon::show('plus',[], Icon::BSG).
+                    yii::t('app', 'New Term'), 
+                    ['value' => Url::to(['term/create','c'=>$campaign]),
+                        'id'=>'newTerm',
+                        'class'=>'btn btn-success navbar-btn',
+                        'for'=>'#'
+                    ]);
 ?>
+
 <div class="term-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
@@ -121,5 +129,12 @@ $this->params['button'] =
     echo "</div>";
     echo "<br>";
     echo "<br></div>";
+    Modal::end();
+?>
+
+<?php
+    Modal::begin(['closeButton'=>false,
+        'id' => 'termModal']);
+        echo "<div id='termModalContent'></div>";
     Modal::end();
 ?>
