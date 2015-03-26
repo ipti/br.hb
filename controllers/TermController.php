@@ -104,8 +104,8 @@ class TermController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
-            
-            return $this->redirect(['index', 'c' => $c]);
+            Yii::$app->response->format = 'json';
+            return ['message' => Yii::t('app','Success Update!'), 'id'=>$model->id];
         }
         return $this->renderAjax('update',['model'=>$model]);
     }
