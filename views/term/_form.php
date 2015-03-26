@@ -18,7 +18,7 @@ use kartik\select2\Select2;
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3><?= $model->isNewRecord ? Yii::t('app', 'Create Campaign') : Yii::t('app', 'Update Campaign') ?></h3>
+        <h3><?= $model->isNewRecord ? Yii::t('app', 'New Term') : Yii::t('app', 'Update Campaign') ?></h3>
         <?= $model->isNewRecord ? '' : $model->name ?>
     </div>
 
@@ -73,3 +73,4 @@ use kartik\select2\Select2;
     </div>
 
     <?php ActiveForm::end();?>
+</div>

@@ -175,7 +175,7 @@ $this->params['siteIndex'] = true;
 </div>
 <?php
     Modal::begin(['closeButton'=>false,
-        'id' => 'campignModal']);
-        echo "<div id='campignModalContent'></div>";
+        'id' => 'campaignModal']);
+        echo "<div id='campaignModalContent'></div>";
     Modal::end();
 ?>

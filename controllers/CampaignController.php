@@ -163,7 +163,6 @@ class CampaignController extends Controller {
         $model = new campaign();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
-            Yii::$app->response->format = 'json';
 
             if (isset($_POST['classrooms'])) {
                 foreach ($_POST['classrooms'] as $cid) {
@@ -184,7 +183,7 @@ class CampaignController extends Controller {
                 }
             }
 
-            return ['message' => Yii::t('app', 'Success Created!'), 'id' => $model->id];
+            return $this->redirect(['/']);
         }
         return $this->renderAjax('create', ['model' => $model]);
     }
@@ -200,8 +199,8 @@ class CampaignController extends Controller {
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
-            Yii::$app->response->format = 'json';
-            return ['message' => Yii::t('app', 'Success Updated!'), 'id' => $model->id];
+            
+            return $this->redirect(['/']);
         }
         return $this->renderAjax('update', ['model' => $model]);
     }
