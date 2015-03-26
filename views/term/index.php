@@ -17,14 +17,13 @@ $this->assetBundles['Term']->js = [
 ];
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['button'] = 
-        Html::button(Icon::show('plus',[], Icon::BSG).
-                    yii::t('app', 'New Term'), 
-                    ['value' => Url::to(['term/create','c'=>$campaign]),
-                        'id'=>'newTerm',
-                        'class'=>'btn btn-success navbar-btn',
-                        'for'=>'#'
-                    ]);
+$this->params['button'] =  Html::button(Icon::show('plus',[], Icon::BSG).
+                            yii::t('app', 'New Term'), 
+                            ['value' => Url::to(['term/create','c'=>$campaign]),
+                                'id'=>'newTerm',
+                                'class'=>'btn btn-success navbar-btn',
+                                'for'=>'#'
+                            ]);
 ?>
 
 <div class="term-index">
@@ -64,7 +63,7 @@ $this->params['button'] =
                 'contentOptions' => ['class' => 'agreedClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Agreed'),
                 'value' => function ($model, $key, $index, $column){
-                    return $model->getTerms()->one()->agreed;
+                    return $model->getTerms()->where("term.agreed = true")->all();
                 },
                 'vAlign' => 'middle',
             ],
