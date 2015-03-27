@@ -2,18 +2,32 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\bootstrap\Modal;
+use kartik\icons\Icon;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $searchModel app\models\enrollmentSearch */
 /* @var $campaign app\models\campaign */
 
+
+$this->assetBundles['Anatomy'] = new app\assets\AppAsset();
+$this->assetBundles['Anatomy']->js = [
+    'scripts/AnatomyView/Functions.js',
+    'scripts/AnatomyView/Click.js'
+];
+
 $this->title = Yii::t('app', 'Anatomies');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['button'] = 
-        Html::a(Yii::t('app', 'Create Anatomy', [
-                    'modelClass' => 'Anatomy',
-                ]), ['create', 'cid' => $campaign->id], ['class' => 'btn btn-success navbar-btn']);
+$this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
+                            yii::t('app', 'New Anatomy'), 
+                            ['value' => Url::to(['anatomy/create','cid'=>$campaign->id]),
+                                'id'=>'newAnatomy',
+                                'class'=>'btn btn-success navbar-btn',
+                                'for'=>'#'
+                            ]);
+        
 ?>
 
 <div class="anatomy-index">
@@ -87,3 +101,10 @@ $this->params['button'] =
     ]); ?>
 
 </div>
+
+<?php
+    Modal::begin(['closeButton'=>false,
+        'id' => 'anatomyModal']);
+        echo "<div id='anatomyModalContent'></div>";
+    Modal::end();
+?>

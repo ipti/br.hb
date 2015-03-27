@@ -30,17 +30,13 @@ class AnatomyController extends Controller
      * Lists all anatomy models.
      * @return mixed
      */
-    public function actionIndex($c=null)
+    public function actionIndex($cid)
     {
-        if($c == null){
-            $dataProvider = new ActiveDataProvider([
-                'query' => anatomy::find()
-            ]); 
-        }else{
-            $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
-            $searchModel = new \app\models\enrollmentSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        }
+        
+        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$cid])->one();
+        $searchModel = new \app\models\enrollmentSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        
         
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -54,10 +50,10 @@ class AnatomyController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($cid)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($cid),
         ]);
     }
 
@@ -72,13 +68,11 @@ class AnatomyController extends Controller
         $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'c' => $cid]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-                'campaign'=> $campaign,
-            ]);
+            $model->refresh();
+            
+            return $this->redirect(['index', 'cid' => $cid]);
         }
+        return $this->renderAjax('create',['model'=>$model,'campaign'=>$campaign]);
     }
 
     /**
@@ -87,17 +81,16 @@ class AnatomyController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($cid)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($cid);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            $model->refresh();
+            
+            return $this->redirect(['index', 'cid' => $cid]);
         }
+        return $this->renderAjax('create',['model'=>$model,'campaign'=>$campaign]);
     }
 
     /**

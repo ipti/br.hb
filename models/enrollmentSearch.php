@@ -30,9 +30,12 @@ class enrollmentSearch extends enrollment
     {
         $actualController = Yii::$app->controller->className();
        
-        $c = $params['c'];
+        if(isset($params['c']))
+            $cid = $params['c'];
+        else
+            $cid = $params['cid'];
         /* @var $campaign \app\models\campaign */
-        $campaign = \app\models\campaign::find()->where("id = :c",["c"=>$c])->one();
+        $campaign = \app\models\campaign::find()->where("id = :cid",["cid"=>$cid])->one();
     
         $query = $campaign->getEnrollments();
         
