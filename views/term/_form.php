@@ -16,8 +16,30 @@ use kartik\select2\Select2;
 
 <div class="term-form">
 
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><?= $model->isNewRecord ? Yii::t('app', 'New Term') : Yii::t('app', 'Update Campaign') ?></h3>
+        <?= $model->isNewRecord ? '' : $model->name ?>
+    </div>
+
+    <?php $form = ActiveForm::begin([
+     'id' => $model->formName(),
+     'type' => ActiveForm::TYPE_VERTICAL
+     ]); ?>
+
+    <div class="modal-container">
+
     <?php
-    $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
+    $js = "
+        $('form#".$model->formName()."').on('beforeSubmit', function(e){
+            var \$form = $(this);
+            submitTermForm(\$form);
+        }).on('submit', function(e){
+            e.preventDefault();
+        });";
+    $this->registerJs($js);
+
+
     echo Form::widget([
         'model' => $model,
         'form' => $form,
@@ -41,20 +63,14 @@ use kartik\select2\Select2;
 
         ]
         
-    ]);
+    ]); ?>
+
+    </div>
     
-    echo Html::submitButton($model->isNewRecord 
-            ? Yii::t('app', 'Create') 
-            : Yii::t('app', 'Update'), [
-                'class' => 
-                    $model->isNewRecord 
-                        ? 'btn btn-success' 
-                        : 'btn btn-primary']);
+    <div class="form-group modal-footer">
+        <?= Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])
+            .Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success pull-right' : 'btn btn-primary pull-right']) ?>
+    </div>
 
-    ActiveForm::end();
-    ?>
-
-
-
-
+    <?php ActiveForm::end();?>
 </div>

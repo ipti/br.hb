@@ -10,3 +10,12 @@ function submitUpdateTerm(tid) {
         $.pjax.reload({container: '#pjaxTerm'});
     });
 }
+
+function submitTermForm($form) {
+    $.post(
+        $form.attr("action"),
+        $form.serialize()
+        )
+        $('#termModal').modal('hide');
+};
+

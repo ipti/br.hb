@@ -65,12 +65,11 @@ class TermController extends Controller
         $model->campaign = $c;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->refresh();
+            
             return $this->redirect(['index', 'c' => $c]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+        return $this->renderAjax('create',['model'=>$model]);
     }
     
     public function actionAdd($eid){
@@ -104,12 +103,11 @@ class TermController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            $model->refresh();
+            Yii::$app->response->format = 'json';
+            return ['message' => Yii::t('app','Success Update!'), 'id'=>$model->id];
         }
+        return $this->renderAjax('update',['model'=>$model]);
     }
 
     /**

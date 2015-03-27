@@ -21,3 +21,9 @@ $(document).on('click',"#selectSchoolModal-confirm",function () {
     $("#updateModal").modal('hide'); 
     
 });
+
+$("#newTerm").click(function () {
+        $("#termModal").modal('show')
+            .find("#termModalContent")
+            .load($(this).attr('value'));
+    });

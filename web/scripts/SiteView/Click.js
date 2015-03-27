@@ -1,6 +1,6 @@
 
     $("#newCampaign, .updateCampaign").click(function () {
-        $("#campignModal").modal('show')
-            .find("#campignModalContent")
+        $("#campaignModal").modal('show')
+            .find("#campaignModalContent")
             .load($(this).attr('value'));
     });
