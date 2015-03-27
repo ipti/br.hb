@@ -18,6 +18,7 @@ $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] = 
         Html::a(Yii::t('app', 'Create Term'), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
+$this->params['campaign'] = $campaign;
 ?>
 <div class="term-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
@@ -35,7 +36,8 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $column){
-                    return ['term-key'=>$model->getTerms()->one()->id];
+                    $c = $this->params['campaign'];
+                    return ['term-key'=>$model->getTerms()->where("campaign = :cid", ["cid"=>$c])->orderBy("id desc")->one()->id];
                 },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
@@ -56,7 +58,8 @@ $this->params['button'] =
                 'contentOptions' => ['class' => 'agreedClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Agreed'),
                 'value' => function ($model, $key, $index, $column){
-                    return $model->getTerms()->one()->agreed;
+                    $c = $this->params['campaign'];
+                    return $model->getTerms()->where("campaign = :cid", ["cid"=>$c])->orderBy("id desc")->one()->agreed;
                 },
                 'vAlign' => 'middle',
             ],
