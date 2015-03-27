@@ -18,8 +18,6 @@ $this->assetBundles['Term']->js = [
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] = 
-        Html::a(Yii::t('app', 'Create Term'), ['create', 'c' => $campaign], ['class' => 'btn btn-success navbar-btn']);
-$this->params['campaign'] = $campaign;
         Html::button(Icon::show('plus',[], Icon::BSG).
                     yii::t('app', 'New Term'), 
                     ['value' => Url::to(['term/create','c'=>$campaign]),
@@ -27,6 +25,7 @@ $this->params['campaign'] = $campaign;
                         'class'=>'btn btn-success navbar-btn',
                         'for'=>'#'
                     ]);
+$this->params['campaign'] = $campaign;
 ?>
 
 <div class="term-index">
