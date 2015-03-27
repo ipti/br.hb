@@ -41,6 +41,7 @@ class enrollmentSearch extends enrollment
         if($actualController == \app\controllers\ConsultationController::className()){
             $query->innerJoin('term as t', 't.enrollment = enrollment.id and t.agreed = true');
             $query->innerJoin('consultation as co', 'co.term = t.id');
+            $query->where("campaign = :cid", ["cid" => $c]);
         }
         
         $dataProvider = new ActiveDataProvider([

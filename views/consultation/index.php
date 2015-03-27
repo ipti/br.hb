@@ -20,7 +20,8 @@ $this->assetBundles['Consultation']->js = [
 $this->title = Yii::t('app', 'Consultations');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] =
-        Html::a(Yii::t('app', 'Create Consultation'), ['create', 'cid' => $campaign], ['class' => 'btn btn-success navbar-btn'])
+        Html::a(Yii::t('app', 'Create Consultation'), ['create', 'cid' => $campaign], ['class' => 'btn btn-success navbar-btn']);
+$this->params['campaign'] = $campaign;
 ?>
 
 <div class="consultation-index">
@@ -29,6 +30,7 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $column){
+                    $c = $this->params['campaign'];
                     return ['consultation-key'=>$model->getTerms()->one()->getConsults()->one()->id];
                 },
         'columns' => [
@@ -52,6 +54,7 @@ $this->params['button'] =
                 'header'=> Yii::t('app', 'Attended'),
                 'value' => function ($model, $key, $index, $column){
                 /* @var $model \app\models\enrollment */
+                    $c = $this->params['campaign'];
                     return $model->getTerms()->one()->getConsults()->one()->attended;
                 },
                 'vAlign' => 'middle',
@@ -60,6 +63,7 @@ $this->params['button'] =
                 'contentOptions' => ['class' => 'deliveredClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Delivered'),
                 'value' => function ($model, $key, $index, $column){
+                    $c = $this->params['campaign'];
                     return $model->getTerms()->one()->getConsults()->one()->delivered;
                 },
                 'vAlign' => 'middle',

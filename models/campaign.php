@@ -203,6 +203,15 @@ class campaign extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getHemoglobinsWithoutConsult(){
+        return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
+                ->via('terms')
+                ->where("sample = 1 and not exists (select * from consultation as c where agreed_term = c.term)");
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getConsults(){
         return $this->hasMany(consultation::className(), ['term'=>'id'])
                 ->via('terms');
