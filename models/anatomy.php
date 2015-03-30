@@ -13,7 +13,7 @@ use Yii;
  * @property double $height
  * @property string $date
  *
- * @property Student $student0
+ * @property Student $students
  */
 class anatomy extends \yii\db\ActiveRecord
 {

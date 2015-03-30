@@ -62,7 +62,7 @@ class AnatomyController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($cid)
+    public function actionCreate($cid, $eid = null)
     {
         $model = new anatomy();
         $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
@@ -72,6 +72,12 @@ class AnatomyController extends Controller
             
             return $this->redirect(['index', 'cid' => $cid]);
         }
+        
+        if($eid != null){
+            $enrollment = \app\models\enrollment::find()->where("id = :eid",['eid'=>$eid])->one();
+            $model->student = $enrollment->student;
+        }
+        
         return $this->renderAjax('create',['model'=>$model,'campaign'=>$campaign]);
     }
 

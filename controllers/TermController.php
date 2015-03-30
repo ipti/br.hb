@@ -69,7 +69,7 @@ class TermController extends Controller
             
             return $this->redirect(['index', 'c' => $c]);
         }
-        return $this->renderAjax('create',['model'=>$model]);
+        return $this->renderAjax('create',['model'=>$model, "campaign"=>$c]);
     }
     
     public function actionAdd($eid){

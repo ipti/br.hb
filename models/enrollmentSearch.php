@@ -26,19 +26,13 @@ class enrollmentSearch extends enrollment
         return Model::scenarios();
     }
 
-    public function search($params)
-    {
+    public function search($params){
         $actualController = Yii::$app->controller->className();
-       
-        if(isset($params['c']))
-            $cid = $params['c'];
-        else
-            $cid = $params['cid'];
-        /* @var $campaign \app\models\campaign */
+        $cid = isset($params["c"]) ? $params["c"] : $params["cid"];
+        
         $campaign = \app\models\campaign::find()->where("id = :cid",["cid"=>$cid])->one();
     
         $query = $campaign->getEnrollments();
-        
         $query->select("enrollment.*");
         
         if($actualController == \app\controllers\ConsultationController::className()){
@@ -47,10 +41,7 @@ class enrollmentSearch extends enrollment
             $query->where("campaign = :cid", ["cid" => $cid]);
         }
         
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
         $sName ="";
         $cName ="";
         

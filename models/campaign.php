@@ -150,6 +150,15 @@ class campaign extends \yii\db\ActiveRecord {
         return $this->hasMany(enrollment::className(), ['id' => 'enrollment'])
                         ->via('terms');
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnrollmentsWithoutTerms() {
+        return $this->hasMany(enrollment::className(), ['id'=>'enrollment'])
+                ->via('terms')
+                ->where("not exists (select * from term as t where enrollment.id = t.enrollment)");
+ 
+    }
     
     /**
      * @return \yii\db\ActiveQuery

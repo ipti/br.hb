@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\term */
+/* @var $campaign integer */
 
 $this->title = Yii::t('app', 'Update Term') . ': ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Terms'), 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'campaign' => $campaign
     ]) ?>
 
 </div>

@@ -80,7 +80,10 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
             ['class'=> kartik\grid\BooleanColumn::className(),
                 'header'=> Yii::t('app', 'Updated'),
                 'options'=>['mydate'=>$campaign->begin],
-                'contentOptions' => ['class' => 'agreedClick'],
+                'contentOptions' => [
+                    'class' => 'agreedClick cursor-pointer',
+                    'link' =>  Url::to(['anatomy/create','cid'=>$campaign->id])
+                ],
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
                     if($anatomy != null)
