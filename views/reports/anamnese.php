@@ -24,11 +24,15 @@ $this->assetBundles['Reports']->js = [
     <div class="report-filter hidden-print">
 <?php
         echo Html::beginForm(Url::toRoute('reports/get-anamnese'),'POST',['id'=>'form-anamnese', 'class'=>'form-vertical']);
-                if(isset($enrollment) && $enrollment != null){
+        if(isset($enrollment) && $enrollment != null){
             echo Form::widget([
                 'formName' => 'anamnese-form',
                 'columns'=>1,
                 'attributes' => [
+                    'campaign'=>[
+                        'type'=>Form::INPUT_RAW,
+                        'value' => Html::hiddenInput('anamnese-form[campaign]', $campaign)
+                    ],
                     'campaign-enrollment'=>[
                         'type'=>Form::INPUT_RAW,
                         'value' => Html::hiddenInput('anamnese-form[campaign-enrollment]', $enrollment->id)

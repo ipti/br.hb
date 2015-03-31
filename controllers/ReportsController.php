@@ -67,8 +67,8 @@ class ReportsController extends \yii\web\Controller {
         return $this->render('terms');
     }
 
-    public function actionAnamnese($eid = null) {
-        $options = $eid == null ? [] : ['enrollment' => \app\models\enrollment::find()->where('id = :eid', ['eid' => $eid])->one()];
+    public function actionAnamnese($cid,$eid = null) {
+        $options = $eid == null ? ['campaign'=>$cid] : ['enrollment' => \app\models\enrollment::find()->where('id = :eid', ['eid' => $eid])->one(), 'campaign'=>$cid];
 
         return $this->render('anamnese',$options);
     }
@@ -79,12 +79,12 @@ class ReportsController extends \yii\web\Controller {
         /* @var $term \app\models\term */
         /* @var $hb1 \app\models\hemoglobin */
         /* @var $anatomy \app\models\anatomy */
-
         $anamnese   = isset($_POST['anamnese-form']) ? $_POST['anamnese-form'] : null;
+        $cid        = isset($anamnese['campaign']) && !empty($anamnese['campaign']) ?  $anamnese['campaign'] : null;
         $eid        = isset($anamnese['campaign-enrollment']) && !empty($anamnese['campaign-enrollment']) ? $anamnese['campaign-enrollment'] : null;
         $enrollment = $eid          != null ? \app\models\enrollment::find()->where("id = :eid", [ 'eid' => $eid])->one() : null;
         $student    = $enrollment   != null ? $enrollment->students : null;
-        $term       = $eid          != null ? \app\models\term::find()->where("enrollment = :eid", ['eid' => $eid])->one() : null;
+        $term       = $eid          != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid'=>$cid])->one() : null;
         $hb1        = $term         != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
         $anatomy    = $student      != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
 

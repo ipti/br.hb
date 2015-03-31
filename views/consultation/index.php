@@ -31,7 +31,7 @@ $this->params['campaign'] = $campaign;
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $column){
                     $c = $this->params['campaign'];
-                    return ['consultation-key'=>$model->getTerms()->one()->getConsults()->one()->id];
+                    return ['consultation-key'=>$model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->id];
                 },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
@@ -55,7 +55,7 @@ $this->params['campaign'] = $campaign;
                 'value' => function ($model, $key, $index, $column){
                 /* @var $model \app\models\enrollment */
                     $c = $this->params['campaign'];
-                    return $model->getTerms()->one()->getConsults()->one()->attended;
+                    return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->attended;
                 },
                 'vAlign' => 'middle',
             ],
@@ -63,17 +63,18 @@ $this->params['campaign'] = $campaign;
                 'contentOptions' => ['class' => 'deliveredClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Delivered'),
                 'value' => function ($model, $key, $index, $column){
+                /* @var $model \app\models\enrollment */
                     $c = $this->params['campaign'];
-                    return $model->getTerms()->one()->getConsults()->one()->delivered;
+                    return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->delivered;
                 },
                 'vAlign' => 'middle',
             ],[
                 'class' => kartik\grid\DataColumn::className(),
                 'label' => yii::t('app', 'Actions'),
                 'content' => function($model, $key, $index, $column) {
-                    
-                    $consultation = $model;
-                    $hemoglobin = $consultation->terms->getHemoglobins()->where("sample = 1")->one();
+                    /* @var $model \app\models\enrollment */
+                    $c = $this->params['campaign'];
+                    $hemoglobin = $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getHemoglobins()->where("sample = 1")->one();
                     $link = $hemoglobin->isAnemic() 
                             ? Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
                             : Html::a(Icon::show('file-text-o', [], Icon::FA), "#",["class"=>"text-muted disabled"]);

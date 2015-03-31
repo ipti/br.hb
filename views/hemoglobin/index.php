@@ -8,19 +8,17 @@ use kartik\grid\DataColumn;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $capaign Integer */
+/* @var $campaign Integer */
 /* @var $sample Integer */
 
 $this->title = Yii::t('app', 'Hemoglobins');
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['campaign'] = $campaign->id;
 $this->params['button'] =
         Html::a(Yii::t('app', 'Create Hemoglobin', [
                     'modelClass' => 'Hemoglobin',
                 ]), ['create', 'cid' => $campaign->id, 's' => $sample],
                 ['class' => 'btn btn-success navbar-btn'] );
-
-
-
 
 $sample1 = ['class'=> DataColumn::className(),
             'label' => yii::t('app', 'Rate')." 1",
@@ -62,8 +60,9 @@ if ($sample == 1) {
         /* @var $model \app\models\hemoglobin */
         $sid = $model->agreedTerm->enrollments->student;
         $eid = $model->agreedTerm->enrollment;
+        $cid = $this->params['campaign'];
         return Html::a(Icon::show('envelope-o', [], Icon::FA), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
-              .Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/anamnese', 'eid' => $eid]))
+              .Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
               .Html::a(Icon::show('edit', [], Icon::FA),Url::toRoute(['hemoglobin/update', 'id' => $model->id]));
     }
     ]]);
