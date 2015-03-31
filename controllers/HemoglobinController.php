@@ -186,7 +186,7 @@ class HemoglobinController extends Controller {
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         
-            if($sample == 1){
+            if($model->sample == 1){
                 $term = $model->agreed_term;
                 $rate = $model->rate;
 
