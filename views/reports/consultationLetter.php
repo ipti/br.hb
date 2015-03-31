@@ -132,13 +132,16 @@ $this->assetBundles['Reports']->js = [
                     'options'=>[
                         'pluginOptions' => ['format' => 'dd/mm/yyyy'],
                     ],
-                    'hint' => yii::t('app', 'Enter consult date (dd/mm/yyyy)')
                 ],
                 'consult-time' => [
                     'label' => yii::t('app', 'Consult Time'),
                     'type' => Form::INPUT_WIDGET,
                     'widgetClass' => TimePicker::className(),
-                    'hint' => yii::t('app', 'Enter consult time (hh:mm)')
+                    'options'=>[
+                        'pluginOptions' =>[
+                            'defaultTime' => 'false'
+                        ]
+                    ]
                 ],
                 'consult-location' => [
                     'label'=>yii::t('app', 'Consult Location'), 

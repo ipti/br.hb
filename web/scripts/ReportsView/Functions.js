@@ -30,3 +30,7 @@ function submitAnamnese($form){
         
     });
 };
+
+$(document).ready(function(){
+    $(this).closest('form').get(0).reset();
+});
