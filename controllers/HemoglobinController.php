@@ -127,39 +127,39 @@ class HemoglobinController extends Controller {
                     $model->rate = $rate;
                     $model->sample = $sample;
                     $model->save();
+                    if($sample == 1){
+                        //Se anêmica cadastrar a consulta
+                        $objTerm = \app\models\term::find()->where("id = :a", ["a" => $term])->one();
+                        $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $objTerm->enrollment])->one();
+                        $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
 
-                    //Se anêmica cadastrar a consulta
-                    $objTerm = \app\models\term::find()->where("id = :a", ["a" => $term])->one();
-                    $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $objTerm->enrollment])->one();
-                    $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
+                        $genderStudent = $student->gender;
+                        $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
 
-                    $genderStudent = $student->gender;
-                    $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
-
-                    $isAnemic = false;
-                    if (($ageStudent > 24) && ($ageStudent < 60)) {
-                        $isAnemic = !($rate >= 11);
-                    } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
-                        $isAnemic = !($rate >= 11.5);
-                    } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
-                        $isAnemic = !($rate >= 12);
-                    } else if ($ageStudent >= 180) {
-
-                        if ($genderStudent == "male") {
-                            $isAnemic = !($rate >= 13);
-                        } else {
-                            //female
+                        $isAnemic = false;
+                        if (($ageStudent > 24) && ($ageStudent < 60)) {
+                            $isAnemic = !($rate >= 11);
+                        } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                            $isAnemic = !($rate >= 11.5);
+                        } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
                             $isAnemic = !($rate >= 12);
+                        } else if ($ageStudent >= 180) {
+
+                            if ($genderStudent == "male") {
+                                $isAnemic = !($rate >= 13);
+                            } else {
+                                //female
+                                $isAnemic = !($rate >= 12);
+                            }
+                        }
+
+                        if($isAnemic){
+                            //Cadastra a Consulta
+                             $modelConsultation = new consultation();
+                             $modelConsultation->term = $term;
+                             $modelConsultation->save();
                         }
                     }
-                    
-                    if($isAnemic){
-                        //Cadastra a Consulta
-                         $modelConsultation = new consultation();
-                         $modelConsultation->term = $term;
-                         $modelConsultation->save();
-                    }
-                    
                 }
             }
             return $this->redirect(['index', 'c' => $cid, 's' => $s]);
@@ -185,48 +185,50 @@ class HemoglobinController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $term = $model->agreed_term;
-            $rate = $model->rate;
-            
-            //Se anêmica cadastrar a consulta
-            /* @var $objTerm \app\models\term */
-            $objTerm = \app\models\term::find()->where("id = :a", ["a" => $term])->one();
-            $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $objTerm->enrollment])->one();
-            $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
-            
-            
-            /* @var $consult \app\models\consultation */
-            $consult = $objTerm->getConsults()->one();
-            if($consult != null)
-                $consult->delete();
+        
+            if($sample == 1){
+                $term = $model->agreed_term;
+                $rate = $model->rate;
 
-            $genderStudent = $student->gender;
-            $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+                //Se anêmica cadastrar a consulta
+                /* @var $objTerm \app\models\term */
+                $objTerm = \app\models\term::find()->where("id = :a", ["a" => $term])->one();
+                $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $objTerm->enrollment])->one();
+                $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
 
-            $isAnemic = false;
-            if (($ageStudent > 24) && ($ageStudent < 60)) {
-                $isAnemic = !($rate >= 11);
-            } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
-                $isAnemic = !($rate >= 11.5);
-            } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
-                $isAnemic = !($rate >= 12);
-            } else if ($ageStudent >= 180) {
 
-                if ($genderStudent == "male") {
-                    $isAnemic = !($rate >= 13);
-                } else {
-                    //female
+                /* @var $consult \app\models\consultation */
+                $consult = $objTerm->getConsults()->one();
+                if($consult != null)
+                    $consult->delete();
+
+                $genderStudent = $student->gender;
+                $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+
+                $isAnemic = false;
+                if (($ageStudent > 24) && ($ageStudent < 60)) {
+                    $isAnemic = !($rate >= 11);
+                } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                    $isAnemic = !($rate >= 11.5);
+                } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
                     $isAnemic = !($rate >= 12);
+                } else if ($ageStudent >= 180) {
+
+                    if ($genderStudent == "male") {
+                        $isAnemic = !($rate >= 13);
+                    } else {
+                        //female
+                        $isAnemic = !($rate >= 12);
+                    }
+                }
+
+                if($isAnemic){
+                    //Cadastra a Consulta
+                    $modelConsultation = new consultation();
+                    $modelConsultation->term = $term;
+                    $modelConsultation->save();
                 }
             }
-
-            if($isAnemic){
-                //Cadastra a Consulta
-                $modelConsultation = new consultation();
-                $modelConsultation->term = $term;
-                $modelConsultation->save();
-            }
-                    
             
             return $this->redirect(['index', 'c' => $model->agreedTerm->campaigns->id, 's' => $model->sample]);
         } else {
