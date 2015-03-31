@@ -180,6 +180,19 @@ class campaign extends \yii\db\ActiveRecord {
             $result[$term->enrollments->classrooms->id] = $term->enrollments->classrooms->name;
         }
         return $result;
+    }    
+    /**
+     * @return array
+     */
+    public function getClassroomsWithAttendedConsults() {
+        /* @var $consult \app\models\consult*/
+        $consults = $this->getConsults()->where("attended")->all();
+        
+        $result = [];
+        foreach($consults as $consult){
+            $result[$consult->terms->enrollments->classrooms->id] = $consult->terms->enrollments->classrooms->name;
+        }
+        return $result;
     }
     /**
      * @return \yii\db\ActiveQuery

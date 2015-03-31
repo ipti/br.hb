@@ -91,11 +91,20 @@ class HemoglobinController extends Controller {
         /* @var $classroom \app\models\classroom */
         /* @var $consult \app\models\consultation */
         $classroom = \app\models\classroom::find()->where("id = :clid", ["clid" => $clid])->one();
-        $consults = $classroom->getConsults()->where("attended = true and campaign = :cid", ['cid' => $cid])->all();
-
+        $terms = $classroom->getTerms()->where("campaign = :cid", ['cid' => $cid])->all();
+        
+        $consults = [];
+        foreach ($terms as $term) {
+            $hbs = $term->getHemoglobins()->where("sample = :samp", ["samp" => $samp])->count();
+            if ($hbs == 0) {
+                $consult = $term->getConsults()->where("attended = true")->one();
+                if ($consult != null)
+                    $consults = array_merge($consults, [$consult]);
+            }
+        }
         $response = [];
         foreach ($consults as $consult) {
-            $response[$consult->terms->enrollments->students->name] = $consult->terms->id;
+                $response[$consult->terms->enrollments->students->name] = $consult->terms->id;
         }
         echo \yii\helpers\Json::encode($response);
         exit;
@@ -176,6 +185,49 @@ class HemoglobinController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $term = $model->agreed_term;
+            $rate = $model->rate;
+            
+            //Se anêmica cadastrar a consulta
+            /* @var $objTerm \app\models\term */
+            $objTerm = \app\models\term::find()->where("id = :a", ["a" => $term])->one();
+            $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $objTerm->enrollment])->one();
+            $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
+            
+            
+            /* @var $consult \app\models\consultation */
+            $consult = $objTerm->getConsults()->one();
+            if($consult != null)
+                $consult->delete();
+
+            $genderStudent = $student->gender;
+            $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+
+            $isAnemic = false;
+            if (($ageStudent > 24) && ($ageStudent < 60)) {
+                $isAnemic = !($rate >= 11);
+            } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                $isAnemic = !($rate >= 11.5);
+            } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
+                $isAnemic = !($rate >= 12);
+            } else if ($ageStudent >= 180) {
+
+                if ($genderStudent == "male") {
+                    $isAnemic = !($rate >= 13);
+                } else {
+                    //female
+                    $isAnemic = !($rate >= 12);
+                }
+            }
+
+            if($isAnemic){
+                //Cadastra a Consulta
+                $modelConsultation = new consultation();
+                $modelConsultation->term = $term;
+                $modelConsultation->save();
+            }
+                    
+            
             return $this->redirect(['index', 'c' => $model->agreedTerm->campaigns->id, 's' => $model->sample]);
         } else {
             return $this->render('update', [
@@ -194,10 +246,10 @@ class HemoglobinController extends Controller {
         $terms = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $cid])->all();
 
         $html = '  
-                                    <p align="center"> 
-                                        <b>Lista de Alunos Com Anemia</b>  
-                                        <br>
-                                        </p>  ';
+            <p align="center"> 
+                <b>Lista de Alunos Com Anemia</b>  
+                <br>
+            </p>  ';
 
         $schoolsAnemics = array();
 

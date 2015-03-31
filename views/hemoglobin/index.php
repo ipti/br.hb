@@ -22,6 +22,7 @@ $this->params['button'] =
 
 $sample1 = ['class'=> DataColumn::className(),
             'label' => yii::t('app', 'Rate')." 1",
+            'options' => ['style' => 'width:5%'],
             'content' => function ($model){
                 /* @var $model \app\models\hemoglobin */
                 return $model->getHemoglobin(1)->rate . "g/dL";
@@ -30,6 +31,7 @@ $sample1 = ['class'=> DataColumn::className(),
             
 $sample2 = $sample < 2 ? "" : ['class'=> DataColumn::className(),
                 'label' => yii::t('app', 'Rate')." 2",
+                'options' => ['style' => 'width:5%'],
                 'content' => function ($model){
                     /* @var $model \app\models\hemoglobin */
                     return ($model->getHemoglobin(2) == null ) ? "-----"  : $model->getHemoglobin(2)->rate . "g/dL";
@@ -37,6 +39,7 @@ $sample2 = $sample < 2 ? "" : ['class'=> DataColumn::className(),
             ];
 $sample3 = ['class'=> DataColumn::className(),
                 'label' => yii::t('app', 'Rate')." 3",
+                'options' => ['style' => 'width:5%'],
                 'content' => function ($model){
                 /* @var $model \app\models\hemoglobin */
                 return $model->getHemoglobin(3)->rate . "g/dL";
@@ -44,6 +47,7 @@ $sample3 = ['class'=> DataColumn::className(),
             ];
 $columns = [['class'=> DataColumn::className(),
                 'attribute' => 'agreed_term',
+                'options' => ['style' => 'width:70%'],
                 'content' => function ($model){
                     return $model->agreedTerm->students->name;
                 }
@@ -52,25 +56,32 @@ $columns = array_merge($columns, [$sample1]);
 
 //$campaigID = $campaign->id;
 
+if ($sample >= 2) { $columns = array_merge($columns, [$sample2]); }
+if ($sample >= 3) { $columns = array_merge($columns, [$sample3]); }
 if ($sample == 1) {
     $columns = array_merge($columns, [[
     'class' => DataColumn::className(),
-    'label' => yii::t('app', 'Actions'),
+    'label' => yii::t('app', 'Print'),
+    'options' => ['style' => 'width:10%'],
     'content' => function($model, $key, $index, $column) {
         /* @var $model \app\models\hemoglobin */
         $sid = $model->agreedTerm->enrollments->student;
         $eid = $model->agreedTerm->enrollment;
         $cid = $this->params['campaign'];
-        return Html::a(Icon::show('envelope-o', [], Icon::FA), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
-              .Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
-              .Html::a(Icon::show('edit', [], Icon::FA),Url::toRoute(['hemoglobin/update', 'id' => $model->id]));
+        return Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
+              ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]));
     }
     ]]);
 }
-
-if ($sample >= 2) { $columns = array_merge($columns, [$sample2]); }
-if ($sample >= 3) { $columns = array_merge($columns, [$sample3]); }
-            
+$columns = array_merge($columns, [[
+        'class' => DataColumn::className(),
+        'label' => yii::t('app', 'Actions'),
+        'options' => ['style' => 'width:10%'],
+        'content' => function($model, $key, $index, $column) {
+            /* @var $model \app\models\hemoglobin */
+            return Html::a(Icon::show('edit', [], Icon::FA).yii::t('app', 'Update'), Url::toRoute(['hemoglobin/update', 'id' => $model->id]));
+        }
+    ]]);
 ?>
 
 <div class="hemoglobin-index">

@@ -27,8 +27,10 @@ $this->assetBundles['Hemoglobin']->js = [
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
 
     if ($model->isNewRecord) {
-        $classrooms = $campaign->getClassroomsWithAgreedTerms();
-        
+        if($sample == 1)
+            $classrooms = $campaign->getClassroomsWithAgreedTerms();
+        else
+            $classrooms = $campaign->getClassroomsWithAttendedConsults();
         echo Html::label(yii::t('app','Classrooms with Agreed Terms...'));
         echo Select2::widget([
             'name' => 'classroom',

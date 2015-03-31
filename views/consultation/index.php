@@ -43,6 +43,7 @@ $this->params['campaign'] = $campaign;
             ],
             ['class'=> kartik\grid\DataColumn::className(),
                 'attribute'=>'classroom',
+                'options' => ['style' => 'width:20%'],
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
@@ -70,14 +71,15 @@ $this->params['campaign'] = $campaign;
                 'vAlign' => 'middle',
             ],[
                 'class' => kartik\grid\DataColumn::className(),
-                'label' => yii::t('app', 'Actions'),
+                'label' => yii::t('app', 'Print'),
+                'options' => ['style' => 'width:10%'],
                 'content' => function($model, $key, $index, $column) {
                     /* @var $model \app\models\enrollment */
                     $c = $this->params['campaign'];
                     $hemoglobin = $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getHemoglobins()->where("sample = 1")->one();
                     $link = $hemoglobin->isAnemic() 
-                            ? Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
-                            : Html::a(Icon::show('file-text-o', [], Icon::FA), "#",["class"=>"text-muted disabled"]);
+                            ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
+                            : "----------";
                     
                     return $link;
                 }
