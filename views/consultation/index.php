@@ -69,18 +69,22 @@ $this->params['campaign'] = $campaign;
                     return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->delivered;
                 },
                 'vAlign' => 'middle',
-            ],[
+            ],
+            [
                 'class' => kartik\grid\DataColumn::className(),
                 'label' => yii::t('app', 'Print'),
                 'options' => ['style' => 'width:10%'],
                 'content' => function($model, $key, $index, $column) {
                     /* @var $model \app\models\enrollment */
-                    $c = $this->params['campaign'];
-                    $hemoglobin = $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getHemoglobins()->where("sample = 1")->one();
+                    $cid = $this->params['campaign'];
+                    $hemoglobin = $model->getTerms()->where("campaign = :cid",["cid"=>$cid])->one()->getHemoglobins()->where("sample = 1")->one();
+                    $sid = $hemoglobin->agreedTerm->enrollments->student;
+                    $eid = $hemoglobin->agreedTerm->enrollment;
                     $link = $hemoglobin->isAnemic() 
                             ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
+                            ."<br>".Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
+                            ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
                             : "----------";
-                    
                     return $link;
                 }
             ]

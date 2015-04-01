@@ -69,6 +69,27 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                 }
             ],
             ['class'=> kartik\grid\DataColumn::className(),
+                'header'=> Yii::t('app', 'IMC'),
+                'content' => function ($model, $key, $index, $column){
+                    $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomy != null){
+                        $situation = $anatomy->IMCSituation();
+                        /*
+                        DESNUTRIDO    = -1;
+                        NORMAL        = 0;
+                        SOBREPESO     = 1;
+                        OBESIDADE     = 2;
+                        OBESIDADE_MORBIDA = 3;
+                         */
+                        return $anatomy->IMC() . "kg/m²<br>"
+                                . "<span class='text-".yii::t("app",'{n, select, -1{danger} 0{info} 1{warning} 2{danger} 3{danger}}',['n'=>$situation])."'>" 
+                                    . yii::t("app", '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}',['n'=>$situation])
+                                ."</span>";
+                    }
+                    return null;
+                }
+            ],
+            ['class'=> kartik\grid\DataColumn::className(),
                 'header'=> Yii::t('app', 'Date'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();

@@ -58,21 +58,6 @@ $columns = array_merge($columns, [$sample1]);
 
 if ($sample >= 2) { $columns = array_merge($columns, [$sample2]); }
 if ($sample >= 3) { $columns = array_merge($columns, [$sample3]); }
-if ($sample == 1) {
-    $columns = array_merge($columns, [[
-    'class' => DataColumn::className(),
-    'label' => yii::t('app', 'Print'),
-    'options' => ['style' => 'width:10%'],
-    'content' => function($model, $key, $index, $column) {
-        /* @var $model \app\models\hemoglobin */
-        $sid = $model->agreedTerm->enrollments->student;
-        $eid = $model->agreedTerm->enrollment;
-        $cid = $this->params['campaign'];
-        return Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
-              ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]));
-    }
-    ]]);
-}
 $columns = array_merge($columns, [[
         'class' => DataColumn::className(),
         'label' => yii::t('app', 'Actions'),
@@ -89,7 +74,6 @@ $columns = array_merge($columns, [[
          ['id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right']) ?>
     <br>
     <br>
-    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
