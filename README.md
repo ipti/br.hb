@@ -4,6 +4,11 @@
 * "Criar Hemoglobina" em Modal
 * "Criar Consulta" em Modal
 
+# Change-log 1.0.1
+* Change: Icone de Anamnese movido para tela de Consultas
+* Change: Icone de Carta movido para tela de Consultas
+* ADD: Taxa e Situação do IMC na tela de Anatomias
+
 # Change-log 1.0
 * Cálculo de Anemia
 * Geração de Lista de Anemicos
