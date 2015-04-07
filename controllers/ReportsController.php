@@ -297,7 +297,7 @@ class ReportsController extends \yii\web\Controller {
                             <div class="report-content">
                                 <div class="report-head">  
                                     <p align="center"> 
-                                        <img src="/images/reporters/prefeitura.png" width="260" height="120">
+                                        <img src="/images/reporters/prefeitura.png" width="260" height="80">
                                         <br>
                                         <br> 
                                         <b>Autorização para que seu filho participe de uma campanha de saúde na escola</b>  
