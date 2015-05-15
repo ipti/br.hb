@@ -4,6 +4,11 @@
 * "Criar Hemoglobina" em Modal
 * "Criar Consulta" em Modal
 
+# Change-log 1.0.2
+* Change: Ordenação das listagens.
+* Change: Aceitar termo agora pode ser revertido com o click.
+*
+
 # Change-log 1.0.1
 * Change: Icone de Anamnese movido para tela de Consultas
 * Change: Icone de Carta movido para tela de Consultas

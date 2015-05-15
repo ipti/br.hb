@@ -23,43 +23,42 @@ class ReportsController extends \yii\web\Controller {
     }
 
     public function actionPrescription($eid) {
-        /* @var $enrollment \app\models\enrollment*/
+        /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
         /* @var $anatomy \app\models\anatomy */
-        
-        $enrollment = enrollment::find()->where("id = :eid",["eid"=>$eid])->one();
+
+        $enrollment = enrollment::find()->where("id = :eid", ["eid" => $eid])->one();
         $student = $enrollment->getStudents()->one();
         $name = $student->name;
-        
+
         $anatomy = $student->getAnatomies()->orderBy("date desc")->one();
-        if($anatomy == null){
+        if ($anatomy == null) {
             $sulfato = "<br>";
             $vermifugo = "<br>";
-            
-        } else{
+        } else {
             $peso = $anatomy->weight;
 
             $concentracaoPorML = 25;
             $gotasPorML = 20;
-            $concentracaoPorGota = $concentracaoPorML/$gotasPorML;
+            $concentracaoPorGota = $concentracaoPorML / $gotasPorML;
 
             $posologia = ceil($peso / $concentracaoPorGota);
-            
-            
+
+
 //            $gotasPor3 = $concentracaoPorGota/3;
 //            $gotasPorPeso = ceil($gotasPor3 * $peso);
 
-            if($peso > 30){
+            if ($peso > 30) {
                 $sulfato = "<b>Sulfato Ferroso</b> em comprimido, <b>1 Comprimido a cada 12h</b>.";
-            }else{
+            } else {
                 $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$posologia gotas</b>, três vezes ao dia.";
             }
             $vermifugo = "<b>Albendazol</b> em comprimido, <b>1 Comprimido a cada 12h</b> (pode dissolver em água ou suco).";
         }
         return $this->render('prescription', [
-            "name" => $name,
-            "sulfato" => $sulfato,
-            "vermifugo" => $vermifugo
+                    "name" => $name,
+                    "sulfato" => $sulfato,
+                    "vermifugo" => $vermifugo
         ]);
     }
 
@@ -67,10 +66,10 @@ class ReportsController extends \yii\web\Controller {
         return $this->render('terms');
     }
 
-    public function actionAnamnese($cid,$eid = null) {
-        $options = $eid == null ? ['campaign'=>$cid] : ['enrollment' => \app\models\enrollment::find()->where('id = :eid', ['eid' => $eid])->one(), 'campaign'=>$cid];
+    public function actionAnamnese($cid, $eid = null) {
+        $options = $eid == null ? ['campaign' => $cid] : ['enrollment' => \app\models\enrollment::find()->where('id = :eid', ['eid' => $eid])->one(), 'campaign' => $cid];
 
-        return $this->render('anamnese',$options);
+        return $this->render('anamnese', $options);
     }
 
     public function actionGetAnamnese() {
@@ -79,25 +78,25 @@ class ReportsController extends \yii\web\Controller {
         /* @var $term \app\models\term */
         /* @var $hb1 \app\models\hemoglobin */
         /* @var $anatomy \app\models\anatomy */
-        $anamnese   = isset($_POST['anamnese-form']) ? $_POST['anamnese-form'] : null;
-        $cid        = isset($anamnese['campaign']) && !empty($anamnese['campaign']) ?  $anamnese['campaign'] : null;
-        $eid        = isset($anamnese['campaign-enrollment']) && !empty($anamnese['campaign-enrollment']) ? $anamnese['campaign-enrollment'] : null;
-        $enrollment = $eid          != null ? \app\models\enrollment::find()->where("id = :eid", [ 'eid' => $eid])->one() : null;
-        $student    = $enrollment   != null ? $enrollment->students : null;
-        $term       = $eid          != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid'=>$cid])->one() : null;
-        $hb1        = $term         != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
-        $anatomy    = $student      != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+        $anamnese = isset($_POST['anamnese-form']) ? $_POST['anamnese-form'] : null;
+        $cid = isset($anamnese['campaign']) && !empty($anamnese['campaign']) ? $anamnese['campaign'] : null;
+        $eid = isset($anamnese['campaign-enrollment']) && !empty($anamnese['campaign-enrollment']) ? $anamnese['campaign-enrollment'] : null;
+        $enrollment = $eid != null ? \app\models\enrollment::find()->where("id = :eid", [ 'eid' => $eid])->one() : null;
+        $student = $enrollment != null ? $enrollment->students : null;
+        $term = $eid != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid' => $cid])->one() : null;
+        $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+        $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
 
-        $name       = $student != null ? $student->name : "";
-        $birthday   = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
-        $b          = $student != null ? $student->birthday : "";
-        $today      = $student != null ? new \DateTime(date("Y-m-d")) : "";
-        $age        = $student != null ? $today->diff(new \DateTime($b))->format("%y") . " " . \yii::t('app', 'years old') : "";
-        $sex        = $student != null ? \yii::t('app', $student->gender) : "";
-        $weight     = $anatomy != null ? $anatomy->weight . "kg" : "";
-        $height     = $anatomy != null ? $anatomy->height . "m" : "";
-        $imc        = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
-        $rate1      = $hb1     != null ? $hb1->rate . "g/dL" : "";
+        $name = $student != null ? $student->name : "";
+        $birthday = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
+        $b = $student != null ? $student->birthday : "";
+        $today = $student != null ? new \DateTime(date("Y-m-d")) : "";
+        $age = $student != null ? $today->diff(new \DateTime($b))->format("%y") . " " . \yii::t('app', 'years old') : "";
+        $sex = $student != null ? \yii::t('app', $student->gender) : "";
+        $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
+        $height = $anatomy != null ? $anatomy->height . "m" : "";
+        $imc = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
+        $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
 
         echo "<tr>";
         echo "<th>Nome:</th><td colspan='5'>";
@@ -133,48 +132,46 @@ class ReportsController extends \yii\web\Controller {
         echo "</tr>";
     }
 
-    public function actionAgreedTerms($cid,$sid){
-        /* @var $campaign campaign*/
-        /* @var $school school*/
+    public function actionAgreedTerms($cid, $sid) {
+        /* @var $campaign campaign */
+        /* @var $school school */
         $html = "";
-        $school = school::find()->where("id = :sid",['sid'=>$sid])->one();
+        $school = school::find()->where("id = :sid", ['sid' => $sid])->one();
         $terms = $school->getTerms()
-                ->where("term.campaign = :cid and term.agreed = true",['cid'=>$cid])
+                ->where("term.campaign = :cid and term.agreed = true", ['cid' => $cid])
                 ->all();
-        
+
         $tAgreed = [];
         foreach ($terms as $term):
             /* @var $term       \app\models\term */
             /* @var $enrollment \app\models\enrollment */
             /* @var $classroom  \app\models\classroom */
             /* @var $student    \app\models\student */
-            $enrollment     = $term->getEnrollments()->one();
-            $classroom      = $enrollment->getClassrooms()->orderBy('name')->one();
-            $student        = $enrollment->getStudents()->orderBy('name')->one();
-            $hemoglobin1    = $enrollment->getHemoglobins()->where('sample = 1')->one();
-            $hemoglobin2    = $enrollment->getHemoglobins()->where('sample = 2')->one();          
-            $hemoglobin3    = $enrollment->getHemoglobins()->where('sample = 3')->one();  
-            
+            $enrollment = $term->getEnrollments()->one();
+            $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
+            $student = $enrollment->getStudents()->orderBy('name')->one();
+            $hemoglobin1 = $enrollment->getHemoglobins()->where('sample = 1')->one();
+            $hemoglobin2 = $enrollment->getHemoglobins()->where('sample = 2')->one();
+            $hemoglobin3 = $enrollment->getHemoglobins()->where('sample = 3')->one();
+
             if (isset($tAgreed[$classroom->name])) {
-                $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], 
-                    [['name'=> $student->name, 
+                $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], [['name' => $student->name,
+                'birthday' => $student->birthday,
+                'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
+                'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
+                'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                    ]
+                ]);
+            } else {
+                $tAgreed[$classroom->name] = [['name' => $student->name,
                         'birthday' => $student->birthday,
                         'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
                         'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
                         'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
-                        ]
-                        ]);
-            } else{
-                $tAgreed[$classroom->name] = 
-                    [['name'=> $student->name, 
-                        'birthday' => $student->birthday,
-                        'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
-                        'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
-                        'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
-                        ]];
+                ]];
             }
         endforeach;
-        foreach ($tAgreed as $cName => $students){
+        foreach ($tAgreed as $cName => $students) {
             $header = "<div class='agreed-terms-list'>"
                     . "<table>"
                     . "<tr>"
@@ -185,16 +182,16 @@ class ReportsController extends \yii\web\Controller {
                     . "</tr>"
                     . "<tr><td colspan='5' style='border:0'></td></tr>"
                     . "<tr>"
-                        . "<th class='student'>Aluno</th>"
-                        . "<th class='birthday'>Nascimento</th>"
-                        . "<th class='rate'>Taxa 1</th>"
-                        . "<th class='rate'>Taxa 2</th>"
-                        . "<th class='rate'>Taxa 3</th>"
+                    . "<th class='student'>Aluno</th>"
+                    . "<th class='birthday'>Nascimento</th>"
+                    . "<th class='rate'>Taxa 1</th>"
+                    . "<th class='rate'>Taxa 2</th>"
+                    . "<th class='rate'>Taxa 3</th>"
                     . "</tr>";
             $body = "";
-            
-         
-            foreach ($students as $s ){
+
+
+            foreach ($students as $s) {
                 $sName = $s['name'];
                 $sBirthday = $s['birthday'];
                 $sHb1 = $s['hb1'];
@@ -202,20 +199,20 @@ class ReportsController extends \yii\web\Controller {
                 $sHb3 = $s['hb3'];
                 $body .= "<tr>"
                         . "<td class='student'>$sName</td>"
-                        . "<td class='birthday'>".date("d/m/Y",strtotime($sBirthday))."</td>"
-                        . "<td class='rate'>".($sHb1 == null ? '' : $sHb1 . 'g/dL')."</td>"
-                        . "<td class='rate'>".($sHb2 == null ? '' : $sHb2 . 'g/dL')."</td>"
-                        . "<td class='rate'>".($sHb3 == null ? '' : $sHb3 . 'g/dL')."</td>"
+                        . "<td class='birthday'>" . date("d/m/Y", strtotime($sBirthday)) . "</td>"
+                        . "<td class='rate'>" . ($sHb1 == null ? '' : $sHb1 . 'g/dL') . "</td>"
+                        . "<td class='rate'>" . ($sHb2 == null ? '' : $sHb2 . 'g/dL') . "</td>"
+                        . "<td class='rate'>" . ($sHb3 == null ? '' : $sHb3 . 'g/dL') . "</td>"
                         . "</tr>";
             }
             $footer = "</table>"
                     . "</div>";
-                    
-            if (end($tAgreed) !== $students){
+
+            if (end($tAgreed) !== $students) {
                 $footer .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
             }
-            
-            $html .= $header.$body.$footer;
+
+            $html .= $header . $body . $footer;
         }
 
 
@@ -231,10 +228,8 @@ class ReportsController extends \yii\web\Controller {
 
         $mpdf->Output('agreedTerms.pdf', 'I');
         exit;
-        
     }
-    
-    
+
     /**
      * Build Terms
      * 
@@ -243,22 +238,30 @@ class ReportsController extends \yii\web\Controller {
     public function actionBuildTerms($cid) {
         $campaignID = $cid;
         $html = "";
-        
+        $mpdf = new mPDF();
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+
+        //$mpdf->setHeader('{PAGENO}');
+
         if (isset($campaignID)) {
             $schools = array();
             /* @var $campaign \app\models\campaign */
-            $campaign   = campaign::find()->where('id = :sid', ['sid' => $campaignID])->one();
-            $terms      = $campaign->getTerms()->all();
+            $campaign = campaign::find()->where('id = :sid', ['sid' => $campaignID])->one();
+            $terms = $campaign->getTerms()->all();
 
             foreach ($terms as $term):
                 /* @var $term       \app\models\term */
                 /* @var $enrollment \app\models\enrollment */
                 /* @var $classroom  \app\models\classroom */
                 /* @var $student    \app\models\student */
-                $enrollment     = $term->getEnrollments()->one();
-                $classroom      = $enrollment->getClassrooms()->orderBy('name')->one();
-                $school         = $classroom->getSchools()->orderBy('name')->one();
-                $student        = $enrollment->getStudents()->orderBy('name')->one();
+                $enrollment = $term->getEnrollments()->one();
+                $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
+                $school = $classroom->getSchools()->orderBy('name')->one();
+                $student = $enrollment->getStudents()->orderBy('name')->one();
 
                 $schools[$school->id]['name'] = $school->name;
                 $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
@@ -266,24 +269,24 @@ class ReportsController extends \yii\web\Controller {
                 $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
                 $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
             endforeach;
-        
-        
+
+
             foreach ($schools as $i => $school):
                 $sName = $school['name'];
                 $classrooms = $school['classrooms'];
                 //School
-                $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> "
-                        . "<p class='page-white'> Escola: ".$sName."</p> "
-                        . "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                        
+                $mpdf->WriteHTML("&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> ");
+                $mpdf->WriteHTML("<p class='page-white'> Escola: " . $sName . "</p> ");
+                $mpdf->WriteHTML("<pagebreak suppress='off' />");
+                
                 foreach ($classrooms as $j => $classroom):
                     $cName = $classroom['name'];
                     $students = $classroom['students'];
-                  //Turma
-                 $html .= "&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> "
-                         . "<p class='page-white'> Turma: ".$cName."</p> "
-                         . "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                
+                    //Turma
+                    $mpdf->WriteHTML("&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> ");
+                    $mpdf->WriteHTML("<p class='page-white'> Turma: " . $cName . "</p> ");
+                    $mpdf->WriteHTML("<pagebreak suppress='off' />");
+
                     foreach ($students as $k => $student):
                         $sName = $student['name'];
                         $sMother = $student['nameMother'];
@@ -292,7 +295,7 @@ class ReportsController extends \yii\web\Controller {
 
                         //========================================================  
 
-                        $html .= '
+                        $html = '
                         <div class="report">
                             <div class="report-content">
                                 <div class="report-head">  
@@ -323,13 +326,13 @@ class ReportsController extends \yii\web\Controller {
                                 <br>
                                 <table>
                                     <tr>
-                                        <td>[ ] - Nome da Mãe: '. $sMother .'</td>
+                                        <td>[ ] - Nome da Mãe: ' . $sMother . '</td>
                                         <td rowspan="4" class="dedinho-term-report">
                                             <img src="/images/reporters/dedinho.png">
                                         </td>
                                     </tr>
                                     <tr><td class="answer-line"></td></tr>
-                                    <tr><td><br>[ ] - Nome do Pai: '. $sFather .'</td></tr>
+                                    <tr><td><br>[ ] - Nome do Pai: ' . $sFather . '</td></tr>
                                     <tr><td class="answer-line"></td></tr>
                                 </table>  
                                 <br>
@@ -352,37 +355,27 @@ class ReportsController extends \yii\web\Controller {
                                 <pre> [ ] - Vermifugo: _____________________________________________________ </pre> </div>
                             </div>
                         </div>'
-                        ."<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
+                                . "<pagebreak  suppress='off' />"; 
+                        $mpdf->WriteHTML($html);
                     endforeach;
                 endforeach;
             endforeach;
-            
-            $mpdf = new mPDF();
-
-            $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
-            $mpdf->WriteHTML($css1, 1);
-
-            $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
-            $mpdf->WriteHTML($css2, 1);
-
-            $mpdf->WriteHTML($html);
-
             $mpdf->Output('terms.pdf', 'I');
             exit;
         }
     }
-        
+
     public function actionGetConsultationLetter($student = null) {
-        $letter     = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
-        $sid        = isset($letter['campaign-student'])    && !empty($letter['campaign-student'])  ? $letter['campaign-student']   : null;
-        $date       = isset($letter['consult-date'])        && !empty($letter['consult-date'])      ? $letter['consult-date']       : "____/____/____";
-        $time       = isset($letter['consult-time'])        && !empty($letter['consult-time'])      ? $letter['consult-time']       : "____:____";
-        $place      = isset($letter['consult-location'])    && !empty($letter['consult-location'])  ? $letter['consult-location']   : "____________________________________";
+        $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
+        $sid = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
+        $date = isset($letter['consult-date']) && !empty($letter['consult-date']) ? $letter['consult-date'] : "____/____/____";
+        $time = isset($letter['consult-time']) && !empty($letter['consult-time']) ? $letter['consult-time'] : "____:____";
+        $place = isset($letter['consult-location']) && !empty($letter['consult-location']) ? $letter['consult-location'] : "____________________________________";
 
         $student = ($letter != null && $sid != null) ? \app\models\student::find()->where("id = :sid", ['sid' => $letter["campaign-student"]])->one() : null;
         /* @var $student \app\models\student */
-        $name   = $student != null ? $student->name : "____________________________________________________________________";
-        $sex    = $student == null ? true           : ($student->gender == "male" ? true : false); /* male or female */
+        $name = $student != null ? $student->name : "____________________________________________________________________";
+        $sex = $student == null ? true : ($student->gender == "male" ? true : false); /* male or female */
 
         echo "Prezados Pais,";
         echo "<br/>";
