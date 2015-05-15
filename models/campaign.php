@@ -150,6 +150,15 @@ class campaign extends \yii\db\ActiveRecord {
         return $this->hasMany(enrollment::className(), ['id' => 'enrollment'])
                         ->via('terms');
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnrollmentsWithoutTerms() {
+        return $this->hasMany(enrollment::className(), ['id'=>'enrollment'])
+                ->via('terms')
+                ->where("not exists (select * from term as t where enrollment.id = t.enrollment)");
+ 
+    }
     
     /**
      * @return \yii\db\ActiveQuery
@@ -169,6 +178,19 @@ class campaign extends \yii\db\ActiveRecord {
         $result = [];
         foreach($terms as $term){
             $result[$term->enrollments->classrooms->id] = $term->enrollments->classrooms->name;
+        }
+        return $result;
+    }    
+    /**
+     * @return array
+     */
+    public function getClassroomsWithAttendedConsults() {
+        /* @var $consult \app\models\consult*/
+        $consults = $this->getConsults()->where("attended")->all();
+        
+        $result = [];
+        foreach($consults as $consult){
+            $result[$consult->terms->enrollments->classrooms->id] = $consult->terms->enrollments->classrooms->name;
         }
         return $result;
     }
@@ -198,6 +220,15 @@ class campaign extends \yii\db\ActiveRecord {
     public function getHemoglobins(){
         return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
                 ->via('terms');
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHemoglobinsWithoutConsult(){
+        return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
+                ->via('terms')
+                ->where("sample = 1 and not exists (select * from consultation as c where agreed_term = c.term)");
     }
     
     /**

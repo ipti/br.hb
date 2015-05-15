@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'ti@ipti.org.br',
     'icon-framework' => 'fa',  // Font Awesome Icon framework
 ];

@@ -4,10 +4,17 @@
  * @param {form} $form
  */
 function submitCampaignForm($form) {
+    $('#campaignModal button[type=submit]').html('<i class="fa fa-spinner  fa-spin"></i> Criando...');
+    $('#campaignModal button[type=submit]').click(function(e){
+        e.preventDefault();
+    });
     $.post(
         $form.attr("action"),
         $form.serialize()
-        )
-        $('#campaignModal').modal('hide');
+    ).done(function(){
+        window.location.assign("/");
+    }).fail(function(){
+        window.location.assign("/");
+    });
 };
 

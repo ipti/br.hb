@@ -48,7 +48,7 @@ $this->params['siteIndex'] = true;
             $anatomies['Updated'] = $c->getStudentsAnatomies()->where('anatomy.date >= :date', ['date'=>$c->begin])->count();
             $anatomies['Unknown'] = $terms['Total']-$anatomies['Total'];
             $anatomies['OutOfDate'] = $terms['Total']-$anatomies['Updated']-$anatomies['Unknown'];
-            $anatomies['Url'] = Url::to(['anatomy/index', 'c' => $campaing['Id']]);
+            $anatomies['Url'] = Url::to(['anatomy/index', 'cid' => $campaing['Id']]);
 
             $hb1['Total'] = $terms['Agreed'];
             $hb1['Done'] = $c->getHemoglobins()->where(["sample" => '1'])->count();

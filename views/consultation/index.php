@@ -20,7 +20,8 @@ $this->assetBundles['Consultation']->js = [
 $this->title = Yii::t('app', 'Consultations');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] =
-        Html::a(Yii::t('app', 'Create Consultation'), ['create', 'cid' => $campaign], ['class' => 'btn btn-success navbar-btn'])
+        Html::a(Yii::t('app', 'Create Consultation'), ['create', 'cid' => $campaign], ['class' => 'btn btn-success navbar-btn']);
+$this->params['campaign'] = $campaign;
 ?>
 
 <div class="consultation-index">
@@ -29,7 +30,8 @@ $this->params['button'] =
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $column){
-                    return ['consultation-key'=>$model->getTerms()->one()->getConsults()->one()->id];
+                    $c = $this->params['campaign'];
+                    return ['consultation-key'=>$model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->id];
                 },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::className(),
@@ -41,6 +43,7 @@ $this->params['button'] =
             ],
             ['class'=> kartik\grid\DataColumn::className(),
                 'attribute'=>'classroom',
+                'options' => ['style' => 'width:20%'],
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
@@ -52,7 +55,8 @@ $this->params['button'] =
                 'header'=> Yii::t('app', 'Attended'),
                 'value' => function ($model, $key, $index, $column){
                 /* @var $model \app\models\enrollment */
-                    return $model->getTerms()->one()->getConsults()->one()->attended;
+                    $c = $this->params['campaign'];
+                    return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->attended;
                 },
                 'vAlign' => 'middle',
             ],
@@ -60,20 +64,27 @@ $this->params['button'] =
                 'contentOptions' => ['class' => 'deliveredClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Delivered'),
                 'value' => function ($model, $key, $index, $column){
-                    return $model->getTerms()->one()->getConsults()->one()->delivered;
+                /* @var $model \app\models\enrollment */
+                    $c = $this->params['campaign'];
+                    return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->delivered;
                 },
                 'vAlign' => 'middle',
-            ],[
+            ],
+            [
                 'class' => kartik\grid\DataColumn::className(),
-                'label' => yii::t('app', 'Actions'),
+                'label' => yii::t('app', 'Print'),
+                'options' => ['style' => 'width:10%'],
                 'content' => function($model, $key, $index, $column) {
-                    
-                    $consultation = $model;
-                    $hemoglobin = $consultation->terms->getHemoglobins()->where("sample = 1")->one();
+                    /* @var $model \app\models\enrollment */
+                    $cid = $this->params['campaign'];
+                    $hemoglobin = $model->getTerms()->where("campaign = :cid",["cid"=>$cid])->one()->getHemoglobins()->where("sample = 1")->one();
+                    $sid = $hemoglobin->agreedTerm->enrollments->student;
+                    $eid = $hemoglobin->agreedTerm->enrollment;
                     $link = $hemoglobin->isAnemic() 
-                            ? Html::a(Icon::show('file-text-o', [], Icon::FA),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
-                            : Html::a(Icon::show('file-text-o', [], Icon::FA), "#",["class"=>"text-muted disabled"]);
-                    
+                            ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
+                            ."<br>".Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
+                            ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
+                            : "----------";
                     return $link;
                 }
             ]

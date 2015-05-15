@@ -1,8 +1,13 @@
+
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+
+
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\anatomy */
@@ -12,20 +17,68 @@ use yii\helpers\ArrayHelper;
 
 <div class="anatomy-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><?= $model->isNewRecord ? Yii::t('app', 'New Anatomy') : Yii::t('app', 'Update Anatomy') ?></h3>
+        <?= $model->isNewRecord ? '' : $model->name ?>
+    </div>
 
-    <?= $form->field($model, 'student')
-            ->dropDownList(ArrayHelper::map($campaign->getStudents()->all(), 'id', 'name'),
-                    [$model->isNewRecord ? "":"disabled"=>"disabled"]) ?>
 
-    <?= $form->field($model, 'weight')->textInput() ?>
+    <?php $form = ActiveForm::begin([
+     'id' => $model->formName(),
+     'type' => ActiveForm::TYPE_VERTICAL
+     ]); ?>
 
-    <?= $form->field($model, 'height')->textInput() ?>
+    <div class="modal-container">
 
-    <?= $form->field($model, 'date')->input('date',['value'=>date('Y-m-d')]) ?>
+    <?php
+    $js = "
+        $('form#".$model->formName()."').on('beforeSubmit', function(e){
+            var \$form = $(this);
+            submitAnatomyForm(\$form);
+        }).on('submit', function(e){
+            e.preventDefault();
+        });";
+    $this->registerJs($js); 
+    
+    
+    echo Form::widget([
+        'model' => $model,
+        'form' => $form,
+        'columns' => 1,
+        'attributes' => [
+            'student' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => Select2::className(),
+                'options' => [
+                    'data' => ArrayHelper::map($campaign->getStudents()->all(), 'id', 'name'),
+                    'options' => [
+                        'placeholder' => Yii::t('app', 'Select Student...'),
+                        $model->student == null ? "" : "readonly"
+                    ]
+                ],
+            ],
+            'weight' => ['type' => Form::INPUT_TEXT,],
+            'height' => ['type' => Form::INPUT_TEXT,],
+            'date' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => \kartik\date\DatePicker::className(),
+                'options'=>[
+                    'pluginOptions' => ['format' => 'yyyy-mm-dd'],
+                ],
+            ],
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        ]
+        
+    ]);
+
+    ?>
+
+    </div>
+
+    <div class="form-group modal-footer">
+        <?= Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>"modal", 'class' => 'btn btn-danger pull-left'])
+            .Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success pull-right' : 'btn btn-primary pull-right']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

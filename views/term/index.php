@@ -17,13 +17,12 @@ $this->assetBundles['Term']->js = [
 ];
 $this->title = Yii::t('app', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['button'] = 
-        Html::button(Icon::show('plus',[], Icon::BSG).
-                    yii::t('app', 'New Term'), 
-                    ['value' => Url::to(['term/create','c'=>$campaign]),
-                        'id'=>'newTerm',
-                        'class'=>'btn btn-success navbar-btn',
-                        'for'=>'#'
+$this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
+                    		yii::t('app', 'New Term'), 
+                    			['value' => Url::to(['term/create','c'=>$campaign]),
+                       			 	'id'=>'newTerm',
+                        			'class'=>'btn btn-success navbar-btn',
+                        			'for'=>'#'
                     ]);
 $this->params['campaign'] = $campaign;
 ?>

@@ -2,18 +2,32 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\bootstrap\Modal;
+use kartik\icons\Icon;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $searchModel app\models\enrollmentSearch */
 /* @var $campaign app\models\campaign */
 
+
+$this->assetBundles['Anatomy'] = new app\assets\AppAsset();
+$this->assetBundles['Anatomy']->js = [
+    'scripts/AnatomyView/Functions.js',
+    'scripts/AnatomyView/Click.js'
+];
+
 $this->title = Yii::t('app', 'Anatomies');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['button'] = 
-        Html::a(Yii::t('app', 'Create Anatomy', [
-                    'modelClass' => 'Anatomy',
-                ]), ['create', 'cid' => $campaign->id], ['class' => 'btn btn-success navbar-btn']);
+$this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
+                            yii::t('app', 'New Anatomy'), 
+                            ['value' => Url::to(['anatomy/create','cid'=>$campaign->id]),
+                                'id'=>'newAnatomy',
+                                'class'=>'btn btn-success navbar-btn',
+                                'for'=>'#'
+                            ]);
+        
 ?>
 
 <div class="anatomy-index">
@@ -55,6 +69,27 @@ $this->params['button'] =
                 }
             ],
             ['class'=> kartik\grid\DataColumn::className(),
+                'header'=> Yii::t('app', 'IMC'),
+                'content' => function ($model, $key, $index, $column){
+                    $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
+                    if($anatomy != null){
+                        $situation = $anatomy->IMCSituation();
+                        /*
+                        DESNUTRIDO    = -1;
+                        NORMAL        = 0;
+                        SOBREPESO     = 1;
+                        OBESIDADE     = 2;
+                        OBESIDADE_MORBIDA = 3;
+                         */
+                        return $anatomy->IMC() . "kg/m²<br>"
+                                . "<span class='text-".yii::t("app",'{n, select, -1{danger} 0{info} 1{warning} 2{danger} 3{danger}}',['n'=>$situation])."'>" 
+                                    . yii::t("app", '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}',['n'=>$situation])
+                                ."</span>";
+                    }
+                    return null;
+                }
+            ],
+            ['class'=> kartik\grid\DataColumn::className(),
                 'header'=> Yii::t('app', 'Date'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -66,7 +101,10 @@ $this->params['button'] =
             ['class'=> kartik\grid\BooleanColumn::className(),
                 'header'=> Yii::t('app', 'Updated'),
                 'options'=>['mydate'=>$campaign->begin],
-                'contentOptions' => ['class' => 'agreedClick'],
+                'contentOptions' => [
+                    'class' => 'agreedClick cursor-pointer',
+                    'link' =>  Url::to(['anatomy/create','cid'=>$campaign->id])
+                ],
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
                     if($anatomy != null)
@@ -87,3 +125,10 @@ $this->params['button'] =
     ]); ?>
 
 </div>
+
+<?php
+    Modal::begin(['closeButton'=>false,
+        'id' => 'anatomyModal']);
+        echo "<div id='anatomyModalContent'></div>";
+    Modal::end();
+?>

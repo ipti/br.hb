@@ -29,7 +29,7 @@ use kartik\select2\Select2;
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => Select2::className(),
                 'options' => [
-                    'data' => ArrayHelper::map($campaign->getHemoglobins()->where('sample = 1')->all(), 'agreed_term', 'agreedTerm.students.name'),
+                    'data' => ArrayHelper::map($campaign->getHemoglobinsWithoutConsult()->all(), 'agreed_term', 'agreedTerm.students.name'),
                     'options' => [
                         'placeholder' => Yii::t('app', 'Select Student...'),
                         $model->isNewRecord ? "" : "disabled" => "disabled"

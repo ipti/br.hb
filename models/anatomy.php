@@ -13,7 +13,7 @@ use Yii;
  * @property double $height
  * @property string $date
  *
- * @property Student $student0
+ * @property Student $students
  */
 class anatomy extends \yii\db\ActiveRecord
 {
@@ -68,15 +68,15 @@ class anatomy extends \yii\db\ActiveRecord
     }
     
     public function IMC(){
-        return $this->weight/($this->height*$this->height);
+        return round($this->weight/($this->height*$this->height), 2);
     }
     
     public function IMCSituation(){
         if($this->IMC() <  19) return anatomy::DESNUTRIDO;
         else if($this->IMC() >= 19 && $this->IMC() < 24.9) return anatomy::NORMAL;
-        else if($this->IMC() <  25 && $this->IMC() < 29.9) return anatomy::SOBREPESO;
-        else if($this->IMC() <  30 && $this->IMC() < 39.9) return anatomy::OBESIDADE;
-        else if($this->IMC() >  40) return anatomy::OBESIDADE_MORBIDA;
+        else if($this->IMC() >= 25 && $this->IMC() < 29.9) return anatomy::SOBREPESO;
+        else if($this->IMC() >= 30 && $this->IMC() < 39.9) return anatomy::OBESIDADE;
+        else if($this->IMC() >= 40) return anatomy::OBESIDADE_MORBIDA;
         else return null;
     }
 }

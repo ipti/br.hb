@@ -26,27 +26,22 @@ class enrollmentSearch extends enrollment
         return Model::scenarios();
     }
 
-    public function search($params)
-    {
+    public function search($params){
         $actualController = Yii::$app->controller->className();
-       
-        $c = $params['c'];
-        /* @var $campaign \app\models\campaign */
-        $campaign = \app\models\campaign::find()->where("id = :c",["c"=>$c])->one();
+        $cid = isset($params["c"]) ? $params["c"] : $params["cid"];
+        
+        $campaign = \app\models\campaign::find()->where("id = :cid",["cid"=>$cid])->one();
     
         $query = $campaign->getEnrollments();
-        
         $query->select("enrollment.*");
         
         if($actualController == \app\controllers\ConsultationController::className()){
             $query->innerJoin('term as t', 't.enrollment = enrollment.id and t.agreed = true');
             $query->innerJoin('consultation as co', 'co.term = t.id');
+            $query->where("campaign = :cid", ["cid" => $cid]);
         }
         
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
         $sName ="";
         $cName ="";
         
