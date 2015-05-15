@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=127.0.0.1;dbname=hbdb',
+    'dsn' => 'mysql:host=db.ipti.org.br;dbname=hbdb',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',
