@@ -139,6 +139,9 @@ class ReportsController extends \yii\web\Controller {
         $school = school::find()->where("id = :sid", ['sid' => $sid])->one();
         $terms = $school->getTerms()
                 ->where("term.campaign = :cid and term.agreed = true", ['cid' => $cid])
+                ->innerJoin("enrollment e", "term.enrollment = e.id")
+                ->innerJoin("student s", "e.student = s.id")
+                ->orderBy("s.name ASC")
                 ->all();
 
         $tAgreed = [];

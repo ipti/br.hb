@@ -34,8 +34,13 @@ class HemoglobinController extends Controller {
     public function actionIndex($c, $s) {
         $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $c])->one();
         /* @var $campaign \app\models\campaign */
-        $q = $campaign->getHemoglobins()->where('sample = :s', ['s' => $s]);
-
+        $q = $campaign->getHemoglobins()
+                ->where('sample = :s', ['s' => $s])
+                ->innerJoin('term', 'agreed_term = term.id')
+                ->innerJoin('enrollment as en', 'term.enrollment = en.id')
+                ->innerJoin('student as s', 's.id = en.student')
+                ->orderBy('s.name ASC');
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $q
         ]);
@@ -245,7 +250,12 @@ class HemoglobinController extends Controller {
 
         $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $cid])->one();
         /* @var $campaign \app\models\campaign */
-        $terms = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $cid])->all();
+        $terms = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $cid])
+                ->innerJoin('enrollment as en', 'enrollment = en.id')
+                ->innerJoin('student as s', 's.id = en.student')
+                ->innerJoin('classroom as c', 'c.id = en.classroom')
+                ->orderBy('c.name ASC, s.name ASC')
+                ->all();
 
         $html = '  
             <p align="center"> 
