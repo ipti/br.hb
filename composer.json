@@ -32,7 +32,8 @@
         "kartik-v/yii2-grid"            : "3.0.0",
         "fortawesome/font-awesome"      : "4.3.0",
         "kartik-v/yii2-datecontrol"     : "1.9.1",
-        "warrence/yii2-kartikgii": "dev-master"
+        "warrence/yii2-kartikgii"       : "dev-master",
+        "kartik-v/yii2-money"           : "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception"      : "*",

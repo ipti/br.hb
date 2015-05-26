@@ -2,7 +2,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-activeform
- * @version 1.4.1
+ * @version 1.4.2
  *
  * Active Form Styling for Twitter Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -41,8 +41,12 @@ label.disabled, label.readonly, .disabled label, .readonly label {
     min-height: 145px !important;
 }
 
-.kv-fieldset-inline .form-group {
-    margin: 0;
+.kv-form-horizontal .form-group  {
+    margin-bottom: 0;
+}
+
+.kv-form-horizontal  .form-group + .form-group {
+    margin-top: 5px;
 }
 
 /**

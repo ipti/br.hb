@@ -58,8 +58,36 @@ use kartik\select2\Select2;
                     ]
                 ],
             ],
-            'weight' => ['type' => Form::INPUT_TEXT,],
-            'height' => ['type' => Form::INPUT_TEXT,],
+            'weight' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => kartik\money\MaskMoney::className(),
+                'options'=>[
+                    'pluginOptions' => [
+                        'prefix' => '',
+                        'suffix' => ' kg',
+                        'allowNegative' => false,
+                        'decimal' => ',',
+                        'thousands' => '.',
+                        'affixesStay' => true,
+                        'precision' => 2
+                    ],
+                ],
+            ],
+            'height' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => kartik\money\MaskMoney::className(),
+                'options'=>[
+                    'pluginOptions' => [
+                        'prefix' => '',
+                        'suffix' => ' m',
+                        'allowNegative' => false,
+                        'decimal' => ',',
+                        'thousands' => '.',
+                        'affixesStay' => true,
+                        'precision' => 2
+                    ],
+                ],
+            ],
             'date' => [
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => \kartik\date\DatePicker::className(),

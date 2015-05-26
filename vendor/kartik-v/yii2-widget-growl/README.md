@@ -1,6 +1,12 @@
 yii2-widget-growl
 =================
 
+[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-widget-growl/v/stable)](https://packagist.org/packages/kartik-v/yii2-widget-growl)
+[![License](https://poser.pugx.org/kartik-v/yii2-widget-growl/license)](https://packagist.org/packages/kartik-v/yii2-widget-growl)
+[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-widget-growl/downloads)](https://packagist.org/packages/kartik-v/yii2-widget-growl)
+[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-widget-growl/d/monthly)](https://packagist.org/packages/kartik-v/yii2-widget-growl)
+[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-widget-growl/d/daily)](https://packagist.org/packages/kartik-v/yii2-widget-growl)
+
 A widget that turns standard Bootstrap alerts into "Growl-like" notifications. This widget is a wrapper for the Bootstrap Growl [plugin by remabledesigns](http://bootstrap-growl.remabledesigns.com).
  
 > NOTE: This extension is a sub repo split of [yii2-widgets](https://github.com/kartik-v/yii2-widgets). The split has been done since 08-Nov-2014 to allow developers to install this specific widget in isolation if needed. One can also use the extension the previous way with the whole suite of [yii2-widgets](http://demos.krajee.com/widgets).
@@ -25,7 +31,7 @@ to the ```require``` section of your `composer.json` file.
 
 ## Latest Release
 
-> NOTE: The latest version of the module is v1.1.0 released on 08-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-growl/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the module is v1.1.1 released. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-growl/blob/master/CHANGE.md) for details.
 
 ## Demo
 

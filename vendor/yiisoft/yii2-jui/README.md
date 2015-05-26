@@ -1,12 +1,14 @@
 JUI Extension for Yii 2
 =======================
 
-This is the JQuery UI extension for Yii 2. It encapsulates [JQuery UI widgets](http://jqueryui.com/) as Yii widgets,
+This is the JQuery UI extension for [Yii framework 2.0](http://www.yiiframework.com). It encapsulates [JQuery UI widgets](http://jqueryui.com/) as Yii widgets,
 and makes using JQuery UI widgets in Yii applications extremely easy.
 
-This repository is a git submodule of <https://github.com/yiisoft/yii2>.
-Please submit issue reports and pull requests to the main repository.
 For license information check the [LICENSE](LICENSE.md)-file.
+
+[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-jui/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-jui)
+[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-jui/downloads.png)](https://packagist.org/packages/yiisoft/yii2-jui)
+[![Build Status](https://travis-ci.org/yiisoft/yii2-jui.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-jui)
 
 Installation
 ------------
@@ -30,7 +32,7 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Fhe following
+The following
 single line of code in a view file would render a [JQuery UI DatePicker](http://api.jqueryui.com/datepicker/) widget:
 
 ```php
