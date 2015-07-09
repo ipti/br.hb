@@ -58,6 +58,7 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'tag' => require(__DIR__ . '/tag.php'),
     ],
     'params' => $params,
 ];

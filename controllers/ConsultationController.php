@@ -12,10 +12,9 @@ use yii\filters\VerbFilter;
 /**
  * ConsultationController implements the CRUD actions for consultation model.
  */
-class ConsultationController extends Controller
-{
-    public function behaviors()
-    {
+class ConsultationController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -30,16 +29,15 @@ class ConsultationController extends Controller
      * Lists all consultation models.
      * @return mixed
      */
-    public function actionIndex($c)
-    {
-        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
+    public function actionIndex($c) {
+        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $c])->one();
         $searchModel = new \app\models\enrollmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-            'campaign'=>$c,
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'campaign' => $c,
         ]);
     }
 
@@ -48,10 +46,9 @@ class ConsultationController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -60,17 +57,16 @@ class ConsultationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($cid)
-    {
+    public function actionCreate($cid) {
         $model = new consultation();
-        $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$cid])->one();
+        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $cid])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->id, 'c' => $cid]);
         } else {
             return $this->render('create', [
-                'model' => $model,
-                'campaign' => $campaign,
+                        'model' => $model,
+                        'campaign' => $campaign,
             ]);
         }
     }
@@ -81,18 +77,18 @@ class ConsultationController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
+
     /**
      * Updates an existing consultation model on Attended or Delivered attribute.
      * 
@@ -100,21 +96,19 @@ class ConsultationController extends Controller
      * @param integer $id   Consultation ID
      * 
      */
-    public function actionUp($t, $id){
+    public function actionUp($t, $id) {
         $model = $this->findModel($id);
-        
-        if($t == 1){
+
+        if ($t == 1) {
             $model->attended = 1;
-        }else if($t == 2){
+        } else if ($t == 2) {
             $model->delivered = 1;
         }
-        
+
         if (!$model->save()) {
             throw new Exception("Não atualizado", "0004");
         }
     }
-
-
 
     /**
      * Deletes an existing consultation model.
@@ -122,8 +116,7 @@ class ConsultationController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -136,12 +129,12 @@ class ConsultationController extends Controller
      * @return consultation the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = consultation::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }
