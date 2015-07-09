@@ -3,8 +3,8 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
- * @version   1.7.4
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
+ * @version   1.7.6
  */
 
 namespace kartik\base;
@@ -15,7 +15,7 @@ use Yii;
  * Trait for all translations used in Krajee extensions
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.7.4
+ * @since 1.7.6
  */
 trait TranslationTrait
 {
@@ -24,13 +24,15 @@ trait TranslationTrait
      *
      * @return void
      */
-    public function initI18N()
+    public function initI18N($dir = '')
     {
         if (empty($this->_msgCat)) {
             return;
         }
-        $reflector = new \ReflectionClass(get_class($this));
-        $dir = dirname($reflector->getFileName());
+        if (empty($dir)) {
+            $reflector = new \ReflectionClass(get_class($this));
+            $dir = dirname($reflector->getFileName());
+        }
         Yii::setAlias("@{$this->_msgCat}", $dir);
         if (empty($this->i18n)) {
             $this->i18n = [
@@ -39,6 +41,6 @@ trait TranslationTrait
                 'forceTranslation' => true
             ];
         }
-        Yii::$app->i18n->translations[$this->_msgCat] = $this->i18n;
+        Yii::$app->i18n->translations[$this->_msgCat . '*'] = $this->i18n;
     }
 }

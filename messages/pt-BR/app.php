@@ -95,6 +95,8 @@ return [
     'Consultations'=>'Consultas',    
     'Attended' => 'Compareceu',
     'Delivered' => 'Recebeu',
+    'All Prescriptions...' => 'Todas Prescrições...',
+    'All Letters/Anamnese...'=>'Todas Cartas/Anamnese...',
     
     // Student
     'Student' => 'Aluno',

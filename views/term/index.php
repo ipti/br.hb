@@ -85,25 +85,6 @@ $this->params['campaign'] = $campaign;
 <?php
     Modal::begin([
         'size'=>Modal::SIZE_SMALL,
-        'id'=>'updateModal',
-        'closeButton'=>false
-    ]);
-    echo "<div class='modal-container'><p>";
-    echo Yii::t("app","Are you sure you want to update?");
-    echo "</p>";
-    echo "<br>";
-    echo "<div>";
-    echo Html::button(Yii::t('app', 'Cancel'), ['data-dismiss'=>'modal', 'class'=>'btn btn-danger pull-left'])
-        .Html::button(Yii::t('app', 'Confirm'), ['id'=>'updateModal-confirm', 'class'=>'btn btn-success pull-right']);
-    echo "</div>";
-    echo "<br>";
-    echo "<br></div>";
-    Modal::end();
-    
-    
-    
-    Modal::begin([
-        'size'=>Modal::SIZE_SMALL,
         'id'=>'selectSchoolModal',
         'closeButton'=>false
     ]);

@@ -16,6 +16,6 @@ function submitTermForm($form) {
         $form.attr("action"),
         $form.serialize()
         )
-        $('#termModal').modal('hide');
+    $('#termModal').modal('hide');
 };
 

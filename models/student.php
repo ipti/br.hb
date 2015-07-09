@@ -39,7 +39,7 @@ class student extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['name', 'address', 'birthday', 'gender'], 'required'],
+            [['name', 'birthday', 'gender'], 'required'],
             [['address'], 'integer'],
             [['birthday', 'name'], 'safe'],
             [['gender'], 'string'],

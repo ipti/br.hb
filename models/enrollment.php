@@ -31,7 +31,7 @@ class enrollment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id','student', 'classroom'], 'required'],
+            [['student', 'classroom'], 'required'],
             [['id','student', 'classroom'], 'integer']
         ];
     }

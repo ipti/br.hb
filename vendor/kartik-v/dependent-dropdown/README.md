@@ -1,11 +1,17 @@
 dependent-dropdown
 ==================
 
+[![BOWER version](https://badge-me.herokuapp.com/api/bower/kartik-v/dependent-dropdown.png)](http://badges.enytc.com/for/bower/kartik-v/dependent-dropdown)
+[![Latest Stable Version](https://poser.pugx.org/kartik-v/dependent-dropdown/v/stable)](https://packagist.org/packages/kartik-v/dependent-dropdown)
+[![License](https://poser.pugx.org/kartik-v/dependent-dropdown/license)](https://packagist.org/packages/kartik-v/dependent-dropdown)
+[![Packagist Downloads](https://poser.pugx.org/kartik-v/dependent-dropdown/downloads)](https://packagist.org/packages/kartik-v/dependent-dropdown)
+[![Monthly Downloads](https://poser.pugx.org/kartik-v/dependent-dropdown/d/monthly)](https://packagist.org/packages/kartik-v/dependent-dropdown)
+
 A multi level dependent dropdown JQuery plugin that allows nested dependencies. The plugin allows you to convert normal
 select inputs, whose options are derived based on value selected in another input/or a group of inputs. It works both
 with normal select options and select with optgroups as well.
 
-> NOTE: The latest version of the plugin v1.4.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/dependent-dropdown/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v1.4.1 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/dependent-dropdown/blob/master/CHANGE.md) for details.
 
 ## Features
 
@@ -154,6 +160,8 @@ with the values of these input identifiers. For example in PHP you can retrieve 
     }
 ```
 
+> NOTE: In addition to `depdrop_params`, the plugin sends `depdrop_all_params` as an associative array of keys and values. This is sent merged along with the keys and values of `depdrop_parents`. Read more about this in the `url` section below.
+
 ##### url
 _string_ the ajax url action which will process the dependent list. The server action must return a JSON encoded
 specified format like `{output: <dependent-list>, selected: <default-selected-value>}`.
@@ -161,7 +169,7 @@ where, the `output` is an array of data for the dependent list of the format `{i
 and `selected` is the default selected value after the dependent dropdown is generated. If you desire a dependent list
 containing optgroups then the `output` must be of the format `{group-name: {id: <option-value>, name: <option-name>}}`.
 
-The plugin passes an array of dependent values as a POST request to the server under a variable name `depdrop_parents`.
+The plugin passes an array of dependent values as a POST request to the server under a variable name `depdrop_parents`. In addition, the plugin also passes a property `depdrop_all_params` that will be an associative array of keys and values (it merges the values of `depdrop_parents` and `depdrop_params`). The keys are the element identifiers for dependent dropdown parent elements and the element identifiers set via `params` property.
 This can be read by the server action to generate a dependent dropdown list. An example for a PHP server action could be:
 
 ```php
@@ -177,6 +185,12 @@ public function generateChildren() {
              */
             echo json_encode(['output' => $out, 'selected'=>'']);
             return;
+        }
+    }
+    if (isset($_POST['depdrop_all_params'])) {
+        for ($_POST['depdrop_all_params'] as $key => $value) {
+            // $key = Element ID 
+            // $value = Element Value
         }
     }
     echo json_encode(['output' => '', 'selected'=>'']);
@@ -214,6 +228,12 @@ set this to `false`, it will not be displayed. Defaults to `Select ...`.
 ##### emptyMsg
 _string_ the message to display when the ajax response returned from the server is null or an empty array. Defaults to
 `No data found`.
+
+##### idParam
+_string_ the name of the parameter that returns the `id` value for each list option item via json response. Defaults to `id`.
+
+##### nameParam
+_string_ the name of the parameter that returns the `name` value for each list option item via json response. Defaults to `name`.
 
 ### Plugin Events
 The plugin supports these events:

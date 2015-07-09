@@ -1,6 +1,6 @@
 /*!
- * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
- * @version 3.5.1
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2015
+ * @version 3.5.2
  *
  * A simple yet powerful JQuery star rating plugin that allows rendering
  * fractional star ratings and supports Right to Left (RTL) input.
@@ -57,6 +57,18 @@
             }
             return parseFloat(options[vattr]);
         },
+        listenClick: function($el, callback) {
+            $el.on('click touchstart', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                if (e.handled !== true) {
+                    callback(e);
+                    e.handled = true;
+                } else {
+                    return false;
+                }
+            });
+        },
         setDefault: function (key, val) {
             var self = this;
             if (isEmpty(self[key])) {
@@ -64,14 +76,15 @@
             }
         },
         getPosition: function (e) {
-            return e.pageX - this.$rating.offset().left;
+            var pageX = e.pageX || e.originalEvent.touches[0].pageX;
+            return pageX - this.$rating.offset().left;
         },
         listen: function () {
             var self = this, pos, out;
             self.initTouch();
-            self.$rating.on("click", function (e) {
+            self.listenClick(self.$rating, function(e) {
                 if (self.inactive) {
-                    return;
+                    return false;
                 }
                 pos = self.getPosition(e);
                 self.setStars(pos);
@@ -115,7 +128,7 @@
                 self.toggleHover(out);
                 self.$element.trigger('rating.hoverleave', ['clear']);
             });
-            self.$clear.on("click", function () {
+            self.listenClick(self.$clear, function () {
                 if (!self.inactive) {
                     self.clear();
                     self.clearClicked = true;
@@ -263,13 +276,19 @@
             else {
                 self.$container.addClass('rating-active');
             }
-
-            if (self.$caption === undefined && self.$clear === undefined) {
+            if (isEmpty(self.$caption)) {
                 if (self.rtl) {
-                    self.$container.prepend(caption).append(clear);
+                    self.$container.prepend(caption);
+                } else {
+                    self.$container.append(caption);
+                }
+            }
+            if (isEmpty(self.$clear)) {
+                if (self.rtl) {
+                    self.$container.append(clear);
                 }
                 else {
-                    self.$container.prepend(clear).append(caption);
+                    self.$container.prepend(clear);
                 }
             }
             if (!isEmpty(self.containerClass)) {
@@ -398,7 +417,9 @@
                 return;
             }
             self.$rating.off('rating');
-            self.$clear.off();
+            if (self.$clear !== undefined) {
+                self.$clear.off();
+            }
             self.init($.extend(self.options, options));
             if (self.showClear) {
                 self.$clear.show();
