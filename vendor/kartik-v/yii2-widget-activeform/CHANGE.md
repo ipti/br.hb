@@ -1,3 +1,22 @@
+version 1.4.2
+=============
+**Date:** 11-May-2015
+
+- (enh #32): Create new `checkboxButtonGroup` & `radioButtonGroup` in ActiveField.
+- (bug #33): Correct autoPlaceholder based attribute label generation for tabular inputs.
+- (enh #36): Prevent offset of checkbox/radio labels for horizontal forms when `enclosedByLabel` is `false`.
+- (enh #37): Scale inputs to full width in horizontal forms when `showLabels` is `ActiveForm:;SCREEN_READER`.
+- (enh #38): Fix `autoPlaceholder` property for INLINE forms when `showLabels` is `true`.
+- (enh #39): Change ActiveField private properties to protected.
+- (enh #40): Initialize ActiveField template more correctly.
+- (enh #41): New properties for adding or wrapping markup before LABEL, ERROR & HINT blocks.
+- (enh #42): New ActiveField property `skipFormLayout` to override and skip special form layout styling.
+- (bug #46): Bootstrap input group addons for horizontal forms.
+- (enh kartik-v/yii2-widgets#243): Enhance CSS style `kv-fieldset-inline`.
+- (enh #48): Various enhancements to Horizontal Form Layout Styles.
+- (enh #49, #50): Updates to hint rendering for latest yii ActiveField upgrade.
+- (enh #54): Set default ActiveForm field template to be consistent with yii\widgets\ActiveForm.
+
 version 1.4.1
 =============
 **Date:** 14-Feb-2015

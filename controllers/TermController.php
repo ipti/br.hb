@@ -84,7 +84,7 @@ class TermController extends Controller
     
     public function actionUp($id){
         $model = $this->findModel($id);
-        $model->agreed = 1;
+        $model->agreed = $model->agreed == 0 ? 1 : 0;
         
         if (!$model->save()) {
             throw new Exception("Não atualizado", "0002");

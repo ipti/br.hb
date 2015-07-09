@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-fileinput
- * @version 1.0.0
+ * @version 1.0.2
  */
 
 namespace kartik\file;
@@ -32,6 +32,8 @@ use yii\web\JsExpression;
  */
 class FileInput extends \kartik\base\InputWidget
 {
+    use \kartik\base\TranslationTrait;
+    
     /**
      * @var bool whether to show 'plugin unsupported' message for IE browser versions 9 & below
      */
@@ -54,24 +56,18 @@ class FileInput extends \kartik\base\InputWidget
     public function init()
     {
         parent::init();
-        Yii::setAlias('@fileinput', dirname(__FILE__));
-        if (empty($this->i18n)) {
-            $this->i18n = [
-                'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@fileinput/messages'
-            ];
-        }
-        Yii::$app->i18n->translations['fileinput'] = $this->i18n;
+        $this->_msgCat = 'fileinput';
+        $this->initI18N(__DIR__);
         $this->registerAssets();
         if ($this->pluginLoading) {
             Html::addCssClass($this->options, 'file-loading');
         }
         $input = $this->getInput('fileInput');
-        $id = 'jQuery("#' . $this->options['id'] . '")';
+        $script = 'document.getElementById("' . $this->options['id'] . '").className.replace(/\bfile-loading\b/,"");';
         if ($this->showMessage) {
             $validation = ArrayHelper::getValue($this->pluginOptions, 'showPreview', true) ? 'file preview and multiple file upload' : 'multiple file upload';
             $message = '<strong>' . Yii::t('fileinput', 'Note:') . '</strong> ' . Yii::t('fileinput', 'Your browser does not support {validation}. Try an alternative or more recent browser to access these features.', ['validation' => $validation]);
-            $content = Html::tag('div', $message, $this->messageOptions) . "<script>{$id}.removeClass('file-loading');</script>";
+            $content = Html::tag('div', $message, $this->messageOptions) . "<script>{$script};</script>";
             $input .= "\n" . $this->validateIE($content);
         }
         echo $input;
@@ -88,31 +84,21 @@ class FileInput extends \kartik\base\InputWidget
     {
         return "<!--[if {$validation}]><br>{$content}<![endif]-->";
     }
-
+    
     /**
-     * Set the default plugin option
-     *
-     * @param string $key the array key in [[pluginOptions]]
-     * @param string $value the value for the key in [[pluginOptions]]
+     * Registers the asset bundle and locale
      */
-    private function setPluginDefault($key, $value)
-    {
-        if (empty($this->pluginOptions[$key])) {
-            $this->pluginOptions[$key] = $value;
-        }
+    public function registerAssetBundle() {
+        $view = $this->getView();
+        FileInputAsset::register($view)->addLanguage($this->language, 'fileinput_locale_');
     }
-
+    
     /**
      * Registers the needed assets
      */
     public function registerAssets()
     {
-        $view = $this->getView();
-        FileInputAsset::register($view);
-
-        $this->setPluginDefault('browseLabel', Yii::t('fileinput', 'Browse') . '&hellip;');
-        $this->setPluginDefault('uploadLabel', Yii::t('fileinput', 'Upload'));
-        $this->setPluginDefault('removeLabel', Yii::t('fileinput', 'Remove'));
+        $this->registerAssetBundle();
         $this->registerPlugin('fileinput');
     }
 }

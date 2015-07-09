@@ -139,24 +139,17 @@ class DatePicker extends InputWidget
         $language = $this->language ? $this->language : Yii::$app->language;
 
         if (strncmp($this->dateFormat, 'php:', 4) === 0) {
-            $this->clientOptions['dateFormat'] = FormatConverter::convertDatePhpToJui(substr($this->dateFormat, 4), 'date', $language);
+            $this->clientOptions['dateFormat'] = FormatConverter::convertDatePhpToJui(substr($this->dateFormat, 4));
         } else {
             $this->clientOptions['dateFormat'] = FormatConverter::convertDateIcuToJui($this->dateFormat, 'date', $language);
         }
 
-        if ($language != 'en-US') {
+        if ($language !== 'en-US') {
             $view = $this->getView();
-            $bundle = DatePickerLanguageAsset::register($view);
-            if ($bundle->autoGenerate) {
-                $fallbackLanguage = substr($language, 0, 2);
-                if ($fallbackLanguage !== $language && !file_exists(Yii::getAlias($bundle->sourcePath . "/ui/i18n/datepicker-$language.js"))) {
-                    $language = $fallbackLanguage;
-                }
-                $view->registerJsFile($bundle->baseUrl . "/ui/i18n/datepicker-$language.js", [
-                    'depends' => [JuiAsset::className()],
-                ]);
-            }
-            $options = Json::encode($this->clientOptions);
+            $assetBundle = DatePickerLanguageAsset::register($view);
+            $assetBundle->language = $language;
+            $options = Json::htmlEncode($this->clientOptions);
+            $language = Html::encode($language);
             $view->registerJs("$('#{$containerID}').datepicker($.extend({}, $.datepicker.regional['{$language}'], $options));");
         } else {
             $this->registerClientOptions('datepicker', $containerID);

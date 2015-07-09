@@ -20,3 +20,12 @@ $(document).on('click', "#updateDeliveredModal-confirm", function(){
     submitUpdateDelivered(key);
     $("#updateDeliveredModal").modal('hide');
 });
+
+$(document).on('click',"#selectLetterOptions",function () {
+    $("#selectLetterOptionsModal").modal('show');
+});
+
+$("#submit-consultation-letter").click(function () {
+    var $form = $('form#form-consultation-letter');
+    $form.submit();
+});

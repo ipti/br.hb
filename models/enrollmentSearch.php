@@ -44,6 +44,9 @@ class enrollmentSearch extends enrollment
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
         $sName ="";
         $cName ="";
+        $query->innerJoin('student as s', 's.id = enrollment.student');
+        $query->innerJoin('classroom as c', 'c.id = enrollment.classroom');
+        $query->orderBy('s.name ASC,  c.name ASC') ;
         
         if(isset($params["enrollmentSearch"])){
             $sName = $params["enrollmentSearch"]['student'];
@@ -54,14 +57,10 @@ class enrollmentSearch extends enrollment
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-        
-        $query->innerJoin('student as s', 's.id = enrollment.student');
-        $query->innerJoin('classroom as c', 'c.id = enrollment.classroom');
 
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['like', 's.name', $sName])
               ->andFilterWhere(['like', 'c.name', $cName]);
-        
         return $dataProvider;
     }
 }
