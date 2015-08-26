@@ -21,22 +21,26 @@ class ReportsController extends \yii\web\Controller {
 
         return $this->render('consultationLetter', $options);
     }
-    
+
     public function actionMultiplePrescriptions($cid) {
         /* @var $campaign \app\models\campaign */
-        /* @var $hemoglobin \app\models\hemoglobin */
-        /* @var $term \app\models\term */
+        /* @var $query \yii\db\ActiveQuery */
+        /* @var $enrollments \app\models\enrollment[] */
         /* @var $enrollment \app\models\enrollment */
 
         $campaign = campaign::find()->where("id = :cid", ["cid" => $cid])->one();
-        $hemoglobins = $campaign->getHemoglobins()
-                ->where("sample = 1")
-                ->innerJoin("term", "term.id = agreed_term")
-                ->innerJoin("enrollment e", "term.enrollment = e.id")
-                ->innerJoin("student s", "e.student = s.id")
-                ->orderBy("s.name ASC")
-                ->all();
-        
+
+        $query = $campaign->getEnrollments();
+        $query->distinct = true;
+        $query->select("enrollment.*");
+        $query->innerJoin('term as t', 't.enrollment = enrollment.id and t.agreed = true');
+        $query->innerJoin('consultation as co', 'co.term = t.id');
+        $query->innerJoin('student as s', 's.id = enrollment.student');
+        $query->innerJoin('classroom as c', 'c.id = enrollment.classroom');
+        $query->where("campaign = :cid", ["cid" => $cid]);
+        $query->orderBy('s.name ASC,  c.name ASC');
+        $enrollments = $query->all();
+
         $mpdf = new mPDF();
 
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
@@ -46,15 +50,12 @@ class ReportsController extends \yii\web\Controller {
         $mpdf->WriteHTML($css2, 1);
 
         $i = 1;
-        foreach($hemoglobins as $hemoglobin){
-            if($hemoglobin->isAnemic()){
-                $term = $hemoglobin->getAgreedTerm()->one();
-                $enrollment = $term->getEnrollments()->one();
-                $prescription = $this->actionPrescription($enrollment->id, false);
-                $name = $prescription['name'];
-                $sulfato = $prescription['sulfato'];
-                $vermifugo = $prescription['vermifugo'];
-                $mpdf->WriteHTML('<div class="report">
+        foreach ($enrollments as $enrollment) {
+            $prescription = $this->actionPrescription($enrollment->id, false);
+            $name = $prescription['name'];
+            $sulfato = $prescription['sulfato'];
+            $vermifugo = $prescription['vermifugo'];
+            $mpdf->WriteHTML('<div class="report">
                                     <div class="report-content">
                                         <div class="report-head">
                                             <div class="report-head-image">
@@ -63,28 +64,28 @@ class ReportsController extends \yii\web\Controller {
                                                 <div class="clear"></div>
                                             </div>
                                             <h4 class="report-title">Receituário</h4>
-                                            <h5 >'.$name.'</h5>
+                                            <h5 >' . $name . '</h5>
                                             <br>
                                         </div>
                                         <div class="report-body" style="text-align: center">
                                             <span>
-                                                '.$sulfato.'
+                                                ' . $sulfato . '
                                                 <br>
-                                                '.$vermifugo.'                
+                                                ' . $vermifugo . '                
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dashed">'.$i.' </div>');
-                if($i % 3 == 0 )
-                    $mpdf->WriteHTML ("<pagebreak />");
-                $i++;
-            }
+                                <div class="dashed">' . $i . ' </div>');
+            if ($i % 3 == 0)
+                $mpdf->WriteHTML("<pagebreak />");
+            $i++;
         }
+//        }
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
     }
 
-    public function actionPrescription($eid,$render=True) {
+    public function actionPrescription($eid, $render = True) {
         /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
         /* @var $anatomy \app\models\anatomy */
@@ -118,13 +119,13 @@ class ReportsController extends \yii\web\Controller {
             $vermifugo = "<b>Albendazol</b> em comprimido, <b>1 Comprimido a cada 12h</b> (pode dissolver em água ou suco).";
         }
         $options = [
-                        "name" => $name,
-                        "sulfato" => $sulfato,
-                        "vermifugo" => $vermifugo
-            ];
-        if($render){
+            "name" => $name,
+            "sulfato" => $sulfato,
+            "vermifugo" => $vermifugo
+        ];
+        if ($render) {
             return $this->render('prescription', $options);
-        }else{
+        } else {
             return $options;
         }
     }
@@ -132,8 +133,8 @@ class ReportsController extends \yii\web\Controller {
     public function actionTerms() {
         return $this->render('terms');
     }
-    
-    public function actionLetterAndAnamnese($cid){
+
+    public function actionLetterAndAnamnese($cid) {
         $campaign = campaign::find()->where("id = :cid", ["cid" => $cid])->one();
         $hemoglobins = $campaign->getHemoglobins()
                 ->where("sample = 1")
@@ -142,7 +143,7 @@ class ReportsController extends \yii\web\Controller {
                 ->innerJoin("student s", "e.student = s.id")
                 ->orderBy("s.name ASC")
                 ->all();
-        
+
         $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
         $date = isset($letter['consult-date']) && !empty($letter['consult-date']) ? $letter['consult-date'] : "____/____/____";
         $time = isset($letter['consult-time']) && !empty($letter['consult-time']) ? $letter['consult-time'] : "____:____";
@@ -157,17 +158,17 @@ class ReportsController extends \yii\web\Controller {
         $mpdf->WriteHTML($css2, 1);
 
         $i = 1;
-        foreach($hemoglobins as $hemoglobin){
-            if($hemoglobin->isAnemic()){
+        foreach ($hemoglobins as $hemoglobin) {
+            if ($hemoglobin->isAnemic()) {
                 $term = $hemoglobin->getAgreedTerm()->one();
                 $enrollment = $term->getEnrollments()->one();
                 $student = $enrollment->getStudents()->one();
-                
+
                 $eid = $enrollment->id;
                 $name = $student != null ? $student->name : "____________________________________________________________________";
                 $gender = $student->gender;
-                
-                $mpdf->WriteHTML ('<div class="none">'.$i.' </div>');
+
+                $mpdf->WriteHTML('<div class="none">' . $i . ' </div>');
                 $mpdf->WriteHTML('<div class="report-head">
                         <div class="report-head-image">
                             <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
@@ -177,7 +178,7 @@ class ReportsController extends \yii\web\Controller {
                         <h4 class="report-title">QUESTIONÁRIO DE ANAMNESE<br>
                         Tecnologia Social Hb</h4>
                         <table id="anamnese-header" class="table-bordered">
-                            '.$this->actionGetAnamneseRaw($cid, $eid).'
+                            ' . $this->actionGetAnamneseRaw($cid, $eid) . '
                         </table>
                         <br>
                     </div>
@@ -229,9 +230,9 @@ class ReportsController extends \yii\web\Controller {
                         OBS:
                         <hr class="answer-line">
                         <hr class="answer-line">');
-                $mpdf->WriteHTML ("<pagebreak />");
-                $mpdf->WriteHTML ('<div class="none">'.$i.' </div>'.$this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place));
-                $mpdf->WriteHTML ("<pagebreak />");
+                $mpdf->WriteHTML("<pagebreak />");
+                $mpdf->WriteHTML('<div class="none">' . $i . ' </div>' . $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place));
+                $mpdf->WriteHTML("<pagebreak />");
                 $i++;
             }
         }
@@ -248,11 +249,11 @@ class ReportsController extends \yii\web\Controller {
         $anamnese = isset($_POST['anamnese-form']) ? $_POST['anamnese-form'] : null;
         $cid = isset($anamnese['campaign']) && !empty($anamnese['campaign']) ? $anamnese['campaign'] : null;
         $eid = isset($anamnese['campaign-enrollment']) && !empty($anamnese['campaign-enrollment']) ? $anamnese['campaign-enrollment'] : null;
-        
+
         echo $this->actionGetAnamneseRaw($cid, $eid);
     }
-    
-    public function actionGetAnamneseRaw($cid=null, $eid=null){
+
+    public function actionGetAnamneseRaw($cid = null, $eid = null) {
         /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
         /* @var $term \app\models\term */
@@ -263,7 +264,7 @@ class ReportsController extends \yii\web\Controller {
         $term = $eid != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid' => $cid])->one() : null;
         $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
         $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
-        
+
         $name = $student != null ? $student->name : "";
         $birthday = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
         $b = $student != null ? $student->birthday : "";
@@ -277,48 +278,48 @@ class ReportsController extends \yii\web\Controller {
 
         $html = "";
         $html = "<tr>"
-                .   "<th>Nome:</th>"
-                .   "<td colspan='5'>"
-                .       $name
-                .   "</td>"
+                . "<th>Nome:</th>"
+                . "<td colspan='5'>"
+                . $name
+                . "</td>"
                 . "</tr>"
                 . "<tr>"
-                .   "<th>Nascimento:</th>"
-                .   "<td>"
-                .       $birthday
-                .   "</td>"
-                .   "<th>Idade:</th>"
-                .   "<td colspan='3'>"
-                .       $age
-                .   "</td>"
+                . "<th>Nascimento:</th>"
+                . "<td>"
+                . $birthday
+                . "</td>"
+                . "<th>Idade:</th>"
+                . "<td colspan='3'>"
+                . $age
+                . "</td>"
                 . "</tr>"
                 . "<tr>"
-                .   "<th>Sexo:</th>"
-                .       "<td>"
-                .       $sex
-                .   "</td>"
+                . "<th>Sexo:</th>"
+                . "<td>"
+                . $sex
+                . "</td>"
                 . "<th>Peso:</th>"
-                .   "<td>"
-                .       $weight
-                .   "</td>"
-                .   "<th>Altura:</th>"
-                .   "<td>"
-                .       $height
-                .   "</td>"
+                . "<td>"
+                . $weight
+                . "</td>"
+                . "<th>Altura:</th>"
+                . "<td>"
+                . $height
+                . "</td>"
                 . "</tr>"
                 . "<tr>"
-                .   "<th>IMC:</th>"
-                .   "<td>"
-                .       $imc
-                .   "</td>"
-                .   "<th>Hb1:</th>"
-                .   "<td colspan='3'>"
-                .       $rate1
-                .   "</td>"
+                . "<th>IMC:</th>"
+                . "<td>"
+                . $imc
+                . "</td>"
+                . "<th>Hb1:</th>"
+                . "<td colspan='3'>"
+                . $rate1
+                . "</td>"
                 . "</tr>";
         return $html;
     }
-    
+
     public function actionAgreedTerms($cid, $sid) {
         /* @var $campaign campaign */
         /* @var $school school */
@@ -354,10 +355,10 @@ class ReportsController extends \yii\web\Controller {
                 ]);
             } else {
                 $tAgreed[$classroom->name] = [['name' => $student->name,
-                        'birthday' => $student->birthday,
-                        'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
-                        'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
-                        'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                'birthday' => $student->birthday,
+                'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
+                'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
+                'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
                 ]];
             }
         endforeach;
@@ -468,7 +469,7 @@ class ReportsController extends \yii\web\Controller {
                 $mpdf->WriteHTML("&nbsp;<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> ");
                 $mpdf->WriteHTML("<p class='page-white'> Escola: " . $sName . "</p> ");
                 $mpdf->WriteHTML("<pagebreak suppress='off' />");
-                
+
                 foreach ($classrooms as $j => $classroom):
                     $cName = $classroom['name'];
                     $students = $classroom['students'];
@@ -545,7 +546,7 @@ class ReportsController extends \yii\web\Controller {
                                 <pre> [ ] - Vermifugo: _____________________________________________________ </pre> </div>
                             </div>
                         </div>'
-                                . "<pagebreak  suppress='off' />"; 
+                                . "<pagebreak  suppress='off' />";
                         $mpdf->WriteHTML($html);
                     endforeach;
                 endforeach;
@@ -568,46 +569,45 @@ class ReportsController extends \yii\web\Controller {
         $gender = $student->gender;
         echo $this->actionGetConsultationLetterRaw($sid, $date, $time, $place);
     }
-    
-    public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place){
+
+    public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place) {
         $sex = $student == null ? true : ($gender == "male" ? true : false); /* male or female */
 
-        $html =  "Prezados Pais,"
-        . "<br/>"
-        . "<br/>"
-        . "<p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo "
-        . ($sex ? "do seu filho" : "da sua filha")
-        . " <b><u>"
-        . $name
-        . "</u></b>, um exame que diagnostica a anemia.</p>"
-        . "<p>Ficamos preocupados, pois o resultado mostrou que "
-        . ($sex ? "ele" : "ela")
-        . " encontra-se com anemia. Vocês deverão levar "
-        . ($sex ? "seu filho" : "sua filha")
-        . " à consulta médica, para que ele receba o tratamento:</p>"
-        . "<b>Dia da Consulta:</b>"
-        . " <b><u>"
-        . $date
-        . "</u></b><br/>"
-        . "<b>Hora da Consulta:</b>"
-        . " <b><u>"
-        . $time
-        . "</u></b><br/>"
-        . "<b>Local da Consulta:</b>"
-        . " <b><u>"
-        . $place
-        . "</u></b><br/>"
-        . "<p>Gostaríamos de pedir a vocês para já prestarem atenção na alimentação da "
-        . ($sex ? "seu filho" : "sua filha")
-        . ", principalmente nestes pontos:<br/><br/>"
-        . "   <b>1 – Devemos oferecer às crianças, sempre que possível, carnes (de boi, frango ou peixe), feijão e folhas escuras, como couve e brócolis;<br/><br/>"
-        . "      2 – Devemos oferecer às crianças, logo após as refeições, sucos de frutas, principalmente as cítricas, como laranja e limão;<br/><br/>"
-        . "      3 – Não devemos deixar as crianças tomarem refrigerantes, chá ou café junto das refeições;<br/><br/>"
-        . "      4 – Lembrem-se também que leite faz muito bem, mas não junto das refeições. É melhor deixar passar duas horas após a refeição para dar leite às crianças.<br/></b><p/>"
-        . "Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.<br/><br/>";
-        
+        $html = "Prezados Pais,"
+                . "<br/>"
+                . "<br/>"
+                . "<p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo "
+                . ($sex ? "do seu filho" : "da sua filha")
+                . " <b><u>"
+                . $name
+                . "</u></b>, um exame que diagnostica a anemia.</p>"
+                . "<p>Ficamos preocupados, pois o resultado mostrou que "
+                . ($sex ? "ele" : "ela")
+                . " encontra-se com anemia. Vocês deverão levar "
+                . ($sex ? "seu filho" : "sua filha")
+                . " à consulta médica, para que ele receba o tratamento:</p>"
+                . "<b>Dia da Consulta:</b>"
+                . " <b><u>"
+                . $date
+                . "</u></b><br/>"
+                . "<b>Hora da Consulta:</b>"
+                . " <b><u>"
+                . $time
+                . "</u></b><br/>"
+                . "<b>Local da Consulta:</b>"
+                . " <b><u>"
+                . $place
+                . "</u></b><br/>"
+                . "<p>Gostaríamos de pedir a vocês para já prestarem atenção na alimentação da "
+                . ($sex ? "seu filho" : "sua filha")
+                . ", principalmente nestes pontos:<br/><br/>"
+                . "   <b>1 – Devemos oferecer às crianças, sempre que possível, carnes (de boi, frango ou peixe), feijão e folhas escuras, como couve e brócolis;<br/><br/>"
+                . "      2 – Devemos oferecer às crianças, logo após as refeições, sucos de frutas, principalmente as cítricas, como laranja e limão;<br/><br/>"
+                . "      3 – Não devemos deixar as crianças tomarem refrigerantes, chá ou café junto das refeições;<br/><br/>"
+                . "      4 – Lembrem-se também que leite faz muito bem, mas não junto das refeições. É melhor deixar passar duas horas após a refeição para dar leite às crianças.<br/></b><p/>"
+                . "Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.<br/><br/>";
+
         return $html;
-        
     }
 
 }

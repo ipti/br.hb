@@ -30,7 +30,6 @@ class ConsultationController extends Controller {
      * @return mixed
      */
     public function actionIndex($c) {
-//        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $c])->one();
         $searchModel = new \app\models\enrollmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 

@@ -7,8 +7,6 @@ use \kartik\icons\Icon;
 use \yii\helpers\Url;
 
 use kartik\builder\Form;
-use kartik\widgets\DepDrop;
-use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 
