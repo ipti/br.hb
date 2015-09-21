@@ -51,7 +51,7 @@ $this->params['siteIndex'] = true;
             $anatomies['Url'] = Url::to(['anatomy/index', 'cid' => $campaing['Id']]);
 
             $hb1['Total'] = $terms['Agreed'];
-            $hb1['Done'] = $c->getHemoglobins()->where(["sample" => '1'])->count();
+            $hb1['Done'] = $c->getHemoglobins()->where(["sample" => '1'])->groupBy("agreed_term")->count();
             $hb1['UnDone'] = $hb1['Total'] - $hb1['Done'];
             $hb1['Url'] = Url::to(['hemoglobin/index', 'c' => $campaing['Id'], 's' => '1']);
 
@@ -61,12 +61,12 @@ $this->params['siteIndex'] = true;
             $consults['Url'] = Url::to(['consultation/index', 'c' => $campaing['Id']]);
 
             $hb2['Total'] = $consults['Attended'];
-            $hb2['Done'] = $c->getHemoglobins()->where(["sample" => '2'])->count();
+            $hb2['Done'] = $c->getHemoglobins()->where(["sample" => '2'])->groupBy("agreed_term")->count();
             $hb2['UnDone'] = $hb2['Total'] - $hb2['Done'];
             $hb2['Url'] = Url::to(['hemoglobin/index', 'c' => $campaing['Id'], 's' => '2']);
 
             $hb3['Total'] = $consults['Attended'];
-            $hb3['Done'] = $c->getHemoglobins()->where(["sample" => '3'])->count();
+            $hb3['Done'] = $c->getHemoglobins()->where(["sample" => '3'])->groupBy("agreed_term")->count();
             $hb3['UnDone'] = $hb3['Total'] - $hb3['Done'];
             $hb3['Url'] = Url::to(['hemoglobin/index', 'c' => $campaing['Id'], 's' => '3']);
             
