@@ -219,7 +219,7 @@ class campaign extends \yii\db\ActiveRecord {
      */
     public function getHemoglobins(){
         return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
-                ->via('terms');
+                ->via('terms')->groupBy('agreed_term');
     }
     
     /**
