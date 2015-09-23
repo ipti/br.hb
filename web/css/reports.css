@@ -1,5 +1,73 @@
-/* Termos consentidos */
+/* Pesos e alturas */
+.weight-height-list{
+    margin: auto;
+    padding: 20px;
+    width: 700px;
+    background: #fff;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DDDDDD;
+}
 
+.weight-height-list table{
+    width: 100%;
+}
+
+.weight-height-list table th{
+    height: 25px;
+    text-align: center;
+    border: 1px solid #686868;
+}
+
+.weight-height-list table th.list-header{
+    height: 25px;
+    text-align: left;
+    font-size: 16px;
+    border: 0;
+}
+
+.weight-height-list table td{
+    height: 25px;
+    text-align: center;
+    border: 1px solid #686868;
+}
+
+.weight-height-list table th.student{
+    text-align: left;
+    width: 400px;
+    padding: 0 10px;
+}
+
+.weight-height-list table td.student{
+    text-align: left;
+    width: 400px;
+    padding: 0 10px;
+}
+
+.weight-height-list table th.weight{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+.weight-height-list table td.weight{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+.weight-height-list table th.height{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+.weight-height-list table td.height{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+/* Termos consentidos */
 .agreed-terms-list{
     margin: auto;
     padding: 20px;

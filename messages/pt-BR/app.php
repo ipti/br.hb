@@ -72,6 +72,7 @@ return [
     'Terms'=>'Termos',
     'Enrollment' => 'Aluno', //enrollment = matricula, mas no campo da pagina = aluno
     'All Terms' => 'Todos os termos',
+    'All Terms - Weight and Height' => 'Todos os termos - Pesos e Alturas',
     'Agreed Terms...' => 'Termos consentidos...',
     
     // Hemoglobin
