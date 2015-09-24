@@ -347,17 +347,17 @@ class ReportsController extends \yii\web\Controller {
             if (isset($tAgreed[$classroom->name])) {
                 $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], [['name' => $student->name,
                 'birthday' => $student->birthday,
-                'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
-                'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
-                'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                'hb1' => $hemoglobin1 != null ? sprintf('%0.1f', $hemoglobin1->rate) : "",
+                'hb2' => $hemoglobin2 != null ? sprintf('%0.1f', $hemoglobin2->rate) : "",
+                'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
                     ]
                 ]);
             } else {
                 $tAgreed[$classroom->name] = [['name' => $student->name,
                         'birthday' => $student->birthday,
-                        'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
-                        'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
-                        'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                        'hb1' => $hemoglobin1 != null ? sprintf('%0.1f', $hemoglobin1->rate) : "",
+                        'hb2' => $hemoglobin2 != null ? sprintf('%0.1f', $hemoglobin2->rate) : "",
+                        'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
                 ]];
             }
         endforeach;
@@ -672,13 +672,13 @@ class ReportsController extends \yii\web\Controller {
                            . "<td class='student'>" . $student['name'] . "</td>";
 
                     if (isset($student['weight'])){
-                        $html .= "<td class='weight'>" . $student['weight'] . "kg</td>";
+                        $html .= "<td class='weight'>" . sprintf('%0.1f', $student['weight']) . "kg</td>";
                     } else {
                         $html .= "<td class='weight'>–</td>";
                     }
 
                     if (isset($student['height'])){
-                        $html .= "<td class='height'>" . $student['height'] . "m</td>"
+                        $html .= "<td class='height'>" . sprintf('%0.2f', $student['height']) . "m</td>"
                                . "</tr>";
                     } else {
                         $html .= "<td class='height'>–</td>"

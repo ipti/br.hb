@@ -67,6 +67,75 @@
     padding: 0 10px;
 }
 
+/* Lista de anêmicos */
+.anemics-list{
+    margin: auto;
+    padding: 20px;
+    width: 700px;
+    background: #fff;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DDDDDD;
+}
+
+.anemics-list table{
+    width: 100%;
+}
+
+.anemics-list table th{
+    height: 25px;
+    text-align: center;
+    border: 1px solid #686868;
+}
+
+.anemics-list table th.list-header{
+    height: 25px;
+    text-align: left;
+    font-size: 16px;
+    border: 0;
+}
+
+.anemics-list table td{
+    height: 25px;
+    text-align: center;
+    border: 1px solid #686868;
+}
+
+.anemics-list table th.student{
+    text-align: left;
+    width: 400px;
+    padding: 0 10px;
+}
+
+.anemics-list table td.student{
+    text-align: left;
+    width: 400px;
+    padding: 0 10px;
+}
+
+.anemics-list table th.gender{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+.anemics-list table td.gender{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+.anemics-list table th.rate{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
+.anemics-list table td.rate{
+    text-align: center;
+    width: 150px;
+    padding: 0 10px;
+}
+
 /* Termos consentidos */
 .agreed-terms-list{
     margin: auto;

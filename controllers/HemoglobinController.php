@@ -315,7 +315,7 @@ class HemoglobinController extends Controller {
 
         foreach ($schoolsAnemics as $i => $school):
             foreach ($school['classrooms'] as $j => $classroom):
-                $html .= "<div class='agreed-terms-list'>"
+                $html .= "<div class='anemics-list'>"
                         . "<table>"
                         . "<tr>"
                         . "<th colspan='5' class='list-header'>Escola: " . $school['name'] . "</th>"
@@ -326,7 +326,7 @@ class HemoglobinController extends Controller {
                         . "<tr><td colspan='5' style='border:0'></td></tr>"
                         . "<tr>"
                         . "<th class='student'>Aluno</th>"
-                        . "<th class='sexo'>Sexo</th>"
+                        . "<th class='gender'>Sexo</th>"
                         . "<th class='rate'>Taxa</th>"
                         . "</tr>";
 
@@ -334,8 +334,8 @@ class HemoglobinController extends Controller {
 
                     $html .= "<tr>"
                             . "<td class='student'>" . $student['name'] . "</td>"
-                            . "<td class='sexo'>" . Yii::t('app', $student['gender']) . "</td>"
-                            . "<td class='rate'>" . $student['rate'] . "g/dL</td>"
+                            . "<td class='gender'>" . Yii::t('app', $student['gender']) . "</td>"
+                            . "<td class='rate'>" . sprintf('%0.1f', $student['rate']) . "g/dL</td>"
                             . "</tr>";
 
                 endforeach;
