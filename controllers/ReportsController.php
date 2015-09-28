@@ -674,14 +674,14 @@ class ReportsController extends \yii\web\Controller {
                     if (isset($student['weight'])){
                         $html .= "<td class='weight'>" . sprintf('%0.1f', $student['weight']) . "kg</td>";
                     } else {
-                        $html .= "<td class='weight'>–</td>";
+                        $html .= "<td class='weight'></td>";
                     }
 
                     if (isset($student['height'])){
                         $html .= "<td class='height'>" . sprintf('%0.2f', $student['height']) . "m</td>"
                                . "</tr>";
                     } else {
-                        $html .= "<td class='height'>–</td>"
+                        $html .= "<td class='height'></td>"
                                . "</tr>";
                     }
 
