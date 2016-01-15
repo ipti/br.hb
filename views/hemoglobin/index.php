@@ -71,7 +71,7 @@ $columns = array_merge($columns, [[
 
 <div class="hemoglobin-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Anemics Lists...'),Url::toRoute(['anemics-lists', 'cid' => $campaign->id, 's' => $sample ]),
-         ['id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right']) ?>
+         ['target'=>'_blank', 'id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right']) ?>
     <br>
     <br>
 

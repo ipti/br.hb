@@ -32,6 +32,10 @@ $this->params['campaign'] = $campaign;
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
     <br>
     <br>
+    <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms - Weight and Height'),Url::toRoute(['reports/weight-height', 'cid' => $campaign]),
+        ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
+    <br>
+    <br>
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Agreed Terms...'),'#',
          ['id'=>'selectSchoolButton', 'class' => 'btn btn-primary pull-right']) ?>
     
