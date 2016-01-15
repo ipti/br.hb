@@ -1,2 +1,4 @@
-/app/runtime/
-/nbproject/private/
+/runtime/*
+/nbproject/*
+/web/assets/*
+.idea/
