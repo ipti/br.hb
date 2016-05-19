@@ -711,6 +711,10 @@ class ReportsController extends \yii\web\Controller {
         $mpdf->Output('HB - Lista de pesos e alturas.pdf', 'I');
         exit;
     }
+
+    public function actionHealth() {
+        return $this->render("health");
+    }
 }
 
 

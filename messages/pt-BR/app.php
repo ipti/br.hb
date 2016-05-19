@@ -41,6 +41,7 @@ return [
     'Classrooms' => 'Turmas',
     'Select Schools...' => 'Selecione escolas...',
     'Select Classrooms...' => 'Selecione turmas...',
+    'Health Report' => 'Relatório de Saúde',
     
     // Address
     'Address' => 'Endereço',

@@ -248,6 +248,7 @@ class HemoglobinController extends Controller {
         $cid = $_GET['cid'];
         $sample = $_GET['s'];
 
+
         $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $cid])->one();
         /* @var $campaign \app\models\campaign */
         $terms = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $cid])
@@ -280,7 +281,7 @@ class HemoglobinController extends Controller {
                 $rate = $hemoglobin->rate;
                 $nameStudent = $student->name;
                 $genderStudent = $student->gender;
-                $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+                $ageStudent = (strtotime($campaign->end) - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
 
 
                 $isAnemic = false;

@@ -20,6 +20,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         'class'=>'btn btn-success navbar-btn',
                         'for'=>'#'
                     ]);
+
 $this->params['siteIndex'] = true;
 
 ?>

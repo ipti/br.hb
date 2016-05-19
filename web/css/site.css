@@ -289,3 +289,15 @@ label {
     max-height: 200px;
     overflow-y: auto;
 }
+
+.health-report-table {
+    border-top: 1px solid #dddddd;
+}
+
+.health-report-table td {
+    text-align: center;
+}
+
+.health-report-table th {
+    text-align: center;
+}
