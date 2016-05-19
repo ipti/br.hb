@@ -101,53 +101,76 @@ $this->title = yii::t('app', 'Health Report');
             <td><?= $anatomies['Updated'] ?></td>
             <td>
                 <?= $terms['Agreed'] ?>
-                (<?=
-                $terms['Total'] == 0 ? ($terms['Agreed'] == 0 ? 100 : 0) :
-                round((1-($terms['Total']-$terms['Agreed'])/$terms['Total']) *100,2)
-                ?>%)
+                <span class="health-report-percent">
+                    (<?=
+                    $terms['Total'] == 0 ? ($terms['Agreed'] == 0 ? 100 : 0) :
+                        round((1 - ($terms['Total'] - $terms['Agreed']) / $terms['Total']) * 100, 2)
+                    ?>%)
+                </span>
             </td>
             <td>
                 <?= $hb1['Total'] ?>
-                (<?=
-
-                $hb1['Total'] == 0 ? ($terms['Agreed'] == 0 ? 100 : 0) :
-                round((1-($hb1['Total']-$terms['Agreed'])/$hb1['Total']) *100,2)
-                ?>%)
+                <span class="health-report-percent">
+                    (<?=
+                    $hb1['Total'] == 0 ? ($terms['Agreed'] == 0 ? 100 : 0) :
+                        round((1 - ($hb1['Total'] - $terms['Agreed']) / $hb1['Total']) * 100, 2)
+                    ?>%)
+                </span>
             </td>
-            <td><?=
-                $hbAnemics['Total'][1] ?>
-                (<?=
-                $hb1['Total'] == 0 ? ($hbAnemics['Total'][1] == 0 ? 100 : 0) :
-                round((1-($hb1['Total']-$hbAnemics['Total'][1])/$hb1['Total']) *100,2)
-                ?>%)
+            <td>
+                <?= $hbAnemics['Total'][1] ?>
+                <span class="health-report-percent">
+                    (<?=
+                    $hb1['Total'] == 0 ? ($hbAnemics['Total'][1] == 0 ? 100 : 0) :
+                        round((1 - ($hb1['Total'] - $hbAnemics['Total'][1]) / $hb1['Total']) * 100, 2)
+                    ?>%)
+                </span>
             </td>
-            <td><?= $consults['Attended'] ?>
-                (<?=
-                $hbAnemics['Total'][1] == 0 ? ($consults['Attended'] == 0 ? 100 : 0) :
-                round((1-($hbAnemics['Total'][1]-$consults['Attended'])/$hbAnemics['Total'][1]) *100,2)
-                ?>%)
+            <td>
+                <?= $consults['Attended'] ?>
+                <span class="health-report-percent">
+                    (<?=
+                    $hbAnemics['Total'][1] == 0 ? ($consults['Attended'] == 0 ? 100 : 0) :
+                        round((1 - ($hbAnemics['Total'][1] - $consults['Attended']) / $hbAnemics['Total'][1]) * 100, 2)
+                    ?>%)
+                </span>
             </td>
-            <td><?= $hb2['Done'] ?>
-                (<?=
-                $consults['Attended'] == 0 ? ($hb2['Done'] == 0 ? 100 : 0) :
-                round((1-($consults['Attended']-$hb2['Done'])/$consults['Attended']) *100,2)
-                ?>%)
+            <td>
+                <?= $hb2['Done'] ?>
+                <span class="health-report-percent">
+                    (<?=
+                    $consults['Attended'] == 0 ? ($hb2['Done'] == 0 ? 100 : 0) :
+                        round((1 - ($consults['Attended'] - $hb2['Done']) / $consults['Attended']) * 100, 2)
+                    ?>%)
+                </span>
             </td>
-            <td><?=
-                $hbAnemics['Total'][2] ?>
-                (<?=
-                $hb2['Done'] == 0 ? ($hbAnemics['Total'][2] == 0 ? 100 : 0) :
-                round((1-($hb2['Done']-$hbAnemics['Total'][2])/$hb2['Done']) *100,2)
-                ?>%)
+            <td>
+                <?= $hbAnemics['Total'][2] ?>
+                <span class="health-report-percent">
+                    (<?=
+                    $hb2['Done'] == 0 ? ($hbAnemics['Total'][2] == 0 ? 100 : 0) :
+                        round((1 - ($hb2['Done'] - $hbAnemics['Total'][2]) / $hb2['Done']) * 100, 2)
+                    ?>%)
+                </span>
             </td>
-            <td><?= $hb3['Done'] ?>
-                (<?=
-
-                $consults['Attended'] == 0 ? ($hb3['Done'] == 0 ? 100 : 0) :
-                round((1-($consults['Attended']-$hb3['Done'])/$consults['Attended']) *100,2)
-                ?>%)
+            <td>
+                <?= $hb3['Done'] ?>
+                <span class="health-report-percent">
+                    (<?=
+                    $consults['Attended'] == 0 ? ($hb3['Done'] == 0 ? 100 : 0) :
+                        round((1 - ($consults['Attended'] - $hb3['Done']) / $consults['Attended']) * 100, 2)
+                    ?>%)
+                </span>
             </td>
-            <td><?= $hbAnemics['Total'][3] ?></td>
+            <td>
+                <?= $hbAnemics['Total'][3] ?>
+                <span class="health-report-percent">
+                    (<?=
+                    $hbAnemics['Total'][1] == 0 ? ($hbAnemics['Total'][3] == 0 ? 100 : 0) :
+                        round((1 - ($hbAnemics['Total'][1] - $hbAnemics['Total'][3]) / $hbAnemics['Total'][1]) * 100, 2)
+                    ?>%)
+                </span>
+            </td>
         </tr>
     <?php } ?>
 </table>

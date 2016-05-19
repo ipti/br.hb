@@ -301,3 +301,8 @@ label {
 .health-report-table th {
     text-align: center;
 }
+
+.health-report-percent {
+    font-size: 10px;
+    color: gray;
+}
