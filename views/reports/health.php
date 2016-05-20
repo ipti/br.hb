@@ -2,6 +2,8 @@
 $this->title = yii::t('app', 'Health Report');
 ?>
 
+<i class="print-health-report fa fa-print" onclick="window.print()"></i>
+<br/>
 <table class="health-report-table table table-bordered table-striped" style="width:100%">
     <tr>
         <th> ESCOLA</th>
