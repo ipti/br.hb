@@ -305,4 +305,5 @@ label {
 .health-report-percent {
     font-size: 10px;
     color: gray;
+    display: block;
 }
