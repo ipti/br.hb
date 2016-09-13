@@ -36,9 +36,13 @@ AppAsset::register($this);
             ]);
             echo '<h1 class="navbar-text">' . Html::encode($this->title) . '</h1>';
             echo "<div class='pull-right'>";
+
+            echo Html::a(Icon::show('cloud',[], Icon::BSG).yii::t('app', 'Health Report'), ['/reports/health'], ['class' => 'btn btn-info navbar-btn']);
+
             if (isset($this->params['button'])){
                 echo $this->params['button'];
             }
+
             if(!isset($this->params['siteIndex'])){
                 echo Html::a(Icon::show('heartbeat',[], Icon::FA).yii::t('app', 'Campaigns'),['/site/index'],
                     ['class' => 'btn btn-warning navbar-btn']);

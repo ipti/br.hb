@@ -20,6 +20,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         'class'=>'btn btn-success navbar-btn',
                         'for'=>'#'
                     ]);
+
 $this->params['siteIndex'] = true;
 
 ?>
@@ -55,7 +56,7 @@ $this->params['siteIndex'] = true;
             $hb1['UnDone'] = $hb1['Total'] - $hb1['Done'];
             $hb1['Url'] = Url::to(['hemoglobin/index', 'c' => $campaing['Id'], 's' => '1']);
 
-            $consults['Total'] =  $c->getConsults()->count();
+            $consults['Total'] =  $c->getConsults()->groupby('term')->count();
             $consults['Attended'] =  $c->getConsults()->where(["attended" => '1'])->count();
             $consults['NotAttended'] = $consults['Total']-$consults['Attended'];
             $consults['Url'] = Url::to(['consultation/index', 'c' => $campaing['Id']]);

@@ -347,17 +347,17 @@ class ReportsController extends \yii\web\Controller {
             if (isset($tAgreed[$classroom->name])) {
                 $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], [['name' => $student->name,
                 'birthday' => $student->birthday,
-                'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
-                'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
-                'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                'hb1' => $hemoglobin1 != null ? sprintf('%0.1f', $hemoglobin1->rate) : "",
+                'hb2' => $hemoglobin2 != null ? sprintf('%0.1f', $hemoglobin2->rate) : "",
+                'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
                     ]
                 ]);
             } else {
                 $tAgreed[$classroom->name] = [['name' => $student->name,
                         'birthday' => $student->birthday,
-                        'hb1' => $hemoglobin1 != null ? $hemoglobin1->rate : "",
-                        'hb2' => $hemoglobin2 != null ? $hemoglobin2->rate : "",
-                        'hb3' => $hemoglobin3 != null ? $hemoglobin3->rate : ""
+                        'hb1' => $hemoglobin1 != null ? sprintf('%0.1f', $hemoglobin1->rate) : "",
+                        'hb2' => $hemoglobin2 != null ? sprintf('%0.1f', $hemoglobin2->rate) : "",
+                        'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
                 ]];
             }
         endforeach;
@@ -610,4 +610,111 @@ class ReportsController extends \yii\web\Controller {
         
     }
 
+
+    public function actionWeightHeight($cid) {
+
+        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $cid])->one();
+        /* @var $campaign \app\models\campaign */
+        $terms = \app\models\term::find()->where("campaign = :c1", ["c1" => $cid])
+            ->innerJoin('enrollment as en', 'enrollment = en.id')
+            ->innerJoin('student as s', 's.id = en.student')
+            ->innerJoin('classroom as c', 'c.id = en.classroom')
+            ->leftJoin('anatomy as a', 's.id = a.student')
+            ->groupBy('s.id')
+            ->orderBy('c.name ASC, s.name ASC')
+            ->all();
+
+        $html = '<p align="center">
+                    <b>Lista de pesos e alturas</b>
+                    <br>
+                 </p>';
+
+        $students = array();
+
+        foreach ($terms as $term):
+
+            $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $term->enrollment])->one();
+            $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
+            $classroom = \app\models\classroom::find()->where("id = :a", ["a" => $enrollment->classroom])->one();
+            $school = \app\models\school::find()->where("id = :a", ["a" => $classroom->school])->one();
+            $anatomy = \app\models\anatomy::find()->where("student = :a", ["a" => $student->id])->one();
+
+            $students[$school->id]['name'] = $school->name;
+            $students[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+            $students[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student['name'];
+            $students[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['weight'] = $anatomy['weight'];
+            $students[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['height'] = $anatomy['height'];
+
+        endforeach;
+
+        foreach ($students as $i => $school):
+
+            foreach ($school['classrooms'] as $j => $classroom):
+
+                $html .= "<div class='weight-height-list'>"
+                       . "<table>"
+                       . "<tr>"
+                       . "<th colspan='5' class='list-header'>Escola: " . $school['name'] . "</th>"
+                       . "</tr>"
+                       . "<tr>"
+                       . "<th colspan='5' class='list-header'>Turma: " . $classroom['name'] . "</th>"
+                       . "</tr>"
+                       . "<tr><td colspan='5' style='border:0'></td></tr>"
+                       . "<tr>"
+                       . "<th class='student'>Aluno</th>"
+                       . "<th class='weight'>Peso</th>"
+                       . "<th class='height'>Altura</th>"
+                       . "</tr>";
+
+                foreach ($classroom['students'] as $k => $student):
+
+                    $html .= "<tr>"
+                           . "<td class='student'>" . $student['name'] . "</td>";
+
+                    if (isset($student['weight'])){
+                        $html .= "<td class='weight'>" . sprintf('%0.1f', $student['weight']) . "kg</td>";
+                    } else {
+                        $html .= "<td class='weight'></td>";
+                    }
+
+                    if (isset($student['height'])){
+                        $html .= "<td class='height'>" . sprintf('%0.2f', $student['height']) . "m</td>"
+                               . "</tr>";
+                    } else {
+                        $html .= "<td class='height'></td>"
+                               . "</tr>";
+                    }
+
+                endforeach;
+
+                $html .= "</table>"
+                       . "</div>";
+
+                if (end($school['classrooms']) !== $classroom) {
+                    $html .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
+                }
+
+            endforeach;
+
+        endforeach;
+
+        $mpdf = new mPDF();
+
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+
+        $mpdf->WriteHTML($html);
+
+        $mpdf->Output('HB - Lista de pesos e alturas.pdf', 'I');
+        exit;
+    }
+
+    public function actionHealth() {
+        return $this->render("health");
+    }
 }
+
+

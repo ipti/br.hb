@@ -8,6 +8,7 @@ html {
     overflow-y: scroll;
     height: 100%;
 }
+
 body {
     height: 100%;
     font-family: Lato, Helvetica, Arial, sans-serif;
@@ -23,7 +24,7 @@ h2 {
 }
 
 .navbar {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .navbar-default {
@@ -62,6 +63,7 @@ table {
         background: none !important;
     }
 }
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
@@ -127,9 +129,9 @@ a.desc:after {
     border-radius: 2px;
 }
 
-.modal-content p{
-    text-align:center;
-    font-size:16px;
+.modal-content p {
+    text-align: center;
+    font-size: 16px;
 }
 
 .modal-body {
@@ -148,13 +150,13 @@ a.desc:after {
 .form-control {
     border-radius: 0px 2px 2px 0px;
     border: 1px solid rgba(0, 0, 0, 0.27);
-    border-left: 3px solid rgba(0,0,0,0.37);
+    border-left: 3px solid rgba(0, 0, 0, 0.37);
     height: 36px;
 }
 
 .form-control:focus, .has-error .form-control:focus {
-  border-color: none;
-  box-shadow: none;
+    border-color: none;
+    box-shadow: none;
 }
 
 label {
@@ -165,9 +167,8 @@ label {
     margin-top: 26px;
 }
 
-
 /** Campaing **/
-.campaign-box{
+.campaign-box {
     border-radius: 3px 3px 0 0;
     background: #fff;
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
@@ -176,11 +177,13 @@ label {
     border-bottom: 1px solid #DDDDDD;
     margin-bottom: 30px;
 }
-.campaign-box-container{
+
+.campaign-box-container {
     height: 25px;
     margin: 0 15px;
     border-bottom: 1px solid #E8E8E8;
 }
+
 /*.campaign-box-container:hover{
     background-color: lightcyan;
 }*/
@@ -188,26 +191,28 @@ label {
     border: 0;
 }*/
 
-.campaign-box-label{
+.campaign-box-label {
     float: left;
 }
 
 .campaign-box-label label {
     font-weight: normal;
 }
-.campaign-box-content{
+
+.campaign-box-content {
     float: right;
     position: relative;
 }
-.campaign-box-content > a{
+
+.campaign-box-content > a {
     position: relative;
     width: 35px;
     color: black;
     text-decoration: none;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.campaign-box-title{
+.campaign-box-title {
     margin: 0 0 25px 0;
     padding: 15px 15px 0;
     border: 0;
@@ -228,9 +233,10 @@ label {
     font-size: 11px;
     color: #C2151C;
 }
+
 .campaign-box .campaign-box-edit:hover {
-    font-weight:bolder;
-    
+    font-weight: bolder;
+
 }
 
 .progress-bar-campaign p {
@@ -238,7 +244,7 @@ label {
     position: absolute;
 }
 
-.text-black-bar{
+.text-black-bar {
     color: black;
 }
 
@@ -255,7 +261,7 @@ label {
 }
 
 /** Progress bar **/
-.campaign-box-progress-bar{
+.campaign-box-progress-bar {
     width: 100%;
     margin: 10px 0 0;
     border-radius: 0;
@@ -269,23 +275,46 @@ label {
     /*background-color: #C4C4C4;*/
 }
 
-
-
-#newCampaignBox{ 
+#newCampaignBox {
     padding: 0px;
 }
 
-.navbar-btn{
+.navbar-btn {
     margin-left: 5px;
     margin-top: 28px;
 }
 
-.cursor-pointer{
-    cursor:pointer;
-    
+.cursor-pointer {
+    cursor: pointer;
+
 }
 
 #pjaxStudents {
     max-height: 200px;
     overflow-y: auto;
+}
+
+.health-report-table {
+    border-top: 1px solid #dddddd;
+}
+
+.health-report-table td {
+    text-align: center;
+}
+
+.health-report-table th {
+    text-align: center;
+}
+
+.health-report-percent {
+    font-size: 10px;
+    color: gray;
+    display: block;
+}
+
+.print-health-report {
+    float: right;
+    cursor: pointer;
+    font-size: 30px;
+    margin-bottom: 10px;
 }
