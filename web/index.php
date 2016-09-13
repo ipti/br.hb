@@ -2,7 +2,7 @@
 
 // comment out the following two lines when deployed to production
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'test'); //dev, pord, test
+defined('YII_ENV') or define('YII_ENV', 'prod'); //dev, prod, test
 
 ini_set('max_execution_time', 300);
         

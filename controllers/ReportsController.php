@@ -58,8 +58,8 @@ class ReportsController extends \yii\web\Controller {
                                     <div class="report-content">
                                         <div class="report-head">
                                             <div class="report-head-image">
-                                                <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
-                                                <img src="/images/reporters/hb.png" class="pull-right" height="50px;">
+                                                <img src="/images/reporters/prefeitura.jpg" class="pull-left" width="200">
+                                                <img src="/images/reporters/hb.jpg" class="pull-right" height="50px;">
                                                 <div class="clear"></div>
                                             </div>
                                             <h4 class="report-title">Receituário</h4>
@@ -115,7 +115,7 @@ class ReportsController extends \yii\web\Controller {
             } else {
                 $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$posologia gotas</b>, três vezes ao dia.";
             }
-            $vermifugo = "<b>Albendazol</b> em comprimido, <b>1 Comprimido a cada 12h</b> (pode dissolver em água ou suco).";
+            $vermifugo = "<b>Albendazol</b> em comprimido, (pode dissolver em água ou suco).";
         }
         $options = [
                         "name" => $name,
@@ -170,8 +170,8 @@ class ReportsController extends \yii\web\Controller {
                 $mpdf->WriteHTML ('<div class="none">'.$i.' </div>');
                 $mpdf->WriteHTML('<div class="report-head">
                         <div class="report-head-image">
-                            <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
-                            <img src="/images/reporters/hb.png" class="pull-right" height="50px;">
+                            <img src="/images/reporters/prefeitura.jpg" class="pull-left" width="200">
+                            <img src="/images/reporters/hb.jpg" class="pull-right" height="50px;">
                             <div class="clear"></div>
                         </div>
                         <h4 class="report-title">QUESTIONÁRIO DE ANAMNESE<br>
@@ -480,7 +480,7 @@ class ReportsController extends \yii\web\Controller {
                     foreach ($students as $k => $student):
                         $sName = $student['name'];
                         $sMother = $student['nameMother'];
-                        $sFather = $student['nameFather'];
+                        $sFather = ($student['nameFather'] == 'NAO DECLARADO' ? '' : $student['nameFather']);
 
 
                         //========================================================  
@@ -490,7 +490,7 @@ class ReportsController extends \yii\web\Controller {
                             <div class="report-content">
                                 <div class="report-head">  
                                     <p align="center"> 
-                                        <img src="/images/reporters/prefeitura.png" width="260" height="80">
+                                        <img src="/images/reporters/prefeitura.jpg" width="260" height="80">
                                         <br>
                                         <br> 
                                         <b>Autorização para que seu filho participe de uma campanha de saúde na escola</b>  
@@ -518,7 +518,7 @@ class ReportsController extends \yii\web\Controller {
                                     <tr>
                                         <td>[ ] - Nome da Mãe: ' . $sMother . '</td>
                                         <td rowspan="4" class="dedinho-term-report">
-                                            <img src="/images/reporters/dedinho.png">
+                                            <img src="/images/reporters/dedinho.jpg">
                                         </td>
                                     </tr>
                                     <tr><td class="answer-line"></td></tr>

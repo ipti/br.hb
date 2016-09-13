@@ -35,7 +35,8 @@ class ConsultationController extends Controller
         $campaign = \app\models\campaign::find()->where("id = :c1",["c1"=>$c])->one();
         $searchModel = new \app\models\enrollmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+		$dataProvider->pagination->pageSize=20;
+		
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
