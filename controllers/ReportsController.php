@@ -1,13 +1,15 @@
 <?php
 
 namespace app\controllers;
-
+use Yii;
 use app\models\campaign;
 use app\models\term;
 use app\models\enrollment;
 use app\models\classroom;
 use app\models\school;
 use app\models\student;
+use app\models\Report;
+use app\components\AnamnesePdfWidget;
 use mPDF;
 
 class ReportsController extends \yii\web\Controller {
@@ -166,69 +168,14 @@ class ReportsController extends \yii\web\Controller {
                 $eid = $enrollment->id;
                 $name = $student != null ? $student->name : "____________________________________________________________________";
                 $gender = $student->gender;
-                
+                $report = new Report();
+                $report->cid = $cid;
+                $report->eid = $eid;
+                $data = $report->getAnamnese();
+                //$html = $this->actionGetAnamneseRaw($cid, $eid, false);
+
                 $mpdf->WriteHTML ('<div class="none">'.$i.' </div>');
-                $mpdf->WriteHTML('<div class="report-head">
-                        <div class="report-head-image">
-                            <img src="/images/reporters/prefeitura.jpg" class="pull-left" width="200">
-                            <img src="/images/reporters/hb.jpg" class="pull-right" height="50px;">
-                            <div class="clear"></div>
-                        </div>
-                        <h4 class="report-title">QUESTIONÁRIO DE ANAMNESE<br>
-                        Tecnologia Social Hb</h4>
-                        <table id="anamnese-header" class="table-bordered">
-                            '.$this->actionGetAnamneseRaw($cid, $eid).'
-                        </table>
-                        <br>
-                    </div>
-                    <div class="report-body">
-                        <div id="impar">
-                            A criança já foi internada alguma vez?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-                            Se SIM, qual foi o motivo?
-                            <hr class="answer-line-full">
-                        </div>
-                        <div id="par">
-                            Já teve Pneumonia?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-                            Quantas vezes?
-                            <pre>(    ) 1               (    ) 2              (    ) 3            (    ) 4 ou mais</pre>
-                        </div>
-                        <div id="impar">
-                            Tem alergia a algum medicamento?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-                            Qual?
-                            <hr class="answer-line-full">
-                        </div>
-                        <div id="par">
-                            Inchava os pés ou as mãos quando era um bebê?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-                        </div>
-                        <div id="impar">
-                            Já fez exame de sangue?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-                        </div>
-                        <div id="par">
-                            Já teve anemia anteriormente?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-                            Quantas vezes?
-                            <pre>(    ) 1               (    ) 2            (    ) 3              (    ) 4 ou mais</pre>
-                            Como foi tratada?
-                            <pre>(    ) Sulfato Ferroso (    ) Dieta        (    ) Outros: _______________________</pre>
-                            Melhorou com o tratamento:
-                            <pre>(    ) SIM             (    ) NÃO          (    ) Não completou o tratamento</pre>
-                        </div>
-                        <div id="impar">
-                            Existem outras pessoas na família que têm ou já tiveram anemia?
-                            <pre>(    ) SIM             (    ) NÃO</pre>
-
-                            Se SIM, quem?   
-                            <pre>(    ) Irmão(a)        (    ) Pai ou Mãe   (    ) Outros: _______________________</pre>
-                        </div>
-
-                        OBS:
-                        <hr class="answer-line">
-                        <hr class="answer-line">');
+                $mpdf->WriteHTML(AnamnesePdfWidget::widget(['data' => $data ]));
                 $mpdf->WriteHTML ("<pagebreak />");
                 $mpdf->WriteHTML ('<div class="none">'.$i.' </div>'.$this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place));
                 $mpdf->WriteHTML ("<pagebreak />");
@@ -249,10 +196,10 @@ class ReportsController extends \yii\web\Controller {
         $cid = isset($anamnese['campaign']) && !empty($anamnese['campaign']) ? $anamnese['campaign'] : null;
         $eid = isset($anamnese['campaign-enrollment']) && !empty($anamnese['campaign-enrollment']) ? $anamnese['campaign-enrollment'] : null;
         
-        echo $this->actionGetAnamneseRaw($cid, $eid);
+        return $this->actionGetAnamneseRaw($cid, $eid);
     }
     
-    public function actionGetAnamneseRaw($cid=null, $eid=null){
+    public function actionGetAnamneseRaw($cid=null, $eid=null, $json=true){
         /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
         /* @var $term \app\models\term */
@@ -274,49 +221,61 @@ class ReportsController extends \yii\web\Controller {
         $height = $anatomy != null ? $anatomy->height . "m" : "";
         $imc = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
         $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
+        $sulfato ='';
+        $vermifugo ='';
 
-        $html = "";
-        $html = "<tr>"
-                .   "<th>Nome:</th>"
-                .   "<td colspan='5'>"
-                .       $name
-                .   "</td>"
-                . "</tr>"
-                . "<tr>"
-                .   "<th>Nascimento:</th>"
-                .   "<td>"
-                .       $birthday
-                .   "</td>"
-                .   "<th>Idade:</th>"
-                .   "<td colspan='3'>"
-                .       $age
-                .   "</td>"
-                . "</tr>"
-                . "<tr>"
-                .   "<th>Sexo:</th>"
-                .       "<td>"
-                .       $sex
-                .   "</td>"
-                . "<th>Peso:</th>"
-                .   "<td>"
-                .       $weight
-                .   "</td>"
-                .   "<th>Altura:</th>"
-                .   "<td>"
-                .       $height
-                .   "</td>"
-                . "</tr>"
-                . "<tr>"
-                .   "<th>IMC:</th>"
-                .   "<td>"
-                .       $imc
-                .   "</td>"
-                .   "<th>Hb1:</th>"
-                .   "<td colspan='3'>"
-                .       $rate1
-                .   "</td>"
-                . "</tr>";
-        return $html;
+        if ($anatomy == null) {
+            $sulfato = "<br>";
+            $vermifugo = "<br>";
+        } else {
+
+            $concentracaoPorML = 25;
+            $gotasPorML = 20;
+            $concentracaoPorGota = $concentracaoPorML / $gotasPorML;
+
+            $posologia = ceil($weight / $concentracaoPorGota);
+
+
+//            $gotasPor3 = $concentracaoPorGota/3;
+//            $gotasPorPeso = ceil($gotasPor3 * $peso);
+
+            if ($weight > 30) {
+                $sulfato = "<b>Sulfato Ferroso</b> em comprimido, <b>1 Comprimido a cada 12h</b>.";
+            } else {
+                $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$posologia gotas</b>, três vezes ao dia.";
+            }
+            $vermifugo = "<b>Albendazol</b> em comprimido, (pode dissolver em água ou suco).";
+        }
+
+        $html['prescription'] =
+        '<h2 class="report-title">'.$name.'</h2>'
+        .'<p class="no-indent">'.$sulfato.'</p>'
+        .'<p class="no-indent">'.$vermifugo.'</p>';
+
+        $html['student'] = $this->renderPartial('blocks/student',[ 'data' => [
+            'name' => $name,
+            'birthday' => $birthday,
+            'age' => $age,
+            'sex' => $sex,
+            'weight' => $weight,
+            'height' => $height,
+            'imc' => $imc,
+            'rate1' => $rate1
+        ]]);
+
+        if($json){
+            return \Yii::createObject([
+                'class' => 'yii\web\Response',
+                'format' => \yii\web\Response::FORMAT_JSON,
+                'data' => [
+                    'student' => $html['student'],
+                    'prescription' => $html['prescription']
+                ],
+            ]);
+        }
+        else{
+            return $html;
+        }
     }
     
     public function actionAgreedTerms($cid, $sid) {
@@ -490,7 +449,7 @@ class ReportsController extends \yii\web\Controller {
                             <div class="report-content">
                                 <div class="report-head">  
                                     <p align="center"> 
-                                        <img src="/images/reporters/prefeitura.jpg" width="260" height="80">
+                                        <img src="'.Yii::getAlias('@web').'/images/reporters/prefeitura.png" width="260" height="80">
                                         <br>
                                         <br> 
                                         <b>Autorização para que seu filho participe de uma campanha de saúde na escola</b>  
@@ -514,11 +473,13 @@ class ReportsController extends \yii\web\Controller {
 
                                 <pre><b>Nome da criança ou adolescente: ' . $sName . ' </b> </pre>
                                 <br>
+                                <pre><b>Turma: ' . $cName . ' </b> </pre>
+                                <br>
                                 <table>
                                     <tr>
                                         <td>[ ] - Nome da Mãe: ' . $sMother . '</td>
                                         <td rowspan="4" class="dedinho-term-report">
-                                            <img src="/images/reporters/dedinho.jpg">
+                                            <img src="'.Yii::getAlias('@web').'/images/reporters/dedinho.png">
                                         </td>
                                     </tr>
                                     <tr><td class="answer-line"></td></tr>

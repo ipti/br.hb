@@ -8,11 +8,11 @@ $this->title = yii::t('app', 'Health Report');
     <tr>
         <th> ESCOLA</th>
         <th>ALUNOS MATRICULADOS</th>
-        <th>ANATOMIA</th>
-        <th>ALUNOS PARTICIPANTES</th>
+        <th>ANTROPOMETRIA</th>
+        <th>TERMOS DE CONSENTIMENTO ASSINADOS</th>
         <th>HB1</th>
         <th>ANÊMICO HB1</th>
-        <th>CONSULTA</th>
+        <th>RECEBERAM MEDICAMENTO</th>
         <th>HB2</th>
         <th>ANÊMICO HB2</th>
         <th>HB3</th>

@@ -210,7 +210,7 @@
 .report-content{
     margin: auto;
     padding: 20px;
-    width: 700px;
+    width: 950px;
     background: #fff;
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
     border: 1px solid #DDDDDD;
@@ -276,9 +276,9 @@
 }
 
 
-.report-body div{
+/*.report-body div{
     margin: 0 5px;
-}
+}*/
 
 .report-body{
     text-align: justify;
@@ -349,6 +349,23 @@ td.dedinho-term-report{
   text-align: right;
 }
 
+/* Receituario */
+
+.divider-dashed{
+    width: 100%;
+    border-bottom: dashed 2px #686868;
+}
+.report-body .divider-dashed{
+    margin: 20px 0 20px 0;
+}
+
+.report-body .no-indent{
+    text-indent: 0;
+}
+
+#width-40{
+    width: 40%;
+}
 
 @media print {
 
@@ -361,4 +378,193 @@ td.dedinho-term-report{
     .report-content {
         border: none;
     }
+}
+
+#pdf{
+    border: none;
+}
+
+
+/* new version 03/2017 */
+
+.pdf{
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 0;
+}
+.report-row{
+    margin-left: -10px;
+    margin-right: -10px;
+    max-width: 99%;
+    overflow: hidden;
+}
+
+.col{
+    float: left;
+}
+
+.grid-2{
+    width: 16.5%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.grid-3{
+    width: 24.5%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.grid-4{
+    width: 32.5%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.grid-6{
+    width: 49.5%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.grid-9{
+    width: 75%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.grid-12{
+    width: 100%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.report-title{
+    font-weight: bold;
+}
+
+.report-text-right{
+    text-align: right;
+}
+
+.report-text-left{
+    text-align: left;
+}
+
+.report-text-left p, .report-text-right p{
+    text-indent: 0;
+    margin: 0 0 3px;
+}
+
+.report-text-left p > span, .report-text-right p > span{
+    font-weight: 800;
+}
+
+.report-body p{
+    font-size: 12px;
+}
+
+.report-body .pdf p{
+    font-size: 9px;
+}
+
+.report-footer p{
+    font-size: 9px;
+}
+
+.margin-top-25{
+    margin-top: 25px;
+}
+
+.margin-top-15{
+    margin-top: 25px;
+}
+
+.margin-top-10{
+    margin-top: 10px;
+}
+
+.margin-top-5{
+    margin-top: 5px;
+}
+
+.margin-bottom-25{
+    margin-bottom: 25px;
+}
+
+.margin-bottom-15{
+    margin-bottom: 15px;
+}
+
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+
+.margin-bottom-5{
+    margin-bottom: 5px;
+}
+
+.padding-left-5{
+    padding-left: 5px;
+}
+
+.padding-left-10{
+    padding-left: 10px;
+}
+
+.padding-top-5{
+    padding-top: 5px;
+}
+
+.padding-top-2{
+    padding-top: 2px;
+}
+
+.no-padding-left{
+    padding-left: 0 !important;
+}
+
+.no-padding-right{
+    padding-right: 0 !important;
+}
+
+.no-padding{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.bold{
+    font-weight: 800;
+}
+
+.pdf .bold{
+    font-weight: bold;
+}
+
+awnser{
+    font-size: 11px !important;
+}
+
+.left{
+    float: left;
+}
+
+.img-circle{
+    position: relative;
+    top: -4px;
+}
+
+.img-triple-circle{
+    position: absolute;
+    top: 15px;
 }

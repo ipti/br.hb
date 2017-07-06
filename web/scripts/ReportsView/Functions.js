@@ -24,7 +24,9 @@ function submitAnamnese($form){
         data: $form.serialize()
     }).done(function (result) {
         $("#anamnese-header *").remove();
-        $("#anamnese-header").html(result);
+        $("#anamnese-header").html(result.student);
+        //$("#prescription *").remove();
+        $("#prescription").html(result.prescription);
         $(".report-content").show();
         $("#print-button").show();
         
