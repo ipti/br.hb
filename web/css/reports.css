@@ -441,6 +441,13 @@ td.dedinho-term-report{
     padding-right: 15px;
     padding-left: 15px;
 }
+.grid-10{
+    width: 84%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
 .grid-12{
     width: 100%;
     position: relative;
@@ -559,6 +566,10 @@ awnser{
     float: left;
 }
 
+.right{
+    float: right;
+}
+
 .img-circle{
     position: relative;
     top: -4px;
@@ -567,4 +578,14 @@ awnser{
 .img-triple-circle{
     position: absolute;
     top: 15px;
+}
+
+.foto-3-4{
+    width: 85px;
+    height: 115px;
+    border: 1.5px solid #000;
+}
+
+#term .report-body .pdf p{
+    font-size: 12px;
 }

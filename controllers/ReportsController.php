@@ -10,6 +10,7 @@ use app\models\school;
 use app\models\student;
 use app\models\Report;
 use app\components\AnamnesePdfWidget;
+use app\components\TermPdfWidget;
 use mPDF;
 
 class ReportsController extends \yii\web\Controller {
@@ -443,8 +444,15 @@ class ReportsController extends \yii\web\Controller {
 
 
                         //========================================================  
-
-                        $html = '
+                        $html = TermPdfWidget::widget([
+                            'data'=>[
+                                'sName'=> $sName,
+                                'cName'=> $cName,
+                                'mother'=> $sMother,
+                                'father'=> $sFather
+                            ]
+                        ]);
+                        /*$html = '
                         <div class="report">
                             <div class="report-content">
                                 <div class="report-head">  
@@ -506,7 +514,8 @@ class ReportsController extends \yii\web\Controller {
                                 <pre> [ ] - Vermifugo: _____________________________________________________ </pre> </div>
                             </div>
                         </div>'
-                                . "<pagebreak  suppress='off' />"; 
+                                . "<pagebreak  suppress='off' />"; */
+                        $mpdf->WriteHTML("<pagebreak  suppress='off' />");
                         $mpdf->WriteHTML($html);
                     endforeach;
                 endforeach;
