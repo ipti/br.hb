@@ -258,12 +258,6 @@ class HemoglobinController extends Controller {
                 ->orderBy('c.name ASC, s.name ASC')
                 ->all();
 
-        $html = '  
-            <p align="center"> 
-                <b>Lista de Alunos Com Anemia</b>  
-                <br>
-            </p>  ';
-
         $schoolsAnemics = array();
 
         foreach ($terms AS $termAgreed):
@@ -314,44 +308,9 @@ class HemoglobinController extends Controller {
         endforeach;
 
 
-        foreach ($schoolsAnemics as $i => $school):
-            foreach ($school['classrooms'] as $j => $classroom):
-                $html .= "<div class='anemics-list'>"
-                        . "<table>"
-                        . "<tr>"
-                        . "<th colspan='5' class='list-header'>Escola: " . $school['name'] . "</th>"
-                        . "</tr>"
-                        . "<tr>"
-                        . "<th colspan='5' class='list-header'>Turma: " . $classroom['name'] . "</th>"
-                        . "</tr>"
-                        . "<tr><td colspan='5' style='border:0'></td></tr>"
-                        . "<tr>"
-                        . "<th class='student'>Aluno</th>"
-                        . "<th class='gender'>Sexo</th>"
-                        . "<th class='rate'>Taxa</th>"
-                        . "</tr>";
-
-                foreach ($classroom['students'] as $k => $student):
-
-                    $html .= "<tr>"
-                            . "<td class='student'>" . $student['name'] . "</td>"
-                            . "<td class='gender'>" . Yii::t('app', $student['gender']) . "</td>"
-                            . "<td class='rate'>" . sprintf('%0.1f', $student['rate']) . "g/dL</td>"
-                            . "</tr>";
-
-                endforeach;
-
-                $html .= "</table>"
-                        . "</div>";
-
-                if (end($school['classrooms']) !== $classroom) {
-                    $html .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                }
-
-
-            endforeach;
-
-        endforeach;
+        $html = $this->renderPartial('anemics', ['data' => [
+            'schoolAnemics' => $schoolsAnemics
+        ]]);
 
 
         $mpdf = new mPDF();

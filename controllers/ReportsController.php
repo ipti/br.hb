@@ -452,69 +452,6 @@ class ReportsController extends \yii\web\Controller {
                                 'father'=> $sFather
                             ]
                         ]);
-                        /*$html = '
-                        <div class="report">
-                            <div class="report-content">
-                                <div class="report-head">  
-                                    <p align="center"> 
-                                        <img src="'.Yii::getAlias('@web').'/images/reporters/prefeitura.png" width="260" height="80">
-                                        <br>
-                                        <br> 
-                                        <b>Autorização para que seu filho participe de uma campanha de saúde na escola</b>  
-                                        <br>
-                                        </p>
-                                    </div>
-                            <br>
-                            <div class="report-body">
-                                <p style="text-align: justify; text-justify: inter-word;"> Prezado(a) Senhor(a) <br><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Caso o senhor(a) concorde, o seu filho(a) será submetido(a) a uma punção da extremidade do dedo médio da
-                                    mão esquerda, com lancetador de lancetas descartáveis, para a obtenção de uma pequena gota de sangue. Esta
-                                    punção será feita por profissional treinado e a criança sentirá somente um pequeno desconforto, sendo que não
-                                    há riscos à sua saúde. Com esta gota de sangue, faremos a dosagem da concentração de hemoglobina, dado que
-                                    será utilizada para o diagnóstico de anemia.
-                                    <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Caso o senhor(a) concorde, por favor assine este termo.
-                                </p>
-                                <br>
-
-                                <pre><b>Nome da criança ou adolescente: ' . $sName . ' </b> </pre>
-                                <br>
-                                <pre><b>Turma: ' . $cName . ' </b> </pre>
-                                <br>
-                                <table>
-                                    <tr>
-                                        <td>[ ] - Nome da Mãe: ' . $sMother . '</td>
-                                        <td rowspan="4" class="dedinho-term-report">
-                                            <img src="'.Yii::getAlias('@web').'/images/reporters/dedinho.png">
-                                        </td>
-                                    </tr>
-                                    <tr><td class="answer-line"></td></tr>
-                                    <tr><td><br>[ ] - Nome do Pai: ' . $sFather . '</td></tr>
-                                    <tr><td class="answer-line"></td></tr>
-                                </table>  
-                                <br>
-                                <br>
-                                <table class="table-term">
-                                    <tr><td>Peso</td><td>Altura</td><td>Data de Coleta</td></tr>
-                                    <tr><td>&nbsp;</td><td></td><td></td></tr>
-                                </table>
-                                <br>
-                                <table class="table-term">
-                                    <tr><td><b>HB 1</b></td><td><b>Data de Coleta</b></td></tr>
-                                    <tr><td>&nbsp;</td><td></td></tr>
-                                    <tr><td><b>HB 2</b></td><td><b>Data de Coleta</b></td></tr>
-                                    <tr><td>&nbsp;</td><td></td></tr>
-                                    <tr><td><b>HB 3</b></td><td><b>Data de Coleta</b></td></tr>
-                                    <tr><td>&nbsp;</td><td></td></tr>
-                                </table>
-                                <br>   
-                                <pre> [ ] - Sulfato ferroso: __________________________________________________ </pre> 
-                                <pre> [ ] - Vermifugo: _____________________________________________________ </pre> </div>
-                            </div>
-                        </div>'
-                                . "<pagebreak  suppress='off' />"; */
                         $mpdf->WriteHTML("<pagebreak  suppress='off' />");
                         $mpdf->WriteHTML($html);
                     endforeach;
@@ -594,11 +531,6 @@ class ReportsController extends \yii\web\Controller {
             ->orderBy('c.name ASC, s.name ASC')
             ->all();
 
-        $html = '<p align="center">
-                    <b>Lista de pesos e alturas</b>
-                    <br>
-                 </p>';
-
         $students = array();
 
         foreach ($terms as $term):
@@ -616,57 +548,12 @@ class ReportsController extends \yii\web\Controller {
             $students[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['height'] = $anatomy['height'];
 
         endforeach;
-
-        foreach ($students as $i => $school):
-
-            foreach ($school['classrooms'] as $j => $classroom):
-
-                $html .= "<div class='weight-height-list'>"
-                       . "<table>"
-                       . "<tr>"
-                       . "<th colspan='5' class='list-header'>Escola: " . $school['name'] . "</th>"
-                       . "</tr>"
-                       . "<tr>"
-                       . "<th colspan='5' class='list-header'>Turma: " . $classroom['name'] . "</th>"
-                       . "</tr>"
-                       . "<tr><td colspan='5' style='border:0'></td></tr>"
-                       . "<tr>"
-                       . "<th class='student'>Aluno</th>"
-                       . "<th class='weight'>Peso</th>"
-                       . "<th class='height'>Altura</th>"
-                       . "</tr>";
-
-                foreach ($classroom['students'] as $k => $student):
-
-                    $html .= "<tr>"
-                           . "<td class='student'>" . $student['name'] . "</td>";
-
-                    if (isset($student['weight'])){
-                        $html .= "<td class='weight'>" . sprintf('%0.1f', $student['weight']) . "kg</td>";
-                    } else {
-                        $html .= "<td class='weight'></td>";
-                    }
-
-                    if (isset($student['height'])){
-                        $html .= "<td class='height'>" . sprintf('%0.2f', $student['height']) . "m</td>"
-                               . "</tr>";
-                    } else {
-                        $html .= "<td class='height'></td>"
-                               . "</tr>";
-                    }
-
-                endforeach;
-
-                $html .= "</table>"
-                       . "</div>";
-
-                if (end($school['classrooms']) !== $classroom) {
-                    $html .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-                }
-
-            endforeach;
-
-        endforeach;
+        
+        $html = $this->renderPartial('weight-height',['data' => [
+            'school' => $school['name'],
+            'classroom' => $classroom['name'],
+            'students' => $students
+        ]]);
 
         $mpdf = new mPDF();
 

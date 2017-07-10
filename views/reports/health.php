@@ -4,6 +4,17 @@ $this->title = yii::t('app', 'Health Report');
 
 <i class="print-health-report fa fa-print" onclick="window.print()"></i>
 <br/>
+
+<div class="row">
+                <div class="col grid-9 pdf">
+                    <img style="float:left;" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/hb.png" alt="HB" width="40">
+                    <h4 class="report-title text-left" style="display: block; padding: 15px 0 0 60px;">Relatório de Saúde</h4>
+                </div>
+                <div class="col grid-3 pdf">
+                    <img src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/apoio.png" alt="Apoio" width="220">
+                </div>
+                
+            </div>
 <table class="health-report-table table table-bordered table-striped" style="width:100%">
     <tr>
         <th> ESCOLA</th>

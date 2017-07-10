@@ -589,3 +589,38 @@ awnser{
 #term .report-body .pdf p{
     font-size: 12px;
 }
+
+.border-bottom{
+    border: 0;
+    border-bottom: 1px solid #000;
+}
+
+.border-left{
+    border: 0;
+    border-left: 1px solid #000;
+}
+
+.border-right{
+    border: 0;
+    border-right: 1px solid #000;
+}
+
+.border-bottom-dashed{
+    border: 0;
+    border-bottom: 1.5px dashed #989898;
+}
+
+.border-bottom-dashed-right{
+    border: 0;
+    border-bottom: 1.5px dashed #989898;
+    border-right: 1px solid #000;
+}
+
+#weight-height .table th {
+    padding: 5px 2px 5px 2px;
+}
+
+#weight-height .table td {
+    padding: 6px 1px 0 1px;
+}
+
