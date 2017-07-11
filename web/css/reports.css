@@ -387,6 +387,32 @@ td.dedinho-term-report{
 
 /* new version 03/2017 */
 
+#health-header{
+    display: none;
+}
+
+#health-title{
+    display: block;
+    padding: 15px 0 0 60px;
+}
+
+@media print {
+
+    #health-header{
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #health-title{
+        display: block;
+        margin-top: 0px;
+    }
+
+    .container {
+        width: 100%;
+    }
+}
+
 .pdf{
     margin-left: 0;
     margin-right: 0;
@@ -607,12 +633,12 @@ awnser{
 
 .border-bottom-dashed{
     border: 0;
-    border-bottom: 1.5px dashed #989898;
+    border-bottom: 1.5px dashed #dad8d8;
 }
 
 .border-bottom-dashed-right{
     border: 0;
-    border-bottom: 1.5px dashed #989898;
+    border-bottom: 1.5 dashed #dad8d8;
     border-right: 1px solid #000;
 }
 
@@ -622,5 +648,48 @@ awnser{
 
 #weight-height .table td {
     padding: 6px 1px 0 1px;
+}
+
+#health .table{
+    border:none;
+    -webkit-print-color-adjust: exact;
+}
+
+@media print{
+    #health .table td, #health .table th{
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+#health .table th {
+    padding: 5px 2px 5px 2px;
+    font-size: 12px;
+    text-align: center;
+    border-top: none;
+}
+
+#health .table td {
+    padding: 6px 3px 0 8px;
+    text-align: center;
+    font-size:12px;
+}
+
+#health .table td span {
+    font-size:9px;
+}
+
+#health .border-bottom-dashed{
+    border: 0;
+    border-bottom: 0.2em dashed #dad8d8;
+}
+
+#health .border-bottom-dashed-right{
+    border: 0;
+    border-bottom: 0.2em dashed #dad8d8;
+    border-right: 1px solid #000;
+}
+
+#health .color-grey{
+    background-color: #eee;
 }
 

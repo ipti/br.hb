@@ -5,28 +5,29 @@ $this->title = yii::t('app', 'Health Report');
 <i class="print-health-report fa fa-print" onclick="window.print()"></i>
 <br/>
 
-<div class="row">
-                <div class="col grid-9 pdf">
-                    <img style="float:left;" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/hb.png" alt="HB" width="40">
-                    <h4 class="report-title text-left" style="display: block; padding: 15px 0 0 60px;">Relatório de Saúde</h4>
-                </div>
-                <div class="col grid-3 pdf">
-                    <img src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/apoio.png" alt="Apoio" width="220">
-                </div>
-                
-            </div>
-<table class="health-report-table table table-bordered table-striped" style="width:100%">
-    <tr>
-        <th> ESCOLA</th>
-        <th>ALUNOS MATRICULADOS</th>
-        <th>ANTROPOMETRIA</th>
-        <th>TERMOS DE CONSENTIMENTO ASSINADOS</th>
-        <th>HB1</th>
-        <th>ANÊMICO HB1</th>
-        <th>RECEBERAM MEDICAMENTO</th>
-        <th>HB2</th>
-        <th>ANÊMICO HB2</th>
-        <th>HB3</th>
+<div class="row" id="health-header">
+    <div class="col grid-9 pdf">
+        <img style="float:left;" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/hb.png" alt="HB" width="40">
+        <h4 id="health-title" class="report-title text-left">Relatório de Saúde</h4>
+    </div>
+    <div class="col grid-3 pdf">
+        <img src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/apoio.png" alt="Apoio" width="220">
+    </div>
+    
+</div>
+<div id="health">
+<table class="table" style="width:100%">
+    <tr class='border-bottom' style="border-bottom: 0.2em solid #000;">
+        <th class='border-right'> ESCOLA</th>
+        <th class='border-right'>ALUNOS MATRICULADOS</th>
+        <th class='border-right'>ANTROPOMETRIA</th>
+        <th class='border-right'>TERMOS DE CONSENTIMENTO ASSINADOS</th>
+        <th class='border-right color-grey' style="-webkit-print-color-adjust: exact;">HB1</th>
+        <th class='border-right'>ANÊMICO HB1</th>
+        <th class='border-right'>RECEBERAM MEDICAMENTO</th>
+        <th class='border-right color-grey'>HB2</th>
+        <th class='border-right'>ANÊMICO HB2</th>
+        <th class='border-right color-grey'>HB3</th>
         <th>ALUNOS ANÊMICOS</th>
     </tr>
     <?php
@@ -109,10 +110,10 @@ $this->title = yii::t('app', 'Health Report');
         }
         ?>
         <tr>
-            <td><?= $campaing['Name'] ?></td>
-            <td><?= $terms['Total'] ?></td>
-            <td><?= $anatomies['Updated'] ?></td>
-            <td>
+            <td class="border-bottom-dashed-right"><?= $campaing['Name'] ?></td>
+            <td class="border-bottom-dashed-right"><?= $terms['Total'] ?></td>
+            <td class="border-bottom-dashed-right"><?= $anatomies['Updated'] ?></td>
+            <td class="border-bottom-dashed-right">
                 <?= $terms['Agreed'] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -121,7 +122,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed-right color-grey">
                 <?= $hb1['Total'] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -130,7 +131,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed-right">
                 <?= $hbAnemics['Total'][1] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -139,7 +140,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed-right">
                 <?= $consults['Attended'] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -148,7 +149,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed-right color-grey">
                 <?= $hb2['Done'] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -157,7 +158,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed-right">
                 <?= $hbAnemics['Total'][2] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -166,7 +167,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed-right color-grey">
                 <?= $hb3['Done'] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -175,7 +176,7 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-            <td>
+            <td class="border-bottom-dashed">
                 <?= $hbAnemics['Total'][3] ?>
                 <span class="health-report-percent">
                     (<?=
@@ -187,3 +188,4 @@ $this->title = yii::t('app', 'Health Report');
         </tr>
     <?php } ?>
 </table>
+</div>
