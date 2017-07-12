@@ -4,6 +4,15 @@ use yii\helpers\Html;
 use yii\bootstrap\NavBar;
 use kartik\icons\Icon;
 use app\assets\AppAsset;
+use app\models\campaign;
+
+$request = Yii::$app->request;
+//$campaign_id = $request->get('cid');
+$campaign_id = empty($request->get('cid'))? $request->get('c') : $request->get('cid');
+$campaign;
+if(isset($campaign_id)){
+    $campaign = campaign::find()->where("id = :cid", ['cid' => $campaign_id])->one();
+}
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -34,7 +43,14 @@ AppAsset::register($this);
                     'class' => 'navbar-default',
                 ],
             ]);
-            echo '<h1 class="navbar-text">' . Html::encode($this->title) . '</h1>';
+            ?>
+            <div class="pull-left">
+            <?php
+            echo '<h3 style="margin-bottom: 5px;">' . Html::encode($this->title) . '</h3>';
+            if(isset($campaign)){ echo '<h6 style="margin-top: 0;">' . Html::encode($campaign->name) . '</h6>';}
+            ?>
+            </div>
+            <?php
             echo "<div class='pull-right'>";
 
             echo Html::a(Icon::show('cloud',[], Icon::BSG).yii::t('app', 'Health Report'), ['/reports/health'], ['class' => 'btn btn-info navbar-btn']);

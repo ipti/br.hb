@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use kartik\icons\Icon;
+use kartik\select2\Select2;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -15,7 +16,7 @@ $this->assetBundles['Term']->js = [
     'scripts/TermView/Functions.js',
     'scripts/TermView/Click.js'
 ];
-$this->title = Yii::t('app', 'Terms');
+$this->title = Yii::t('app_v2', 'Terms');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     		yii::t('app', 'New Term'), 
@@ -61,6 +62,12 @@ $this->params['campaign'] = $campaign;
             ['class'=> kartik\grid\DataColumn::className(),
                 'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
+                /*'filter' => Select2::widget([
+                    'name' => 'ObjectSearch[type]',
+                    'data' => [1 => 'j'],
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'hideSearch' => true,
+                ]),*/
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
                 }

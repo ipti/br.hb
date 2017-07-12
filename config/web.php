@@ -57,6 +57,19 @@ $config = [
                 ],
             ],
         ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app_v2' => 'app_v2.php',
+                    ],
+                ],
+            ],
+        ],
         'db' => require(__DIR__ . '/db.php'),
         'tag' => require(__DIR__ . '/tag.php'),
     ],

@@ -22,7 +22,7 @@ return [
     'Campaigns'=>'Campanhas',
     'Students'=>'Alunos',
     'Term'=>'Termo',
-    'Anatomy'=>'Anatomia',
+    'Anatomy'=>'Antropometria',
     'Hemoglobin'=>'Hemoglobina',
     'Consultation'=>'Consulta',
 
@@ -58,11 +58,11 @@ return [
     'Postal Code' => 'CEP',
     
     
-    // Anatomies    
-    'Create Anatomy'=>'Criar anatomia',
-    'Update Anatomy' => 'Editar anatomia',
-    'New Anatomy' => 'Nova anatomia',
-    'Anatomies'=>'Anatomias',
+    // antropometriaies    
+    'Create Anatomy'=>'Criar antropometria',
+    'Update Anatomy' => 'Editar antropometria',
+    'New Anatomy' => 'Nova antropometria',
+    'Anatomies'=>'Antropometria',
     'Weight'=>'Peso',
     'Height'=>'Altura',
     

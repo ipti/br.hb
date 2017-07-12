@@ -88,15 +88,6 @@ $this->params['siteIndex'] = true;
                         'class'=>'updateCampaign campaign-box-edit',
                         'for'=>'#'
                     ]);?>
-                    <div id="campaing-box[<?= $campaing['Id'] ?>]-terms" class="campaign-box-container">
-                        <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Terms').': ',$terms['Url'])?></div>
-                        <div class="campaign-box-content">
-                            <?= Html::a($terms['Agreed'].' '.Icon::show('check', ['class'=>'icon-sucess']),
-                                    $terms['Url'])?>&nbsp;
-                            <?= Html::a($terms['UnAgreed'].' '.Icon::show('remove', ['class'=>'icon-error']),
-                                    $terms['Url'])?>
-                        </div>
-                    </div>
                     <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Anatomies').': ',$anatomies['Url'])?></div>
                         <div class="campaign-box-content">
@@ -107,7 +98,17 @@ $this->params['siteIndex'] = true;
                             <?= Html::a($anatomies['Unknown'].' '.Icon::show('remove', ['class'=>'icon-error']),
                                     $anatomies['Url'])?>
                         </div>
-                    </div>
+                    </div><!-- end anatomies -->
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-terms" class="campaign-box-container">
+                        <div class="campaign-box-label"><?= Html::a(Yii::t('app_v2', 'Terms').': ',$terms['Url'])?></div>
+                        <div class="campaign-box-content">
+                            <?= Html::a($terms['Agreed'].' '.Icon::show('check', ['class'=>'icon-sucess']),
+                                    $terms['Url'])?>&nbsp;
+                            <?= Html::a($terms['UnAgreed'].' '.Icon::show('remove', ['class'=>'icon-error']),
+                                    $terms['Url'])?>
+                        </div>
+                    </div> <!-- end terms -->
+                    
                     <div id="campaing-box[<?= $campaing['Id'] ?>]-hb1" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'HB1').': ',$hb1['Url'])?></div>
                         <div class="campaign-box-content">
