@@ -25,7 +25,7 @@ class Report extends Model{
         $data = [];
 
         $data['name'] = $student != null ? $student->name : "";
-        $data['$birthday'] = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
+        $data['birthday'] = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
         $b = $student != null ? $student->birthday : "";
         $today = $student != null ? new \DateTime(date("Y-m-d")) : "";
         $data['age'] = $student != null ? $today->diff(new \DateTime($b))->format("%y") . " " . \yii::t('app', 'years old') : "";

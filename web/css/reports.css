@@ -272,7 +272,7 @@
     word-break: break-all;
     word-wrap: break-word;
     background-color: transparent;
-    border: 0px;
+    border: none;
 }
 
 

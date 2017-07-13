@@ -53,32 +53,16 @@ class ReportsController extends \yii\web\Controller {
             if($hemoglobin->isAnemic()){
                 $term = $hemoglobin->getAgreedTerm()->one();
                 $enrollment = $term->getEnrollments()->one();
-                $prescription = $this->actionPrescription($enrollment->id, false);
+                $prescription = $this->actionPrescription($cid, $enrollment->id, false);
                 $name = $prescription['name'];
                 $sulfato = $prescription['sulfato'];
                 $vermifugo = $prescription['vermifugo'];
-                $mpdf->WriteHTML('<div class="report">
-                                    <div class="report-content">
-                                        <div class="report-head">
-                                            <div class="report-head-image">
-                                                <img src="/images/reporters/prefeitura.jpg" class="pull-left" width="200">
-                                                <img src="/images/reporters/hb.jpg" class="pull-right" height="50px;">
-                                                <div class="clear"></div>
-                                            </div>
-                                            <h4 class="report-title">Receituário</h4>
-                                            <h5 >'.$name.'</h5>
-                                            <br>
-                                        </div>
-                                        <div class="report-body" style="text-align: center">
-                                            <span>
-                                                '.$sulfato.'
-                                                <br>
-                                                '.$vermifugo.'                
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dashed">'.$i.' </div>');
+                $report = new Report();
+                $report->cid = $cid;
+                $report->eid = $enrollment->id;
+                $data = $report->getAnamnese();
+                $mpdf->WriteHTML(AnamnesePdfWidget::widget(['data' => $data ]));
+                $mpdf->WriteHTML('<div class="">'.$i.' </div>');
                 if($i % 3 == 0 )
                     $mpdf->WriteHTML ("<pagebreak />");
                 $i++;
@@ -87,16 +71,32 @@ class ReportsController extends \yii\web\Controller {
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
     }
 
-    public function actionPrescription($eid,$render=True) {
+    public function actionPrescription($cid, $eid,$render=True) {
         /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
         /* @var $anatomy \app\models\anatomy */
 
-        $enrollment = enrollment::find()->where("id = :eid", ["eid" => $eid])->one();
-        $student = $enrollment->getStudents()->one();
-        $name = $student->name;
 
+        $enrollment = $eid != null ? \app\models\enrollment::find()->where("id = :eid", [ 'eid' => $eid])->one() : null;
+        $student = $enrollment != null ? $enrollment->students : null;
+        $term = $eid != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid' => $cid])->one() : null;
+        $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+        $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+
+
+
+        $name = $student != null ? $student->name : "";
         $anatomy = $student->getAnatomies()->orderBy("date desc")->one();
+        $birthday = $student != null ? date("d/m/Y", strtotime($student->birthday)) : "";
+        $b = $student != null ? $student->birthday : "";
+        $today = $student != null ? new \DateTime(date("Y-m-d")) : "";
+        $age = $student != null ? $today->diff(new \DateTime($b))->format("%y") . " " . \yii::t('app', 'years old') : "";
+        $sex = $student != null ? \yii::t('app', $student->gender) : "";
+        $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
+        $height = $anatomy != null ? $anatomy->height . "m" : "";
+        $imc = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
+        $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
+
         if ($anatomy == null) {
             $sulfato = "<br>";
             $vermifugo = "<br>";
@@ -120,11 +120,27 @@ class ReportsController extends \yii\web\Controller {
             }
             $vermifugo = "<b>Albendazol</b> em comprimido, (pode dissolver em água ou suco).";
         }
+
+
+
+        $data_student=[
+            'name' => $name,
+            'age' => $age,
+            'birthday' => $birthday,
+            'sex' => $sex,
+            'height' => $height,
+            'weight' => $weight,
+            'imc' => $imc,
+            'rate1' => $rate1
+        ];
+
+
         $options = [
-                        "name" => $name,
-                        "sulfato" => $sulfato,
-                        "vermifugo" => $vermifugo
-            ];
+            "student" => $data_student,
+            "sulfato" => $sulfato,
+            "vermifugo" => $vermifugo
+        ];
+
         if($render){
             return $this->render('prescription', $options);
         }else{

@@ -45,14 +45,14 @@
                            <?php if (isset($student['weight'])){ ?>
                                 <td class='border-bottom-dashed-right text-center'><?= sprintf('%0.1f', $student['weight']) ?>kg</td>
                             <?php } else { ?>
-                                <td class='weight'></td>
+                                <td class='border-bottom-dashed-right text-center'></td>
                             <?php }
 
                             if (isset($student['height'])){ ?>
                                 <td class='border-bottom-dashed text-center'> <?= sprintf('%0.2f', $student['height']) ?>m</td>
                                 
                             <?php } else { ?>
-                                <td class='height'></td>
+                                <td class='border-bottom-dashed-right text-center'></td>
                             <?php } ?>
                             </tr>
                        

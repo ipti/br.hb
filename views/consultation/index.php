@@ -97,7 +97,7 @@ $this->params['campaign'] = $campaign;
                     $sid = $hemoglobin->agreedTerm->enrollments->student;
                     $eid = $hemoglobin->agreedTerm->enrollment;
                     $link = $hemoglobin->isAnemic() 
-                            ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'eid' => $model->id]))
+                            ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'cid'=>$cid, 'eid' => $model->id]))
                             ."<br>".Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid]))
                             ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
                             : "----------";
