@@ -26,6 +26,8 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         			'for'=>'#'
                     ]);
 $this->params['campaign'] = $campaign;
+
+
 ?>
 
 <div class="term-index">
@@ -62,12 +64,6 @@ $this->params['campaign'] = $campaign;
             ['class'=> kartik\grid\DataColumn::className(),
                 'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
-                /*'filter' => Select2::widget([
-                    'name' => 'ObjectSearch[type]',
-                    'data' => [1 => 'j'],
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'hideSearch' => true,
-                ]),*/
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
                 }

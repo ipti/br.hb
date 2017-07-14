@@ -298,7 +298,7 @@ class ReportsController extends \yii\web\Controller {
     public function actionAgreedTerms($cid, $sid) {
         /* @var $campaign campaign */
         /* @var $school school */
-        $html = "";
+
         $school = school::find()->where("id = :sid", ['sid' => $sid])->one();
         $terms = $school->getTerms()
                 ->where("term.campaign = :cid and term.agreed = true", ['cid' => $cid])
@@ -308,7 +308,8 @@ class ReportsController extends \yii\web\Controller {
                 ->all();
 
         $tAgreed = [];
-        foreach ($terms as $term):
+
+        foreach ($terms as $term){
             /* @var $term       \app\models\term */
             /* @var $enrollment \app\models\enrollment */
             /* @var $classroom  \app\models\classroom */
@@ -321,13 +322,18 @@ class ReportsController extends \yii\web\Controller {
             $hemoglobin3 = $enrollment->getHemoglobins()->where('sample = 3')->one();
 
             if (isset($tAgreed[$classroom->name])) {
-                $tAgreed[$classroom->name] = array_merge($tAgreed[$classroom->name], [['name' => $student->name,
-                'birthday' => $student->birthday,
-                'hb1' => $hemoglobin1 != null ? sprintf('%0.1f', $hemoglobin1->rate) : "",
-                'hb2' => $hemoglobin2 != null ? sprintf('%0.1f', $hemoglobin2->rate) : "",
-                'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
+                $tAgreed[$classroom->name] = array_merge(
+                    $tAgreed[$classroom->name], 
+                    [
+                        [
+                            'name' => $student->name,
+                            'birthday' => $student->birthday,
+                            'hb1' => $hemoglobin1 != null ? sprintf('%0.1f', $hemoglobin1->rate) : "",
+                            'hb2' => $hemoglobin2 != null ? sprintf('%0.1f', $hemoglobin2->rate) : "",
+                            'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
+                        ]
                     ]
-                ]);
+                );
             } else {
                 $tAgreed[$classroom->name] = [['name' => $student->name,
                         'birthday' => $student->birthday,
@@ -336,51 +342,9 @@ class ReportsController extends \yii\web\Controller {
                         'hb3' => $hemoglobin3 != null ? sprintf('%0.1f', $hemoglobin3->rate) : ""
                 ]];
             }
-        endforeach;
-        foreach ($tAgreed as $cName => $students) {
-            $header = "<div class='agreed-terms-list'>"
-                    . "<table>"
-                    . "<tr>"
-                    . "<th colspan='5' class='list-header'>Escola: $school->name</th>"
-                    . "</tr>"
-                    . "<tr>"
-                    . "<th colspan='5' class='list-header'>Turma: $cName</th>"
-                    . "</tr>"
-                    . "<tr><td colspan='5' style='border:0'></td></tr>"
-                    . "<tr>"
-                    . "<th class='student'>Aluno</th>"
-                    . "<th class='birthday'>Nascimento</th>"
-                    . "<th class='rate'>Taxa 1</th>"
-                    . "<th class='rate'>Taxa 2</th>"
-                    . "<th class='rate'>Taxa 3</th>"
-                    . "</tr>";
-            $body = "";
-
-
-            foreach ($students as $s) {
-                $sName = $s['name'];
-                $sBirthday = $s['birthday'];
-                $sHb1 = $s['hb1'];
-                $sHb2 = $s['hb2'];
-                $sHb3 = $s['hb3'];
-                $body .= "<tr>"
-                        . "<td class='student'>$sName</td>"
-                        . "<td class='birthday'>" . date("d/m/Y", strtotime($sBirthday)) . "</td>"
-                        . "<td class='rate'>" . ($sHb1 == null ? '' : $sHb1 . 'g/dL') . "</td>"
-                        . "<td class='rate'>" . ($sHb2 == null ? '' : $sHb2 . 'g/dL') . "</td>"
-                        . "<td class='rate'>" . ($sHb3 == null ? '' : $sHb3 . 'g/dL') . "</td>"
-                        . "</tr>";
-            }
-            $footer = "</table>"
-                    . "</div>";
-
-            if (end($tAgreed) !== $students) {
-                $footer .= "<pagebreak type='NEXT-ODD' resetpagenum='1' pagenumstyle='i' suppress='off' />";
-            }
-
-            $html .= $header . $body . $footer;
         }
 
+        $html = $this->renderPartial('agreedTerms', ['terms' => $tAgreed, 'school' => $school->name ]);
 
         $mpdf = new mPDF();
 
@@ -489,11 +453,11 @@ class ReportsController extends \yii\web\Controller {
         /* @var $student \app\models\student */
         $name = $student != null ? $student->name : "____________________________________________________________________";
         $gender = $student->gender;
-        echo $this->actionGetConsultationLetterRaw($sid, $date, $time, $place);
+        echo $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
     }
     
     public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place){
-        $sex = $student == null ? true : ($gender == "male" ? true : false); /* male or female */
+        $sex = $gender == null ? true : ($gender == "male" ? true : false); /* male or female */
 
         $html =  "Prezados Pais,"
         . "<br/>"
@@ -520,8 +484,8 @@ class ReportsController extends \yii\web\Controller {
         . " <b><u>"
         . $place
         . "</u></b><br/>"
-        . "<p>Gostaríamos de pedir a vocês para já prestarem atenção na alimentação da "
-        . ($sex ? "seu filho" : "sua filha")
+        . "<p>Gostaríamos de pedir a vocês para já prestarem atenção na alimentação "
+        . ($sex ? "do seu filho" : "da sua filha")
         . ", principalmente nestes pontos:<br/><br/>"
         . "   <b>1 – Devemos oferecer às crianças, sempre que possível, carnes (de boi, frango ou peixe), feijão e folhas escuras, como couve e brócolis;<br/><br/>"
         . "      2 – Devemos oferecer às crianças, logo após as refeições, sucos de frutas, principalmente as cítricas, como laranja e limão;<br/><br/>"
