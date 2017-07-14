@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use kartik\icons\Icon;
 
 use app\models\campaign;
+use app\components\ReportHeaderWidget;
 
 use kartik\builder\Form;
 use kartik\widgets\DepDrop;
@@ -160,11 +161,7 @@ $this->assetBundles['Reports']->js = [
     </div>
     <div class="report-content">
         <div class="report-head">
-            <div class="report-head-image">
-                <img src="/images/reporters/prefeitura.png" class="pull-left" width="200">
-                <img src="/images/reporters/hb.png" class="pull-right" height="50px;">
-                <div class="clear"></div>
-            </div>
+            <?= ReportHeaderWidget::widget() ?>
             <h4 class="report-title">Carta de Aviso de Consulta</h4>
         </div>
         <div class="report-body">
