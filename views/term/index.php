@@ -31,7 +31,11 @@ $this->params['campaign'] = $campaign;
 ?>
 
 <div class="term-index">
-    <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
+    <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'). ' PDF',Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
+         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
+    <br>
+    <br>
+    <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms-html', 'cid' => $campaign]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
     <br>
     <br>

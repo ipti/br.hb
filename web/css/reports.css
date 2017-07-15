@@ -411,6 +411,9 @@ td.dedinho-term-report{
     .container {
         width: 100%;
     }
+
+    .footer-print {page-break-after: always;}
+
 }
 
 .pdf{
@@ -512,7 +515,7 @@ td.dedinho-term-report{
 }
 
 .report-footer p{
-    font-size: 9px;
+    font-size: 12px;
 }
 
 .margin-top-25{
@@ -691,5 +694,17 @@ awnser{
 
 #health .color-grey{
     background-color: #eee;
+}
+
+.fixed-btn{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+@media print{
+    .report-body p, .report-footer p{
+        font-size: 16px;
+    }
 }
 

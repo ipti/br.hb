@@ -10,7 +10,9 @@ use app\models\school;
 use app\models\student;
 use app\models\Report;
 use app\components\AnamnesePdfWidget;
+use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
+use app\components\TermWidget;
 use mPDF;
 
 class ReportsController extends \yii\web\Controller {
@@ -176,6 +178,7 @@ class ReportsController extends \yii\web\Controller {
         $mpdf->WriteHTML($css2, 1);
 
         $i = 1;
+        $html = "";
         foreach($hemoglobins as $hemoglobin){
             if($hemoglobin->isAnemic()){
                 $term = $hemoglobin->getAgreedTerm()->one();
@@ -191,15 +194,17 @@ class ReportsController extends \yii\web\Controller {
                 $data = $report->getAnamnese();
                 //$html = $this->actionGetAnamneseRaw($cid, $eid, false);
 
-                $mpdf->WriteHTML ('<div class="none">'.$i.' </div>');
-                $mpdf->WriteHTML(AnamnesePdfWidget::widget(['data' => $data ]));
-                $mpdf->WriteHTML ("<pagebreak />");
-                $mpdf->WriteHTML ('<div class="none">'.$i.' </div>'.$this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place));
-                $mpdf->WriteHTML ("<pagebreak />");
-                $i++;
+                //$mpdf->WriteHTML ('<div class="none">'.$i.' </div>');
+                //$mpdf->WriteHTML(AnamnesePdfWidget::widget(['data' => $data ]));
+                //$mpdf->WriteHTML ("<pagebreak />");
+                //$mpdf->WriteHTML ('<div class="none">'.$i.' </div>'.$this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place));
+                //$mpdf->WriteHTML ("<pagebreak />");
+                //$i++;
+                $html .= AnamneseWidget::widget(['data' => $data ]);
             }
         }
-        $mpdf->Output('LetterAndAnamnese.pdf', 'I');
+        //$mpdf->Output('LetterAndAnamnese.pdf', 'I');
+        return $this->render('letterAndAnamnese', ['html' => $html]);
     }
 
     public function actionAnamnese($cid, $eid = null) {
@@ -442,6 +447,42 @@ class ReportsController extends \yii\web\Controller {
         }
     }
 
+    /**
+     * Build Terms
+     * 
+     * @return Json
+     */
+    public function actionBuildTermsHtml($cid) {
+        $campaignID = $cid;
+        $html = "";
+
+        if (isset($campaignID)) {
+            $schools = array();
+            /* @var $campaign \app\models\campaign */
+            $campaign = campaign::find()->where('id = :sid', ['sid' => $campaignID])->one();
+            $terms = $campaign->getTerms()->all();
+
+            foreach ($terms as $term):
+                /* @var $term       \app\models\term */
+                /* @var $enrollment \app\models\enrollment */
+                /* @var $classroom  \app\models\classroom */
+                /* @var $student    \app\models\student */
+                $enrollment = $term->getEnrollments()->one();
+                $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
+                $school = $classroom->getSchools()->orderBy('name')->one();
+                $student = $enrollment->getStudents()->orderBy('name')->one();
+
+                $schools[$school->id]['name'] = $school->name;
+                $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name;
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
+            endforeach;
+
+            return $this->render('buildTerm',['schools' => $schools]);
+        }
+    }
+
     public function actionGetConsultationLetter() {
         $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
         $sid = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
@@ -553,5 +594,4 @@ class ReportsController extends \yii\web\Controller {
         return $this->render("health");
     }
 }
-
 
