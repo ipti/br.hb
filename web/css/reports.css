@@ -471,7 +471,7 @@ td.dedinho-term-report{
     padding-left: 15px;
 }
 .grid-10{
-    width: 84%;
+    width: 83.5%;
     position: relative;
     min-height: 1px;
     padding-right: 15px;
@@ -694,6 +694,18 @@ awnser{
 
 #health .color-grey{
     background-color: #eee;
+}
+
+.report-content .line{
+    border-color: black;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.report-content .line-inline{
+    border-color: black;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .fixed-btn{

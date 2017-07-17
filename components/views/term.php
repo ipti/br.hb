@@ -73,13 +73,13 @@ $truncate = function($str){
         </div>
 
         <div class="report-row margin-top-10">
-            <div class="col grid-9">
+            <div class="col grid-10">
                 <div class="report-row">
                     <div class="col grid-12 report-text-left">
                         <p><span class="bold">[ ] - Assinatura da mãe:</span> <?= $data['mother'] ?> </p>
                     </div>
                     <div class="col grid-12 report-text-left">
-                        <p>_______________________________________________________________________________________________________</p>
+                        <hr class="line">
                     </div>
                 </div>
                 <div class="report-row margin-top-10">
@@ -87,61 +87,97 @@ $truncate = function($str){
                         <p><span class="bold">[ ] - Assinatura do pai:</span> <?= $data['father'] ?>  </p>
                     </div>
                     <div class="col grid-12 report-text-left">
-                        <p>_______________________________________________________________________________________________________</p>
+                        <hr class="line">
                     </div>
                 </div>
             </div>
-            <div class="col grid-3 right">
-                <div class="foto-3-4">
-                    
-                </div>
+            <div class="col grid-2 right">
+                <div class="foto-3-4" style="float: right; height: 130px; width: 100px;"> </div>
             </div>
         </div><!-- .report-row -->  
 
         <div class="report-row margin-top-25">
             <div class="col grid-3 report-text-left">
-                <p><span class="bold">PESO</span>  ____________________&nbsp;&nbsp;&nbsp;</p>
+                <p class="left"><span class="bold">PESO </span></p>
+                <div class="left" style="width:110px;"><hr class="line-inline"></div>
             </div>
             <div class="col grid-3 report-text-left">
-                <p><span class="bold">ALTURA</span>  __________________</p>
+                <p class="left"><span class="bold">ALTURA </span></p>
+                <div class="left" style="width:110px;"><hr class="line-inline"></div>
             </div>
             <div class="col grid-6 report-text-left">
-                <p><span class="bold">&nbsp;&nbsp;&nbsp;DATA DA COLETA</span>&nbsp;&nbsp;&nbsp;&nbsp;  _________/_________/_____________</p>
+                <p class="left"><span class="bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA DA COLETA </span></p>
+                <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                <div class="left" style="width:110px;"><hr class="line-inline"></div>
             </div>
         </div>
 
         <div class="report-row  margin-top-25">
             <div class="col grid-12 report-text-left">
                 <p class="bold">HB 1</p>
-                <p>_____________________________________________________________________________________________ &nbsp;&nbsp;  _________/_________/_____________</p>
+                <div class="margin-top-10">
+                    <div class="left" style="width:605px">
+                        <hr class="line-inline">
+                    </div>
+                    <p class="left">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                    <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                    <div class="left" style="width:110px;"><hr class="line-inline"></div>
+                </div>
+            </div>
+            <div class="col grid-3 report-text-left">
+                
             </div>
         </div>
 
-        <div class="report-row margin-top-25">
+        <div class="report-row  margin-top-25">
             <div class="col grid-12 report-text-left">
                 <p class="bold">HB 2</p>
-                <p>_____________________________________________________________________________________________ &nbsp;&nbsp;  _________/_________/_____________</p>
+                <div class="margin-top-10">
+                    <div class="left" style="width:605px">
+                        <hr class="line-inline">
+                    </div>
+                    <p class="left">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                    <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                    <div class="left" style="width:110px;"><hr class="line-inline"></div>
+                </div>
+            </div>
+            <div class="col grid-3 report-text-left">
+                
             </div>
         </div>
 
-        <div class="report-row margin-top-25">
+        <div class="report-row  margin-top-25">
             <div class="col grid-12 report-text-left">
                 <p class="bold">HB 3</p>
-                <p>_____________________________________________________________________________________________ &nbsp;&nbsp;  _________/_________/_____________</p>
+                <div class="margin-top-10">
+                    <div class="left" style="width:605px">
+                        <hr class="line-inline">
+                    </div>
+                    <p class="left">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                    <div class="left" style="width:60px;"><hr class="line-inline"></div><p class="left">/</p>
+                    <div class="left" style="width:110px;"><hr class="line-inline"></div>
+                </div>
+            </div>
+            <div class="col grid-3 report-text-left">
+                
             </div>
         </div>
 
         <div class="report-row margin-top-25">
             <div class="col grid-12 report-text-left">
-                <p class="bold">[ ] - Sulfato ferroso</p>
-                <p>________________________________________________________________________________________________________________________________</p>
+                <p class="bold">[  ] - Sulfato </p>
+                <div class="margin-top-25" style="width: 854px;"><hr class="line-inline"></div>
             </div>
         </div>
 
          <div class="report-row  margin-top-25">
             <div class="col grid-12 report-text-left">
-                <p class="bold">[ ] - Vermifugo</p>
-                <p>________________________________________________________________________________________________________________________________</p>
+                <p class="bold">[  ] - Vermifugo </p>
+                <div class="margin-top-25" style="width: 854px;"><hr class="line-inline"></div>
             </div>
         </div>
 
