@@ -1,9 +1,12 @@
 <?php
-
+$HOST = getenv("DB_HOST");
+$USER = getenv("DB_USER");
+$PWD = getenv("DB_PWD");
+$DB = getenv("DB_NAME");
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=mariadb-s6vhx-mariadb.mariadb-s6vhx.svc.cluster.local;dbname=br.org.ipti.boquim.hb',
-    'username' => 'admin',
-    'password' => '123456',
+    'dsn' => "mysql:host=$HOST;dbname=$DB",
+    'username' => $USER,
+    'password' => $PWD,
     'charset' => 'utf8',
 ];
