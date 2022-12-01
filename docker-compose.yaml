@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+      - "3307:3307"
+    volumes:
+      - .:/app
+    
+    networks:
+      - backend
+  
+  mariadb:
+    image: mariadb:10.2
+    environment:
+      MYSQL_ROOT_PASSWORD: p@s4ipti
+      MYSQL_DATABASE: br.org.ipti.hb.boquim
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
+    networks:
+      - backend
+    restart: on-failure
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql
+
+networks:         
+  backend:
+    driver: bridge

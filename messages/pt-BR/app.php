@@ -25,6 +25,7 @@ return [
     'Anatomy'=>'Antropometria',
     'Hemoglobin'=>'Hemoglobina',
     'Consultation'=>'Consulta',
+    'Ferritin'=>'Ferritina',
 
     // Campaign    
     'New Campaign'=>'Nova campanha',

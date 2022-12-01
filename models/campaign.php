@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\VarDumper; 
 
 /**
  * This is the model class for table "campaign".
@@ -154,9 +155,16 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getEnrollmentsWithoutTerms() {
-        return $this->hasMany(enrollment::className(), ['id'=>'enrollment'])
-                ->via('terms')
-                ->where("not exists (select * from term as t where enrollment.id = t.enrollment)");
+
+        $query = <<<EOT
+        SELECT e.id, name as `students.name`  FROM enrollment e 
+            JOIN student s on e.student = s.id 
+            WHERE (not exists (select * from term as t where e.id = t.enrollment))
+        EOT;
+
+        $result = Yii::$app->db->createCommand($query)->queryAll();
+        // Yii::error($result);
+        return $result;
  
     }
     

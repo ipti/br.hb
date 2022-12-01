@@ -39,7 +39,7 @@ use kartik\select2\Select2;
             e.preventDefault();
         });";
     $this->registerJs($js);
-    
+
     $campaign = app\models\campaign::find()->where("id = :cid", ["cid"=>$campaign])->one();
 
     echo Form::widget([
@@ -51,7 +51,7 @@ use kartik\select2\Select2;
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => Select2::className(),
                 'options' => [
-                    'data' => ArrayHelper::map($campaign->getEnrollmentsWithoutTerms()->all(), 'id', 'students.name'),
+                    'data' => ArrayHelper::map($campaign->getEnrollmentsWithoutTerms(), 'id', 'students.name'),
                     'options' => [
                         'placeholder' => Yii::t('app', 'Select Student...'),
                         $model->isNewRecord ? "" : "disabled" => "disabled"

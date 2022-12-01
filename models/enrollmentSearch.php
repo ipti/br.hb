@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\enrollment;
+use yii\log\Logger;
 
 /**
  * enrollmentSearch represents the model behind the search form about `app\models\enrollment`.
@@ -33,6 +34,7 @@ class enrollmentSearch extends enrollment
         $campaign = \app\models\campaign::find()->where("id = :cid",["cid"=>$cid])->one();
     
         $query = $campaign->getEnrollments();
+    
         $query->select("enrollment.*");
         
         if($actualController == \app\controllers\ConsultationController::className()){

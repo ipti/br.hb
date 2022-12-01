@@ -71,6 +71,11 @@ $this->params['siteIndex'] = true;
             $hb3['UnDone'] = $hb3['Total'] - $hb3['Done'];
             $hb3['Url'] = Url::to(['hemoglobin/index', 'c' => $campaing['Id'], 's' => '3']);
             
+            $ferritin['Total'] = 16;
+            $ferritin['Done'] = 3;
+            $ferritin['UnDone'] = $ferritin['Total'] - $ferritin['Done'];
+            $ferritin['Url'] = Url::to(['ferritin/index', 'c' => $campaing['Id']]);
+
             $now = time(); // or your date as well
             $begin = strtotime($c["begin"]);
             $end = strtotime($c["end"]);
@@ -88,6 +93,15 @@ $this->params['siteIndex'] = true;
                         'class'=>'updateCampaign campaign-box-edit',
                         'for'=>'#'
                     ]);?>
+                    <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
+                        <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Ferritin').': ',$ferritin ['Url'])?></div>
+                        <div class="campaign-box-content">
+                        <?= Html::a($ferritin['Done'].' '.Icon::show('check', ['class'=>'icon-sucess']),
+                                    $ferritin['Url'])?>&nbsp;
+                            <?= Html::a($ferritin['UnDone'].' '.Icon::show('remove', ['class'=>'icon-error']),
+                                    $ferritin['Url'])?>
+                        </div>
+                    </div><!-- end ferritin -->
                     <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Anatomies').': ',$anatomies['Url'])?></div>
                         <div class="campaign-box-content">

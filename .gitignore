@@ -2,3 +2,4 @@
 /nbproject/*
 /web/assets/*
 .idea/
+**/vendor
