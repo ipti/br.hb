@@ -225,8 +225,16 @@ class campaign extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHemoglobins(){
+    public function getHemoglobins(){   
         return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
+                ->via('terms')->groupBy('agreed_term');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery  
+     */
+    public function getFerritin(){   
+        return $this->hasMany(ferritin::className(), ['agreed_term'=>'id'])
                 ->via('terms')->groupBy('agreed_term');
     }
     

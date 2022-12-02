@@ -94,7 +94,7 @@ class CampaignController extends Controller {
                 foreach ($sids as $sid) {
                     $school = school::find()->where('id = :sid',['sid'=>$sid])->one();
                     /* @var $school \app\models\school */
-                    $classrooms = $school->getClassrooms()->where('`year`= :year',[ 'year'=>(date("Y"))])->asArray()->all();
+                    $classrooms = $school->getClassrooms()->where('`year`= :year',[ 'year'=>(date("Y")-8)])->asArray()->all();
                     foreach ($classrooms as $i => $classroom) {
                         $out[] = ['id' => $classroom['id'], 'name' => $classroom['name']];
                     }

@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=db.ipti.org.br;dbname=br.org.ipti.tag',
-    'username' => 'user.tag',
-    'password' => '123456',
+    'dsn' => 'mysql:host=localhost:3307;dbname=io.escola.demo',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 ];

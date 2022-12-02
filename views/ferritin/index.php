@@ -12,7 +12,7 @@ use yii\helpers\VarDumper;
 /* @var $campaign Integer */
 
 $this->title = Yii::t('app', 'Ferritina');
-$this->params['button'] = Html::a(Yii::t('app', 'Create Ferritin', [
+$this->params['button'] = Html::a(Yii::t('app', 'Criar Ferritina', [
     'modelClass' => 'Ferritin',]),['create', 'cid' => $campaign->id],
     ['class'=>'btn btn-success navbar-btn']);
 
