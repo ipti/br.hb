@@ -61,8 +61,8 @@ class Ferritin extends \yii\db\ActiveRecord
     /** 
      * @return \yii\db\ActiveRecord
     */
-    public function getFerretin() {
-        return $this->hasOne(Ferretin::className(), ['agreed_term' => 'agreed_term'])->one();
+    public function getFerritin() {
+        return $this->hasOne(Ferritin::className(), ['agreed_term' => 'agreed_term'])->one();
     }   
     
     // public function isAnemic(){
