@@ -10,7 +10,7 @@ use app\models\campaign;
 use app\models\term;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\hemoglobin */
+/* @var $model app\models\Ferritin */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $campaign app\models\campaign */
 
