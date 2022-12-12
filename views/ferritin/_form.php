@@ -28,29 +28,28 @@ $this->assetBundles['Ferritin']->js = [
 
     if ($model->isNewRecord) {
         $classrooms = $campaign->getClassroomsWithAgreedTerms();
-        echo Html::label(yii::t('app','Classrooms with Agreed Terms...'));
+        echo Html::label(yii::t('app', 'Classrooms with Agreed Terms...'));
         echo Select2::widget([
             'name' => 'classroom',
-            'id'=>'classrooms',
+            'id' => 'classrooms',
             'data' => $classrooms,
             'options' => [
                 'placeholder' => yii::t('app', 'Select Classroom...'),
                 'class' => 'form-select2',
                 'campaign' => $campaign->id
             ],
-            'pluginOptions'=>['allowClear'=>true]
+            'pluginOptions' => ['allowClear' => true]
         ]);
         echo "<table id='ferritins' class='kv-grid-table table table-bordered table-striped'>"
-                . "<thead>"
-                    . "<tr>"
-                        . "<th>".yii::t("app", "Student")."</th>"
-                        . "<th>".yii::t("app", "Rate")."</th>"
-                    . "<tr>"
-                . "</thead>"
-                . "<tbody></tbody>"
-                . "</table>";
-        echo Html::submitButton(Yii::t('app', 'Create'), ['id'=>'send', "style"=>"display:none",  'class' =>'btn btn-success']);
-   
+            . "<thead>"
+            . "<tr>"
+            . "<th>" . yii::t("app", "Student") . "</th>"
+            . "<th>" . yii::t("app", "Rate") . "</th>"
+            . "<tr>"
+            . "</thead>"
+            . "<tbody></tbody>"
+            . "</table>";
+        echo Html::submitButton(Yii::t('app', 'Create'), ['id' => 'send', "style" => "display:none",  'class' => 'btn btn-success']);
     } else {
         $term = term::find()->where('id = :sid', ['sid' => $model->agreed_term])->one();
         $campaign = campaign::find()->where('id = :sid', ['sid' => $term->campaign])->one();
@@ -63,7 +62,8 @@ $this->assetBundles['Ferritin']->js = [
                     'type' => Form::INPUT_WIDGET,
                     'widgetClass' => Select2::className(),
                     'options' => [
-                            (ArrayHelper::map($campaign->getTerms()->where('agreed = true')->all(), 'id', 'students.name')) ,
+                        'data' => (ArrayHelper::map($campaign->getTerms()->where('agreed = true')->all(), 'id', 'students.name')),
+                            // : (ArrayHelper::map($campaign->getConsults()->where('attended = true')->all(), 'terms.id', 'terms.students.name')),
                         'options' => [
                             'placeholder' => Yii::t('app', 'Select Student...'),
                             'class' => 'form-select2',
@@ -75,7 +75,7 @@ $this->assetBundles['Ferritin']->js = [
                     'type' => Form::INPUT_TEXT,
                 ]
             ]
-        ]); 
+        ]);
         echo Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary']);
     }
     ActiveForm::end();

@@ -120,7 +120,9 @@ class FerritinController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        return $this->redirect(['index', 'c' => $model->agreedTerm->campaigns->id]);
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
