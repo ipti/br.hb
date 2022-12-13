@@ -61,6 +61,14 @@ class term extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getFerritin()
+    {
+        return $this->hasMany(ferritin::className(), ['agreed_term' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCampaigns()
     {
         return $this->hasOne(campaign::className(), ['id' => 'campaign']);

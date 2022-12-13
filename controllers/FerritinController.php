@@ -58,7 +58,7 @@ class FerritinController extends Controller
      * @param integer $cid
      * @return json
      */
-    public function actionGetAgreedTerms($clid, $cid, $samp)
+    public function actionGetAgreedTerms($clid, $cid)
     {
         /* @var $classroom \app\models\classroom */
         /* @var $term \app\models\term */
