@@ -9,12 +9,15 @@ $("#classrooms").change(function () {
     var cid  = $(this).attr("campaign");
     var sample = $(this).attr("sample");
     var url = "";
+    var {origin,pathname} = window.location;
     if (sample == 1) {
-        url = '/index.php?r=hemoglobin%2Fget-agreed-terms&clid=' + clid + '&cid='+cid+"&samp="+sample;
+        url = `${origin}${pathname}?r=hemoglobin%2Fget-agreed-terms&clid=${clid}&cid=${cid}&samp=${sample}`;
     }
     else {
-        url = '/index.php?r=hemoglobin%2Fget-attended-consults&clid=' + clid + '&cid='+cid+"&samp="+sample;
+        url = `${origin}${pathname}?r=hemoglobin%2Fget-attended-consults&clid=${clid}&cid=${cid}&samp=${sample}`;
     }
+
+    console.log(url)
     
     $.ajax({
         url: url,

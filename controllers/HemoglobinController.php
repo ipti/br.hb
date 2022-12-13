@@ -313,9 +313,9 @@ class HemoglobinController extends Controller {
         ]]);
 
 
-        $mpdf = new mPDF();
+        $mpdf = new \Mpdf\Mpdf();
 
-        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
