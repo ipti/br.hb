@@ -89,6 +89,16 @@ return [
     'Rate' => 'Taxa',
     'Classrooms with Agreed Terms...' => 'Turmas com termos consentidos...',
     'Anemics Lists...' => 'Alunos anêmicos...',
+
+    // Ferritin
+    'Create Ferritin'=>'Criar ferritina',
+    'Update Ferritin' => 'Editar ferritina',
+    'New Ferritin' => 'Nova ferritina',
+    'Ferritins'=>'Ferritinas',
+    'Agreed Term' => 'Termo consentido',
+    'Rate' => 'Taxa',
+    'Classrooms with Agreed Terms...' => 'Turmas com termos consentidos...',
+    'Anemics Lists...' => 'Alunos anêmicos...',
     
     // Consultations
     'Create Consultation'=>'Criar consulta',
