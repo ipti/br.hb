@@ -9,7 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\consultation;
-use mPDF;
 
 /**
  * FerritinController implements the CRUD actions for Ferritin model.
@@ -226,6 +225,87 @@ class FerritinController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionAnemicsLists() {
+
+        $cid = $_GET['cid'];
+
+        $campaign = \app\models\campaign::find()->where("id = :c1", ["c1" => $cid])->one();
+        /* @var $campaign \app\models\campaign */
+        $terms = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $cid])
+                ->innerJoin('enrollment as en', 'enrollment = en.id')
+                ->innerJoin('student as s', 's.id = en.student')
+                ->innerJoin('classroom as c', 'c.id = en.classroom')
+                ->orderBy('c.name ASC, s.name ASC')
+                ->all();
+
+        $schoolsAnemics = array();
+
+        foreach ($terms AS $termAgreed):
+            // Somente possui uma ferritina por termo
+            $ferritin = \app\models\ferritin::find()->where("agreed_term = :a", ["a" => $termAgreed->id])->one();
+
+            if (isset($ferritin)) {
+                //Então pesquisa o student atravez do $termAgreed
+
+                $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $termAgreed->enrollment])->one();
+                $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
+                $classroom = \app\models\classroom::find()->where("id = :a", ["a" => $enrollment->classroom])->one();
+                $school = \app\models\school::find()->where("id = :a", ["a" => $classroom->school])->one();
+
+                $rate = $ferritin->rate;
+                $nameStudent = $student->name;
+                $genderStudent = $student->gender;
+                $ageStudent = (strtotime($campaign->end) - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+
+
+                $isAnemic = false;
+                if (($ageStudent > 24) && ($ageStudent < 60)) {
+                    $isAnemic = !($rate >= 11);
+                } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                    $isAnemic = !($rate >= 11.5);
+                } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
+                    $isAnemic = !($rate >= 12);
+                } else if ($ageStudent >= 180) {
+
+                    if ($genderStudent == "male") {
+                        $isAnemic = !($rate >= 13);
+                    } else {
+                        //female
+                        $isAnemic = !($rate >= 12);
+                    }
+                }
+
+                if ($isAnemic) {
+                    //Se for anêmico, dá push no array
+                    $schoolsAnemics[$school->id]['name'] = $school->name;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $nameStudent;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['rate'] = $rate;
+                    $schoolsAnemics[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['gender'] = $genderStudent;
+                }
+            }
+
+        endforeach;
+
+
+        $html = $this->renderPartial('anemics', ['data' => [
+            'schoolAnemics' => $schoolsAnemics
+        ]]);
+
+
+        $mpdf = new \Mpdf\Mpdf();
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+
+        $mpdf->WriteHTML($html);
+
+        $mpdf->Output('ListAnemicsStudents.pdf', 'I');
+        exit;
     }
 
     /**
