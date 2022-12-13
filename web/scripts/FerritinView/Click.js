@@ -8,9 +8,8 @@ $("#classrooms").change(function () {
     var clid = $(this).val();
     var cid  = $(this).attr("campaign");
     var url = "";
-    var host = window.location.origin + window.location.pathname
-    url = host+'?r=ferritin%2Fget-agreed-terms&clid='+clid+'&cid='+cid;
-    console.log(url)
+    var {origin,pathname} = window.location;
+    url = `${origin}${pathname}?r=ferritin%2Fget-agreed-terms&clid=${clid}&cid=${cid}`;
     $.ajax({
         url: url,
     }).done(function (r) {
