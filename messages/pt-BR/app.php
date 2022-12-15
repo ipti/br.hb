@@ -17,6 +17,7 @@ return [
     'Incorrect username or password.'=>'Usuário ou senha incorretos.',
     
     // Menu
+    'Booting HB'=>'Inicializando HB',
     'HB'=>'HB',
     'Campaign'=>'Campanha',
     'Campaigns'=>'Campanhas',

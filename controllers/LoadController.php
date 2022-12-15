@@ -11,10 +11,20 @@ use app\models\enrollment;
 use yii\db\Query;
 use Yii;
 
+class LoadForm extends \yii\base\Model
+{
+    public $items = [];
+
+    public function rules()
+    {
+        return [];
+    }
+}
+
 class LoadController extends \yii\web\Controller
 {
     /**
-     * Get Enrollments by school from TAG
+     * Get Schools by school from TAG
      * 
      * @param string $inep
      * @return array
@@ -38,7 +48,18 @@ class LoadController extends \yii\web\Controller
     }
 
     /**
-     * Get classrons by school from TAG
+     * Get Schools by school from TAG
+     * 
+     * @return array
+     */
+    private function getAllSchoolTAG() {
+        $query = "select name from school_identification";
+        $result = Yii::$app->tag->createCommand($query);
+        return $result->queryAll();
+    }
+
+    /**
+     * Get classrooms by school from TAG
      * 
      * @param string $school
      * @return array
@@ -60,6 +81,18 @@ class LoadController extends \yii\web\Controller
             . "from classroom "
             . "where school_inep_fk = " . $school . " "
             . "and school_year = " . $year;
+        $result = Yii::$app->tag->createCommand($query);
+        return $result->queryAll();
+    }
+
+    /**
+     * Get classrooms by school from TAG
+     * 
+     * @return array
+     */
+    private function getAllClassroomsTAG()
+    {
+        $query = "select name from classroom";
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryAll();
     }
@@ -93,6 +126,18 @@ class LoadController extends \yii\web\Controller
     }
 
     /**
+     * Get Students by school from TAG
+     * 
+     * @return array
+     */
+    private function getAllStudentsTAG()
+    {
+        $query = "select name from student_identification";
+        $result = Yii::$app->tag->createCommand($query);
+        return $result->queryAll();
+    }
+
+    /**
      * Get Enrollments by school from TAG
      * 
      * @param string $school
@@ -117,6 +162,33 @@ class LoadController extends \yii\web\Controller
         return $result->queryAll();
     }
 
+    /**
+     * Get Enrollments by school from TAG
+     * 
+     * @return array
+     */
+    private function getAllEnrollmentsTAG() {
+        $query = "select * from enrollments";
+        $result = Yii::$app->tag->createCommand($query);
+        return $result->queryAll();
+    }
+
+    public function actionIndex() {
+        $schools = $this->getAllSchoolTAG();
+        $classrooms = $this->getAllClassroomsTAG();
+        $students = $this->getAllStudentsTAG();
+        // $enrollments = $this->getAllEnrollmentsTAG();
+        $enrollments = [];        
+        $model = new LoadForm();
+        if($model->load(Yii::$app->request->post())) {
+            $modules = Yii::$app->request->post();
+            return $this->render('_form', ['load_modules' => $model, 'schools' => $schools, 'classrooms' => $classrooms,
+            'students' => $students, 'enrollments' => $enrollments]);
+        }else {
+            return $this->render('_form', ['load_modules' => $model, 'schools' => $schools, 'classrooms' => $classrooms,
+            'students' => $students, 'enrollments' => $enrollments]);
+        }
+    }
 
     public function actionTag() {
         set_time_limit(0);
