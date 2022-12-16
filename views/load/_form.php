@@ -24,43 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'data' => $schools,
             'options' => [
                 'placeholder' => yii::t('app', 'Select School...'),
-                'class' => 'form-select2',
-                'multiple' => true
+                'class' => 'form-select2'
             ],
-            'pluginOptions' => ['allowClear' => true, 'closeOnSelect' => false]
+            'pluginOptions' => ['allowClear' => true]
         ]);
-        ?>
-    </div>
-    <div class="form-group">
-        <?php
-        echo Html::label(yii::t('app', 'Salas de Aula do TAG'));
-        echo Select2::widget([
-            'name' => 'classroom',
-            'id' => 'classrooms',
-            'data' => $classrooms,
-            'options' => [
-                'placeholder' => yii::t('app', 'Select Classroom...'),
-                'class' => 'form-select2',
-                'multiple' => true
-            ],
-            'pluginOptions' => ['allowClear' => true, 'closeOnSelect' => false]
-        ]);
-        ?>
-    </div>
-    <div class="form-group">
-        <?php
-        echo Html::label(yii::t('app', 'Estudantes do TAG'));
-        echo Select2::widget([
-            'name' => 'student',
-            'id' => 'students',
-            'data' => $students,
-            'options' => [
-                'placeholder' => yii::t('app', 'Select Student...'),
-                'class' => 'form-select2',
-                'multiple' => true
-            ],
-            'pluginOptions' => ['allowClear' => true, 'closeOnSelect' => false]
-        ]);
+        echo "<table id='classrooms' class='kv-grid-table table table-bordered table-striped'>"
+        . "<thead>"
+        . "<tr>"
+        . "<th>" . yii::t("app", "Classroom") . "</th>"
+        . "<th>" . yii::t("app", "Ano") . "</th>"
+        . "<tr>"
+        . "</thead>"
+        . "<tbody></tbody>"
+        . "</table>";
         ?>
     </div>
     <?= Html::submitButton('Fazer Download dos Dados', ['class' => 'btn btn-primary']) ?>
