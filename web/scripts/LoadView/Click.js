@@ -1,16 +1,11 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-$("#schools").change(function () {
-    var clid = $(this).val();
-    var cid = 2014;
+$("#years, #schools").change(function () {
+    var clid = $("#schools").val();
+    var cid = $("#years").val();
     console.log(clid)
+    console.log(cid)
     var url = "";
     var {origin,pathname} = window.location;
-    url = `${origin}${pathname}?r=load%2Fget-classrooms&clid=${clid}`;
+    url = `${origin}${pathname}?r=load%2Fget-classrooms&clid=${clid}&cid=${cid}`;
     $.ajax({
         url: url,
     }).done(function (r) {
@@ -30,4 +25,9 @@ $("#schools").change(function () {
         $("#classrooms tbody").empty();
         $("#send").hide();
     });
+});
+
+$("#send").click(function () {
+    var boxes = $('input[name=thename]:checked');
+    console.log(boxes)
 });

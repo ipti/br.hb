@@ -8,7 +8,6 @@ use app\models\school;
 use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
-use yii\db\Query;
 use Yii;
 
 class LoadForm extends \yii\base\Model
@@ -48,17 +47,6 @@ class LoadController extends \yii\web\Controller
     } 
 
     /**
-     * Get Schools by school from TAG
-     * 
-     * @return array
-     */
-    private function getAllSchoolTAG() {
-        $query = "select * from school_identification";
-        $result = Yii::$app->tag->createCommand($query);
-        return $result->queryAll();
-    }
-
-    /**
      * Get classrooms by school from TAG
      * 
      * @param string $school
@@ -81,18 +69,6 @@ class LoadController extends \yii\web\Controller
             . "from classroom "
             . "where school_inep_fk = " . $school . " "
             . "and school_year = " . $year;
-        $result = Yii::$app->tag->createCommand($query);
-        return $result->queryAll();
-    }
-
-    /**
-     * Get classrooms by school from TAG
-     * 
-     * @return array
-     */
-    private function getAllClassroomsTAG()
-    {
-        $query = "select name from classroom";
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryAll();
     }
@@ -126,18 +102,6 @@ class LoadController extends \yii\web\Controller
     }
 
     /**
-     * Get Students by school from TAG
-     * 
-     * @return array
-     */
-    private function getAllStudentsTAG()
-    {
-        $query = "select name from student_identification";
-        $result = Yii::$app->tag->createCommand($query);
-        return $result->queryAll();
-    }
-
-    /**
      * Get Enrollments by school from TAG
      * 
      * @param string $school
@@ -168,9 +132,9 @@ class LoadController extends \yii\web\Controller
      * @param integer $cid
      * @return json
      */
-    public function actionGetClassrooms($clid)
+    public function actionGetClassrooms($clid, $cid)
     {
-        $classrooms = $this->getClassroomsTAG($clid, '2014');
+        $classrooms = $this->getClassroomsTAG($clid, $cid);
 
         $response = [];
         foreach ($classrooms as $class) {
@@ -179,17 +143,6 @@ class LoadController extends \yii\web\Controller
 
         echo \yii\helpers\Json::encode($response);
         exit;
-    }
-
-    /**
-     * Get Enrollments by school from TAG
-     * 
-     * @return array
-     */
-    private function getAllEnrollmentsTAG() {
-        $query = "select * from enrollments";
-        $result = Yii::$app->tag->createCommand($query);
-        return $result->queryAll();
     }
 
     /**
@@ -204,30 +157,33 @@ class LoadController extends \yii\web\Controller
             $result[$school['inep_id']] = $school['name'];
         }
         return $result;
-    } 
+    }
+    
+    /**
+     * @return array
+     */
+    public function getArrayYearsTAG() {
+        $query = "select school_year from classroom";
+        $result = Yii::$app->tag->createCommand($query);
+        $years = $result->queryAll();
+        $result = [];
+        foreach($years as $year){
+            $result[$year['school_year']] = $year['school_year'];
+        }
+        return $result;
+    }
 
     public function actionIndex() {
         $schools = $this->getArraySchoolsTAG();
-        $classrooms = $this->getAllClassroomsTAG();
-        $students = $this->getAllStudentsTAG();
-        // $enrollments = $this->getAllEnrollmentsTAG();
-        $enrollments = [];        
-        $model = new LoadForm();
-        if($model->load(Yii::$app->request->post())) {
-            $modules = Yii::$app->request->post();
-            return $this->render('_form', ['load_modules' => $model, 'schools' => $schools, 'classrooms' => $classrooms,
-            'students' => $students, 'enrollments' => $enrollments]);
-        }else {
-            return $this->render('_form', ['load_modules' => $model, 'schools' => $schools, 'classrooms' => $classrooms,
-            'students' => $students, 'enrollments' => $enrollments]);
-        }
+        $years = $this->getArrayYearsTAG();
+        return $this->render('_form', ['schools' => $schools, 'years' => $years]);
     }
 
-    public function actionTag() {
+    public function actionTag($clid, $cid) {
         set_time_limit(0);
         
-        $schools = $this->getSchoolTAG('28022122');
-        $classrooms = $this->getClassroomsTAG('28022122', '2014');
+        $schools = $this->getSchoolTAG($clid);
+        $classrooms = $this->getClassroomsTAG($clid, $cid);
 
         $i = $j = $k = $l = 0;
         foreach ($schools as $school){

@@ -8,13 +8,13 @@ use kartik\select2\Select2;
 
 
 $form = ActiveForm::begin([
-    'id' => 'login-form',
+    'id' => 'load-form',
     'options' => ['type' => ActiveForm::TYPE_VERTICAL],
 ]);
 
 /* @var $this yii\web\View */
 
-$this->title = Yii::t('app', 'Booting HB');
+$this->title = Yii::t('app', 'Import TAG data');
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->assetBundles['Load'] = new app\assets\AppAsset();
@@ -25,7 +25,6 @@ $this->assetBundles['Load']->js = [
 <div class="row justify-content-md-center">
     <div class="form-group">
         <?php
-        echo Html::label(yii::t('app', 'Escolas do TAG'));
         echo Select2::widget([
             'name' => 'school',
             'id' => 'schools',
@@ -36,18 +35,28 @@ $this->assetBundles['Load']->js = [
             ],
             'pluginOptions' => ['allowClear' => true]
         ]);
+        echo Select2::widget([
+            'name' => 'year',
+            'id' => 'years',
+            'data' => $years,
+            'options' => [
+                'placeholder' => yii::t('app', 'Select Year...'),
+                'class' => 'form-select2'
+            ],
+            'pluginOptions' => ['allowClear' => true]
+        ]);
         echo "<table id='classrooms' class='kv-grid-table table table-bordered table-striped'>"
         . "<thead>"
         . "<tr>"
         . "<th>" . yii::t("app", "Classroom") . "</th>"
         . "<th>" . yii::t("app", "Ano") . "</th>"
-        . "<th>" . yii::t("app", "Ações") . "</th>"
+        . "<th>" . yii::t("app", "Importar") . "</th>"
         . "<tr>"
         . "</thead>"
         . "<tbody></tbody>"
         . "</table>";
         ?>
     </div>
-    <?= Html::submitButton('Fazer Download dos Dados', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton(Yii::t('app', 'Import'), ['id' => 'send', "style" => "display:none",'class' => 'btn btn-primary']) ?>
 </div>
 <?php ActiveForm::end() ?>

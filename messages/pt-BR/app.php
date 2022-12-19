@@ -17,7 +17,7 @@ return [
     'Incorrect username or password.'=>'Usuário ou senha incorretos.',
     
     // Menu
-    'Booting HB'=>'Inicializando HB',
+    'Import TAG data'=>'Importar dados do TAG',
     'HB'=>'HB',
     'Campaign'=>'Campanha',
     'Campaigns'=>'Campanhas',
@@ -132,6 +132,7 @@ return [
     'Anamnese' => 'Anamnese',
     
     // Letter
+    'Select Year...' => 'Selecione o ano...',
     'Select Campaign...' => 'Selecione a campanha...',
     'Select School...' => 'Selecione a escola...',
     'Select Classroom...' => 'Selecione a turma...',
@@ -146,6 +147,7 @@ return [
     'Consult Location' => 'Local da consulta',
     
     // Utils
+    'Import'=>'Importar',
     'Create'=>'Criar',
     'Select'=>'Selecione',
     'edit'=>'editar',
