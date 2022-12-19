@@ -45,7 +45,7 @@ class LoadController extends \yii\web\Controller
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryAll();
 
-    }
+    } 
 
     /**
      * Get Schools by school from TAG
@@ -53,7 +53,7 @@ class LoadController extends \yii\web\Controller
      * @return array
      */
     private function getAllSchoolTAG() {
-        $query = "select name from school_identification";
+        $query = "select * from school_identification";
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryAll();
     }
@@ -163,6 +163,25 @@ class LoadController extends \yii\web\Controller
     }
 
     /**
+     * Get a list with terms agreeded by classroom.
+     * 
+     * @param integer $cid
+     * @return json
+     */
+    public function actionGetClassrooms($clid)
+    {
+        $classrooms = $this->getClassroomsTAG($clid, '2014');
+
+        $response = [];
+        foreach ($classrooms as $class) {
+            $response[$class['name']] = $class['year'];
+        }
+
+        echo \yii\helpers\Json::encode($response);
+        exit;
+    }
+
+    /**
      * Get Enrollments by school from TAG
      * 
      * @return array
@@ -173,8 +192,22 @@ class LoadController extends \yii\web\Controller
         return $result->queryAll();
     }
 
+    /**
+     * @return array
+     */
+    public function getArraySchoolsTAG() {
+        $query = "select * from school_identification";
+        $result = Yii::$app->tag->createCommand($query);
+        $schools = $result->queryAll();
+        $result = [];
+        foreach($schools as $school){
+            $result[$school['inep_id']] = $school['name'];
+        }
+        return $result;
+    } 
+
     public function actionIndex() {
-        $schools = $this->getAllSchoolTAG();
+        $schools = $this->getArraySchoolsTAG();
         $classrooms = $this->getAllClassroomsTAG();
         $students = $this->getAllStudentsTAG();
         // $enrollments = $this->getAllEnrollmentsTAG();

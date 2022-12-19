@@ -1,8 +1,11 @@
 <?php
-
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\select2\Select2;
+
+/* @var $this yii\web\View */
+/* @var $form yii\widgets\ActiveForm */
+
 
 $form = ActiveForm::begin([
     'id' => 'login-form',
@@ -13,6 +16,11 @@ $form = ActiveForm::begin([
 
 $this->title = Yii::t('app', 'Booting HB');
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->assetBundles['Load'] = new app\assets\AppAsset();
+$this->assetBundles['Load']->js = [
+    'scripts/LoadView/Click.js'
+];
 ?>
 <div class="row justify-content-md-center">
     <div class="form-group">
@@ -33,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         . "<tr>"
         . "<th>" . yii::t("app", "Classroom") . "</th>"
         . "<th>" . yii::t("app", "Ano") . "</th>"
+        . "<th>" . yii::t("app", "Ações") . "</th>"
         . "<tr>"
         . "</thead>"
         . "<tbody></tbody>"
