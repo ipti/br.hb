@@ -28,6 +28,12 @@ $("#years, #schools").change(function () {
 });
 
 $("#send").click(function () {
-    var boxes = $('input[name=thename]:checked');
-    console.log(boxes)
+    var clid = $("#schools").val();
+    var cid = $("#years").val();
+    url = `${origin}${pathname}?r=load%2Ftag&clid=${clid}&cid=${cid}`;
+    $.ajax({
+        url: url,
+    }).done(function () {
+        alert("Importado")
+    });
 });
