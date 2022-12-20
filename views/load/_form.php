@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\select2\Select2;
+use yii\bootstrap\Alert;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
@@ -25,6 +26,14 @@ $this->assetBundles['Load']->js = [
 <div class="row justify-content-md-center">
     <div class="form-group">
         <?php
+        echo Alert::widget([
+            'options' => [
+                'id' => 'sucess_message',
+                'class' => 'alert alert-success',
+                'style' => 'display:none',
+            ],
+            'body' => 'Turmas importadas com sucesso.',
+        ]);
         echo Select2::widget([
             'name' => 'school',
             'id' => 'schools',

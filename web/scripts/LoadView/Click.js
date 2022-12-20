@@ -1,5 +1,6 @@
 const {origin,pathname} = window.location;
 $("#years, #schools").change(function () {
+    $("#sucess_message").css("display", "none");
     var clid = $("#schools").val();
     var cid = $("#years").val();
     console.log(clid)
@@ -45,6 +46,7 @@ $("#send").click(function () {
             }
             console.log(name)
         });
-        alert("TURMAS IMPORTADAS")
+        $("#sucess_message").css("display", "block");
+        $("#classrooms tbody").empty();
     })
 });
