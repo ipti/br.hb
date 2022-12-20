@@ -45,5 +45,6 @@ $("#send").click(function () {
             }
             console.log(name)
         });
+        alert("TURMAS IMPORTADAS")
     })
 });

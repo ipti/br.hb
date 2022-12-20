@@ -9,6 +9,7 @@ use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
 use Yii;
+use yii\log\Logger;
 
 class LoadForm extends \yii\base\Model
 {
@@ -220,46 +221,32 @@ class LoadController extends \yii\web\Controller
 
             $response[$newClassroom->name] = $newClassroom->id;
             try {
-                if (!is_null($newClassroom['fid'])) {
+                if ($newClassroom['fid'] != null) {
                     $enrollments = $this->getEnrollmentsTAG($newClassroom->fid);
                     foreach ($enrollments as $enrollment) {
                         $student = $this->getStudentsTAG($enrollment['student']);
         
-                         $newStudent = new student();
+                        $newStudent = new student();
                         $newStudent->id = $student['id'];
                         $newStudent->fid = $student['fid'];
                         $newStudent->name = $student['name'];
-                        $newStudent->address = null;
+                        $newStudent->address = 1;
                         $newStudent->birthday = $student['birthday'];
                         $newStudent->gender = $student['gender'];
                         $newStudent->mother = $student['mother'];
                         $newStudent->father = $student['father'];
             
-                        $newStudent->save(); 
-                $newStudent->save();
-                        $newStudent->save(); 
-                $newStudent->save();
-                        $newStudent->save(); 
-                $newStudent->save();
-                        $newStudent->save(); 
-                $newStudent->save();
-                        $newStudent->save(); 
-                $newStudent->save();
-                        $newStudent->save(); 
-
-                        echo "Student[" . $k++ . "]: " . $newStudent->name . " saved<br>";
+                        $newStudent->save();
 
                         $newEnrollment = new enrollment();
                         $newEnrollment->student = $newStudent->id;
                         $newEnrollment->classroom = $newClassroom->id;
                         $newEnrollment->save();
-
-                        echo "Enrollment[" . $l++ . "]: " . $newEnrollment->id . " saved<br>";
                     }
                 }
                
             } catch (\Exception $e) {
-                VarDumper::dump($e->getTrace());
+                Yii::debug($e->getTrace(), __METHOD__);
             }
         }
         set_time_limit(30);
