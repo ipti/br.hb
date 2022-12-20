@@ -9,17 +9,6 @@ use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
 use Yii;
-use yii\log\Logger;
-
-class LoadForm extends \yii\base\Model
-{
-    public $items = [];
-
-    public function rules()
-    {
-        return [];
-    }
-}
 
 class LoadController extends \yii\web\Controller
 {
@@ -128,8 +117,9 @@ class LoadController extends \yii\web\Controller
     }
 
     /**
-     * Get a list with terms agreeded by classroom.
+     * Get a classrooms.
      * 
+     * @param integer $clid
      * @param integer $cid
      * @return json
      */
@@ -181,8 +171,9 @@ class LoadController extends \yii\web\Controller
     }
 
     /**
-     * Get a list with consults attended by classroom.
-     *
+     * Import TAG data
+     * @param integer $clid
+     * @param integer $cid
      * @return json
      */
     public function actionTag($clid, $cid) {
