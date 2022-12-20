@@ -15,7 +15,7 @@ $("#years, #schools").change(function () {
             html += "<tr>"
                     + "<th>"+name+"</th>"
                     + "<th>"+year+"</th>"
-                    + "<th><input type='checkbox' class='form-control'></th>"
+                    + "<th><input type='checkbox' class='form-control' disabled='true'></th>"
                     + "<th> </th>"
                 + "<tr>";
         });
@@ -34,7 +34,16 @@ $("#send").click(function () {
     $.ajax({
         url: url,
     }).done(function (response) {
-        console.log("TURMAS IMPORTADAS")
-        console.log(response)
+        console.clear();
+        var imported_classes = []
+        var school = ""
+        $.each( $.parseJSON( response ), function(name, id){
+            if(id != clid){
+                imported_classes.push(name)
+            }else {
+                school = name
+            }
+            console.log(name)
+        });
     })
 });

@@ -218,7 +218,7 @@ class LoadController extends \yii\web\Controller
             $newClassroom->year = $classroom['year'];
             $newClassroom->save();
 
-            $response[$newClassroom->name] = $newClassroom->school;
+            $response[$newClassroom->name] = $newClassroom->id;
             try {
                 if (!is_null($newClassroom['fid'])) {
                     $enrollments = $this->getEnrollmentsTAG($newClassroom->fid);
