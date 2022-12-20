@@ -55,8 +55,8 @@ $this->assetBundles['Load']->js = [
         . "</thead>"
         . "<tbody></tbody>"
         . "</table>";
+        echo "<button id='send' type='button' class='btn btn-primary' style='display:none'>Importar</button>"
         ?>
     </div>
-    <?= Html::submitButton(Yii::t('app', 'Import'), ['id' => 'send', "style" => "display:none",'class' => 'btn btn-primary']) ?>
 </div>
 <?php ActiveForm::end() ?>

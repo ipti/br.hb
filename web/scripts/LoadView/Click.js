@@ -1,10 +1,10 @@
+const {origin,pathname} = window.location;
 $("#years, #schools").change(function () {
     var clid = $("#schools").val();
     var cid = $("#years").val();
     console.log(clid)
     console.log(cid)
     var url = "";
-    var {origin,pathname} = window.location;
     url = `${origin}${pathname}?r=load%2Fget-classrooms&clid=${clid}&cid=${cid}`;
     $.ajax({
         url: url,
@@ -33,7 +33,8 @@ $("#send").click(function () {
     url = `${origin}${pathname}?r=load%2Ftag&clid=${clid}&cid=${cid}`;
     $.ajax({
         url: url,
-    }).done(function () {
-        alert("Importado")
-    });
+    }).done(function (response) {
+        console.log("TURMAS IMPORTADAS")
+        console.log(response)
+    })
 });

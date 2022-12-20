@@ -179,11 +179,18 @@ class LoadController extends \yii\web\Controller
         return $this->render('_form', ['schools' => $schools, 'years' => $years]);
     }
 
+    /**
+     * Get a list with consults attended by classroom.
+     *
+     * @return json
+     */
     public function actionTag($clid, $cid) {
         set_time_limit(0);
         
         $schools = $this->getSchoolTAG($clid);
         $classrooms = $this->getClassroomsTAG($clid, $cid);
+
+        $response = [];
 
         $i = $j = $k = $l = 0;
         foreach ($schools as $school){
@@ -198,7 +205,7 @@ class LoadController extends \yii\web\Controller
             $newSchool->address = 1;
             $newSchool->save();
 
-            echo "School[" . $i++ . "]: " . $newSchool->name . " saved<br>";
+            $response[$newSchool->name] = $newSchool->fid;
         }
 
         foreach ($classrooms as $classroom) {
@@ -211,7 +218,7 @@ class LoadController extends \yii\web\Controller
             $newClassroom->year = $classroom['year'];
             $newClassroom->save();
 
-            echo "Classroom[" . $j++ . "]: " . $newClassroom->name . " saved<br>";
+            $response[$newClassroom->name] = $newClassroom->school;
             try {
                 if (!is_null($newClassroom['fid'])) {
                     $enrollments = $this->getEnrollmentsTAG($newClassroom->fid);
@@ -256,5 +263,8 @@ class LoadController extends \yii\web\Controller
             }
         }
         set_time_limit(30);
+
+        echo \yii\helpers\Json::encode($response);
+        exit;
     }
 }
