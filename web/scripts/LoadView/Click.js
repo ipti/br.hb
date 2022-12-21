@@ -1,6 +1,8 @@
 const {origin,pathname} = window.location;
 $("#years, #schools").change(function () {
+    $("#error_message").css("display", "none");
     $("#sucess_message").css("display", "none");
+    $("#sucess_details").empty();
     var clid = $("#schools").val();
     var cid = $("#years").val();
     console.log(clid)
@@ -36,17 +38,13 @@ $("#send").click(function () {
         url: url,
     }).done(function (response) {
         console.clear();
-        var imported_classes = []
-        var school = ""
         $.each( $.parseJSON( response ), function(name, id){
-            if(id != clid){
-                imported_classes.push(name)
-            }else {
-                school = name
-            }
-            console.log(name)
+            if(id == clid) $("#sucess_details").append("<h5>TURMAS IMPORTADAS DE: "+name+"</h5>")
+            else $("#sucess_details").append("<h6>"+name+"</h6>")
         });
         $("#sucess_message").css("display", "block");
         $("#classrooms tbody").empty();
+    }).fail(function () {
+        $("#error_message").css("display", "block");
     })
 });

@@ -30,9 +30,20 @@ $this->assetBundles['Load']->js = [
             'options' => [
                 'id' => 'sucess_message',
                 'class' => 'alert alert-success',
-                'style' => 'display:none',
+                'style' => 'display:block; cursor:pointer;',
             ],
-            'body' => 'Turmas importadas com sucesso.',
+            'body' => 
+            '<details>
+                <summary>Turmas importadas com sucesso. Clique para mais detalhes</summary>
+                <div id="sucess_details"></div>
+            </details>',
+        ]);
+        echo Alert::widget([
+            'options' => [
+                'id' => 'error_message',
+                'class' => 'alert alert-danger',
+                'style' => 'display:none;',
+            ],
         ]);
         echo Select2::widget([
             'name' => 'school',
