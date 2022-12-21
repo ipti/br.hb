@@ -30,7 +30,7 @@ $this->assetBundles['Load']->js = [
             'options' => [
                 'id' => 'sucess_message',
                 'class' => 'alert alert-success',
-                'style' => 'display:block; cursor:pointer;',
+                'style' => 'display:none; cursor:pointer;',
             ],
             'body' => 
             '<details>
