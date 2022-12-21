@@ -154,7 +154,7 @@ class LoadController extends \yii\web\Controller
      * @return array
      */
     public function getArrayYearsTAG() {
-        $query = "select school_year from classroom";
+        $query = "select school_year from classroom order by school_year desc";
         $result = Yii::$app->tag->createCommand($query);
         $years = $result->queryAll();
         $result = [];
