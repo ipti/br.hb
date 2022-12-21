@@ -211,33 +211,28 @@ class LoadController extends \yii\web\Controller
             $newClassroom->save();
 
             $response[$newClassroom->name] = $newClassroom->id;
-            try {
-                if ($newClassroom['fid'] != null) {
-                    $enrollments = $this->getEnrollmentsTAG($newClassroom->fid);
-                    foreach ($enrollments as $enrollment) {
-                        $student = $this->getStudentsTAG($enrollment['student']);
+            if ($newClassroom['fid'] != null) {
+                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid);
+                foreach ($enrollments as $enrollment) {
+                    $student = $this->getStudentsTAG($enrollment['student']);
         
-                        $newStudent = new student();
-                        $newStudent->id = $student['id'];
-                        $newStudent->fid = $student['fid'];
-                        $newStudent->name = $student['name'];
-                        $newStudent->address = 1;
-                        $newStudent->birthday = $student['birthday'];
-                        $newStudent->gender = $student['gender'];
-                        $newStudent->mother = $student['mother'];
-                        $newStudent->father = $student['father'];
+                    $newStudent = new student();
+                    $newStudent->id = $student['id'];
+                    $newStudent->fid = $student['fid'];
+                    $newStudent->name = $student['name'];
+                    $newStudent->address = 1;
+                    $newStudent->birthday = $student['birthday'];
+                    $newStudent->gender = $student['gender'];
+                    $newStudent->mother = $student['mother'];
+                    $newStudent->father = $student['father'];
             
-                        $newStudent->save();
+                    $newStudent->save();
 
-                        $newEnrollment = new enrollment();
-                        $newEnrollment->student = $newStudent->id;
-                        $newEnrollment->classroom = $newClassroom->id;
-                        $newEnrollment->save();
-                    }
+                    $newEnrollment = new enrollment();
+                    $newEnrollment->student = $newStudent->id;
+                    $newEnrollment->classroom = $newClassroom->id;
+                    $newEnrollment->save();
                 }
-               
-            } catch (\Exception $e) {
-                Yii::debug($e->getTrace(), __METHOD__);
             }
         }
         set_time_limit(30);
