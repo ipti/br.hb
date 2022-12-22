@@ -8,10 +8,36 @@ use app\models\school;
 use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
 use Yii;
 
-class LoadController extends \yii\web\Controller
+class LoadController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Get Schools by school from TAG
      * 
@@ -165,6 +191,9 @@ class LoadController extends \yii\web\Controller
     }
 
     public function actionIndex() {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
         $schools = $this->getArraySchoolsTAG();
         $years = $this->getArrayYearsTAG();
         return $this->render('_form', ['schools' => $schools, 'years' => $years]);
