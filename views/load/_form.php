@@ -44,6 +44,7 @@ $this->assetBundles['Load']->js = [
                 'class' => 'alert alert-danger',
                 'style' => 'display:none;',
             ],
+            'body' => 'Ocorreu um erro. Tente novamente'
         ]);
         echo Select2::widget([
             'name' => 'school',

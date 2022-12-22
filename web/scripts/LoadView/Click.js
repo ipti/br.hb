@@ -5,8 +5,6 @@ $("#years, #schools").change(function () {
     $("#sucess_details").empty();
     var clid = $("#schools").val();
     var cid = $("#years").val();
-    console.log(clid)
-    console.log(cid)
     var url = "";
     url = `${origin}${pathname}?r=load%2Fget-classrooms&clid=${clid}&cid=${cid}`;
     $.ajax({
@@ -37,7 +35,6 @@ $("#send").click(function () {
     $.ajax({
         url: url,
     }).done(function (response) {
-        console.clear();
         $.each( $.parseJSON( response ), function(name, id){
             if(id == clid) $("#sucess_details").append("<h5>TURMAS IMPORTADAS DE: "+name+"</h5>")
             else $("#sucess_details").append("<h6>"+name+"</h6>")
