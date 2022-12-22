@@ -71,7 +71,7 @@ $this->assetBundles['Load']->js = [
         . "<tr>"
         . "<th>" . yii::t("app", "Classroom") . "</th>"
         . "<th>" . yii::t("app", "Ano") . "</th>"
-        . "<th>" . yii::t("app", "Importar") . "</th>"
+        // . "<th>" . yii::t("app", "Importar") . "</th>"
         . "<tr>"
         . "</thead>"
         . "<tbody></tbody>"

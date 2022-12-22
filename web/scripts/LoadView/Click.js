@@ -16,8 +16,7 @@ $("#years, #schools").change(function () {
             html += "<tr>"
                     + "<th>"+name+"</th>"
                     + "<th>"+year+"</th>"
-                    + "<th><input type='checkbox' class='form-control' disabled='true'></th>"
-                    + "<th> </th>"
+                    // + "<th><input type='checkbox' class='form-control' disabled='true'></th>"
                 + "<tr>";
         });
         $("#classrooms tbody").append(html);
