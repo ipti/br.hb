@@ -1,5 +1,7 @@
 /runtime/*
 /nbproject/*
 /web/assets/*
+/docker
+/vendor
 .idea/
 **/vendor

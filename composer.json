@@ -25,6 +25,7 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-builder": "@dev",
         "kartik-v/yii2-money": "dev-master"
+        
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
