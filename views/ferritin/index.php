@@ -18,7 +18,7 @@ $this->params['button'] = Html::a(Yii::t('app', 'Criar Ferritina', [
 
 $columns = [
     [
-    'class' => DataColumn::className(),
+    'class' => DataColumn::class,
     'attribute' => 'agreed_term',
     'options' => ['style' => 'width:70%'],
     'content' => function ($model) {
@@ -26,7 +26,7 @@ $columns = [
     }
 ],
 [
-    'class' => DataColumn::className(),
+    'class' => DataColumn::class,
     'label' => yii::t('app', 'Rate'),
     'options' => ['style' => 'width:5%'],
     'content' => function ($model) {
@@ -34,7 +34,7 @@ $columns = [
     }
 ],
 [
-    'class' => DataColumn::className(),
+    'class' => DataColumn::class,
     'label' => yii::t('app', 'Actions'),
     'options' => ['style' => 'width:10%'],
     'content' => function($model, $key, $index, $column) {

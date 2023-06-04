@@ -24,7 +24,7 @@ class enrollmentSearch extends enrollment
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return Yii\base\Model::scenarios();
     }
 
     public function search($params){
@@ -37,7 +37,7 @@ class enrollmentSearch extends enrollment
     
         $query->select("enrollment.*");
         
-        if($actualController == \app\controllers\ConsultationController::className()){
+        if($actualController == \app\controllers\ConsultationController::class){
             $query->innerJoin('term as t', 't.enrollment = enrollment.id and t.agreed = true');
             $query->innerJoin('consultation as co', 'co.term = t.id');
             $query->where("campaign = :cid", ["cid" => $cid]);

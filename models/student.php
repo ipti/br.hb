@@ -68,64 +68,64 @@ class student extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getAnatomies() {
-        return $this->hasMany(anatomy::className(), ['student' => 'id']);
+        return $this->hasMany(anatomy::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getConsultations() {
-        return $this->hasMany(Consultation::className(), ['student' => 'id']);
+        return $this->hasMany(Consultation::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getEnrollments() {
-        return $this->hasMany(Enrollment::className(), ['student' => 'id']);
+        return $this->hasMany(Enrollment::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getClassrooms() {
-        return $this->hasMany(Classroom::className(), ['id' => 'classroom'])->viaTable('enrollment', ['student' => 'id']);
+        return $this->hasMany(Classroom::class, ['id' => 'classroom'])->viaTable('enrollment', ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getKinships() {
-        return $this->hasMany(Kinship::className(), ['student' => 'id']);
+        return $this->hasMany(Kinship::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getResponsibles() {
-        return $this->hasMany(PersonExternal::className(), ['id' => 'responsible'])->viaTable('kinship', ['student' => 'id']);
+        return $this->hasMany(PersonExternal::class, ['id' => 'responsible'])->viaTable('kinship', ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getAddress0() {
-        return $this->hasOne(address::className(), ['id' => 'address']);
+        return $this->hasOne(address::class, ['id' => 'address']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getTerms() {
-        return $this->hasMany(term::className(), ['student' => 'id']);
+        return $this->hasMany(term::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCampaings() {
-        return $this->hasMany(campaign::className(), ['id' => 'campaing'])
-                        ->viaTable(term::className(), ['student' => 'id']);
+        return $this->hasMany(campaign::class, ['id' => 'campaing'])
+                        ->viaTable(term::class, ['student' => 'id']);
     }
 
 }

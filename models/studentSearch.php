@@ -29,7 +29,7 @@ class studentSearch extends student
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return Yii\base\Model::scenarios();
     }
 
     /**

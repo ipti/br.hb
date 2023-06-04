@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\term */
-/* @var $campaign integer */
+/** @var yii\web\View $this yii\web\View */
+/** @var app\models\term $model app\models\term */
+/** @var integer $campaign integer */
 
 $this->title = Yii::t('app', 'Update Term') . ': ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Terms'), 'url' => ['index']];

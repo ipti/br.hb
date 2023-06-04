@@ -9,10 +9,10 @@ use kartik\select2\Select2;
 use app\models\campaign;
 use app\models\term;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Ferritin */
-/* @var $form yii\widgets\ActiveForm */
-/* @var $campaign app\models\campaign */
+/** @var yii\web\View $this yii\web\View */
+/** @var app\models\Ferritin $model app\models\Ferritin */
+/** @var yii\widgets\ActiveForm $form yii\widgets\ActiveForm */
+/** @var app\models\campaign $campaign  */
 
 $this->assetBundles['Ferritin'] = new app\assets\AppAsset();
 $this->assetBundles['Ferritin']->js = [
@@ -27,7 +27,7 @@ $this->assetBundles['Ferritin']->js = [
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
 
     if ($model->isNewRecord) {
-        $classrooms = $campaign->getClassroomsWithAgreedTerms();
+        // $classrooms = $campaign->getClassroomsWithAgreedTerms();
         echo Html::label(yii::t('app', 'Classrooms with Agreed Terms...'));
         echo Select2::widget([
             'name' => 'classroom',
@@ -60,7 +60,7 @@ $this->assetBundles['Ferritin']->js = [
             'attributes' => [
                 'agreed_term' => [
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => Select2::className(),
+                    'widgetClass' => Select2::class,
                     'options' => [
                         'data' => (ArrayHelper::map($campaign->getTerms()->where('agreed = true')->all(), 'id', 'students.name')),
                             // : (ArrayHelper::map($campaign->getConsults()->where('attended = true')->all(), 'terms.id', 'terms.students.name')),

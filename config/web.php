@@ -77,13 +77,16 @@ $config = [
         'tag' => require(__DIR__ . '/tag.php'),
     ],
     'params' => $params,
+    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
 ];
 
 if (true) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = 'yii\debug\Module';
-
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module'
+    ];
+    $config['modules']['debug']['allowedIPs'] = ['*'];
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii']['class'] = 'yii\gii\Module';
     $config['modules']['gii']['generators'] = [

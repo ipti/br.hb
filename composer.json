@@ -25,7 +25,6 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-builder": "@dev",
         "kartik-v/yii2-money": "dev-master"
-        
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -34,6 +33,9 @@
         "yiisoft/yii2-faker": "*"
     },
     "config": {
+        "platform": {
+            "php": "7.2.34"
+         },
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false,

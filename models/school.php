@@ -66,7 +66,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getClassrooms()
     {
-        return $this->hasMany(classroom::className(), ['school' => 'id'])->orderBy('name asc');
+        return $this->hasMany(classroom::class, ['school' => 'id'])->orderBy('name asc');
     }
     
     /**
@@ -74,7 +74,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getEnrollments()
     {
-        return $this->hasMany(enrollment::className(), ['classroom' => 'id'])
+        return $this->hasMany(enrollment::class, ['classroom' => 'id'])
             ->via("classrooms");
     } 
     
@@ -83,7 +83,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getTerms()
     {
-        return $this->hasMany(term::className(), ['enrollment' => 'id'])
+        return $this->hasMany(term::class, ['enrollment' => 'id'])
             ->via("enrollments");
     } 
     /**
@@ -91,7 +91,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getAddresses()
     {
-        return $this->hasOne(address::className(), ['id' => 'address']);
+        return $this->hasOne(address::class, ['id' => 'address']);
     }
 
     /**
@@ -99,7 +99,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getPrincipals()
     {
-        return $this->hasOne(personExternal::className(), ['id' => 'principal']);
+        return $this->hasOne(personExternal::class, ['id' => 'principal']);
     }
 
     /**
@@ -107,7 +107,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getSchoolHasEvents()
     {
-        return $this->hasMany(schoolHasEvent::className(), ['school' => 'id']);
+        return $this->hasMany(schoolHasEvent::class, ['school' => 'id']);
     }
 
     /**
@@ -115,7 +115,7 @@ class school extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(event::className(), ['id' => 'event'])
+        return $this->hasMany(event::class, ['id' => 'event'])
                 ->viaTable('school_has_event', ['school' => 'id']);
     }
 }

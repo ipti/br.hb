@@ -67,7 +67,7 @@ $this->assetBundles['Hemoglobin']->js = [
             'attributes' => [
                 'agreed_term' => [
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => Select2::className(),
+                    'widgetClass' => Select2::class,
                     'options' => [
                         'data' => $model->sample == 1 
                             ? (ArrayHelper::map($campaign->getTerms()->where('agreed = true')->all(), 'id', 'students.name')) 

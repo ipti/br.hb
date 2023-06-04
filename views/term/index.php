@@ -58,21 +58,21 @@ $this->params['campaign'] = $campaign;
                     return ['term-key'=>$model->getTerms()->where("campaign = :cid", ["cid"=>$c])->orderBy("id desc")->one()->id];
                 },
         'columns' => [
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'student',
                 'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getStudents()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
                 }
             ],
-            ['class' => \kartik\grid\BooleanColumn::className(),
+            ['class' => \kartik\grid\BooleanColumn::class,
                 'contentOptions' => ['class' => 'agreedClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Agreed'),
                 'value' => function ($model, $key, $index, $column){

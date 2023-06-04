@@ -50,14 +50,14 @@ $this->params['campaign'] = $campaign;
                     return ['consultation-key'=>$model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->id];
                 },
         'columns' => [
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'student',
                 'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getStudents()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'classroom',
                 'options' => ['style' => 'width:20%'],
                 'header'=> Yii::t('app', 'Classroom'),
@@ -66,7 +66,7 @@ $this->params['campaign'] = $campaign;
                 }
             ],
                     
-            ['class' => \kartik\grid\BooleanColumn::className(),
+            ['class' => \kartik\grid\BooleanColumn::class,
                 'contentOptions' => ['class' => 'attendedClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Attended'),
                 'value' => function ($model, $key, $index, $column){
@@ -76,7 +76,7 @@ $this->params['campaign'] = $campaign;
                 },
                 'vAlign' => 'middle',
             ],
-            ['class' => \kartik\grid\BooleanColumn::className(),
+            ['class' => \kartik\grid\BooleanColumn::class,
                 'contentOptions' => ['class' => 'deliveredClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Delivered'),
                 'value' => function ($model, $key, $index, $column){
@@ -87,7 +87,7 @@ $this->params['campaign'] = $campaign;
                 'vAlign' => 'middle',
             ],
             [
-                'class' => kartik\grid\DataColumn::className(),
+                'class' => kartik\grid\DataColumn::class,
                 'label' => yii::t('app', 'Print'),
                 'options' => ['style' => 'width:10%'],
                 'content' => function($model, $key, $index, $column) {
@@ -131,7 +131,7 @@ $this->params['campaign'] = $campaign;
             'consult-date' => [
                 'label'=>yii::t('app', 'Consult Date'), 
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => DatePicker::className(),
+                'widgetClass' => DatePicker::class,
                 'options'=>[
                     'pluginOptions' => ['format' => 'dd/mm/yyyy'],
                 ],
@@ -139,7 +139,7 @@ $this->params['campaign'] = $campaign;
             'consult-time' => [
                 'label' => yii::t('app', 'Consult Time'),
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => TimePicker::className(),
+                'widgetClass' => TimePicker::class,
                 'options'=>[
                     'pluginOptions' =>[
                         'defaultTime' => 'false'

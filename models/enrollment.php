@@ -53,7 +53,7 @@ class enrollment extends \yii\db\ActiveRecord
      */
     public function getClassrooms()
     {
-        return $this->hasOne(classroom::className(), ['id' => 'classroom']);
+        return $this->hasOne(classroom::class, ['id' => 'classroom']);
     }
 
     /**
@@ -61,21 +61,21 @@ class enrollment extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasOne(student::className(), ['id' => 'student']);
+        return $this->hasOne(student::class, ['id' => 'student']);
     }
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getTerms()
     {
-        return $this->hasMany(term::className(), ['enrollment' => 'id']);
+        return $this->hasMany(term::class, ['enrollment' => 'id']);
     }
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getHemoglobins()
     {
-        return $this->hasMany(hemoglobin::className(), ['agreed_term' => 'id'])
+        return $this->hasMany(hemoglobin::class, ['agreed_term' => 'id'])
             ->via("terms");
     }
 }

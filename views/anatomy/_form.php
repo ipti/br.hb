@@ -49,7 +49,7 @@ use kartik\select2\Select2;
         'attributes' => [
             'student' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => Select2::className(),
+                'widgetClass' => Select2::class,
                 'options' => [
                     'data' => ArrayHelper::map($campaign->getStudents()->all(), 'id', 'name'),
                     'options' => [
@@ -60,7 +60,7 @@ use kartik\select2\Select2;
             ],
             'weight' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => kartik\money\MaskMoney::className(),
+                'widgetClass' => kartik\money\MaskMoney::class,
                 'options'=>[
                     'pluginOptions' => [
                         'prefix' => '',
@@ -75,7 +75,7 @@ use kartik\select2\Select2;
             ],
             'height' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => kartik\money\MaskMoney::className(),
+                'widgetClass' => kartik\money\MaskMoney::class,
                 'options'=>[
                     'pluginOptions' => [
                         'prefix' => '',
@@ -90,7 +90,7 @@ use kartik\select2\Select2;
             ],
             'date' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => \kartik\date\DatePicker::className(),
+                'widgetClass' => \kartik\date\DatePicker::class,
                 'options'=>[
                     'pluginOptions' => ['format' => 'yyyy-mm-dd'],
                 ],

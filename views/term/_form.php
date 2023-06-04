@@ -9,10 +9,10 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\select2\Select2;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\term */
-/* @var $form yii\widgets\ActiveForm */
-/* @var $campaign integer */
+/** @var $this yii\web\View */
+/** @var app\models\term $model app\models\term */
+/** @var $form yii\widgets\ActiveForm */
+/** @var $campaign integer */
 ?>
 
 <div class="term-form">
@@ -49,7 +49,7 @@ use kartik\select2\Select2;
         'attributes' => [
             'enrollment' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => Select2::className(),
+                'widgetClass' => Select2::class,
                 'options' => [
                     'data' => ArrayHelper::map($campaign->getEnrollmentsWithoutTerms(), 'id', 'students.name'),
                     'options' => [

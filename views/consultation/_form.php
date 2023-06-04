@@ -27,7 +27,7 @@ use kartik\select2\Select2;
             ],
             'term' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => Select2::className(),
+                'widgetClass' => Select2::class,
                 'options' => [
                     'data' => ["aaaaa"],//ArrayHelper::map($campaign->getHemoglobinsWithoutConsult()->all(), 'agreed_term', 'agreedTerm.students.name'),
                     'options' => [

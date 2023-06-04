@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\VarDumper; 
 
 /**
  * This is the model class for table "campaign".
@@ -14,17 +13,7 @@ use yii\helpers\VarDumper;
  * @property string $begin
  * @property string $end
  *
- * @property PersonUser $coordinator0
- * @property CampaignHasDriver[] $campaignHasDrivers
- * @property PersonDriver[] $drivers
- * @property CampaignHasSchool[] $campaignHasSchools
  * @property School[] $schools
- * @property CampaignHasVehicle[] $campaignHasVehicles
- * @property Vehicle[] $vehicles
- * @property Event[] $events
- * @property Route[] $routes
- * @property Stock[] $stocks
- * @property Team[] $teams
  * @property Term[] $terms
  */
 class campaign extends \yii\db\ActiveRecord {
@@ -45,10 +34,7 @@ class campaign extends \yii\db\ActiveRecord {
             [['name', 'begin', 'end'], 'required'],
             [['begin', 'end'], 'safe'],
             [['begin', 'end'], 'string'],
-            //['begin', 'date', 'format' => 'php:Y-m-d', 'timestampAttribute' => 'begin'],
-            //['begin', 'compare', 'type' => 'string', 'compareValue' => date("Y-m-d"), 'operator' => '>',
-            //    'message'=>'{value} must be greater than {compareValue}.'],
-            [['name'], 'string', 'max' => 20]
+            [['name'], 'string', 'max' => 20],
         ];
     }
     
@@ -69,70 +55,70 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getCoordinator0() {
-        return $this->hasOne(personUser::className(), ['id' => 'coordinator']);
+        return $this->hasOne(personUser::class, ['id' => 'coordinator']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCampaignHasDrivers() {
-        return $this->hasMany(campaignHasDriver::className(), ['campaign' => 'id']);
+        return $this->hasMany(campaignHasDriver::class, ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getDrivers() {
-        return $this->hasMany(personDriver::className(), ['id' => 'driver'])->viaTable('campaign_has_driver', ['campaign' => 'id']);
+        return $this->hasMany(personDriver::class, ['id' => 'driver'])->viaTable('campaign_has_driver', ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCampaignHasVehicles() {
-        return $this->hasMany(campaignHasVehicle::className(), ['campaign' => 'id']);
+        return $this->hasMany(campaignHasVehicle::class, ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getVehicles() {
-        return $this->hasMany(vehicle::className(), ['id' => 'vehicle'])->viaTable('campaign_has_vehicle', ['campaign' => 'id']);
+        return $this->hasMany(vehicle::class, ['id' => 'vehicle'])->viaTable('campaign_has_vehicle', ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getEvents() {
-        return $this->hasMany(event::className(), ['campaign' => 'id']);
+        return $this->hasMany(event::class, ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getRoutes() {
-        return $this->hasMany(route::className(), ['campaign' => 'id']);
+        return $this->hasMany(route::class, ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getStocks() {
-        return $this->hasMany(stock::className(), ['campaign' => 'id']);
+        return $this->hasMany(stock::class, ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getTeams() {
-        return $this->hasMany(team::className(), ['campaign' => 'id']);
+        return $this->hasMany(team::class, ['campaign' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getTerms() {
-        return $this->hasMany(term::className(), ['campaign' => 'id']);
+        return $this->hasMany(term::class, ['campaign' => 'id']);
     }
     
 
@@ -140,7 +126,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getStudents() {
-        return $this->hasMany(student::className(), ['id' => 'student'])
+        return $this->hasMany(student::class, ['id' => 'student'])
                         ->via('enrollments');
     }
     
@@ -148,22 +134,21 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getEnrollments() {
-        return $this->hasMany(enrollment::className(), ['id' => 'enrollment'])
+        return $this->hasMany(enrollment::class, ['id' => 'enrollment'])
                         ->via('terms');
     }
     /**
-     * @return \yii\db\ActiveQuery
+     * @return []
      */
     public function getEnrollmentsWithoutTerms() {
 
-        $query = <<<EOT
+        $query = "
         SELECT e.id, name as `students.name`  FROM enrollment e 
             JOIN student s on e.student = s.id 
-            WHERE (not exists (select * from term as t where e.id = t.enrollment))
-        EOT;
+            WHERE (not exists (select * from term as t where e.id = t.enrollment))";
 
         $result = Yii::$app->db->createCommand($query)->queryAll();
-        // Yii::error($result);
+                
         return $result;
  
     }
@@ -172,7 +157,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getClassrooms() {
-        return $this->hasMany(classroom::className(), ['id' => 'classroom'])
+        return $this->hasMany(classroom::class, ['id' => 'classroom'])
                         ->via('enrollments');
     }
     
@@ -180,13 +165,15 @@ class campaign extends \yii\db\ActiveRecord {
      * @return array
      */
     public function getClassroomsWithAgreedTerms() {
-        /* @var $term \app\models\term*/
-        $terms = $this->getTerms()->where("agreed")->all();
+
+        $terms = $this->getTerms()->where("agreed")->all();        
         
-        $result = [];
+        $result = [];                
+        
         foreach($terms as $term){
             $result[$term->enrollments->classrooms->id] = $term->enrollments->classrooms->name;
         }
+        
         return $result;
     }    
     /**
@@ -206,7 +193,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getSchools() {
-        return $this->hasMany(school::className(), ['id' => 'school'])
+        return $this->hasMany(school::class, ['id' => 'school'])
                 ->via('classrooms');
     }
     
@@ -214,7 +201,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getStudentsAnatomies() {
-        $anatomies = $this->hasMany(anatomy::className(), ['student' => 'id'])
+        $anatomies = $this->hasMany(anatomy::class, ['student' => 'id'])
                 ->via('students')
                 ->from(['(SELECT * from anatomy order by date DESC, id DESC) as anatomy'])
                 ->select('anatomy.*')
@@ -226,7 +213,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getHemoglobins(){   
-        return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
+        return $this->hasMany(hemoglobin::class, ['agreed_term'=>'id'])
                 ->via('terms')->groupBy('agreed_term');
     }
 
@@ -234,7 +221,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery  
      */
     public function getFerritin(){   
-        return $this->hasMany(ferritin::className(), ['agreed_term'=>'id'])
+        return $this->hasMany(ferritin::class, ['agreed_term'=>'id'])
                 ->via('terms')->groupBy('agreed_term');
     }
     
@@ -242,7 +229,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getHemoglobinsWithoutConsult(){
-        return $this->hasMany(hemoglobin::className(), ['agreed_term'=>'id'])
+        return $this->hasMany(hemoglobin::class, ['agreed_term'=>'id'])
                 ->via('terms')
                 ->where("sample = 1 and not exists (select * from consultation as c where agreed_term = c.term)");
     }
@@ -251,7 +238,7 @@ class campaign extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getConsults(){
-        return $this->hasMany(consultation::className(), ['term'=>'id'])
+        return $this->hasMany(consultation::class, ['term'=>'id'])
                 ->via('terms');
     }
     

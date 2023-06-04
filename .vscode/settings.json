@@ -17,4 +17,5 @@
         "web\\libs\\**\\**",
         "web/libs/**/**"
     ],
+    "php.problems.scope": "user",
 }

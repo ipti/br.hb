@@ -63,7 +63,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getSchools()
     {
-        return $this->hasOne(school::className(), ['id' => 'school']);
+        return $this->hasOne(school::class, ['id' => 'school']);
     }
 
     /**
@@ -71,7 +71,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getClassroomHasEvents()
     {
-        return $this->hasMany(classroomHasEvent::className(), ['classroom' => 'id']);
+        return $this->hasMany(classroomHasEvent::class, ['classroom' => 'id']);
     }
 
     /**
@@ -79,7 +79,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(event::className(), ['id' => 'event'])
+        return $this->hasMany(event::class, ['id' => 'event'])
                 ->viaTable('classroom_has_event', ['classroom' => 'id']);
     }
 
@@ -88,7 +88,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getEnrollments()
     {
-        return $this->hasMany(enrollment::className(), ['classroom' => 'id']);
+        return $this->hasMany(enrollment::class, ['classroom' => 'id']);
     }
 
     /**
@@ -96,7 +96,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getTerms()
     {
-        return $this->hasMany(term::className(), ['enrollment' => 'id'])
+        return $this->hasMany(term::class, ['enrollment' => 'id'])
             ->via("enrollments");
     }
 
@@ -105,7 +105,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getConsults()
     {
-        return $this->hasMany(consultation::className(), ['term' => 'id'])
+        return $this->hasMany(consultation::class, ['term' => 'id'])
             ->via("terms");
     }
     
@@ -114,7 +114,7 @@ class classroom extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasMany(student::className(), ['id' => 'student'])
+        return $this->hasMany(student::class, ['id' => 'student'])
                 ->viaTable('enrollment', ['classroom' => 'id']);
     }
 }

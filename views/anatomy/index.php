@@ -36,21 +36,21 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'student',
                 'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getStudents()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'Weight'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -59,7 +59,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'Height'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -68,7 +68,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'IMC'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -89,7 +89,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'Date'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -98,7 +98,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\BooleanColumn::className(),
+            ['class'=> kartik\grid\BooleanColumn::class,
                 'header'=> Yii::t('app', 'Updated'),
                 'options'=>['mydate'=>$campaign->begin],
                 'contentOptions' => [

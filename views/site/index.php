@@ -4,7 +4,7 @@ use \kartik\helpers\Html;
 use \yii\helpers\Url;
 use kartik\icons\Icon;
 
-/* @var $this yii\web\View */
+/** @var yii\web\View  $this yii\web\View */
 $this->title = yii::t('app', 'Campaigns');
 
 
@@ -28,13 +28,14 @@ $this->params['siteIndex'] = true;
     <div class="body-content">
 
         <div class="row">
-        <?php
-        $campaing = new \app\models\campaign();
+        <?php        
+        $campaing = new app\models\campaign();
+
         $today = date("j-n-Y");
         $count = 0;
         $campaings = $campaing->find()->where('end > '.$today)->orderBy('end, end asc')->all();
         foreach ($campaings as $c){
-            /* @var $c \app\models\Campaign*/
+            /** @var $c \app\models\Campaign*/
             
             $campaing = [];
             $campaing['Name'] = $c->name;
