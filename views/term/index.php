@@ -49,6 +49,7 @@ $this->params['campaign'] = $campaign;
     <br>
     <br>
     <?=
+    
     GridView::widget([
         'id' => 'termsGridView',
         'dataProvider' => $dataProvider,

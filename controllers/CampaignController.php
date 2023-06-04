@@ -58,7 +58,7 @@ class CampaignController extends Controller {
     /**
      * Get the Schools.
      * 
-     * @return Json
+     * @return string
      */
     public function actionGetSchoolsList() {
         $out = [];
@@ -66,17 +66,17 @@ class CampaignController extends Controller {
             $cid = end($_POST['depdrop_parents']);
             if (!empty($cid)) {
                 $campaign = campaign::find()->where('id = :cid',['cid'=>$cid])->one();
-                /* @var $campaign \app\models\campaign */
+                /** @var \app\models\campaign  $campaign */
                 $schools = $campaign->getSchools()->asArray()->all();
 
                 foreach ($schools as $i => $school) {
                     $out[] = ['id' => $school['id'], 'name' => $school['name']];
                 }
             }
-            echo Json::encode(['output' => $out, 'selected' => '']);
-            return;
+            // echo Json::encode(['output' => $out, 'selected' => '']);
+            return Json::encode(['output' => $out, 'selected' => '']);;
         }
-        echo Json::encode(['output' => '', 'selected' => '']);
+        return  Json::encode(['output' => '', 'selected' => '']);
     }
     /**
      * Get the classrooms.

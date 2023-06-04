@@ -18,6 +18,9 @@ use Yii;
  */
 class campaign extends \yii\db\ActiveRecord {
 
+    public $countTerms = 0;
+    public $countTermsAccepted = 0;
+
     /**
      * @inheritdoc
      */
@@ -166,7 +169,7 @@ class campaign extends \yii\db\ActiveRecord {
      */
     public function getClassroomsWithAgreedTerms() {
 
-        $terms = $this->getTerms()->where("agreed")->all();        
+        $terms = $this->getTerms()->with('enrollments.classrooms')->where("agreed")->all();        
         
         $result = [];                
         
@@ -181,7 +184,7 @@ class campaign extends \yii\db\ActiveRecord {
      */
     public function getClassroomsWithAttendedConsults() {
         /* @var $consult \app\models\consult*/
-        $consults = $this->getConsults()->where("attended")->all();
+        $consults = $this->getConsults()->with('terms.enrollments.classrooms')->where("attended")->all();
         
         $result = [];
         foreach($consults as $consult){
@@ -239,7 +242,38 @@ class campaign extends \yii\db\ActiveRecord {
      */
     public function getConsults(){
         return $this->hasMany(consultation::class, ['term'=>'id'])
+                
                 ->via('terms');
+    }
+
+    public function getCampaignsResume(){
+        $result = Yii::$app->db->createCommand("
+        SELECT 
+            c.name as campaing_name,
+            c.id as campaing_id,
+            c.begin as campaing_begin,
+            c.end as campaing_end,
+            COUNT(t.id) AS terms_total,
+            SUM(IF(t.agreed = 1, 1, 0)) AS terms_agreed,
+            sum((select count(1) from hemoglobin h1 where h1.agreed_term = t.id AND h1.sample = 1)) as total_h1,
+            sum((select count(1) from hemoglobin h2 where h2.agreed_term = t.id AND h2.sample = 2)) as total_h2,
+            sum((select count(1) from hemoglobin h3 where h3.agreed_term = t.id AND h3.sample = 3)) as total_h3,
+            sum((select count(1) from consultation c2 where c2.term = t.id)) as consultation_total,
+            sum((select count(1) from consultation c2 where c2.term = t.id and c2.attended = 1)) as consultation_attended,
+            sum((SELECT count(1) from anatomy a2 WHERE a2.student = s.id GROUP by a2.student)) as anatomy_total,
+            sum((SELECT count(1) from anatomy a2 WHERE a2.student = s.id and a2.`date` >= c.`begin` GROUP by a2.student)) as anatomy_updated
+        FROM campaign c 
+            join term t on t.campaign = c.id 
+            join enrollment e on e.id = t.enrollment
+            join student s on s.id = e.student
+            left join hemoglobin h1 on h1.agreed_term = t.id AND  h1.sample = 1
+            left join hemoglobin h2 on h2.agreed_term = t.id AND  h1.sample = 2
+            left join hemoglobin h3 on h3.agreed_term = t.id AND  h1.sample = 3
+        group by c.id
+        order by c.end desc
+        ")->queryAll();
+
+        return $result;
     }
     
 }
