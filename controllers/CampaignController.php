@@ -81,7 +81,7 @@ class CampaignController extends Controller {
     /**
      * Get the classrooms.
      * 
-     * @return Json
+     * @return string
      */
     public function actionGetClassroomsList() {
         $out = [];
@@ -93,8 +93,8 @@ class CampaignController extends Controller {
             if(is_array($sids)){
                 foreach ($sids as $sid) {
                     $school = school::find()->where('id = :sid',['sid'=>$sid])->one();
-                    /* @var $school \app\models\school */
-                    $classrooms = $school->getClassrooms()->where('`year`= :year',[ 'year'=>(date("Y")-8)])->asArray()->all();
+                    /** @var \app\models\school $school  */
+                    $classrooms = $school->getClassrooms()->where('`year`= :year',[ 'year'=>(date("Y"))])->asArray()->all();
                     foreach ($classrooms as $i => $classroom) {
                         $out[] = ['id' => $classroom['id'], 'name' => $classroom['name']];
                     }

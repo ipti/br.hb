@@ -14,6 +14,7 @@ services:
       DB_USER: 'root'
       DB_PWD: 'root'
       DB_NAME: 'br.org.ipti.hb.boquim'
+      TAG_DB_NAME: 'demo.tag.ong.br'
       YII_DEBUG: 'true'
       XDEBUG_CONFIG: remote_host=172.24.112.1 # wsl network ip
       PHP_IDE_CONFIG: "serverName=xdebug-docker"

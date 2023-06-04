@@ -24,7 +24,8 @@
         "kartik-v/yii2-icons": "@dev",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-builder": "@dev",
-        "kartik-v/yii2-money": "dev-master"
+        "kartik-v/yii2-money": "dev-master",
+        "kartik-v/yii2-datecontrol": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
