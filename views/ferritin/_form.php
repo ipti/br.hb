@@ -27,7 +27,7 @@ $this->assetBundles['Ferritin']->js = [
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
 
     if ($model->isNewRecord) {
-        // $classrooms = $campaign->getClassroomsWithAgreedTerms();
+        $classrooms = $campaign->getClassroomsWithAgreedTerms();
         echo Html::label(yii::t('app', 'Classrooms with Agreed Terms...'));
         echo Select2::widget([
             'name' => 'classroom',
