@@ -295,7 +295,7 @@ class FerritinController extends Controller
         ]]);
 
 
-        $mpdf = new \Mpdf\Mpdf();
+        $mpdf = new \mPDF();
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 

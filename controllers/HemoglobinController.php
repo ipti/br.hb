@@ -9,7 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\consultation;
-use \Mpdf\Mpdf;
 
 /**
  * HemoglobinController implements the CRUD actions for hemoglobin model.
@@ -313,7 +312,7 @@ class HemoglobinController extends Controller {
         ]]);
 
 
-        $mpdf = new Mpdf();
+        $mpdf = new \mPDF();
 
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);

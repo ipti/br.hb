@@ -25,7 +25,8 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-builder": "@dev",
         "kartik-v/yii2-money": "dev-master",
-        "kartik-v/yii2-datecontrol": "*"
+        "kartik-v/yii2-datecontrol": "*",
+        "mpdf/mpdf": "^7.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
