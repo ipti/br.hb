@@ -1,5 +1,10 @@
 <?php
     use app\components\ReportHeaderWidget;
+
+    // echo '<pre>';
+    // var_dump($student['name']);
+    // echo '</pre>';
+    // exit;
 ?>
 
 
@@ -277,7 +282,7 @@
                 </div>
                 <div class="col grid-3 report-text-left">
                     <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" >
-                    <p class="left">Pai ou mão</p>
+                    <p class="left">Pai ou mãe</p>
                 </div>
                 <div class="col grid-3 report-text-left no-padding">
                     <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" >
@@ -304,7 +309,7 @@ exame clínico.  Caso apareça uma opção ou 2 <img width="20" src="<?php echo 
                 <?= ReportHeaderWidget::widget(); ?>
                 <h5 class="report-title">Receituário</h5>
                 <div id="prescription">
-                    <h2 class="report-title margin-bottom-15"><?= $student->name ?></h2>
+                    <h2 class="report-title margin-bottom-15"><?= $student['name'] ?></h2>
                     <p class="no-indent"><?= $sulfato ?></p>
                     <p class="no-indent"><?= $vermifugo ?></p>
                 </div>
