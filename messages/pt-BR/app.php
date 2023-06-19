@@ -65,8 +65,8 @@ return [
     'Update Anatomy' => 'Editar antropometria',
     'New Anatomy' => 'Nova antropometria',
     'Anatomies'=>'Antropometria',
-    'Weight'=>'Peso',
-    'Height'=>'Altura',
+    'Weight'=>'Peso (kg)',
+    'Height'=>'Altura (m)',
     
     // Terms
     'Create Term'=>'Criar termo',
