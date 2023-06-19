@@ -1,10 +1,5 @@
 <?php
     use app\components\ReportHeaderWidget;
-
-    // echo '<pre>';
-    // var_dump($student['name']);
-    // echo '</pre>';
-    // exit;
 ?>
 
 
