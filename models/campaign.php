@@ -258,6 +258,7 @@ class campaign extends \yii\db\ActiveRecord {
             sum((select count(1) from hemoglobin h1 where h1.agreed_term = t.id AND h1.sample = 1)) as total_h1,
             sum((select count(1) from hemoglobin h2 where h2.agreed_term = t.id AND h2.sample = 2)) as total_h2,
             sum((select count(1) from hemoglobin h3 where h3.agreed_term = t.id AND h3.sample = 3)) as total_h3,
+            sum((select count(1) from ferritin fer where fer.agreed_term = t.id)) as total_ferritin,
             sum((select count(1) from consultation c2 where c2.term = t.id)) as consultation_total,
             sum((select count(1) from consultation c2 where c2.term = t.id and c2.attended = 1)) as consultation_attended,
             sum((SELECT count(1) from anatomy a2 WHERE a2.student = s.id GROUP by a2.student)) as anatomy_total,
@@ -269,6 +270,7 @@ class campaign extends \yii\db\ActiveRecord {
             left join hemoglobin h1 on h1.agreed_term = t.id AND  h1.sample = 1
             left join hemoglobin h2 on h2.agreed_term = t.id AND  h1.sample = 2
             left join hemoglobin h3 on h3.agreed_term = t.id AND  h1.sample = 3
+            left join ferritin fer on fer.agreed_term = t.id
         group by c.id
         order by c.end desc
         ")->queryAll();

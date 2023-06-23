@@ -81,10 +81,19 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         OBESIDADE     = 2;
                         OBESIDADE_MORBIDA = 3;
                          */
+                        $classname = '';
+                        if($situation == -1 || $situation == 2 || $situation == 3) {
+                            $classname = 'danger';
+                        }else if ($situation == 0) {
+                            $classname = 'info';
+                        }else if ($situation == 1) {
+                            $classname = 'warning';
+                        }
                         return $anatomy->IMC() . "kg/m²<br>"
-                                . "<span class='text-".yii::t("app",'{n, select, -1{danger} 0{info} 1{warning} 2{danger} 3{danger}}',['n'=>$situation])."'>" 
-                                    . yii::t("app", '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}',['n'=>$situation])
-                                ."</span>";
+                            . "<span class='text-".$classname."'>" 
+                                . yii::t("app", strval($situation))
+                            ."</span>";
+                        
                     }
                     return null;
                 }

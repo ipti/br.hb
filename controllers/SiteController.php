@@ -90,8 +90,8 @@ class SiteController extends Controller
             $hb3['Done'] = $row['total_h3'];
             $hb3['UnDone'] = $hb3['Total'] - $hb3['Done'];
 
-            $ferritin['Total'] = 16;
-            $ferritin['Done'] = 3;
+            $ferritin['Total'] = $terms['Agreed'];
+            $ferritin['Done'] = $row['total_ferritin'];
             $ferritin['UnDone'] = $ferritin['Total'] - $ferritin['Done'];
 
             array_push($campaigns, [
