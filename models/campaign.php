@@ -265,8 +265,8 @@ class campaign extends \yii\db\ActiveRecord {
             sum((SELECT count(1) from anatomy a2 WHERE a2.student = s.id and a2.`date` >= c.`begin` GROUP by a2.student)) as anatomy_updated
         FROM campaign c 
             join term t on t.campaign = c.id 
-            join enrollment e on e.id = t.enrollment
-            join student s on s.id = e.student
+            left join enrollment e on e.id = t.enrollment
+            left join student s on s.id = e.student
             left join hemoglobin h1 on h1.agreed_term = t.id AND  h1.sample = 1
             left join hemoglobin h2 on h2.agreed_term = t.id AND  h1.sample = 2
             left join hemoglobin h3 on h3.agreed_term = t.id AND  h1.sample = 3
