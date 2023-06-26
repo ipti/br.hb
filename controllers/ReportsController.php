@@ -95,7 +95,7 @@ class ReportsController extends \yii\web\Controller {
         $sex = $student != null ? \yii::t('app', $student->gender) : "";
         $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
         $height = $anatomy != null ? $anatomy->height . "m" : "";
-        $imc = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
+        $imc = $anatomy != null ? number_format($anatomy->weight / $anatomy->height**2, 2) : "";
         $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
 
         if ($anatomy == null) {
