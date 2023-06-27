@@ -493,7 +493,8 @@ class ReportsController extends \yii\web\Controller {
         /* @var $student \app\models\student */
         $name = $student != null ? $student->name : "____________________________________________________________________";
         $gender = $student->gender;
-        echo $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
+        $consultationLetter = $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
+        Yii::$app->response->content = $consultationLetter;
     }
     
     public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place){
