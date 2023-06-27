@@ -142,7 +142,9 @@ $this->assetBundles['Reports']->js = [
 
     <div class="report-content">
         <div class="report-head">
-            
+            <div class="pull-right hidden-print">
+                <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary fixed-btn', 'onclick'=>'window.print()'])?>
+            </div>
             <?= ReportHeaderWidget::widget(); ?>
             <h4 class="report-title">Questionário de Anamnese</h4>
         </div>
@@ -450,8 +452,4 @@ exame clínico.  Caso apareça uma opção ou 2 <img width="20" src="<?php echo 
         
         
     </div> <!-- .report-content -->
-
-    <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
-    </div>
 </div>

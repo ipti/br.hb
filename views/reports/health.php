@@ -1,8 +1,11 @@
 <?php
+use yii\helpers\Html;
+use kartik\icons\Icon;
 $this->title = yii::t('app', 'Health Report');
 ?>
-
-<i class="print-health-report fa fa-print" onclick="window.print()"></i>
+<div class="pull-right hidden-print">
+    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary fixed-btn', 'onclick'=>'window.print()'])?>
+</div>
 <br/>
 
 <div class="row" id="health-header">
