@@ -35,11 +35,11 @@ $this->params['campaign'] = $campaign;
 <div class="consultation-index">
 
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Prescriptions...'),['reports/multiple-prescriptions', 'cid'=>$campaign],
-         ['target'=>'_blank', 'class' => 'btn btn-primary pull-right']) ?>
+         ['target'=>'_blank', 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
     <br>
     <br>
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Letters/Anamnese...'),'#',
-         ['id'=>'selectLetterOptions', 'class' => 'btn btn-primary pull-right']) ?>
+         ['id'=>'selectLetterOptions', 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
     <br>
     <br>
     <?= GridView::widget([

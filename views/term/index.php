@@ -32,19 +32,19 @@ $this->params['campaign'] = $campaign;
 
 <div class="term-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'). ' PDF',Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
-         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-    <br>
-    <br>
+         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
+<!--    <br>-->
+<!--    <br>-->
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms-html', 'cid' => $campaign]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-    <br>
-    <br>
+<!--    <br>-->
+<!--    <br>-->
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms - Weight and Height'),Url::toRoute(['reports/weight-height', 'cid' => $campaign]),
-        ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-    <br>
-    <br>
+        ['target'=>"_blank", 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
+<!--    <br>-->
+<!--    <br>-->
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Agreed Terms...'),'#',
-         ['id'=>'selectSchoolButton', 'class' => 'btn btn-primary pull-right']) ?>
+         ['id'=>'selectSchoolButton', 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
     
     <br>
     <br>
