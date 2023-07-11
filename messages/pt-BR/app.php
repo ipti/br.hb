@@ -17,7 +17,7 @@ return [
     'Incorrect username or password.'=>'Usuário ou senha incorretos.',
     
     // Menu
-    'Import TAG data'=>'Importar dados do TAG',
+    'Students'=>'Alunos',
     'HB'=>'HB',
     'Campaign'=>'Campanha',
     'Campaigns'=>'Campanhas',
