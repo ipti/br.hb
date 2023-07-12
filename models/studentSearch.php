@@ -63,8 +63,8 @@ class studentSearch extends student
 
         $query->andFilterWhere(['like', 'fid', $this->fid])
             ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'gender', $this->gender])
-            ->andFilterWhere(['like', 'responsible', $this->responsible]);
+            ->andFilterWhere(['like', 'gender', $this->gender]);
+            // ->andFilterWhere(['like', 'responsible', $this->responsible]);
 
         return $dataProvider;
     }

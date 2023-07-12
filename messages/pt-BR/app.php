@@ -118,6 +118,7 @@ return [
     'Update Student' => 'Editar aluno',
     'New Student' => 'Novo aluno',
     'Birthday' => 'Data de nascimento',
+    'Mother' => 'Nome da Mãe',
     'Gender' => 'Sexo',
     'years old' => "anos",
     'Male' => 'Masculino',

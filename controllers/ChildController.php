@@ -52,4 +52,52 @@ class ChildController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
+    public function actionCreate()
+    {
+        $model = new Student();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->renderAjax('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->delete()) {
+            return $this->redirect(['index']);
+        }
+
+        throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao excluir o estudante.');
+    }
+
+    protected function findModel($id)
+    {
+        $model = Student::findOne($id);
+        
+        if (!$model) {
+            throw new NotFoundHttpException('O estudante não foi encontrado.');
+        }
+        
+        return $model;
+    }
 }

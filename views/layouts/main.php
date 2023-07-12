@@ -53,7 +53,7 @@ AppAsset::register($this);
             <?php
             echo "<div class='pull-right'>";
 
-            echo Html::a(Icon::show('user',[], Icon::BSG).yii::t('app', 'Students'), ['/students/index'], ['class' => 'btn btn-primary navbar-btn']);
+            echo Html::a(Icon::show('user',[], Icon::BSG).yii::t('app', 'Students'), ['/child/index'], ['class' => 'btn btn-primary navbar-btn']);
             echo Html::a(Icon::show('cloud',[], Icon::BSG).yii::t('app', 'Health Report'), ['/reports/health'], ['class' => 'btn btn-info navbar-btn']);
 
             if (isset($this->params['button'])){
