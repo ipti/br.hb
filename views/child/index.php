@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Alert;
 use app\models\student;
+use kartik\icons\Icon;
 
 $this->title = Yii::t('app', 'Students');
 
@@ -40,12 +41,13 @@ echo GridView::widget([
         ],
         [
             'class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class' => 'text-center'],
             'template' => '{edit} {delete}',
             'buttons' => [
                 'edit' => function ($url, $model) {
                     $id = $model->id;
                     $editUrl = Url::to(['child/update', 'id' => $id]);
-                    $editButton = Html::button('Editar', ['value' => $editUrl, 'class' => 'btn btn-primary btn-sm', 'id' => 'editButton-' . $id]);
+                    $editButton = Html::button(Icon::show('pencil'), ['value' => $editUrl, 'class' => 'btn btn-primary btn-sm', 'id' => 'editButton-' . $id]);
                     
                     // Modal para edição
                     Modal::begin([
@@ -70,7 +72,7 @@ echo GridView::widget([
                 'delete' => function ($url, $model) {
                     $id = $model->id;
                     $deleteUrl = Url::to(['child/delete', 'id' => $id]);
-                    $deleteButton = Html::button('Excluir', ['class' => 'btn btn-danger btn-sm', 'id' => 'deleteButton-' . $id]);
+                    $deleteButton = Html::button(Icon::show('trash'), ['class' => 'btn btn-danger btn-sm', 'id' => 'deleteButton-' . $id, 'style' => 'margin-left:5px']);
                     
                     // Diálogo para confirmação de exclusão
                     $script = "
