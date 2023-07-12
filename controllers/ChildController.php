@@ -55,9 +55,9 @@ class ChildController extends Controller
 
     public function actionCreate()
     {
-        $model = new Student();
-
+        $model = new student();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
             return $this->redirect(['index']);
         }
 
@@ -69,8 +69,9 @@ class ChildController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setFlashMessage('success', 'Aluno salvo com sucesso');
             return $this->redirect(['index']);
         }
 
@@ -84,6 +85,7 @@ class ChildController extends Controller
         $model = $this->findModel($id);
 
         if ($model->delete()) {
+            $this->setFlashMessage('success', 'Aluno excluído com sucesso');
             return $this->redirect(['index']);
         }
 
@@ -99,5 +101,10 @@ class ChildController extends Controller
         }
         
         return $model;
+    }
+
+    protected function setFlashMessage($type, $message)
+    {
+        Yii::$app->session->setFlash($type, $message);
     }
 }

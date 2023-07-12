@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
 
-$this->title = 'Editar Estudante: ' . $model->name;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Estudantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Editar';

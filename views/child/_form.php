@@ -20,19 +20,21 @@ use kartik\builder\Form;
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true]
             ],
+            'gender' => [
+                'type' => Form::INPUT_DROPDOWN_LIST,
+                'items' => ['male' => 'Masculino', 'female' => 'Feminino'],
+                'options' => ['prompt' => 'Selecione o sexo']
+            ],
             'mother' => [
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true]
             ],
             'birthday' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => '\kartik\date\DatePicker',
-                'options' => [
-                    'pluginOptions' => [
-                        'format' => 'dd/mm/yyyy',
-                        'autoclose' => true
-                    ]
-                ]
+                'widgetClass' => \kartik\date\DatePicker::class,
+                'options'=>[
+                    'pluginOptions' => ['format' => 'yyyy-mm-dd'],
+                ],
             ],
         ],
     ]); ?>

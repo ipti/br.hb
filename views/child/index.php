@@ -3,16 +3,27 @@ use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\bootstrap\Alert;
 use app\models\student;
 
 $this->title = Yii::t('app', 'Students');
 
-echo Html::a('Criar Aluno', ['child/create'], [
-    'class' => 'btn btn-success',
-    'id' => 'createButton',
-    'data-toggle' => 'modal',
-    'data-target' => '#createModal',
+echo Html::a('Adicionar', ['child/create'], [
+    'class' => 'btn btn-primary',
+    'style' => 'margin-bottom:10px',
+    'id' => 'createButton'
 ]);
+
+?>
+
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+    <?= Alert::widget([
+        'options' => ['class' => 'alert-success', 'style' => 'margin-top:20px;'],
+        'body' => Yii::$app->session->getFlash('success'),
+    ]) ?>
+<?php endif; ?>
+
+<?php
 
 // Exibir o GridView
 echo GridView::widget([
@@ -79,23 +90,3 @@ echo GridView::widget([
         ],
     ],
 ]);
-
-// Modal de criação
-Modal::begin([
-    'id' => 'createModal',
-    'size' => 'modal-lg',
-]);
-echo "<div id='createModalContent'></div>";
-Modal::end();
-
-// Script para carregar o formulário de criação no modal
-$createUrl = Url::to(['child/create']);
-$script = "
-    $('#createButton').on('click', function() {
-        $.get('$createUrl', function(data) {
-            $('#createModalContent').html(data);
-            $('#createModal').modal('show');
-        });
-    });
-";
-$this->registerJs($script);
