@@ -13,8 +13,18 @@ use Yii;
  * @property integer $address
  * @property string $birthday
  * @property string $gender
- * @property string $mother
- * @property string $father
+ * @property string $responsible_1_name
+ * @property string $responsible_1_telephone
+ * @property string $responsible_1_kinship
+ * @property string $responsible_1_email
+ * @property string $responsible_2_name
+ * @property string $responsible_2_telephone
+ * @property string $responsible_2_kinship
+ * @property string $responsible_2_email
+ * @property integer $allergy
+ * @property string $allergy_text
+ * @property integer $anemia
+ * @property string $anemia_text
  *
  * @property Anatomy[] $anatomies
  * @property Consultation[] $consultations
@@ -40,9 +50,9 @@ class student extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['name', 'birthday', 'gender'], 'required'],
-            [['address'], 'integer'],
-            [['birthday', 'name'], 'safe'],
-            [['gender'], 'string'],
+            [['address', 'allergy', 'anemia', 'responsible_2_kinship', 'responsible_1_kinship'], 'integer'],
+            [['birthday', 'name', 'address', 'allergy', 'anemia'], 'safe'],
+            [['gender', 'responsible_1_name', 'responsible_1_telephone', 'responsible_1_email', 'responsible_2_name', 'responsible_2_telephone', 'responsible_2_email', 'allergy_text', 'anemia_text'], 'string'],
             [['fid'], 'string', 'max' => 45],
             [['name', 'mother', 'father'], 'string', 'max' => 150]
         ];
@@ -59,8 +69,18 @@ class student extends \yii\db\ActiveRecord {
             'address' => Yii::t('app', 'Address'),
             'birthday' => Yii::t('app', 'Birthday'),
             'gender' => Yii::t('app', 'Gender'),
-            'mother' => Yii::t('app', 'Mother'),
-            'father' => Yii::t('app', 'Father'),
+            'responsible_1_name' => Yii::t('app', 'Responsible Name 1'),
+            'responsible_1_telephone' => Yii::t('app', 'Responsible Telephone 1'),
+            'responsible_1_kinship' => Yii::t('app', 'Responsible Kinship 1'),
+            'responsible_1_email' => Yii::t('app', 'Responsible Email 1'),
+            'responsible_2_name' => Yii::t('app', 'Responsible Name 2'),
+            'responsible_2_telephone' => Yii::t('app', 'Responsible Telephone 2'),
+            'responsible_2_kinship' => Yii::t('app', 'Responsible Kinship 2'),
+            'responsible_2_email' => Yii::t('app', 'Responsible Email 2'),
+            'allergy' => Yii::t('app', 'Allergy'),
+            'allergy_text' => Yii::t('app', 'Allergy Text'),
+            'anemia' => Yii::t('app', 'Anemia'),
+            'anemia_text' => Yii::t('app', 'Anemia Text'),
         ];
     }
 
