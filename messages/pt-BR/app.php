@@ -125,6 +125,10 @@ return [
     'Female' => 'Feminino',        
     'male' => 'Masculino',
     'female' => 'Feminino',
+    'Responsible Name' => 'Nome',
+    'Responsible Telephone' => 'Telefone',
+    'Responsible Kinship' => 'Grau de Parentesco',
+    'Responsible Email' => 'E-mail',
     
     // Reports
     'Reports' => 'Relatórios',
