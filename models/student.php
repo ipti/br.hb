@@ -50,9 +50,9 @@ class student extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['name', 'birthday', 'gender'], 'required'],
-            [['address, allergy, anemia'], 'integer'],
-            [['birthday', 'name'], 'safe'],
-            [['gender, responsible_1_name, responsible_1_telephone, responsible_1_kinship, responsible_1_email, responsible_2_name, responsible_2_telephone, responsible_2_kinship, responsible_2_email, allergy_text, anemia_text'], 'string'],
+            [['address', 'allergy', 'anemia', 'responsible_2_kinship', 'responsible_1_kinship'], 'integer'],
+            [['birthday', 'name', 'address', 'allergy', 'anemia'], 'safe'],
+            [['gender', 'responsible_1_name', 'responsible_1_telephone', 'responsible_1_email', 'responsible_2_name', 'responsible_2_telephone', 'responsible_2_email', 'allergy_text', 'anemia_text'], 'string'],
             [['fid'], 'string', 'max' => 45],
             [['name', 'mother', 'father'], 'string', 'max' => 150]
         ];

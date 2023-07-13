@@ -8,6 +8,7 @@ use app\models\studentSearch;
 use app\models\enrollment;
 use app\models\enrollmentSearch;
 use app\models\classroom;
+use app\models\school;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -34,6 +35,8 @@ class ChildController extends Controller
     {
         $searchModel = new studentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $classrooms = classroom::find()->all();
+        $schools = school::find()->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -56,9 +59,15 @@ class ChildController extends Controller
     public function actionCreate()
     {
         $model = new student();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            // convertendo o formato da data para o banco
+            $dateFormat = date_create($model->birthday);
+            $model->birthday = date_format($dateFormat, 'Y-m-d');
+            $model = $this->loadStudentUtil($model, Yii::$app->request->post());
+            if($model->save()) {
+                $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -70,9 +79,15 @@ class ChildController extends Controller
     {
         $model = $this->findModel($id);
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->setFlashMessage('success', 'Aluno salvo com sucesso');
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            // convertendo o formato da data para o banco
+            $dateFormat = date_create($model->birthday);
+            $model->birthday = date_format($dateFormat, 'Y-m-d');
+            $model = $this->loadStudentUtil($model, Yii::$app->request->post());
+            if($model->save()) {
+                $this->setFlashMessage('success', 'Aluno salvo com sucesso');
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->renderAjax('update', [
@@ -106,5 +121,22 @@ class ChildController extends Controller
     protected function setFlashMessage($type, $message)
     {
         Yii::$app->session->setFlash($type, $message);
+    }
+
+    private function loadStudentUtil($model, $post)
+    {
+        $model->responsible_1_name = $post['student']['responsible_1_name'];
+        $model->responsible_1_telephone = $post['student']['responsible_1_telephone'];
+        $model->responsible_1_kinship = intval($post['student']['responsible_1_kinship']);
+        $model->responsible_1_email = $post['student']['responsible_1_email'];
+        $model->responsible_2_name = $post['student']['responsible_2_name'];
+        $model->responsible_2_telephone = $post['student']['responsible_2_telephone'];
+        $model->responsible_2_kinship = intval($post['student']['responsible_2_kinship']);
+        $model->responsible_2_email = $post['student']['responsible_2_email'];
+        $model->allergy = intval($post['student']['allergy']);
+        $model->allergy_text = $post['student']['allergy_text'];
+        $model->anemia = intval($post['student']['anemia']);
+        $model->anemia_text = $post['student']['anemia_text'];
+        return $model;
     }
 }

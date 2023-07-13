@@ -2,7 +2,9 @@
  * Post the FORM to add a new Address.
  * 
  * @param {form} $form
+ *
  */
+
 $(document).on("click", "#student-allergy", function () {
     $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
 });

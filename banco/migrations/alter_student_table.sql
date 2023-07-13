@@ -9,7 +9,7 @@ ALTER TABLE `student`
 ADD `responsible_1_kinship` INT(11) NULL;
 
 ALTER TABLE `student`
-ADD `responsible_1_email` INT(11) NULL;
+ADD `responsible_1_email` VARCHAR(255) NULL;
 
 ALTER TABLE `student`
 ADD `responsible_2_name` VARCHAR(255) NULL;
@@ -21,7 +21,7 @@ ALTER TABLE `student`
 ADD `responsible_2_kinship` INT(11) NULL;
 
 ALTER TABLE `student`
-ADD `responsible_2_email` INT(11) NULL;
+ADD `responsible_2_email` VARCHAR(255) NULL;
 
 -- Se o estudante tem alergia
 ALTER TABLE `student`
@@ -41,10 +41,3 @@ ADD `anemia_text` VARCHAR(255) NOT NULL;
 UPDATE `student`
 SET `responsible_1_name` = `mother`,
     `responsible_2_name` = `father`;
-
--- Removendo as colunas antigas de nome da mãe e do pai
-ALTER TABLE `student`
-DROP COLUMN `mother`;
-
-ALTER TABLE `student`
-DROP COLUMN `father`;

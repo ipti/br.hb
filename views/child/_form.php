@@ -38,7 +38,7 @@ $this->assetBundles['Child']->js = [
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => \kartik\date\DatePicker::class,
                 'options'=>[
-                    'pluginOptions' => ['format' => 'yyyy-mm-dd'],
+                    'pluginOptions' => ['format' => 'dd/mm/yyyy'],
                 ],
             ],
             'allergy' => [
