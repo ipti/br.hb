@@ -10,10 +10,13 @@ use kartik\icons\Icon;
 $this->title = Yii::t('app', 'Students');
 
 echo Html::a('Adicionar', ['child/create'], [
-    'class' => 'btn btn-primary',
+    'class' => 'btn btn-primary navbar-btn',
     'style' => 'margin-bottom:10px',
     'id' => 'createButton'
 ]);
+
+echo Html::a(Icon::show('import',[], Icon::BSG).yii::t('app', 'Import TAG data'), ['/load/index'], ['class' => 'btn btn-secondary navbar-btn']);
+    
 
 ?>
 
