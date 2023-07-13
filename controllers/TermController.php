@@ -18,7 +18,7 @@ class TermController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -34,6 +34,7 @@ class TermController extends Controller
     {
         $searchModel = new \app\models\enrollmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,

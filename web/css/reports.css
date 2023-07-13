@@ -710,7 +710,7 @@ awnser{
 
 .fixed-btn{
     position: fixed;
-    bottom: 25px;
+    /*bottom: 25px;*/
     right: 25px;
 }
 

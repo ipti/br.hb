@@ -9,11 +9,13 @@ $("#classrooms").change(function () {
     var cid  = $(this).attr("campaign");
     var sample = $(this).attr("sample");
     var url = "";
+    var {origin,pathname} = window.location;
+    $("#noHemoglobinsMessage").hide();
     if (sample == 1) {
-        url = '/index.php?r=hemoglobin%2Fget-agreed-terms&clid=' + clid + '&cid='+cid+"&samp="+sample;
+        url = `${origin}${pathname}?r=hemoglobin%2Fget-agreed-terms&clid=${clid}&cid=${cid}&samp=${sample}`;
     }
     else {
-        url = '/index.php?r=hemoglobin%2Fget-attended-consults&clid=' + clid + '&cid='+cid+"&samp="+sample;
+        url = `${origin}${pathname}?r=hemoglobin%2Fget-attended-consults&clid=${clid}&cid=${cid}&samp=${sample}`;
     }
     
     $.ajax({
@@ -28,7 +30,11 @@ $("#classrooms").change(function () {
                 + "<tr>";
         });
         $("#hemoglobins tbody").append(html);
-        $("#send").show();
+        if(html.length > 0) {
+            $("#send").show();
+        }else {
+            $("#noHemoglobinsMessage").show();
+        }
     }).fail(function(){
         $("#hemoglobins tbody").empty();
         $("#send").hide();

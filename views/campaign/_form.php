@@ -47,16 +47,17 @@ use kartik\select2\Select2;
         });";
     $this->registerJs($js);
     ?>
-
+   
     <?= Html::activeHiddenInput($model, 'coordinator') ?>
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 20]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => 20]
+    ) ?>
     <?= $form->field($model, 'begin')->input("date") ?>
     <?= $form->field($model, 'end')->input("date") ?>
     <?php
         if($model->isNewRecord){
             $data = ArrayHelper::map(school::find()->all(), 'id', 'name');
             echo Html::label(yii::t('app','Schools'));
-            echo Select2::widget([
+            echo Select2::widget([ 
                 'name' => 'schools', 
                 'id'=>'campaign_schools',
                 'data' => $data,
@@ -74,6 +75,7 @@ use kartik\select2\Select2;
                     if(val.attr('value') === '')
                        val.remove();
                 });";
+                
             $this->registerJs($js);
             
             echo Html::label(yii::t('app','Classrooms'));

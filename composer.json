@@ -24,7 +24,9 @@
         "kartik-v/yii2-icons": "@dev",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-builder": "@dev",
-        "kartik-v/yii2-money": "dev-master"
+        "kartik-v/yii2-money": "dev-master",
+        "kartik-v/yii2-datecontrol": "*",
+        "mpdf/mpdf": "^7.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -33,6 +35,9 @@
         "yiisoft/yii2-faker": "*"
     },
     "config": {
+        "platform": {
+            "php": "7.2.34"
+         },
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false,
@@ -40,6 +45,9 @@
                 "npm-asset-library": "vendor/npm",
                 "bower-asset-library": "vendor/bower"
             }
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     },
     "scripts": {

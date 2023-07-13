@@ -53,7 +53,7 @@ $this->assetBundles['Reports']->js = [
                 'campaign' => [
                     'label'=>yii::t('app', 'Campaign'), 
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => Select2::className(),
+                    'widgetClass' => Select2::class,
                     'options'=>[
                         'data' => ArrayHelper::map(campaign::find()->all(), 'id', 'name'),
                         'options' => [
@@ -65,7 +65,7 @@ $this->assetBundles['Reports']->js = [
                 'campaign-school' => [
                     'label'=>yii::t('app', 'School'), 
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DepDrop::className(),
+                    'widgetClass' => DepDrop::class,
                     'options'=>[
                         'data' => [],
                         'options' => [
@@ -83,7 +83,7 @@ $this->assetBundles['Reports']->js = [
                 'campaign-classroom' => [
                     'label'=>yii::t('app', 'Classroom'), 
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DepDrop::className(),
+                    'widgetClass' => DepDrop::class,
                     'options'=>[
                         'data' => [],
                         'options' => [
@@ -102,7 +102,7 @@ $this->assetBundles['Reports']->js = [
                 'campaign-student' => [
                     'label'=>yii::t('app', 'Student'), 
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DepDrop::className(),
+                    'widgetClass' => DepDrop::class,
                     'options'=>[
                         'data' => [],
                         'options' => [
@@ -129,7 +129,7 @@ $this->assetBundles['Reports']->js = [
                 'consult-date' => [
                     'label'=>yii::t('app', 'Consult Date'), 
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => DatePicker::className(),
+                    'widgetClass' => DatePicker::class,
                     'options'=>[
                         'pluginOptions' => ['format' => 'dd/mm/yyyy'],
                     ],
@@ -137,7 +137,7 @@ $this->assetBundles['Reports']->js = [
                 'consult-time' => [
                     'label' => yii::t('app', 'Consult Time'),
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => TimePicker::className(),
+                    'widgetClass' => TimePicker::class,
                     'options'=>[
                         'pluginOptions' =>[
                             'defaultTime' => 'false'
@@ -161,6 +161,9 @@ $this->assetBundles['Reports']->js = [
     </div>
     <div class="report-content">
         <div class="report-head">
+            <div class="pull-right hidden-print">
+                <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary fixed-btn', 'onclick'=>'window.print()'])?>
+            </div>
             <?= ReportHeaderWidget::widget() ?>
             <h4 class="report-title">Carta de Aviso de Consulta</h4>
         </div>
@@ -183,8 +186,5 @@ $this->assetBundles['Reports']->js = [
             Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.<br/><br/>
         </div>
         <div id="report-footer">Muito obrigado pela atenção.</div>
-    </div>
-    <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
 </div>

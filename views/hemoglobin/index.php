@@ -20,7 +20,7 @@ $this->params['button'] =
                 ]), ['create', 'cid' => $campaign->id, 's' => $sample],
                 ['class' => 'btn btn-success navbar-btn'] );
 
-$sample1 = ['class'=> DataColumn::className(),
+$sample1 = ['class'=> DataColumn::class,
             'label' => yii::t('app', 'Rate')." 1",
             'options' => ['style' => 'width:5%'],
             'content' => function ($model){
@@ -29,7 +29,7 @@ $sample1 = ['class'=> DataColumn::className(),
             }
         ];
             
-$sample2 = $sample < 2 ? "" : ['class'=> DataColumn::className(),
+$sample2 = $sample < 2 ? "" : ['class'=> DataColumn::class,
                 'label' => yii::t('app', 'Rate')." 2",
                 'options' => ['style' => 'width:5%'],
                 'content' => function ($model){
@@ -37,7 +37,7 @@ $sample2 = $sample < 2 ? "" : ['class'=> DataColumn::className(),
                     return ($model->getHemoglobin(2) == null ) ? "-----"  : $model->getHemoglobin(2)->rate . "g/dL";
                 }
             ];
-$sample3 = ['class'=> DataColumn::className(),
+$sample3 = ['class'=> DataColumn::class,
                 'label' => yii::t('app', 'Rate')." 3",
                 'options' => ['style' => 'width:5%'],
                 'content' => function ($model){
@@ -45,7 +45,7 @@ $sample3 = ['class'=> DataColumn::className(),
                 return $model->getHemoglobin(3)->rate . "g/dL";
                 }
             ];
-$columns = [['class'=> DataColumn::className(),
+$columns = [['class'=> DataColumn::class,
                 'attribute' => 'agreed_term',
                 'options' => ['style' => 'width:70%'],
                 'content' => function ($model){
@@ -59,7 +59,7 @@ $columns = array_merge($columns, [$sample1]);
 if ($sample >= 2) { $columns = array_merge($columns, [$sample2]); }
 if ($sample >= 3) { $columns = array_merge($columns, [$sample3]); }
 $columns = array_merge($columns, [[
-        'class' => DataColumn::className(),
+        'class' => DataColumn::class,
         'label' => yii::t('app', 'Actions'),
         'options' => ['style' => 'width:10%'],
         'content' => function($model, $key, $index, $column) {
@@ -71,7 +71,7 @@ $columns = array_merge($columns, [[
 
 <div class="hemoglobin-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Anemics Lists...'),Url::toRoute(['anemics-lists', 'cid' => $campaign->id, 's' => $sample ]),
-         ['target'=>'_blank', 'id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right']) ?>
+         ['target'=>'_blank', 'id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
     <br>
     <br>
 

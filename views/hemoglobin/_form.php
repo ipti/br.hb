@@ -1,5 +1,6 @@
 <?php
 
+use kartik\widgets\Alert;
 use yii\helpers\Html;
 use \yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
@@ -27,10 +28,12 @@ $this->assetBundles['Hemoglobin']->js = [
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
 
     if ($model->isNewRecord) {
-        if($sample == 1)
+        if($sample == 1){
             $classrooms = $campaign->getClassroomsWithAgreedTerms();
-        else
+        }
+        else {
             $classrooms = $campaign->getClassroomsWithAttendedConsults();
+        }
         echo Html::label(yii::t('app','Classrooms with Agreed Terms...'));
         echo Select2::widget([
             'name' => 'classroom',
@@ -53,6 +56,14 @@ $this->assetBundles['Hemoglobin']->js = [
                 . "</thead>"
                 . "<tbody></tbody>"
                 . "</table>";
+        echo Alert::widget([
+            'options' => [
+                'id' => 'noHemoglobinsMessage',
+                'class' => 'alert alert-danger',
+                'style' => 'display:none;',
+            ],
+            'body' => 'Todos os alunos que aderiram a campanha dessa turma tiveram suas hemoglobinas coletadas'
+        ]);
         echo Html::submitButton(Yii::t('app', 'Create'), ['id'=>'send', "style"=>"display:none",  'class' =>'btn btn-success']);
    
     } else {
@@ -65,7 +76,7 @@ $this->assetBundles['Hemoglobin']->js = [
             'attributes' => [
                 'agreed_term' => [
                     'type' => Form::INPUT_WIDGET,
-                    'widgetClass' => Select2::className(),
+                    'widgetClass' => Select2::class,
                     'options' => [
                         'data' => $model->sample == 1 
                             ? (ArrayHelper::map($campaign->getTerms()->where('agreed = true')->all(), 'id', 'students.name')) 

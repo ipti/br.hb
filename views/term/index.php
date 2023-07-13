@@ -32,23 +32,24 @@ $this->params['campaign'] = $campaign;
 
 <div class="term-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'). ' PDF',Url::toRoute(['reports/build-terms', 'cid' => $campaign]),
-         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-    <br>
-    <br>
+         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
+<!--    <br>-->
+<!--    <br>-->
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms-html', 'cid' => $campaign]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-    <br>
-    <br>
+<!--    <br>-->
+<!--    <br>-->
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms - Weight and Height'),Url::toRoute(['reports/weight-height', 'cid' => $campaign]),
-        ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-    <br>
-    <br>
+        ['target'=>"_blank", 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
+<!--    <br>-->
+<!--    <br>-->
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Agreed Terms...'),'#',
-         ['id'=>'selectSchoolButton', 'class' => 'btn btn-primary pull-right']) ?>
+         ['id'=>'selectSchoolButton', 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
     
     <br>
     <br>
     <?=
+    
     GridView::widget([
         'id' => 'termsGridView',
         'dataProvider' => $dataProvider,
@@ -58,21 +59,21 @@ $this->params['campaign'] = $campaign;
                     return ['term-key'=>$model->getTerms()->where("campaign = :cid", ["cid"=>$c])->orderBy("id desc")->one()->id];
                 },
         'columns' => [
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'student',
                 'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getStudents()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
                 }
             ],
-            ['class' => \kartik\grid\BooleanColumn::className(),
+            ['class' => \kartik\grid\BooleanColumn::class,
                 'contentOptions' => ['class' => 'agreedClick cursor-pointer'],
                 'header'=> Yii::t('app', 'Agreed'),
                 'value' => function ($model, $key, $index, $column){

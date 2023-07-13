@@ -1,0 +1,68 @@
+services:
+  hb:
+    build: .
+    container_name: hb-app
+    restart: always
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+      - hb-network
+    environment:
+      DB_HOST: 'mysql-hb'
+      DB_USER: 'root'
+      DB_PWD: 'root'
+      DB_NAME: 'br.org.ipti.hb.boquim'
+      TAG_DB_NAME: 'demo.tag.ong.br'
+      YII_DEBUG: 'true'
+      XDEBUG_CONFIG: remote_host=172.24.112.1 # wsl network ip
+      PHP_IDE_CONFIG: "serverName=xdebug-docker"
+    volumes:
+      - .:/app
+      #- ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      # - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-hb
+    restart: always
+    command: mysqld --sql_mode=""
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    deploy:
+        resources:
+            limits:
+              cpus: '2'
+              memory: 1024M
+            reservations:
+              cpus: '1'
+              memory: 1GB
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./docker/db:/var/lib/mysql
+    networks:
+      - hb-network
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8088:8080
+    networks:
+      - hb-network
+
+networks:
+  hb-network:
+
+volumes:
+  db-volume:
+
+

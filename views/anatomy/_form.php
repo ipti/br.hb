@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use yii\web\JsExpression;
 
 
 use kartik\widgets\ActiveForm;
@@ -49,7 +50,7 @@ use kartik\select2\Select2;
         'attributes' => [
             'student' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => Select2::className(),
+                'widgetClass' => Select2::class,
                 'options' => [
                     'data' => ArrayHelper::map($campaign->getStudents()->all(), 'id', 'name'),
                     'options' => [
@@ -59,38 +60,56 @@ use kartik\select2\Select2;
                 ],
             ],
             'weight' => [
-                'type' => Form::INPUT_WIDGET,
-                'widgetClass' => kartik\money\MaskMoney::className(),
-                'options'=>[
-                    'pluginOptions' => [
-                        'prefix' => '',
-                        'suffix' => ' kg',
-                        'allowNegative' => false,
-                        'decimal' => ',',
-                        'thousands' => '.',
-                        'affixesStay' => true,
-                        'precision' => 2
+                'type' => Form::INPUT_TEXT,
+                'options' => [
+                    'placeholder' => 'Digite o peso em kg (Ex: 56.5)',
+                    'class' => 'form-control mask-decimal',
+                    'onkeyup' => new JsExpression('
+                        var value = this.value;
+                        value = value.replace(",", ".");
+                        this.value = value;
+                    '),
+                ],
+                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">kg</span></div>',
+                'widgetOptions' => [
+                    'clientOptions' => [
+                        'alias' => 'decimal',
+                        'groupSeparator' => '.',
+                        'autoGroup' => true,
+                        'digits' => 2,
+                        'digitsOptional' => false,
+                        'allowMinus' => false,
+                        'placeholder' => '0',
                     ],
                 ],
             ],
             'height' => [
-                'type' => Form::INPUT_WIDGET,
-                'widgetClass' => kartik\money\MaskMoney::className(),
-                'options'=>[
-                    'pluginOptions' => [
-                        'prefix' => '',
-                        'suffix' => ' m',
-                        'allowNegative' => false,
-                        'decimal' => ',',
-                        'thousands' => '.',
-                        'affixesStay' => true,
-                        'precision' => 2
+                'type' => Form::INPUT_TEXT,
+                'options' => [
+                    'placeholder' => 'Digite a altura em metros (Ex: 1.85)',
+                    'class' => 'form-control mask-decimal',
+                    'onkeyup' => new JsExpression('
+                        var value = this.value;
+                        value = value.replace(",", ".");
+                        this.value = value;
+                    '),
+                ],
+                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">m</span></div>',
+                'widgetOptions' => [
+                    'clientOptions' => [
+                        'alias' => 'decimal',
+                        'groupSeparator' => '.',
+                        'autoGroup' => true,
+                        'digits' => 2,
+                        'digitsOptional' => false,
+                        'allowMinus' => false,
+                        'placeholder' => '0',
                     ],
                 ],
             ],
             'date' => [
                 'type' => Form::INPUT_WIDGET,
-                'widgetClass' => \kartik\date\DatePicker::className(),
+                'widgetClass' => \kartik\date\DatePicker::class,
                 'options'=>[
                     'pluginOptions' => ['format' => 'yyyy-mm-dd'],
                 ],
@@ -112,3 +131,7 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+    
+</script>

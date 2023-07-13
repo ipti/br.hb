@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\helpers\VarDumper;
 
 /**
  * CampaignController implements the CRUD actions for Campaign model.
@@ -20,7 +21,7 @@ class CampaignController extends Controller {
     public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -57,7 +58,7 @@ class CampaignController extends Controller {
     /**
      * Get the Schools.
      * 
-     * @return Json
+     * @return string
      */
     public function actionGetSchoolsList() {
         $out = [];
@@ -65,22 +66,22 @@ class CampaignController extends Controller {
             $cid = end($_POST['depdrop_parents']);
             if (!empty($cid)) {
                 $campaign = campaign::find()->where('id = :cid',['cid'=>$cid])->one();
-                /* @var $campaign \app\models\campaign */
+                /** @var \app\models\campaign  $campaign */
                 $schools = $campaign->getSchools()->asArray()->all();
 
                 foreach ($schools as $i => $school) {
                     $out[] = ['id' => $school['id'], 'name' => $school['name']];
                 }
             }
-            echo Json::encode(['output' => $out, 'selected' => '']);
-            return;
+            // echo Json::encode(['output' => $out, 'selected' => '']);
+            return Json::encode(['output' => $out, 'selected' => '']);;
         }
-        echo Json::encode(['output' => '', 'selected' => '']);
+        return  Json::encode(['output' => '', 'selected' => '']);
     }
     /**
      * Get the classrooms.
      * 
-     * @return Json
+     * @return string
      */
     public function actionGetClassroomsList() {
         $out = [];
@@ -92,17 +93,17 @@ class CampaignController extends Controller {
             if(is_array($sids)){
                 foreach ($sids as $sid) {
                     $school = school::find()->where('id = :sid',['sid'=>$sid])->one();
-                    /* @var $school \app\models\school */
-                    $classrooms = $school->getClassrooms()->where('`year`= :year',[ 'year'=>date("Y")])->asArray()->all();
+                    /** @var \app\models\school $school  */
+                    $classrooms = $school->getClassrooms()->where('`year`= :year',[ 'year'=>(date("Y"))])->asArray()->all();
                     foreach ($classrooms as $i => $classroom) {
                         $out[] = ['id' => $classroom['id'], 'name' => $classroom['name']];
                     }
                 }
             }
-            echo Json::encode(['output' => $out, 'selected' => '']);
-            return;
+            return Json::encode(['output' => $out, 'selected' => '']);
+            // return;
         }
-        echo Json::encode(['output' => '', 'selected' => '']);
+        return Json::encode(['output' => '', 'selected' => '']);
     }
 
     /**
@@ -148,10 +149,10 @@ class CampaignController extends Controller {
                     $out[] = ['id' => $enrollment->id , 'name' => $enrollment->students->name];
                 }
             }
-            echo Json::encode(['output' => $out, 'selected' => '']);
-            return;
+            return Json::encode(['output' => $out, 'selected' => '']);
+           
         }
-        echo Json::encode(['output' => '', 'selected' => '']);
+        return Json::encode(['output' => '', 'selected' => '']);
     }
     
     /**
@@ -163,7 +164,7 @@ class CampaignController extends Controller {
         $model = new campaign();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
-
+            // VarDumper::dump($_POST['classrooms']);
             if (isset($_POST['classrooms'])) {
                 foreach ($_POST['classrooms'] as $cid) {
                     if (!empty($cid)) {

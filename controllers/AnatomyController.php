@@ -18,7 +18,7 @@ class AnatomyController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -60,13 +60,14 @@ class AnatomyController extends Controller
     /**
      * Creates a new anatomy model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * 
      * @return mixed
      */
     public function actionCreate($cid, $eid = null)
     {
         $model = new anatomy();
-        $campaign = \app\models\campaign::find()->where("id=:id",['id'=>$cid])->one();
-
+        $campaign = \app\models\campaign::findOne(['id'=>$cid]);
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->refresh();
             
@@ -96,7 +97,7 @@ class AnatomyController extends Controller
             
             return $this->redirect(['index', 'cid' => $cid]);
         }
-        return $this->renderAjax('create',['model'=>$model,'campaign'=>$campaign]);
+        return $this->renderAjax('create',['model'=>$model]);
     }
 
     /**

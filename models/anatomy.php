@@ -64,7 +64,7 @@ class anatomy extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasOne(student::className(), ['id' => 'student']);
+        return $this->hasOne(student::class, ['id' => 'student']);
     }
     
     public function IMC(){

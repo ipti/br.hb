@@ -1,4 +1,4 @@
-<?php
+,0,<?php
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
@@ -36,21 +36,21 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'student',
                 'header'=> Yii::t('app', 'Student'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getStudents()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'attribute'=>'classroom',
                 'header'=> Yii::t('app', 'Classroom'),
                 'content' => function ($model, $key, $index, $column){
                     return $model->getClassrooms()->one()->name;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'Weight'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -59,7 +59,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'Height'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -68,7 +68,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'IMC'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -81,15 +81,24 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         OBESIDADE     = 2;
                         OBESIDADE_MORBIDA = 3;
                          */
+                        $classname = '';
+                        if($situation == -1 || $situation == 2 || $situation == 3) {
+                            $classname = 'danger';
+                        }else if ($situation == 0) {
+                            $classname = 'info';
+                        }else if ($situation == 1) {
+                            $classname = 'warning';
+                        }
                         return $anatomy->IMC() . "kg/m²<br>"
-                                . "<span class='text-".yii::t("app",'{n, select, -1{danger} 0{info} 1{warning} 2{danger} 3{danger}}',['n'=>$situation])."'>" 
-                                    . yii::t("app", '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}',['n'=>$situation])
-                                ."</span>";
+                            . "<span class='text-".$classname."'>" 
+                                . yii::t("app", strval($situation))
+                            ."</span>";
+                        
                     }
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\DataColumn::className(),
+            ['class'=> kartik\grid\DataColumn::class,
                 'header'=> Yii::t('app', 'Date'),
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
@@ -98,7 +107,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                     return null;
                 }
             ],
-            ['class'=> kartik\grid\BooleanColumn::className(),
+            ['class'=> kartik\grid\BooleanColumn::class,
                 'header'=> Yii::t('app', 'Updated'),
                 'options'=>['mydate'=>$campaign->begin],
                 'contentOptions' => [

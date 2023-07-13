@@ -55,7 +55,7 @@ $this->assetBundles['Reports']->js = [
                     'campaign' => [
                         'label'=>yii::t('app', 'Campaign'), 
                         'type' => Form::INPUT_WIDGET,
-                        'widgetClass' => Select2::className(),
+                        'widgetClass' => Select2::class,
                         'options'=>[
                             'data' => ArrayHelper::map(campaign::find()->all(), 'id', 'name'),
                             'options' => [
@@ -67,7 +67,7 @@ $this->assetBundles['Reports']->js = [
                     'campaign-school' => [
                         'label'=>yii::t('app', 'School'), 
                         'type' => Form::INPUT_WIDGET,
-                        'widgetClass' => DepDrop::className(),
+                        'widgetClass' => DepDrop::class,
                         'options'=>[
                             'data' => [],
                             'options' => [
@@ -85,7 +85,7 @@ $this->assetBundles['Reports']->js = [
                     'campaign-classroom' => [
                         'label'=>yii::t('app', 'Classroom'), 
                         'type' => Form::INPUT_WIDGET,
-                        'widgetClass' => DepDrop::className(),
+                        'widgetClass' => DepDrop::class,
                         'options'=>[
                             'data' => [],
                             'options' => [
@@ -104,7 +104,7 @@ $this->assetBundles['Reports']->js = [
                     'campaign-enrollment' => [
                         'label'=>yii::t('app', 'Student'), 
                         'type' => Form::INPUT_WIDGET,
-                        'widgetClass' => DepDrop::className(),
+                        'widgetClass' => DepDrop::class,
                         'options'=>[
                             'data' => [],
                             'options' => [
@@ -142,7 +142,9 @@ $this->assetBundles['Reports']->js = [
 
     <div class="report-content">
         <div class="report-head">
-            
+            <div class="pull-right hidden-print">
+                <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary fixed-btn', 'onclick'=>'window.print()'])?>
+            </div>
             <?= ReportHeaderWidget::widget(); ?>
             <h4 class="report-title">Questionário de Anamnese</h4>
         </div>
@@ -450,8 +452,4 @@ exame clínico.  Caso apareça uma opção ou 2 <img width="20" src="<?php echo 
         
         
     </div> <!-- .report-content -->
-
-    <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
-    </div>
 </div>

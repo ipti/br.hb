@@ -55,7 +55,15 @@ class term extends \yii\db\ActiveRecord
      */
     public function getHemoglobins()
     {
-        return $this->hasMany(hemoglobin::className(), ['agreed_term' => 'id']);
+        return $this->hasMany(hemoglobin::class, ['agreed_term' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFerritin()
+    {
+        return $this->hasMany(ferritin::class, ['agreed_term' => 'id']);
     }
 
     /**
@@ -63,7 +71,7 @@ class term extends \yii\db\ActiveRecord
      */
     public function getCampaigns()
     {
-        return $this->hasOne(campaign::className(), ['id' => 'campaign']);
+        return $this->hasOne(campaign::class, ['id' => 'campaign']);
     }
 
     /**
@@ -71,7 +79,7 @@ class term extends \yii\db\ActiveRecord
      */
     public function getStudents()
     {
-        return $this->hasOne(student::className(), ['id' => 'student'])
+        return $this->hasOne(student::class, ['id' => 'student'])
             ->via('enrollments');
     }
     /**
@@ -79,7 +87,7 @@ class term extends \yii\db\ActiveRecord
      */
     public function getEnrollments()
     {
-        return $this->hasOne(enrollment::className(), ['id' => 'enrollment']);
+        return $this->hasOne(enrollment::class, ['id' => 'enrollment']);
     }
     
     /**
@@ -87,6 +95,6 @@ class term extends \yii\db\ActiveRecord
      */
     public function getConsults()
     {
-        return $this->hasOne(consultation::className(), ['term' => 'id']);
+        return $this->hasOne(consultation::class, ['term' => 'id']);
     }
 }

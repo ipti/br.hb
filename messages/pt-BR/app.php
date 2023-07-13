@@ -17,6 +17,7 @@ return [
     'Incorrect username or password.'=>'Usuário ou senha incorretos.',
     
     // Menu
+    'Import TAG data'=>'Importar dados do TAG',
     'HB'=>'HB',
     'Campaign'=>'Campanha',
     'Campaigns'=>'Campanhas',
@@ -25,6 +26,7 @@ return [
     'Anatomy'=>'Antropometria',
     'Hemoglobin'=>'Hemoglobina',
     'Consultation'=>'Consulta',
+    'Ferritin'=>'Ferritina',
 
     // Campaign    
     'New Campaign'=>'Nova campanha',
@@ -63,8 +65,8 @@ return [
     'Update Anatomy' => 'Editar antropometria',
     'New Anatomy' => 'Nova antropometria',
     'Anatomies'=>'Antropometria',
-    'Weight'=>'Peso',
-    'Height'=>'Altura',
+    'Weight'=>'Peso (kg)',
+    'Height'=>'Altura (m)',
     
     // Terms
     'Create Term'=>'Criar termo',
@@ -84,6 +86,16 @@ return [
     'HB1'=>'HB1',
     'HB2'=>'HB2',
     'HB3'=>'HB3',
+    'Agreed Term' => 'Termo consentido',
+    'Rate' => 'Taxa',
+    'Classrooms with Agreed Terms...' => 'Turmas com termos consentidos...',
+    'Anemics Lists...' => 'Alunos anêmicos...',
+
+    // Ferritin
+    'Create Ferritin'=>'Criar ferritina',
+    'Update Ferritin' => 'Editar ferritina',
+    'New Ferritin' => 'Nova ferritina',
+    'Ferritins'=>'Ferritinas',
     'Agreed Term' => 'Termo consentido',
     'Rate' => 'Taxa',
     'Classrooms with Agreed Terms...' => 'Turmas com termos consentidos...',
@@ -120,6 +132,7 @@ return [
     'Anamnese' => 'Anamnese',
     
     // Letter
+    'Select Year...' => 'Selecione o ano...',
     'Select Campaign...' => 'Selecione a campanha...',
     'Select School...' => 'Selecione a escola...',
     'Select Classroom...' => 'Selecione a turma...',
@@ -134,6 +147,7 @@ return [
     'Consult Location' => 'Local da consulta',
     
     // Utils
+    'Import'=>'Importar',
     'Create'=>'Criar',
     'Select'=>'Selecione',
     'edit'=>'editar',
@@ -160,6 +174,10 @@ return [
     'Create {modelClass}'=>'Criar {modelClass}',
     'Terminate day: {date}' => 'Dia de término: {date}',
     
-    '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}' => '{n, select, -1{Desnutrido} 0{Normal} 1{Sobrepeso} 2{Obesidade} 3{Obesidade Mórbida}}'
-    
+    '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}' => '{n, select, -1{Desnutrido} 0{Normal} 1{Sobrepeso} 2{Obesidade} 3{Obesidade Mórbida}}',
+    '-1' => 'Desnutrido',
+    '0' => 'Normal',
+    '1' => 'Sobrepeso',
+    '2' => 'Obesidade',
+    '3' => 'Obesidade Morbida'
 ];

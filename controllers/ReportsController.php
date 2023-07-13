@@ -13,7 +13,6 @@ use app\components\AnamnesePdfWidget;
 use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
 use app\components\TermWidget;
-use mPDF;
 
 class ReportsController extends \yii\web\Controller {
 
@@ -42,9 +41,9 @@ class ReportsController extends \yii\web\Controller {
                 ->orderBy("s.name ASC")
                 ->all();
         
-        $mpdf = new mPDF();
+        $mpdf = new \mPDF();
 
-        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
@@ -96,7 +95,7 @@ class ReportsController extends \yii\web\Controller {
         $sex = $student != null ? \yii::t('app', $student->gender) : "";
         $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
         $height = $anatomy != null ? $anatomy->height . "m" : "";
-        $imc = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
+        $imc = $anatomy != null ? number_format($anatomy->weight / $anatomy->height**2, 2) : "";
         $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
 
         if ($anatomy == null) {
@@ -169,9 +168,9 @@ class ReportsController extends \yii\web\Controller {
         $time = isset($letter['consult-time']) && !empty($letter['consult-time']) ? $letter['consult-time'] : "____:____";
         $place = isset($letter['consult-location']) && !empty($letter['consult-location']) ? $letter['consult-location'] : "____________________________________";
 
-        $mpdf = new mPDF();
+        $mpdf = new \mPDF();
 
-        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
@@ -241,7 +240,7 @@ class ReportsController extends \yii\web\Controller {
         $sex = $student != null ? \yii::t('app', $student->gender) : "";
         $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
         $height = $anatomy != null ? $anatomy->height . "m" : "";
-        $imc = $anatomy != null ? number_format($weight / ($height * $height), 2) : "";
+        $imc = $anatomy != null ? number_format($anatomy->weight / ($anatomy->height**2), 2) : "";
         $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
         $sulfato ='';
         $vermifugo ='';
@@ -255,7 +254,7 @@ class ReportsController extends \yii\web\Controller {
             $gotasPorML = 20;
             $concentracaoPorGota = $concentracaoPorML / $gotasPorML;
 
-            $posologia = ceil($weight / $concentracaoPorGota);
+            $posologia = ceil($anatomy->weight / $concentracaoPorGota);
 
 
 //            $gotasPor3 = $concentracaoPorGota/3;
@@ -351,9 +350,9 @@ class ReportsController extends \yii\web\Controller {
 
         $html = $this->renderPartial('agreedTerms', ['terms' => $tAgreed, 'school' => $school->name ]);
 
-        $mpdf = new mPDF();
+        $mpdf = new \mPDF();
 
-        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bower-asset/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
@@ -373,8 +372,8 @@ class ReportsController extends \yii\web\Controller {
     public function actionBuildTerms($cid) {
         $campaignID = $cid;
         $html = "";
-        $mpdf = new mPDF();
-        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $mpdf = new \mPDF();
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
@@ -494,7 +493,8 @@ class ReportsController extends \yii\web\Controller {
         /* @var $student \app\models\student */
         $name = $student != null ? $student->name : "____________________________________________________________________";
         $gender = $student->gender;
-        echo $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
+        $consultationLetter = $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
+        Yii::$app->response->content = $consultationLetter;
     }
     
     public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place){
@@ -576,9 +576,9 @@ class ReportsController extends \yii\web\Controller {
             'students' => $students
         ]]);
 
-        $mpdf = new mPDF();
+        $mpdf = new \mPDF();
 
-        $css1 = file_get_contents(__DIR__ . '/../vendor/bower/bootstrap/dist/css/bootstrap.css');
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');

@@ -54,7 +54,7 @@ class hemoglobin extends \yii\db\ActiveRecord
      */
     public function getAgreedTerm()
     {
-        return $this->hasOne(term::className(), ['id' => 'agreed_term']);
+        return $this->hasOne(term::class, ['id' => 'agreed_term']);
     }
     
     /** 
@@ -66,7 +66,7 @@ class hemoglobin extends \yii\db\ActiveRecord
         if($sample == $this->sample){
             return $this;
         }else{
-            return $this->hasOne(hemoglobin::className(), ['agreed_term' => 'agreed_term'])->where('sample = :s', ["s"=>$sample])->one();
+            return $this->hasOne(hemoglobin::class, ['agreed_term' => 'agreed_term'])->where('sample = :s', ["s"=>$sample])->one();
         }
         
     }   
