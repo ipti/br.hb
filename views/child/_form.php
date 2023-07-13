@@ -27,7 +27,7 @@ $this->assetBundles['Child']->js = [
             ],
             'name' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => 'Digite o nome do aluno']
             ],
             'gender' => [
                 'type' => Form::INPUT_DROPDOWN_LIST,
@@ -47,7 +47,7 @@ $this->assetBundles['Child']->js = [
             ],
             'allergy_text' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true],
+                'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) alergia(s) do aluno'],
                 'fieldConfig' => [
                     'options' => ['style' => 'display:none']
                 ],
@@ -58,7 +58,7 @@ $this->assetBundles['Child']->js = [
             ],
             'anemia_text' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true],
+                'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) anemia(s) do aluno'],
                 'fieldConfig' => [
                     'options' => ['style' => 'display:none']
                 ],
@@ -69,19 +69,20 @@ $this->assetBundles['Child']->js = [
             ],
             'responsible_1_name' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => 'Digite o nome do responsável 1']
             ],
             'responsible_1_telephone' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => '(__) _____-____']
             ],
             'responsible_1_kinship' => [
-                'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'type' => Form::INPUT_DROPDOWN_LIST,
+                'items' => ['mother' => 'Mãe', 'father' => 'Pai', 'brother' => 'Irmão/Irmã', 'other' => 'Outro'],
+                'options' => ['prompt' => 'Selecione o grau de parentesco']
             ],
             'responsible_1_email' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => 'Digite o email do responsável 1']
             ],
             'header_responsible_2' => [
                 'type' => 'raw',
@@ -89,19 +90,20 @@ $this->assetBundles['Child']->js = [
             ],
             'responsible_2_name' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => 'Digite o nome do responsável 2']
             ],
             'responsible_2_telephone' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => '(__) _____-____']
             ],
             'responsible_2_kinship' => [
-                'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'type' => Form::INPUT_DROPDOWN_LIST,
+                'items' => ['mother' => 'Mãe', 'father' => 'Pai', 'brother' => 'Irmão/Irmã', 'other' => 'Outro'],
+                'options' => ['prompt' => 'Selecione o grau de parentesco']
             ],
             'responsible_2_email' => [
                 'type' => Form::INPUT_TEXT,
-                'options' => ['maxlength' => true]
+                'options' => ['maxlength' => true, 'placeholder' => 'Digite o email do responsável 2']
             ],
         ],
     ]); ?>
