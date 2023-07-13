@@ -161,6 +161,9 @@ $this->assetBundles['Reports']->js = [
     </div>
     <div class="report-content">
         <div class="report-head">
+            <div class="pull-right hidden-print">
+                <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary fixed-btn', 'onclick'=>'window.print()'])?>
+            </div>
             <?= ReportHeaderWidget::widget() ?>
             <h4 class="report-title">Carta de Aviso de Consulta</h4>
         </div>
@@ -183,8 +186,5 @@ $this->assetBundles['Reports']->js = [
             Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.<br/><br/>
         </div>
         <div id="report-footer">Muito obrigado pela atenção.</div>
-    </div>
-    <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
     </div>
 </div>

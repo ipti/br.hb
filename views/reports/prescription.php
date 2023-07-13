@@ -17,8 +17,8 @@ use app\components\PrescriptionWidget;
 $this->title = yii::t('app', 'Prescription');
 ?>
 
-<?php  echo PrescriptionWidget::widget(['student' => $student, 'sulfato'=> $sulfato, 'vermifugo' => $vermifugo]); ?>
+<div class="pull-right hidden-print">
+    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), ['id'=>'print-button', 'class'=>'btn btn-primary fixed-btn', 'onclick'=>'window.print()'])?>
+</div>
 
-    <div class="pull-right hidden-print">
-    <?=Html::button(Icon::show('print',[], Icon::FA).Yii::t('app', 'Print'), [ 'id' =>'print-button', 'class'=>'btn btn-primary', 'onclick'=>'window.print()'])?>
-    </div>
+<?php  echo PrescriptionWidget::widget(['student' => $student, 'sulfato'=> $sulfato, 'vermifugo' => $vermifugo]); ?>
