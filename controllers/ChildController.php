@@ -61,8 +61,6 @@ class ChildController extends Controller
         $model = new student();
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
-            $dateFormat = date_create($model->birthday);
-            $model->birthday = date_format($dateFormat, 'Y-m-d');
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
             if($model->save()) {
                 $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
@@ -81,8 +79,6 @@ class ChildController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
-            $dateFormat = date_create($model->birthday);
-            $model->birthday = date_format($dateFormat, 'Y-m-d');
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
             if($model->save()) {
                 $this->setFlashMessage('success', 'Aluno salvo com sucesso');

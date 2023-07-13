@@ -38,7 +38,7 @@ $this->assetBundles['Child']->js = [
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => \kartik\date\DatePicker::class,
                 'options'=>[
-                    'pluginOptions' => ['format' => 'dd/mm/yyyy'],
+                    'pluginOptions' => ['format' => 'yyyy-mm-dd'],
                 ],
             ],
             'allergy' => [
@@ -48,9 +48,6 @@ $this->assetBundles['Child']->js = [
             'allergy_text' => [
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) alergia(s) do aluno'],
-                'fieldConfig' => [
-                    'options' => ['style' => 'display:none']
-                ],
             ],
             'anemia' => [
                 'type' => Form::INPUT_CHECKBOX,
@@ -59,9 +56,6 @@ $this->assetBundles['Child']->js = [
             'anemia_text' => [
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) anemia(s) do aluno'],
-                'fieldConfig' => [
-                    'options' => ['style' => 'display:none']
-                ],
             ],
             'header_responsible_1' => [
                 'type' => 'raw',
@@ -77,7 +71,7 @@ $this->assetBundles['Child']->js = [
             ],
             'responsible_1_kinship' => [
                 'type' => Form::INPUT_DROPDOWN_LIST,
-                'items' => ['mother' => 'Mãe', 'father' => 'Pai', 'brother' => 'Irmão/Irmã', 'other' => 'Outro'],
+                'items' => [1 => 'Mãe', 2 => 'Pai', 3 => 'Irmão/Irmã', 4 => 'Outro'],
                 'options' => ['prompt' => 'Selecione o grau de parentesco']
             ],
             'responsible_1_email' => [
@@ -98,7 +92,7 @@ $this->assetBundles['Child']->js = [
             ],
             'responsible_2_kinship' => [
                 'type' => Form::INPUT_DROPDOWN_LIST,
-                'items' => ['mother' => 'Mãe', 'father' => 'Pai', 'brother' => 'Irmão/Irmã', 'other' => 'Outro'],
+                'items' => [1 => 'Mãe', 2 => 'Pai', 3 => 'Irmão/Irmã', 4 => 'Outro'],
                 'options' => ['prompt' => 'Selecione o grau de parentesco']
             ],
             'responsible_2_email' => [
