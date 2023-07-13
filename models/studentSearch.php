@@ -19,7 +19,7 @@ class studentSearch extends student
     {
         return [
             [['id', 'address'], 'integer'],
-            [['fid', 'name', 'birthday', 'gender', 'responsible'], 'safe'],
+            [['fid', 'name', 'birthday', 'gender', 'responsible_1_name'], 'safe'],
         ];
     }
 
@@ -63,8 +63,8 @@ class studentSearch extends student
 
         $query->andFilterWhere(['like', 'fid', $this->fid])
             ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'gender', $this->gender]);
-            // ->andFilterWhere(['like', 'responsible', $this->responsible]);
+            ->andFilterWhere(['like', 'gender', $this->gender])
+            ->andFilterWhere(['like', 'responsible_1_name', $this->responsible_1_name]);
 
         return $dataProvider;
     }

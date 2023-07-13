@@ -3,6 +3,15 @@
  * 
  * @param {form} $form
  */
+$(document).on("click", "#student-allergy", function () {
+    $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
+});
+
+$(document).on("click", "#student-anemia", function () {
+    $(this).prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
+});
+
+
 function submitAddressForm($form) {
     $.post(
         $form.attr("action"),

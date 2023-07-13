@@ -32,7 +32,7 @@ echo GridView::widget([
     'filterModel' => $searchModel,
     'columns' => [
         'name',
-        'mother',
+        'responsible_1_name',
         [
             'attribute' => 'birthday',
             'value' => function ($model) {
