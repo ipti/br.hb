@@ -5,10 +5,6 @@
  *
  */
 
-$(document).ready(function () {
-    console.log('forms...')
-});
-
 $(document).on("click", "#student-allergy", function () {
     $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
 });

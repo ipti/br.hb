@@ -105,6 +105,11 @@ class ChildController extends Controller
         $model = $this->findModel($id);
         $modelAddress = $this->findAddrees($model->address);
         $modelEnrollment = $this->findEnrollment($model->id);
+
+        if(!$modelEnrollment) {
+            $modelEnrollment = new enrollment();
+        }
+
         $classrooms = classroom::find()->all();
         $schools = school::find()->all();
         if ($model->load(Yii::$app->request->post())) {
@@ -152,6 +157,16 @@ class ChildController extends Controller
         throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao excluir o estudante.');
     }
 
+    public function actionDeleteEnrollment() {
+        $enrollment_id = $_POST['enrollment'];
+        $enrollment = enrollment::findOne($enrollment_id);
+        if($enrollment->delete()) {
+            echo "Matrícula deletada com sucesso";
+        }else {
+            throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao excluir a matrícula.');
+        }
+    }
+
     public function actionGetClassrooms()
     {
         $classrooms = classroom::findAll(["school" => $_POST["school_id"]]);
@@ -166,7 +181,7 @@ class ChildController extends Controller
         $model = Student::findOne($id);
         
         if (!$model) {
-            throw new NotFoundHttpException('O estudante não foi encontrado.');
+            return new student();
         }
         
         return $model;
@@ -176,7 +191,7 @@ class ChildController extends Controller
     {
         $model = address::findOne($id);
         if (!$model) {
-            throw new NotFoundHttpException('O estudante não foi encontrado.');
+            return new address();
         }
         return $model;
     }
@@ -185,7 +200,7 @@ class ChildController extends Controller
     {
         $model = enrollment::findOne(["student" => $id]);
         if (!$model) {
-            throw new NotFoundHttpException('O estudante não foi encontrado.');
+            return new enrollment();
         }
         return $model;
     }
