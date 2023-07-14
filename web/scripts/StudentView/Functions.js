@@ -5,20 +5,19 @@
  *
  */
 
-// $(document).ready(function () {
-//     $("#student-allergy").prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
-//     $("#student-anemia").prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
-// })
+$(document).ready(function () {
+    console.log('forms...')
+});
 
-// $(document).on("click", "#student-allergy", function () {
-//     $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
-// });
+$(document).on("click", "#student-allergy", function () {
+    $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
+});
 
-// $(document).on("click", "#student-anemia", function () {
-//     $(this).prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
-// });
+$(document).on("click", "#student-anemia", function () {
+    $(this).prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
+});
 
-$(document).on("change", "#school_enrollment", function () {
+$(document).on("change", "  #school_enrollment", function () {
     $(".classroom_select_container").show();
     $("#classroom_enrollment").empty();
     let {origin,pathname} = window.location;

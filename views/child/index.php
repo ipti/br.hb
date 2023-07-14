@@ -62,6 +62,8 @@ echo GridView::widget([
                             $.get($(this).attr('value'), function(data) {
                                 $('#editModalContent-$id').html(data);
                                 $('#editModal-$id').modal('show');
+                                $('#editModalContent-$id #student-allergy').prop('checked') ? $('.field-student-allergy_text').show() : $('.field-student-allergy_text').hide();
+                                $('#editModalContent-$id #student-anemia').prop('checked') ? $('.field-student-anemia_text').show() : $('.field-student-anemia_text').hide();
                             });
                         });
                     ";

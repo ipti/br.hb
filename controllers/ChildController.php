@@ -6,6 +6,7 @@ use Yii;
 use app\models\student;
 use app\models\studentSearch;
 use app\models\enrollment;
+use app\models\address;
 use app\models\enrollmentSearch;
 use app\models\classroom;
 use app\models\school;
@@ -65,9 +66,30 @@ class ChildController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
-            if($model->save()) {
-                $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
-                return $this->redirect(['index']);
+
+            // carregando o model de endereço do aluno
+            $modelAddress = new address();
+            $modelAddress->state = Yii::$app->request->post()["state"];
+            $modelAddress->city = Yii::$app->request->post()["city"];
+            $modelAddress->neighborhood = Yii::$app->request->post()["neighborhood"];
+            $modelAddress->street = Yii::$app->request->post()["street"];
+            $modelAddress->number = Yii::$app->request->post()["number"];
+            $modelAddress->complement = Yii::$app->request->post()["complement"];
+            $modelAddress->postal_code = "49230000"; //cep de santa luzia
+
+            if($modelAddress->save()) {
+                $model->address = $modelAddress->id;
+                if($model->save()) {
+                    // verificando se o usuário selecionou alguma turma, se sim cria uma matrícula
+                    if(Yii::$app->request->post()["classroom_enrollment"] != "") {
+                        $modelEnrollment = new enrollment();
+                        $modelEnrollment->student = $model->id;
+                        $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
+                        $modelEnrollment->save();
+                    }
+                    $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
+                    return $this->redirect(['index']);
+                }
             }
         }
 
@@ -81,18 +103,40 @@ class ChildController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
+        $modelAddress = $this->findAddrees($model->address);
+        $modelEnrollment = $this->findEnrollment($model->id);
+        $classrooms = classroom::find()->all();
+        $schools = school::find()->all();
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
-            if($model->save()) {
-                $this->setFlashMessage('success', 'Aluno salvo com sucesso');
+            // carregando o model de endereço do aluno
+            $modelAddress->state = Yii::$app->request->post()["state"];
+            $modelAddress->city = Yii::$app->request->post()["city"];
+            $modelAddress->neighborhood = Yii::$app->request->post()["neighborhood"];
+            $modelAddress->street = Yii::$app->request->post()["street"];
+            $modelAddress->number = Yii::$app->request->post()["number"];
+            $modelAddress->complement = Yii::$app->request->post()["complement"];
+            $modelAddress->postal_code = "49230000"; //cep de santa luzia
+            if($modelAddress->save() && $model->save()) {
+                // verificando se o usuário selecionou alguma turma, se sim cria uma matrícula
+                if(Yii::$app->request->post()["classroom_enrollment"] != "") {
+                    $modelEnrollment = new enrollment();
+                    $modelEnrollment->student = $model->id;
+                    $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
+                    $modelEnrollment->save();
+                }
+                $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
                 return $this->redirect(['index']);
             }
         }
 
         return $this->renderAjax('update', [
             'model' => $model,
+            'modelAddress' => $modelAddress,
+            'modelEnrollment' => $modelEnrollment,
+            'classrooms' => $classrooms,
+            'schools' => $schools
         ]);
     }
 
@@ -125,6 +169,24 @@ class ChildController extends Controller
             throw new NotFoundHttpException('O estudante não foi encontrado.');
         }
         
+        return $model;
+    }
+
+    protected function findAddrees($id)
+    {
+        $model = address::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException('O estudante não foi encontrado.');
+        }
+        return $model;
+    }
+
+    protected function findEnrollment($id)
+    {
+        $model = enrollment::findOne(["student" => $id]);
+        if (!$model) {
+            throw new NotFoundHttpException('O estudante não foi encontrado.');
+        }
         return $model;
     }
 

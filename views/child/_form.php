@@ -45,9 +45,10 @@ $this->assetBundles['Child']->js = [
                 'type' => Form::INPUT_CHECKBOX,
                 'options' => ['value' => '1'],
             ],
-            'allergy_text' => [
+            'allergy_text' => [ 
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) alergia(s) do aluno'],
+                'fieldConfig' => ['options' => ['style' => 'display:none;']]
             ],
             'anemia' => [
                 'type' => Form::INPUT_CHECKBOX,
@@ -56,6 +57,7 @@ $this->assetBundles['Child']->js = [
             'anemia_text' => [
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) anemia(s) do aluno'],
+                'fieldConfig' => ['options' => ['style' => 'display:none;']]
             ],
             'header_responsible_1' => [
                 'type' => 'raw',
@@ -121,6 +123,52 @@ $this->assetBundles['Child']->js = [
             <div class="form-group classroom_select_container" style="display:none;">
                 <label class="form-label">Turma</label>
                 <select class="form-control" name="classroom_enrollment" id="classroom_enrollment">
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <hr><h4>Endereço</h4><br>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Rua</label>
+                <input class="form-control" type="text" name="street" id="street" value="<?= $modelAddress->street ?>">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Número</label>
+                <input class="form-control" type="text" name="number" id="number" value="<?= $modelAddress->number ?>">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Complemento</label>
+                <input class="form-control" type="text" name="complement" id="complement" value="<?= $modelAddress->complement ?>">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Bairro</label>
+                <input class="form-control" type="text" name="neighborhood" id="neighborhood" value="<?= $modelAddress->neighborhood ?>">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Cidade</label>
+                <select class="form-control" name="city" id="city" readonly>
+                    <option value="2806305" selected>Santa Luzia do Itanhy</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Estado</label>
+                <select class="form-control" name="state" id="state" readonly>
+                    <option value="28">Sergipe</option>
                 </select>
             </div>
         </div>
