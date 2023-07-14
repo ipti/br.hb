@@ -102,6 +102,30 @@ $this->assetBundles['Child']->js = [
         ],
     ]); ?>
 
+    <hr><h4>Matrícula</h4><br>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="form-label">Escola</label>
+                <select class="form-control" name="school_enrollment" id="school_enrollment">
+                    <option value="">Selecione uma escola</option>
+                    <?php foreach($schools as $school) {?>
+                        <option value="<?= $school->id ?>"><?= $school->name ?></option>
+                    <?php }?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group classroom_select_container" style="display:none;">
+                <label class="form-label">Turma</label>
+                <select class="form-control" name="classroom_enrollment" id="classroom_enrollment">
+                </select>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Salvar', ['class' => 'btn btn-success']) ?>
     </div>

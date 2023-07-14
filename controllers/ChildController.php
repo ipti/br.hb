@@ -12,6 +12,7 @@ use app\models\school;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 
 class ChildController extends Controller
 {
@@ -59,6 +60,8 @@ class ChildController extends Controller
     public function actionCreate()
     {
         $model = new student();
+        $classrooms = classroom::find()->all();
+        $schools = school::find()->all();
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
@@ -70,6 +73,8 @@ class ChildController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'classrooms' => $classrooms,
+            'schools' => $schools
         ]);
     }
 
@@ -101,6 +106,15 @@ class ChildController extends Controller
         }
 
         throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao excluir o estudante.');
+    }
+
+    public function actionGetClassrooms()
+    {
+        $classrooms = classroom::findAll(["school" => $_POST["school_id"]]);
+        echo Html::tag('option', "Selecione uma turma", ['value' => ""]);
+        foreach($classrooms as $classroom) {
+            echo Html::tag('option', Html::encode($classroom->name), ['value' => Html::encode($classroom->id)]);
+        }
     }
 
     protected function findModel($id)
