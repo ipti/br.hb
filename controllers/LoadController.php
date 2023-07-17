@@ -8,6 +8,7 @@ use app\models\school;
 use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
+use app\models\address;
 use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -109,11 +110,16 @@ class LoadController extends Controller
          * father       father_name
          * 
          */
-        $query = "select 'null' as id, id as fid, `name`, 'null' as address, str_to_date(birthday, '%d/%m/%Y') as birthday, 
+        $query = "select 'null' as id, si.id as fid, si.name, str_to_date(birthday, '%d/%m/%Y') as birthday, 
 		if(sex = 1, 'male', 'female') as gender, 
-		filiation_1 as mother, filiation_2 as father "
-            . "from student_identification "
-            . "where id = " . $id;
+		filiation_1 as mother, filiation_2 as father,
+        sda.edcenso_uf_fk as state, sda.edcenso_city_fk as city,
+        sda.neighborhood, sda.address as street, sda.`number`,
+        sda.complement, sda.cep as postal_code "
+            . "from student_identification si "
+            . "join student_documents_and_address sda on(si.id = sda.id) "
+            . "where si.id = " . $id;
+
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryOne();
     }
@@ -253,14 +259,30 @@ class LoadController extends Controller
                         $studentModel->id = $student['id'];
                         $studentModel->fid = $student['fid'];
                         $studentModel->name = $student['name'];
-                        $studentModel->address = 1;
                         $studentModel->birthday = $student['birthday'];
                         $studentModel->gender = $student['gender'];
                         $studentModel->mother = $student['mother'];
                         $studentModel->father = $student['father'];
-                        
-                        $studentModel->save();
                     }
+
+                    $addressModel = address::findOne(['id' => $studentModel->address]);
+
+                    if(!isset($addressModel)) {
+                        $addressModel = new address();
+                        $addressModel->state = $student['state'];
+                        $addressModel->city = $student['city'];
+                        $addressModel->neighborhood = $student['neighborhood'];
+                        $addressModel->street = $student['street'];
+                        $addressModel->number = $student['number'];
+                        $addressModel->complement = $student['complement'];
+                        $addressModel->postal_code = $student['postal_code'];
+
+                        $addressModel->save();
+                        
+                        $studentModel->address = $addressModel->id;
+                    }
+
+                    $studentModel->save();
 
                     $enrollmentModel = enrollment::findOne(['student' => $studentModel->id, 'classroom' => $classroomModel->id]);
                     if(!isset($enrollmentModel)) {
