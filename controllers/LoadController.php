@@ -38,46 +38,6 @@ class LoadController extends Controller
         ];
     }
 
-
-    private function verifyFid($fid)
-    {
-        // Classrooms
-        $classroomBlock = false;
-        $query = "SELECT * FROM classroom
-                WHERE fid = ".$fid;
-
-        $result = Yii::$app->db->createCommand($query)->queryAll();
-
-        if($result) {
-            $classroomBlock = true;
-        }
-
-        // Students
-        $studentBlock = false;
-        $query = "SELECT * FROM student
-                WHERE fid = ".$fid;
-
-        $result = Yii::$app->db->createCommand($query)->queryAll();
-
-        if($result) {
-            $studentBlock = true;
-        }
-
-        // Enrollments
-        $enrollmentBlock = false;
-        $query = "SELECT * FROM enrollment e
-                JOIN student s ON (e.student = s.id)
-                WHERE s.fid = ".$fid;
-
-        $result = Yii::$app->db->createCommand($query)->queryAll();
-
-        if($result) {
-            $enrollmentBlock = true;
-        }
-
-        return $classroomBlock || $studentBlock || $enrollmentBlock;
-    }
-
     /**
      * Get Schools by school from TAG
      * 
@@ -268,40 +228,81 @@ class LoadController extends Controller
         }
 
         foreach ($classrooms as $classroom) {
-            if(!$this->verifyFid($classroom['fid'])) { //verifica se a turma existe no HB
-                $newClassroom = new classroom();
-                $newClassroom->id = $classroom['id'];
-                $newClassroom->fid = $classroom['fid'];
-                $newClassroom->school = $classroom['school'];
-                $newClassroom->name = $classroom['name'];
-                $newClassroom->shift = $classroom['shift'];
-                $newClassroom->year = $classroom['year'];
-                $newClassroom->save();
-                $response[$newClassroom->name] = $newClassroom->id;
-                if ($newClassroom['fid'] != null) {
-                    $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
-                    foreach ($enrollments as $enrollment) {
-                        if(!$this->verifyFid($student['fid'])) { //verifica se tem algum registro vinculado a esse estudante
-                            $student = $this->getStudentsTAG($enrollment['student']);
-                            $newStudent = new student();
-                            $newStudent->id = $student['id'];
-                            $newStudent->fid = $student['fid'];
-                            $newStudent->name = $student['name'];
-                            $newStudent->address = 1;
-                            $newStudent->birthday = $student['birthday'];
-                            $newStudent->gender = $student['gender'];
-                            $newStudent->mother = $student['mother'];
-                            $newStudent->father = $student['father'];
-                    
-                            $newStudent->save();
+<<<<<<< Updated upstream
+            $newClassroom = new classroom();
+            $newClassroom->id = $classroom['id'];
+            $newClassroom->fid = $classroom['fid'];
+            $newClassroom->school = $classroom['school'];
+            $newClassroom->name = $classroom['name'];
+            $newClassroom->shift = $classroom['shift'];
+            $newClassroom->year = $classroom['year'];
+            $newClassroom->save();
 
-                            $newEnrollment = new enrollment();
-                            $newEnrollment->student = $newStudent->id;
-                            $newEnrollment->classroom = $newClassroom->id;
-                            $newEnrollment->save();
-                        }
-                    }
+            $response[$newClassroom->name] = $newClassroom->id;
+            if ($newClassroom['fid'] != null) {
+                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
+                foreach ($enrollments as $enrollment) {
+                    $student = $this->getStudentsTAG($enrollment['student']);
+        
+                    $newStudent = new student();
+                    $newStudent->id = $student['id'];
+                    $newStudent->fid = $student['fid'];
+                    $newStudent->name = $student['name'];
+                    $newStudent->address = 1;
+                    $newStudent->birthday = $student['birthday'];
+                    $newStudent->gender = $student['gender'];
+                    $newStudent->mother = $student['mother'];
+                    $newStudent->father = $student['father'];
+            
+                    $newStudent->save();
+
+                    $newEnrollment = new enrollment();
+                    $newEnrollment->student = $newStudent->id;
+                    $newEnrollment->classroom = $newClassroom->id;
+                    $newEnrollment->save();
                 }
+=======
+            $classroomModel = classroom::find(['fid' => $classroom['fid']]);
+            if(!isset($classroomModel)) {
+                $classroomModel = new classroom();
+            }
+            $classroomModel->id = $classroom['id'];
+            $classroomModel->fid = $classroom['fid'];
+            $classroomModel->school = $classroom['school'];
+            $classroomModel->name = $classroom['name'];
+            $classroomModel->shift = $classroom['shift'];
+            $classroomModel->year = $classroom['year'];
+            $classroomModel->save();
+            $response[$newClassroom->name] = $newClassroom->id;
+            if ($newClassroom['fid'] != null) {
+                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
+                foreach ($enrollments as $enrollment) {
+                    $student = $this->getStudentsTAG($enrollment['student']);
+
+                    $studentModel = student::find(['fid' => $student['fid']]);
+                    if(!isset($studentModel)) {
+                        $studentModel = new student();
+                        $studentModel->id = $student['id'];
+                        $studentModel->fid = $student['fid'];
+                        $studentModel->name = $student['name'];
+                        $studentModel->address = 1;
+                        $studentModel->birthday = $student['birthday'];
+                        $studentModel->gender = $student['gender'];
+                        $studentModel->mother = $student['mother'];
+                        $studentModel->father = $student['father'];
+                        
+                        $studentModel->save();
+                    }
+
+                    $enrollmentModel = enrollment::find(['student' => $studentModel->id, 'classroom' => $classroomModel->id]);
+                    if(!isset($enrollmentModel)) {
+                        $newEnrollment = new enrollment();
+                        $newEnrollment->student = $studentModel->id;
+                        $newEnrollment->classroom = $classroomModel->id;
+                        $newEnrollment->save();
+                    }
+                }  
+>>>>>>> Stashed changes
             }
         }
         set_time_limit(30);
