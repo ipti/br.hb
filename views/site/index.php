@@ -57,26 +57,6 @@ $this->params['siteIndex'] = true;
                         'class'=>'updateCampaign campaign-box-edit',
                         'for'=>'#'
                     ]);?>
-                    <div id="campaing-box[<?= $campaign_resume['campaing']['Id'] ?>]-anatomies" class="campaign-box-container">
-                        <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Ferritin').': ',$campaign_resume['ferritin'] ['Url'])?></div>
-                        <div class="campaign-box-content">
-                        <?= Html::a($campaign_resume['ferritin']['Done'].' '.Icon::show('check', ['class'=>'icon-sucess']),
-                                    $campaign_resume['ferritin']['Url'])?>&nbsp;
-                            <?= Html::a($campaign_resume['ferritin']['UnDone'].' '.Icon::show('remove', ['class'=>'icon-error']),
-                                    $campaign_resume['ferritin']['Url'])?>
-                        </div>
-                    </div><!-- end ferritin -->
-                    <div id="campaing-box[<?= $campaign_resume['campaing']['Id'] ?>]-anatomies" class="campaign-box-container">
-                        <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Anatomies').': ',$campaign_resume['anatomies']['Url'])?></div>
-                        <div class="campaign-box-content">
-                            <?= Html::a($campaign_resume['anatomies']['OutOfDate'].' '.Icon::show('info', ['class'=>'icon-info']),
-                                    $campaign_resume['anatomies']['Url'])?>&nbsp;
-                            <?= Html::a($campaign_resume['anatomies']['Updated'].' '.Icon::show('check', ['class'=>'icon-sucess']),
-                                    $campaign_resume['anatomies']['Url'])?>&nbsp;
-                            <?= Html::a($campaign_resume['anatomies']['Unknown'].' '.Icon::show('remove', ['class'=>'icon-error']),
-                                    $campaign_resume['anatomies']['Url'])?>
-                        </div>
-                    </div><!-- end anatomies -->
                     <div id="campaing-box[<?= $campaign_resume['campaing']['Id'] ?>]-terms" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app_v2', 'Terms').': ',$campaign_resume['terms']['Url'])?></div>
                         <div class="campaign-box-content">
@@ -86,7 +66,26 @@ $this->params['siteIndex'] = true;
                                     $campaign_resume['terms']['Url'])?>
                         </div>
                     </div> <!-- end terms -->
-                    
+                    <div id="campaing-box[<?= $campaign_resume['campaing']['Id'] ?>]-anatomies" class="campaign-box-container">
+                        <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Anatomies').': ',$campaign_resume['anatomies']['Url'])?></div>
+                        <div class="campaign-box-content">
+                            <?= Html::a($campaign_resume['anatomies']['OutOfDate'].' '.Icon::show('info', ['class'=>'icon-info']),
+                                $campaign_resume['anatomies']['Url'])?>&nbsp;
+                            <?= Html::a($campaign_resume['anatomies']['Updated'].' '.Icon::show('check', ['class'=>'icon-sucess']),
+                                $campaign_resume['anatomies']['Url'])?>&nbsp;
+                            <?= Html::a($campaign_resume['anatomies']['Unknown'].' '.Icon::show('remove', ['class'=>'icon-error']),
+                                $campaign_resume['anatomies']['Url'])?>
+                        </div>
+                    </div><!-- end anatomies -->
+<!--                    <div id="campaing-box[--><?php //= $campaign_resume['campaing']['Id'] ?><!--]-anatomies" class="campaign-box-container">-->
+<!--                        <div class="campaign-box-label">--><?php //= Html::a(Yii::t('app', 'Ferritin').': ',$campaign_resume['ferritin'] ['Url'])?><!--</div>-->
+<!--                        <div class="campaign-box-content">-->
+<!--                            --><?php //= Html::a($campaign_resume['ferritin']['Done'].' '.Icon::show('check', ['class'=>'icon-sucess']),
+//                                $campaign_resume['ferritin']['Url'])?><!--&nbsp;-->
+<!--                            --><?php //= Html::a($campaign_resume['ferritin']['UnDone'].' '.Icon::show('remove', ['class'=>'icon-error']),
+//                                $campaign_resume['ferritin']['Url'])?>
+<!--                        </div>-->
+<!--                    </div> end ferritin -->
                     <div id="campaing-box[<?= $campaign_resume['campaing']['Id'] ?>]-hb1" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'HB1').': ',$campaign_resume['hb1']['Url'])?></div>
                         <div class="campaign-box-content">

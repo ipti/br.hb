@@ -123,20 +123,18 @@ class LoadController extends Controller
      * @param string $school
      * @return array
      */
-    private function getEnrollmentsTAG($classroom){
+    private function getEnrollmentsTAG($classroom, $year){
         /** HB              TAG
          * enrollment  to   student_enrollment
          * id               null
          * student          student_fk
          * classroom        classroom_fk
          */
-        $query = "select 'null' as id, student_fk as student, classroom_fk as classroom "
+        $query = "select 'null' as id, student_enrollment.student_fk as student, student_enrollment.classroom_fk as classroom "
         . "from student_enrollment "
-
-
-
         ."join student_identification  on student_identification.id = student_enrollment.student_fk "
-        . "where classroom_fk = " . $classroom;
+        ."join classroom on classroom.id =  student_enrollment.classroom_fk "
+        . "where classroom.id = " . $classroom . " and classroom.school_year = ".$year." and (student_enrollment.status = 1 or student_enrollment.status is null)";
 
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryAll();
@@ -241,7 +239,7 @@ class LoadController extends Controller
 
             $response[$newClassroom->name] = $newClassroom->id;
             if ($newClassroom['fid'] != null) {
-                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid);
+                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
                 foreach ($enrollments as $enrollment) {
                     $student = $this->getStudentsTAG($enrollment['student']);
         

@@ -1,5 +1,6 @@
 <?php
 
+use kartik\widgets\Alert;
 use yii\helpers\Html;
 use \yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
@@ -55,6 +56,14 @@ $this->assetBundles['Hemoglobin']->js = [
                 . "</thead>"
                 . "<tbody></tbody>"
                 . "</table>";
+        echo Alert::widget([
+            'options' => [
+                'id' => 'noHemoglobinsMessage',
+                'class' => 'alert alert-danger',
+                'style' => 'display:none;',
+            ],
+            'body' => 'Todos os alunos que aderiram a campanha dessa turma tiveram suas hemoglobinas coletadas'
+        ]);
         echo Html::submitButton(Yii::t('app', 'Create'), ['id'=>'send', "style"=>"display:none",  'class' =>'btn btn-success']);
    
     } else {
