@@ -231,42 +231,45 @@ class LoadController extends Controller
 
 
         foreach ($classrooms as $classroom) {
-            $newClassroom = new classroom();
-            // $newClassroom->id = $classroom['id'];
-            $newClassroom->fid = $classroom['fid'];
-            $newClassroom->school = $classroom['school'];
-            $newClassroom->name = $classroom['name'];
-            $newClassroom->shift =  $classroom['shift'];
-            $newClassroom->year = $classroom['year'];
-            if($newClassroom->save()){
-                $response[$newClassroom->name] = $newClassroom->id;
-
-            } else {
-                Yii::error($newClassroom->getErrors());                
-            }     
-
-            if ($newClassroom['fid'] != null) {
-                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
+            $classroomModel = classroom::findOne(['fid' => $classroom['fid']]);
+            if(!isset($classroomModel)) {
+                $classroomModel = new classroom();
+            }
+            $classroomModel->fid = $classroom['fid'];
+            $classroomModel->school = $classroom['school'];
+            $classroomModel->name = $classroom['name'];
+            $classroomModel->shift = $classroom['shift'];
+            $classroomModel->year = $classroom['year'];
+            $classroomModel->save();
+            $response[$classroomModel->name] = $classroomModel->id;
+            if ($classroomModel['fid'] != null) {
+                $enrollments = $this->getEnrollmentsTAG($classroomModel->fid, $cid);
                 foreach ($enrollments as $enrollment) {
                     $student = $this->getStudentsTAG($enrollment['student']);
-        
-                    $newStudent = new student();
-                    $newStudent->id = $student['id'];
-                    $newStudent->fid = $student['fid'];
-                    $newStudent->name = $student['name'];
-                    $newStudent->address = 1;
-                    $newStudent->birthday = $student['birthday'];
-                    $newStudent->gender = $student['gender'];
-                    $newStudent->mother = $student['mother'];
-                    $newStudent->father = $student['father'];
-            
-                    $newStudent->save();
 
-                    $newEnrollment = new enrollment();
-                    $newEnrollment->student = $newStudent->id;
-                    $newEnrollment->classroom = $newClassroom->id;
-                    $newEnrollment->save();
-                }
+                    $studentModel = student::findOne(['fid' => $student['fid']]);
+                    if(!isset($studentModel)) {
+                        $studentModel = new student();
+                        $studentModel->id = $student['id'];
+                        $studentModel->fid = $student['fid'];
+                        $studentModel->name = $student['name'];
+                        $studentModel->address = 1;
+                        $studentModel->birthday = $student['birthday'];
+                        $studentModel->gender = $student['gender'];
+                        $studentModel->mother = $student['mother'];
+                        $studentModel->father = $student['father'];
+                        
+                        $studentModel->save();
+                    }
+
+                    $enrollmentModel = enrollment::findOne(['student' => $studentModel->id, 'classroom' => $classroomModel->id]);
+                    if(!isset($enrollmentModel)) {
+                        $newEnrollment = new enrollment();
+                        $newEnrollment->student = $studentModel->id;
+                        $newEnrollment->classroom = $classroomModel->id;
+                        $newEnrollment->save();
+                    }
+                }  
             }
         }
         set_time_limit(300);

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Ferritin */
+/* @var $model app\models\ferritin */
 /* @var $capaign Integer */
 /* @var $sample Integer */
 

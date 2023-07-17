@@ -14,7 +14,7 @@ use Yii;
  *
  * @property Term $agreedTerm
  */
-class Ferritin extends \yii\db\ActiveRecord
+class ferritin extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -62,7 +62,7 @@ class Ferritin extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveRecord
     */
     public function getFerritin() {
-        return $this->hasOne(Ferritin::class, ['agreed_term' => 'agreed_term'])->one();
+        return $this->hasOne(ferritin::class, ['agreed_term' => 'agreed_term'])->one();
     }   
     
     // public function isAnemic(){
