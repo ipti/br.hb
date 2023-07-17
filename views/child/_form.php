@@ -2,7 +2,8 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-
+use app\models\classroom;
+use app\models\school;
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
 /* @var $form yii\bootstrap4\ActiveForm */
@@ -45,9 +46,10 @@ $this->assetBundles['Child']->js = [
                 'type' => Form::INPUT_CHECKBOX,
                 'options' => ['value' => '1'],
             ],
-            'allergy_text' => [
+            'allergy_text' => [ 
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) alergia(s) do aluno'],
+                'fieldConfig' => ['options' => ['style' => 'display:none;']]
             ],
             'anemia' => [
                 'type' => Form::INPUT_CHECKBOX,
@@ -56,6 +58,7 @@ $this->assetBundles['Child']->js = [
             'anemia_text' => [
                 'type' => Form::INPUT_TEXT,
                 'options' => ['maxlength' => true, 'placeholder' => 'Descreva a(s) anemia(s) do aluno'],
+                'fieldConfig' => ['options' => ['style' => 'display:none;']]
             ],
             'header_responsible_1' => [
                 'type' => 'raw',
@@ -102,6 +105,94 @@ $this->assetBundles['Child']->js = [
         ],
     ]); ?>
 
+    <hr><h4>Matrícula</h4><br>
+    <div class="show-enrollment" style="<?php echo $modelEnrollment->classroom ? '' : 'display:none;'?>">
+        <?php
+        if($modelEnrollment->classroom) {
+            $classroom = classroom::findOne($modelEnrollment->classroom);
+            $school = school::findOne($classroom->school);
+        
+        ?>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <p>Escola: <?= $school->name?></p>
+                    <p>Turma: <?= $classroom->name?></p>
+                    <p><button type="button" class="btn btn-danger" id="delete-enrollment" data="<?= $modelEnrollment->id ?>"><i class="fa fa-remove" style="margin-right:10px;"></i>Excluir Matrícula</button></p>
+                </div>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+    <div class="new-enrollment-container" style="<?php echo $modelEnrollment->classroom ? 'display:none;' : ''?>">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Escola</label>
+                    <select class="form-control" name="school_enrollment" id="school_enrollment">
+                        <option value="">Selecione uma escola</option>
+                        <?php foreach($schools as $school) {?>
+                            <option value="<?= $school->id ?>"><?= $school->name ?></option>
+                        <?php }?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group classroom_select_container" style="display:none;">
+                    <label class="form-label">Turma</label>
+                    <select class="form-control" name="classroom_enrollment" id="classroom_enrollment"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr><h4>Endereço</h4><br>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Rua</label>
+                <input class="form-control" type="text" name="street" id="street" value="<?= $modelAddress->street ?>">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Número</label>
+                <input class="form-control" type="text" name="number" id="number" value="<?= $modelAddress->number ?>">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Complemento</label>
+                <input class="form-control" type="text" name="complement" id="complement" value="<?= $modelAddress->complement ?>">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Bairro</label>
+                <input class="form-control" type="text" name="neighborhood" id="neighborhood" value="<?= $modelAddress->neighborhood ?>">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Cidade</label>
+                <select class="form-control" name="city" id="city" readonly>
+                    <option value="2806305" selected>Santa Luzia do Itanhy</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">Estado</label>
+                <select class="form-control" name="state" id="state" readonly>
+                    <option value="28">Sergipe</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Salvar', ['class' => 'btn btn-success']) ?>
     </div>
@@ -115,3 +206,21 @@ $this->assetBundles['Child']->js = [
         padding: 30px;
     }
 </style>
+
+<script>
+    $(document).on("click", "#delete-enrollment", function () {
+        $(".show-enrollment").hide();
+        $(".new-enrollment-container").show();
+        let {origin,pathname} = window.location;
+        $.ajax({
+            type: "POST",
+            url: `${origin}${pathname}?r=child%2Fdelete-enrollment`,
+            data: {
+                enrollment: $(this).attr('data')
+            },
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }); 
+</script>
