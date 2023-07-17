@@ -228,6 +228,7 @@ class LoadController extends Controller
         }
 
         foreach ($classrooms as $classroom) {
+<<<<<<< Updated upstream
             $newClassroom = new classroom();
             $newClassroom->id = $classroom['id'];
             $newClassroom->fid = $classroom['fid'];
@@ -260,6 +261,48 @@ class LoadController extends Controller
                     $newEnrollment->classroom = $newClassroom->id;
                     $newEnrollment->save();
                 }
+=======
+            $classroomModel = classroom::find(['fid' => $classroom['fid']]);
+            if(!isset($classroomModel)) {
+                $classroomModel = new classroom();
+            }
+            $classroomModel->id = $classroom['id'];
+            $classroomModel->fid = $classroom['fid'];
+            $classroomModel->school = $classroom['school'];
+            $classroomModel->name = $classroom['name'];
+            $classroomModel->shift = $classroom['shift'];
+            $classroomModel->year = $classroom['year'];
+            $classroomModel->save();
+            $response[$newClassroom->name] = $newClassroom->id;
+            if ($newClassroom['fid'] != null) {
+                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
+                foreach ($enrollments as $enrollment) {
+                    $student = $this->getStudentsTAG($enrollment['student']);
+
+                    $studentModel = student::find(['fid' => $student['fid']]);
+                    if(!isset($studentModel)) {
+                        $studentModel = new student();
+                        $studentModel->id = $student['id'];
+                        $studentModel->fid = $student['fid'];
+                        $studentModel->name = $student['name'];
+                        $studentModel->address = 1;
+                        $studentModel->birthday = $student['birthday'];
+                        $studentModel->gender = $student['gender'];
+                        $studentModel->mother = $student['mother'];
+                        $studentModel->father = $student['father'];
+                        
+                        $studentModel->save();
+                    }
+
+                    $enrollmentModel = enrollment::find(['student' => $studentModel->id, 'classroom' => $classroomModel->id]);
+                    if(!isset($enrollmentModel)) {
+                        $newEnrollment = new enrollment();
+                        $newEnrollment->student = $studentModel->id;
+                        $newEnrollment->classroom = $classroomModel->id;
+                        $newEnrollment->save();
+                    }
+                }  
+>>>>>>> Stashed changes
             }
         }
         set_time_limit(30);
