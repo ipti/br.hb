@@ -10,12 +10,12 @@ use app\models\campaign;
 use app\models\term;
 
 /** @var yii\web\View $this yii\web\View */
-/** @var app\models\Ferritin $model app\models\Ferritin */
+/** @var app\models\ferritin $model app\models\ferritin */
 /** @var yii\widgets\ActiveForm $form yii\widgets\ActiveForm */
 /** @var app\models\campaign $campaign  */
 
-$this->assetBundles['Ferritin'] = new app\assets\AppAsset();
-$this->assetBundles['Ferritin']->js = [
+$this->assetBundles['ferritin'] = new app\assets\AppAsset();
+$this->assetBundles['ferritin']->js = [
     'scripts/FerritinView/Functions.js',
     'scripts/FerritinView/Click.js'
 ];

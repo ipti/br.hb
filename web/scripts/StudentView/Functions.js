@@ -5,18 +5,29 @@
  *
  */
 
-// $(document).ready(function () {
-//     $("#student-allergy").prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
-//     $("#student-anemia").prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
-// })
+$(document).on("click", "#student-allergy", function () {
+    $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
+});
 
-// $(document).on("click", "#student-allergy", function () {
-//     $(this).prop('checked') ? $(".field-student-allergy_text").show() : $(".field-student-allergy_text").hide();
-// });
+$(document).on("click", "#student-anemia", function () {
+    $(this).prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
+});
 
-// $(document).on("click", "#student-anemia", function () {
-//     $(this).prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
-// });
+$(document).on("change", "  #school_enrollment", function () {
+    $(".classroom_select_container").show();
+    $("#classroom_enrollment").empty();
+    let {origin,pathname} = window.location;
+    $.ajax({
+        type: "POST",
+        url: `${origin}${pathname}?r=child%2Fget-classrooms`,
+        data: {
+            school_id: $(this).val()
+        },
+        success: function (response) {
+            $("#classroom_enrollment").append(response);
+        }
+    });
+});
 
 
 function submitAddressForm($form) {
