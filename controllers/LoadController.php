@@ -8,6 +8,7 @@ use app\models\school;
 use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -227,6 +228,8 @@ class LoadController extends Controller
             $response[$newSchool->name] = $newSchool->fid;
         }
 
+
+
         foreach ($classrooms as $classroom) {
             $classroomModel = classroom::findOne(['fid' => $classroom['fid']]);
             if(!isset($classroomModel)) {
@@ -269,7 +272,7 @@ class LoadController extends Controller
                 }  
             }
         }
-        set_time_limit(30);
+        set_time_limit(300);
 
         echo \yii\helpers\Json::encode($response);
         exit;
