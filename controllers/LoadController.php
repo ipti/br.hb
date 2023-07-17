@@ -112,13 +112,14 @@ class LoadController extends Controller
          */
         $query = "select 'null' as id, si.id as fid, si.name, str_to_date(birthday, '%d/%m/%Y') as birthday, 
 		if(sex = 1, 'male', 'female') as gender, 
-		filiation_1 as mother, filiation_2 as father
+		filiation_1 as mother, filiation_2 as father,
         sda.edcenso_uf_fk as state, sda.edcenso_city_fk as city,
         sda.neighborhood, sda.address as street, sda.`number`,
         sda.complement, sda.cep as postal_code "
-            . "from student_identification si"
-            . "join student_documents_and_address sda on(si.id = sda.id)"
-            . "where id = " . $id;
+            . "from student_identification si "
+            . "join student_documents_and_address sda on(si.id = sda.id) "
+            . "where si.id = " . $id;
+
         $result = Yii::$app->tag->createCommand($query);
         return $result->queryOne();
     }
