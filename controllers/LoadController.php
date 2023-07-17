@@ -228,24 +228,23 @@ class LoadController extends Controller
         }
 
         foreach ($classrooms as $classroom) {
-            $classroomModel = classroom::find(['fid' => $classroom['fid']]);
+            $classroomModel = classroom::findOne(['fid' => $classroom['fid']]);
             if(!isset($classroomModel)) {
                 $classroomModel = new classroom();
             }
-            $classroomModel->id = $classroom['id'];
             $classroomModel->fid = $classroom['fid'];
             $classroomModel->school = $classroom['school'];
             $classroomModel->name = $classroom['name'];
             $classroomModel->shift = $classroom['shift'];
             $classroomModel->year = $classroom['year'];
             $classroomModel->save();
-            $response[$newClassroom->name] = $newClassroom->id;
-            if ($newClassroom['fid'] != null) {
-                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
+            $response[$classroomModel->name] = $classroomModel->id;
+            if ($classroomModel['fid'] != null) {
+                $enrollments = $this->getEnrollmentsTAG($classroomModel->fid, $cid);
                 foreach ($enrollments as $enrollment) {
                     $student = $this->getStudentsTAG($enrollment['student']);
 
-                    $studentModel = student::find(['fid' => $student['fid']]);
+                    $studentModel = student::findOne(['fid' => $student['fid']]);
                     if(!isset($studentModel)) {
                         $studentModel = new student();
                         $studentModel->id = $student['id'];
@@ -260,7 +259,7 @@ class LoadController extends Controller
                         $studentModel->save();
                     }
 
-                    $enrollmentModel = enrollment::find(['student' => $studentModel->id, 'classroom' => $classroomModel->id]);
+                    $enrollmentModel = enrollment::findOne(['student' => $studentModel->id, 'classroom' => $classroomModel->id]);
                     if(!isset($enrollmentModel)) {
                         $newEnrollment = new enrollment();
                         $newEnrollment->student = $studentModel->id;
