@@ -63,12 +63,13 @@ class ChildController extends Controller
         $model = new student();
         $classrooms = classroom::find()->all();
         $schools = school::find()->all();
+        $modelEnrollment = new enrollment();
+        $modelAddress = new address();
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
 
             // carregando o model de endereço do aluno
-            $modelAddress = new address();
             $modelAddress->state = Yii::$app->request->post()["state"];
             $modelAddress->city = Yii::$app->request->post()["city"];
             $modelAddress->neighborhood = Yii::$app->request->post()["neighborhood"];
@@ -82,7 +83,6 @@ class ChildController extends Controller
                 if($model->save()) {
                     // verificando se o usuário selecionou alguma turma, se sim cria uma matrícula
                     if(Yii::$app->request->post()["classroom_enrollment"] != "") {
-                        $modelEnrollment = new enrollment();
                         $modelEnrollment->student = $model->id;
                         $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
                         $modelEnrollment->save();
@@ -95,6 +95,8 @@ class ChildController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelEnrollment' => $modelEnrollment,
+            'modelAddress' => $modelAddress,
             'classrooms' => $classrooms,
             'schools' => $schools
         ]);
