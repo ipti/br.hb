@@ -8,6 +8,7 @@ use app\models\school;
 use app\models\classroom;
 use app\models\student;
 use app\models\enrollment;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -227,17 +228,23 @@ class LoadController extends Controller
             $response[$newSchool->name] = $newSchool->fid;
         }
 
+
+
         foreach ($classrooms as $classroom) {
             $newClassroom = new classroom();
-            $newClassroom->id = $classroom['id'];
+            // $newClassroom->id = $classroom['id'];
             $newClassroom->fid = $classroom['fid'];
             $newClassroom->school = $classroom['school'];
             $newClassroom->name = $classroom['name'];
-            $newClassroom->shift = $classroom['shift'];
+            $newClassroom->shift =  $classroom['shift'];
             $newClassroom->year = $classroom['year'];
-            $newClassroom->save();
+            if($newClassroom->save()){
+                $response[$newClassroom->name] = $newClassroom->id;
 
-            $response[$newClassroom->name] = $newClassroom->id;
+            } else {
+                Yii::error($newClassroom->getErrors());                
+            }     
+
             if ($newClassroom['fid'] != null) {
                 $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
                 foreach ($enrollments as $enrollment) {
@@ -262,7 +269,7 @@ class LoadController extends Controller
                 }
             }
         }
-        set_time_limit(30);
+        set_time_limit(300);
 
         echo \yii\helpers\Json::encode($response);
         exit;

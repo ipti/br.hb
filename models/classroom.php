@@ -39,7 +39,7 @@ class classroom extends \yii\db\ActiveRecord
             [['fid', 'school','year'], 'integer'],
             [['school', 'name', 'shift','year'], 'required'],
             [['shift'], 'string'],
-            [['name'], 'string', 'max' => 20]
+            [['name'], 'string', 'max' => 100]
         ];
     }
 
