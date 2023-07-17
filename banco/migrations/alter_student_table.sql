@@ -35,7 +35,7 @@ ALTER TABLE `student`
 ADD `anemia` INT(11) DEFAULT 0 NULL;
 
 ALTER TABLE `student`
-ADD `anemia_text` VARCHAR(255) NOT NULL;
+ADD `anemia_text` VARCHAR(255) NULL;
 
 -- Atualizar valores das colunas responsible_1_name e responsible_2_name
 UPDATE `student`

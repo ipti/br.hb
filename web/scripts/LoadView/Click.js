@@ -40,7 +40,9 @@ $("#send").click(function () {
         });
         $("#sucess_message").css("display", "block");
         $("#classrooms tbody").empty();
-    }).fail(function () {
+    }).fail(function (error) {
+        console.log(error)
         $("#error_message").css("display", "block");
+        $("#error_message").append('<pre>'+error+'</pre>')
     })
 });

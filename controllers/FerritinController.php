@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Ferritin;
+use app\models\ferritin;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\consultation;
 
 /**
- * FerritinController implements the CRUD actions for Ferritin model.
+ * FerritinController implements the CRUD actions for ferritin model.
  */
 class FerritinController extends Controller
 {
@@ -151,7 +151,7 @@ class FerritinController extends Controller
             }
             return $this->redirect(['index', 'c' => $cid]);
         } else {
-            $model = new Ferritin();
+            $model = new ferritin();
             $campaign = \app\models\campaign::find()->where("id=:id", ['id' => $cid])->one();
 
             return $this->render('create', [
@@ -312,12 +312,12 @@ class FerritinController extends Controller
      * Finds the ferritin model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Ferritin the loaded model
+     * @return ferritin the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Ferritin::findOne($id)) !== null) {
+        if (($model = ferritin::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
