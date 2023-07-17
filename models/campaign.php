@@ -246,7 +246,7 @@ class campaign extends \yii\db\ActiveRecord {
                 ->via('terms');
     }
 
-    public function getCampaignsResume(){
+    public function getCampaignsResume($date_end){
         $result = Yii::$app->db->createCommand("
         SELECT 
             c.name as campaing_name,
@@ -271,9 +271,11 @@ class campaign extends \yii\db\ActiveRecord {
             left join hemoglobin h2 on h2.agreed_term = t.id AND  h1.sample = 2
             left join hemoglobin h3 on h3.agreed_term = t.id AND  h1.sample = 3
             left join ferritin fer on fer.agreed_term = t.id
+        where c.end >= :date_end
         group by c.id
-        order by c.end desc
-        ")->queryAll();
+        order by c.end desc")
+        ->bindParam(":date_end", $date_end)
+        ->queryAll();
 
         return $result;
     }

@@ -48,14 +48,20 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($year = null)
     {
+        if(!isset($year)){
+            $year = date("Y");
+        }
+        
+        $date_end = $year . '-01-01';
+
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['login']);
         }
 
         $model = new campaign();
-        $result = $model->getCampaignsResume();
+        $result = $model->getCampaignsResume($date_end);
         $campaigns = [];
 
         foreach ($result as $row) {
