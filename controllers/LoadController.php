@@ -228,40 +228,6 @@ class LoadController extends Controller
         }
 
         foreach ($classrooms as $classroom) {
-<<<<<<< Updated upstream
-            $newClassroom = new classroom();
-            $newClassroom->id = $classroom['id'];
-            $newClassroom->fid = $classroom['fid'];
-            $newClassroom->school = $classroom['school'];
-            $newClassroom->name = $classroom['name'];
-            $newClassroom->shift = $classroom['shift'];
-            $newClassroom->year = $classroom['year'];
-            $newClassroom->save();
-
-            $response[$newClassroom->name] = $newClassroom->id;
-            if ($newClassroom['fid'] != null) {
-                $enrollments = $this->getEnrollmentsTAG($newClassroom->fid, $cid);
-                foreach ($enrollments as $enrollment) {
-                    $student = $this->getStudentsTAG($enrollment['student']);
-        
-                    $newStudent = new student();
-                    $newStudent->id = $student['id'];
-                    $newStudent->fid = $student['fid'];
-                    $newStudent->name = $student['name'];
-                    $newStudent->address = 1;
-                    $newStudent->birthday = $student['birthday'];
-                    $newStudent->gender = $student['gender'];
-                    $newStudent->mother = $student['mother'];
-                    $newStudent->father = $student['father'];
-            
-                    $newStudent->save();
-
-                    $newEnrollment = new enrollment();
-                    $newEnrollment->student = $newStudent->id;
-                    $newEnrollment->classroom = $newClassroom->id;
-                    $newEnrollment->save();
-                }
-=======
             $classroomModel = classroom::find(['fid' => $classroom['fid']]);
             if(!isset($classroomModel)) {
                 $classroomModel = new classroom();
@@ -302,7 +268,6 @@ class LoadController extends Controller
                         $newEnrollment->save();
                     }
                 }  
->>>>>>> Stashed changes
             }
         }
         set_time_limit(30);
