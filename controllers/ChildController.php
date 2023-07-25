@@ -10,6 +10,7 @@ use app\models\address;
 use app\models\enrollmentSearch;
 use app\models\classroom;
 use app\models\school;
+use app\models\term;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -85,7 +86,12 @@ class ChildController extends Controller
                     if(Yii::$app->request->post()["classroom_enrollment"] != "") {
                         $modelEnrollment->student = $model->id;
                         $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
-                        $modelEnrollment->save();
+                        if($modelEnrollment->save()) {
+                            $modelTerm = new term();
+                            $modelTerm->enrollment = $modelEnrollment->id;
+                            $modelTerm->agreed = 0;
+                            $modelTerm->save();
+                        }
                     }
                     $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
                     return $this->redirect(['index']);
