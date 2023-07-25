@@ -146,6 +146,7 @@ $this->assetBundles['Child']->js = [
                 </div>
             </div>
         </div>
+        <?php if($model->isNewRecord) {?>
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group campaign_select_container" style="display:none;">
@@ -159,6 +160,7 @@ $this->assetBundles['Child']->js = [
                 </div>
             </div>
         </div>
+        <?php }?>
     </div>
     
     <hr><h4>Endereço</h4><br>
