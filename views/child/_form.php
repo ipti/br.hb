@@ -118,7 +118,7 @@ $this->assetBundles['Child']->js = [
                 <div class="form-group">
                     <p>Escola: <?= $school->name?></p>
                     <p>Turma: <?= $classroom->name?></p>
-                    <p><button type="button" class="btn btn-danger" id="delete-enrollment" data="<?= $modelEnrollment->id ?>"><i class="fa fa-remove" style="margin-right:10px;"></i>Excluir Matrícula</button></p>
+                    <!-- <p><button type="button" class="btn btn-danger" id="delete-enrollment" data="<?= $modelEnrollment->id ?>"><i class="fa fa-remove" style="margin-right:10px;"></i>Excluir Matrícula</button></p> -->
                 </div>
             </div>
         </div>
@@ -146,7 +146,21 @@ $this->assetBundles['Child']->js = [
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group campaign_select_container" style="display:none;">
+                    <label class="form-label">Campanha</label>
+                    <select class="form-control" name="campaign" id="campaign">
+                        <option value="">Selecione a campanha</option>
+                        <?php foreach($campaigns as $c) {?>
+                            <option value="<?= $c->id ?>"><?= $c->name ?></option>
+                        <?php }?>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
+    
     <hr><h4>Endereço</h4><br>
     <div class="row">
         <div class="col-sm-4">
