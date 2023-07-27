@@ -10,6 +10,8 @@ use app\models\address;
 use app\models\enrollmentSearch;
 use app\models\classroom;
 use app\models\school;
+use app\models\term;
+use app\models\campaign;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -58,6 +60,18 @@ class ChildController extends Controller
         ]);
     }
 
+    //verifica se a campanha tem um período que engloba a data atual do sistema
+    private function verifyCampaignInterval($begin, $end)
+    {
+        $dataAtual = date('Y-m-d');
+        // Verifica se a data atual está dentro do intervalo
+        if ($dataAtual >= $begin && $dataAtual <= $end) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function actionCreate()
     {
         $model = new student();
@@ -65,6 +79,11 @@ class ChildController extends Controller
         $schools = school::find()->all();
         $modelEnrollment = new enrollment();
         $modelAddress = new address();
+        $year = date("Y");
+        $campaigns = campaign::find()->all();
+        $campaigns = array_filter($campaigns, function ($c) {
+            return $this->verifyCampaignInterval($c->begin, $c->end);
+        });
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
@@ -85,7 +104,13 @@ class ChildController extends Controller
                     if(Yii::$app->request->post()["classroom_enrollment"] != "") {
                         $modelEnrollment->student = $model->id;
                         $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
-                        $modelEnrollment->save();
+                        if($modelEnrollment->save()) {
+                            $modelTerm = new term();
+                            $modelTerm->enrollment = $modelEnrollment->id;
+                            $modelTerm->campaign = Yii::$app->request->post()["campaign"];
+                            $modelTerm->agreed = 0;
+                            $modelTerm->save();
+                        }
                     }
                     $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
                     return $this->redirect(['index']);
@@ -98,7 +123,8 @@ class ChildController extends Controller
             'modelEnrollment' => $modelEnrollment,
             'modelAddress' => $modelAddress,
             'classrooms' => $classrooms,
-            'schools' => $schools
+            'schools' => $schools,
+            'campaigns' => $campaigns
         ]);
     }
 
