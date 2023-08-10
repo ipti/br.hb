@@ -35,7 +35,7 @@ $this->params['campaign'] = $campaign;
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
 <!--    <br>-->
 <!--    <br>-->
-    <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms-html', 'cid' => $campaign]),
+    <?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Terms'),Url::toRoute(['reports/build-terms-html', 'cid' => $campaign]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
 <!--    <br>-->
 <!--    <br>-->

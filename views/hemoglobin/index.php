@@ -68,7 +68,10 @@ $columns = array_merge($columns, [[
         }
     ]]);
 ?>
-
+<div>
+<?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Notice Letters"),Url::toRoute(['reports/build-letters', 'cid' => $campaign->id]),
+         ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
+</div>
 <div class="hemoglobin-index">
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','Anemics Lists...'),Url::toRoute(['anemics-lists', 'cid' => $campaign->id, 's' => $sample ]),
          ['target'=>'_blank', 'id'=>'anemicsLists', 'class' => 'btn btn-primary pull-right', 'style' => 'display:none']) ?>
