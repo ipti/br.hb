@@ -13,7 +13,7 @@ $(document).on("click", "#student-anemia", function () {
     $(this).prop('checked') ? $(".field-student-anemia_text").show() : $(".field-student-anemia_text").hide();
 });
 
-$(document).on("change", "  #school_enrollment", function () {
+$(document).on("change", "#school_enrollment", function () {
     $(".classroom_select_container").show();
     $("#classroom_enrollment").empty();
     let {origin,pathname} = window.location;
@@ -27,6 +27,11 @@ $(document).on("change", "  #school_enrollment", function () {
             $("#classroom_enrollment").append(response);
         }
     });
+});
+
+
+$(document).on("change", "#classroom_enrollment", function () {
+    $(".campaign_select_container").show();
 });
 
 
