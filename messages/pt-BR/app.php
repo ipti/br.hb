@@ -143,6 +143,7 @@ return [
     "Letter of Consultation's Notice" => 'Carta de Aviso de Consulta',
     'Prescription' => 'Prescrição',
     'Anamnese' => 'Anamnese',
+    'Letter' => 'Carta de Aviso',
     
     // Letter
     'Select Year...' => 'Selecione o ano...',

@@ -36,7 +36,10 @@ $this->title = yii::t('app', 'Health Report');
     </tr>
     <?php
     $campaing = new \app\models\campaign();
-    $campaings = $campaing->find()->orderBy('name asc')->all();
+    $campaings = $campaing->find()
+        ->where([">=", "end", $year."-01-01"])
+        ->orderBy('name asc')
+        ->all();
     foreach ($campaings as $c) {
 
         $campaing = [];

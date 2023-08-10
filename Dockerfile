@@ -1,4 +1,4 @@
-FROM yiisoftware/yii2-php:7.4-apache
+FROM ipti/yii2
 COPY . /app
 RUN chown -R www-data:www-data /usr/local/bin/composer
 RUN chmod 777 /usr/local/bin/composer

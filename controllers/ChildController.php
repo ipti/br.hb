@@ -153,13 +153,15 @@ class ChildController extends Controller
             $modelAddress->postal_code = "49230000"; //cep de santa luzia
             if($modelAddress->save() && $model->save()) {
                 // verificando se o usuário selecionou alguma turma, se sim cria uma matrícula
-                if(Yii::$app->request->post()["classroom_enrollment"] != "") {
-                    $modelEnrollment = new enrollment();
-                    $modelEnrollment->student = $model->id;
-                    $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
-                    $modelEnrollment->save();
+                if(isset(Yii::$app->request->post()["classroom_enrollment"])) {
+                    if(Yii::$app->request->post()["classroom_enrollment"] != "") {
+                        $modelEnrollment = new enrollment();
+                        $modelEnrollment->student = $model->id;
+                        $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
+                        $modelEnrollment->save();
+                    }
                 }
-                $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
+                $this->setFlashMessage('success', 'Aluno salvo com sucesso');
                 return $this->redirect(['index']);
             }
         }
