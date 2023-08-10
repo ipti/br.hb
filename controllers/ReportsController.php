@@ -481,6 +481,34 @@ class ReportsController extends \yii\web\Controller {
             return $this->render('buildTerm',['schools' => $schools]);
         }
     }
+    /**
+     * Summary of actionBuildLetters
+     * @return void
+     */
+    public function actionBuildLetters($cid){
+        if (isset($cid)) {
+            $schools = array();
+
+            $campaign = campaign::find()->where('id = :sid', ['sid' => $cid])->one();
+            $terms = $campaign->getTerms()->all();
+            foreach ($terms as $term):
+                $enrollment = $term->getEnrollments()->one();   
+                $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
+                $school = $classroom->getSchools()->orderBy('name')->one();
+                $student = $enrollment->getStudents()->orderBy('name')->one();
+
+                $sex = $student->gender == 'male' ? true : false;
+
+                $schools[$school->id]['name'] = $school->name;
+                $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name; 
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['sex'] = $sex; 
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
+                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
+            endforeach;    
+        }
+        return $this->render('buildLetters', ['schools' => $schools]);
+    }
 
     public function actionGetConsultationLetter() {
         $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
