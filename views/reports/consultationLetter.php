@@ -38,6 +38,14 @@ $this->assetBundles['Reports']->js = [
                         'type'=>Form::INPUT_RAW,
                         'value' => Html::hiddenInput('consultation-letter-form[campaign-student]', $student->id)
                     ],
+                    'student-erollment' => [
+                        'type'=>Form::INPUT_RAW,
+                        'value' => Html::hiddenInput('consultation-letter-form[student-erollment]', $eronllment)
+                    ],
+                    'campaign' => [
+                        'type'=>Form::INPUT_RAW,
+                        'value' => Html::hiddenInput('consultation-letter-form[campaign]', $campaign)
+                    ],
                     'name'=>[
                         'label'=>yii::t('app', 'Student'), 
                         'type'=>Form::INPUT_STATIC,

@@ -246,7 +246,7 @@ class campaign extends \yii\db\ActiveRecord {
                 ->via('terms');
     }
 
-    public function getCampaignsResume(){
+    public function getCampaignsResume($date_end){
         $result = Yii::$app->db->createCommand("
         SELECT 
             c.name as campaing_name,
@@ -264,16 +264,18 @@ class campaign extends \yii\db\ActiveRecord {
             sum((SELECT count(1) from anatomy a2 WHERE a2.student = s.id GROUP by a2.student)) as anatomy_total,
             sum((SELECT count(1) from anatomy a2 WHERE a2.student = s.id and a2.`date` >= c.`begin` GROUP by a2.student)) as anatomy_updated
         FROM campaign c 
-            join term t on t.campaign = c.id 
+            left join term t on t.campaign = c.id 
             left join enrollment e on e.id = t.enrollment
             left join student s on s.id = e.student
             left join hemoglobin h1 on h1.agreed_term = t.id AND  h1.sample = 1
             left join hemoglobin h2 on h2.agreed_term = t.id AND  h1.sample = 2
             left join hemoglobin h3 on h3.agreed_term = t.id AND  h1.sample = 3
             left join ferritin fer on fer.agreed_term = t.id
+        where c.end >= :date_end
         group by c.id
-        order by c.end desc
-        ")->queryAll();
+        order by c.end desc")
+        ->bindParam(":date_end", $date_end)
+        ->queryAll();
 
         return $result;
     }

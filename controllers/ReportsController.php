@@ -20,10 +20,9 @@ class ReportsController extends \yii\web\Controller {
         return $this->render('index');
     }
 
-    public function actionConsultationLetter($sid = null) {
-        $options = $sid == null ? [] : ['student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one()];
-
-        return $this->render('consultationLetter', $options);
+    public function actionConsultationLetter($sid = null, $eid, $cid) {
+        $options = $sid == null ? [] : ['student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one(), 'eronllment'=>$eid, 'campaign' => $cid];
+        return $this->render('consultationLetter', $options );
     }
     
     public function actionMultiplePrescriptions($cid) {
@@ -71,7 +70,6 @@ class ReportsController extends \yii\web\Controller {
         }
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
     }
-
     public function actionPrescription($cid, $eid,$render=True) {
         /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
@@ -95,7 +93,7 @@ class ReportsController extends \yii\web\Controller {
         $sex = $student != null ? \yii::t('app', $student->gender) : "";
         $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
         $height = $anatomy != null ? $anatomy->height . "m" : "";
-        $imc = $anatomy != null ? number_format($anatomy->weight / $anatomy->height**2, 2) : "";
+        $imc = $anatomy != null ? number_format($anatomy->weight / pow($anatomy->height, 2), 2) : "";
         $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
 
         if ($anatomy == null) {
@@ -240,7 +238,7 @@ class ReportsController extends \yii\web\Controller {
         $sex = $student != null ? \yii::t('app', $student->gender) : "";
         $weight = $anatomy != null ? $anatomy->weight . "kg" : "";
         $height = $anatomy != null ? $anatomy->height . "m" : "";
-        $imc = $anatomy != null ? number_format($anatomy->weight / ($anatomy->height**2), 2) : "";
+        $imc = $anatomy != null ? number_format($anatomy->weight / pow($anatomy->height, 2), 2) : "";
         $rate1 = $hb1 != null ? $hb1->rate . "g/dL" : "";
         $sulfato ='';
         $vermifugo ='';
@@ -512,20 +510,24 @@ class ReportsController extends \yii\web\Controller {
 
     public function actionGetConsultationLetter() {
         $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
+        $eid = isset($letter['student-erollment']) && !empty($letter["student-erollment"]) ? $letter["student-erollment"] : null;
+        $cid = isset($letter['campaign']) && !empty($letter["campaign"]) ? $letter["campaign"] : null;
         $sid = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
         $date = isset($letter['consult-date']) && !empty($letter['consult-date']) ? $letter['consult-date'] : "____/____/____";
         $time = isset($letter['consult-time']) && !empty($letter['consult-time']) ? $letter['consult-time'] : "____:____";
         $place = isset($letter['consult-location']) && !empty($letter['consult-location']) ? $letter['consult-location'] : "____________________________________";
-
+        $term = $eid != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid' => $cid])->one() : null;
+        $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
         $student = ($sid != null) ? \app\models\student::find()->where("id = :sid", ['sid' => $sid])->one() : null;
         /* @var $student \app\models\student */
         $name = $student != null ? $student->name : "____________________________________________________________________";
-        $gender = $student->gender;
-        $consultationLetter = $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
+        $gender = $student->gender;  
+        $consultationLetter = $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place, $hb1["rate"]);
+      
         Yii::$app->response->content = $consultationLetter;
     }
-    
-    public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place){
+   
+    public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place, $hb1){
         $sex = $gender == null ? true : ($gender == "male" ? true : false); /* male or female */
 
         $html =  "Prezados Pais,"
@@ -536,6 +538,9 @@ class ReportsController extends \yii\web\Controller {
         . " <b><u>"
         . $name
         . "</u></b>, um exame que diagnostica a anemia.</p>"
+        ."<p>O nível de hemoglobina encontrada no exame foi "
+        .$hb1
+        ."</p>"
         . "<p>Ficamos preocupados, pois o resultado mostrou que "
         . ($sex ? "ele" : "ela")
         . " encontra-se com anemia. Vocês deverão levar "
@@ -618,8 +623,13 @@ class ReportsController extends \yii\web\Controller {
         exit;
     }
 
-    public function actionHealth() {
-        return $this->render("health");
+    public function actionHealth($year = null) {
+        if(!isset($year)){
+            $year = date("Y");
+        }
+        return $this->render("health", [
+            'year' => $year
+        ]);
     }
 }
 
