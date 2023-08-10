@@ -494,15 +494,36 @@ class ReportsController extends \yii\web\Controller {
                 $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
                 $school = $classroom->getSchools()->orderBy('name')->one();
                 $student = $enrollment->getStudents()->orderBy('name')->one();
-
+                $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+                $rate = $hb1["rate"];
                 $sex = $student->gender == 'male' ? true : false;
+                $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
 
-                $schools[$school->id]['name'] = $school->name;
-                $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name; 
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['sex'] = $sex; 
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
-                $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
+                $isAnemic = false;
+                    if (($ageStudent > 24) && ($ageStudent < 60)) {
+                        $isAnemic = !($rate >= 11);
+                    } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                        $isAnemic = !($rate >= 11.5);
+                    } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
+                        $isAnemic = !($rate >= 12);
+                    } else if ($ageStudent >= 180) {
+
+                        if ($genderStudent == "male") {
+                            $isAnemic = !($rate >= 13);
+                        } else {
+                            //female
+                            $isAnemic = !($rate >= 12);
+                        }
+                    }
+                    if(!$isAnemic) {
+                        $schools[$school->id]['name'] = $school->name;
+                        $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name; 
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['sex'] = $sex; 
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['hb1'] = $rate; 
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
+                    }
             endforeach;    
         }
         return $this->render('buildLetters', ['schools' => $schools]);

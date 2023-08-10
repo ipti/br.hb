@@ -53,9 +53,11 @@ $truncate = function($str){
                     <br>
                     <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Fiquem tranquilos, pois o resultado mostrou que <?= $data['sSex'] ? "ele" : "ela" ?>  não encontra-se com anemia.
+                    Fiquem tranquilos, pois o resultado mostrou que <?= $data['sSex'] ? "ele" : "ela" ?> <b>não encontra-se com anemia.</b>
+                    <br>
                     <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    O Nível de Hemoglobina encotrado no exame foi  <?= $data['sHb1'] ?>
                 </p>
             </div>
         </div> 

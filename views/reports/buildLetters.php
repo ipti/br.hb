@@ -34,19 +34,13 @@ $this->title = "Todos as Cartas de Aviso";
             $students = $classroom['students'];
             //Classroom
     ?>
-        <div class="report-row">
-            <div class="col grid-12">
-                <p class='page-white'> Turma: <?= $cName ?> </p> 
-            </div>
-        </div>
-
-        <div class="footer-print"></div>
 
             <?php
 
             foreach ($students as $k => $student):
                 $sName = $student['name'];
                 $sSex = $student['sex'];
+                $sHb1 = $student['hb1'];
                 $sMother = $student['nameMother'];
                 $sFather = ($student['nameFather'] == 'NAO DECLARADO' ? '' : $student['nameFather']);
             ?> 
@@ -54,6 +48,7 @@ $this->title = "Todos as Cartas de Aviso";
                     'data'=>[
                         'sName'=> $sName,
                         'sSex'=> $sSex,
+                        'sHb1'=> $sHb1,
                         'cName'=> $cName,
                         'mother'=> $sMother,
                         'father'=> $sFather
