@@ -508,7 +508,7 @@ class ReportsController extends \yii\web\Controller {
                         $isAnemic = !($rate >= 12);
                     } else if ($ageStudent >= 180) {
 
-                        if ($genderStudent == "male") {
+                        if ($student->gender == "male") {
                             $isAnemic = !($rate >= 13);
                         } else {
                             //female
