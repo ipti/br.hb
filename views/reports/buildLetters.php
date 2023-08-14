@@ -51,7 +51,8 @@ $this->title = "Todos as Cartas de Aviso";
                         'sHb1'=> $sHb1,
                         'cName'=> $cName,
                         'mother'=> $sMother,
-                        'father'=> $sFather
+                        'father'=> $sFather,
+                        'isConsutationLetters'=> $isConsutationLetters
                     ]
                 ]);
 
