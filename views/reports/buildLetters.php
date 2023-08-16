@@ -32,17 +32,26 @@ $this->title = "Todos as Cartas de Aviso";
         foreach ($classrooms as $j => $classroom):
             $cName = $classroom['name'];
             $students = $classroom['students'];
-            //Classroom
+            
     ?>
 
             <?php
-
+            // $countLetters = 0;
             foreach ($students as $k => $student):
                 $sName = $student['name'];
                 $sSex = $student['sex'];
                 $sHb1 = $student['hb1'];
                 $sMother = $student['nameMother'];
                 $sFather = ($student['nameFather'] == 'NAO DECLARADO' ? '' : $student['nameFather']);
+               /*  if($countLetters >= 2) {
+                    $countLetters = 0;
+                    echo "<div class='footer-print'></div>";
+                } else {
+                    $countLetters+=1;
+                } */
+                
+               
+            
             ?> 
             <?=  LetterWidget::widget([
                     'data'=>[
@@ -55,9 +64,8 @@ $this->title = "Todos as Cartas de Aviso";
                         'isConsutationLetters'=> $isConsutationLetters
                     ]
                 ]);
-
             ?>
-             <div class="footer-print"></div>
+            <div class='footer-print'></div>
 <?php
     endforeach;
     endforeach;
