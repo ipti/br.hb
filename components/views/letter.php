@@ -82,18 +82,6 @@ $truncate = function($str){
                 </p>
             </div>
         </div>  
-        <div class="report-row margin-top-25">
-            <div class="col grid-12 report-text-left">
-                <p> <span class="bold">Nome da criança <br> ou adolescente:</span> <?= $data['sName'] ?> </p>
-            </div>
-        </div>  
-
-        <div class="report-row margin-top-10">
-            <div class="col grid-12 report-text-left">
-                <p> <span class="bold">Turma:</span> <?= $data['cName'] ?></p>
-            </div>
-        </div>
-
         <!-- .report-row -->  
 
     </div><!-- .report-body -->
