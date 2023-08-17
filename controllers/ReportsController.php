@@ -146,6 +146,38 @@ class ReportsController extends \yii\web\Controller {
             return $options;
         }
     }
+    public function actionAllPrescription($cid) {
+        $terms = \app\models\term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        
+        $sulfatoComprimidos = 0;
+        $sulfatoGota = 0;
+        $vermifugo = 0;
+        foreach($terms as $term){
+            $student = $term->getStudents()->one();
+            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+
+            if($anatomy != null) {
+                $peso = $anatomy->weight;
+    
+                $concentracaoPorML = 25;
+                $gotasPorML = 20;
+                $concentracaoPorGota = $concentracaoPorML / $gotasPorML;
+    
+                $posologia = ceil($peso / $concentracaoPorGota);
+    
+                if ($peso > 30) {
+                    $sulfatoComprimidos++;
+                } else {
+                    $sulfatoGota+= $posologia;
+                }
+                $vermifugo++;
+            }
+        }
+        var_dump("sulfato comprimidos: ".$sulfatoComprimidos . "<br>");
+        var_dump("sulfato gotas: ".$sulfatoGota. "<br>");
+        var_dump("vermifugo comprimidos: ".$vermifugo. "<br>");
+    }
+
 
     public function actionTerms() {
         return $this->render('terms');
@@ -483,7 +515,7 @@ class ReportsController extends \yii\web\Controller {
      * Summary of actionBuildLetters
      * @return void
      */
-    public function actionBuildLetters($cid){
+    public function actionBuildLetters($cid, $isConsutationLetters){
         if (isset($cid)) {
             $schools = array();
 
@@ -515,7 +547,7 @@ class ReportsController extends \yii\web\Controller {
                             $isAnemic = !($rate >= 12);
                         }
                     }
-                    if(!$isAnemic) {
+                    if($isConsutationLetters ? $isAnemic : !$isAnemic) {
                         $schools[$school->id]['name'] = $school->name;
                         $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
                         $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name; 
@@ -526,7 +558,7 @@ class ReportsController extends \yii\web\Controller {
                     }
             endforeach;    
         }
-        return $this->render('buildLetters', ['schools' => $schools]);
+        return $this->render('buildLetters', ['schools' => $schools, 'isConsutationLetters' => $isConsutationLetters]);
     }
 
     public function actionGetConsultationLetter() {
