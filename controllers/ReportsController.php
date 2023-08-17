@@ -483,7 +483,7 @@ class ReportsController extends \yii\web\Controller {
      * Summary of actionBuildLetters
      * @return void
      */
-    public function actionBuildLetters($cid){
+    public function actionBuildLetters($cid, $isConsutationLetters){
         if (isset($cid)) {
             $schools = array();
 
@@ -515,7 +515,7 @@ class ReportsController extends \yii\web\Controller {
                             $isAnemic = !($rate >= 12);
                         }
                     }
-                    if(!$isAnemic) {
+                    if($isConsutationLetters ? $isAnemic : !$isAnemic) {
                         $schools[$school->id]['name'] = $school->name;
                         $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
                         $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name; 
@@ -526,7 +526,7 @@ class ReportsController extends \yii\web\Controller {
                     }
             endforeach;    
         }
-        return $this->render('buildLetters', ['schools' => $schools]);
+        return $this->render('buildLetters', ['schools' => $schools, 'isConsutationLetters' => $isConsutationLetters]);
     }
 
     public function actionGetConsultationLetter() {

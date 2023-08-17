@@ -144,6 +144,7 @@ return [
     'Prescription' => 'Prescrição',
     'Anamnese' => 'Anamnese',
     'Notice Letters' => 'Cartas de aviso',
+    'Consultation Notification Letters' => 'Avisos de consultas',
     'Letter' => 'Carta de Aviso',
     
     // Letter
