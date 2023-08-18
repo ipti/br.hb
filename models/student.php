@@ -174,8 +174,7 @@ class student extends \yii\db\ActiveRecord
 
         if(isset($rate["rate"])) {
             $rate = floatval($rate["rate"]);
-            VarDumper::dump($rate);
-
+            
             $genderStudent = $this->gender;
             $ageStudent = (time() - strtotime($this->birthday)) / (60 * 60 * 24 * 30);
             if (($ageStudent > 24) && ($ageStudent < 60)) {
