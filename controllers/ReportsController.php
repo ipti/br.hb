@@ -174,10 +174,15 @@ class ReportsController extends \yii\web\Controller {
                 }
                 $vermifugo++;
             }
-        }
-        var_dump("sulfato comprimidos: ".$sulfatoComprimidos . "<br>");
-        var_dump("sulfato gotas: ".$sulfatoGota. "<br>");
-        var_dump("vermifugo comprimidos: ".$vermifugo. "<br>");
+        }        
+        
+        $result = [            
+            "sulfato_comprimidos" => $sulfatoComprimidos * 12 * 7 * 2,
+            "sulfato_gotas" => $sulfatoGota * 12 * 7 * 3,
+            "vermifugo comprimidos" => $vermifugo
+        ];
+
+        VarDumper::dump($result, 2, true);
     }
 
 
