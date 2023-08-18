@@ -177,8 +177,8 @@ class ReportsController extends \yii\web\Controller {
         }        
         
         $result = [            
-            "sulfato_comprimidos" => $sulfatoComprimidos * 12 * 7 * 2,
-            "sulfato_gotas" => $sulfatoGota * 12 * 7 * 3,
+            "sulfato_comprimidos" => $sulfatoComprimidos * 12 * 7 * 2, // 12 semanas, 7 dias cada, 2 vezes o dia
+            "sulfato_gotas" => $sulfatoGota * 12 * 7 * 3, // 12 semanas, 7 dias cada, 3 vezes o dia
             "vermifugo comprimidos" => $vermifugo
         ];
 
