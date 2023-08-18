@@ -149,6 +149,7 @@ class ReportsController extends \yii\web\Controller {
     }
     public function actionAllPrescription($cid) {
         $terms = term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        $campaing = campaign::findOne(['id' => $cid]);
         
         $sulfatoComprimidos = 0;
         $sulfatoGota = 0;
@@ -176,7 +177,8 @@ class ReportsController extends \yii\web\Controller {
             }
         }        
         
-        $result = [            
+        $result = [
+            "campanha" => $campaing->name,
             "sulfato_comprimidos" => $sulfatoComprimidos * 12 * 7 * 2, // 12 semanas, 7 dias cada, 2 vezes o dia
             "sulfato_gotas" => $sulfatoGota * 12 * 7 * 3, // 12 semanas, 7 dias cada, 3 vezes o dia
             "vermifugo comprimidos" => $vermifugo
