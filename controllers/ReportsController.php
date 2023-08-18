@@ -13,6 +13,7 @@ use app\components\AnamnesePdfWidget;
 use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
 use app\components\TermWidget;
+use yii\helpers\VarDumper;
 
 class ReportsController extends \yii\web\Controller {
 
@@ -147,16 +148,17 @@ class ReportsController extends \yii\web\Controller {
         }
     }
     public function actionAllPrescription($cid) {
-        $terms = \app\models\term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        $terms = term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
         
         $sulfatoComprimidos = 0;
         $sulfatoGota = 0;
         $vermifugo = 0;
+
         foreach($terms as $term){
             $student = $term->getStudents()->one();
-            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;                                                            
 
-            if($anatomy != null) {
+            if($anatomy != null && $student->isAnemic($term->id)) {
                 $peso = $anatomy->weight;
     
                 $concentracaoPorML = 25;

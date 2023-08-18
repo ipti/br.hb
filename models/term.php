@@ -58,6 +58,15 @@ class term extends \yii\db\ActiveRecord
         return $this->hasMany(hemoglobin::class, ['agreed_term' => 'id']);
     }
 
+
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHB1()
+    {
+        return $this->hasMany(hemoglobin::class, ['agreed_term' => 'id', 'sample' => 1]);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
