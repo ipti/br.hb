@@ -147,15 +147,15 @@ class anatomy extends \yii\db\ActiveRecord
 
         // Classifica o IMC com base nas faixas definidas
         if ($imc < $faixas[0]) {
-            return 'Muito abaixo do peso';            
+            return -1;            
         } elseif ($imc < $faixas[1]) {
-            return 'Abaixo do peso';
+            return 0;
         } elseif ($imc < $faixas[2]) {
-            return 'Peso normal';
+            return 1;
         } elseif ($imc < $faixas[3]) {
-            return 'Sobrepeso';
+            return 2;
         } else {
-            return 'Obesidade';
+            return 3;
         }
     }
 }

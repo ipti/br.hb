@@ -73,7 +73,17 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                 'content' => function ($model, $key, $index, $column){
                     $anatomy = $model->getStudents()->one()->getAnatomies()->orderBy("date desc")->one();
                     if($anatomy != null){
-                        $situation = $anatomy->IMCSituation();
+                        $dataAtual = new \DateTime();
+                        $dataNascimentoObj = new \DateTime($model->getStudents()->one()->birthday);
+                        $idade = $dataNascimentoObj->diff($dataAtual)->y;
+                        $genero = $model->getStudents()->one()->gender == "male" ? "masculino" : "feminino";
+                        
+                        if($idade <= 19) {
+                            $situation = $anatomy->classificarIMCInfantil($anatomy->IMC(), $idade, $genero);
+                        }else {
+                            $situation = $anatomy->IMCSituation();
+                        }
+
                         /*
                         DESNUTRIDO    = -1;
                         NORMAL        = 0;
@@ -82,7 +92,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         OBESIDADE_MORBIDA = 3;
                          */
                         $classname = '';
-                        if($situation == -1 || $situation == 2 || $situation == 3) {
+                        if($situation == -1 || $situation == 2   || $situation == 3) {
                             $classname = 'danger';
                         }else if ($situation == 0) {
                             $classname = 'info';
