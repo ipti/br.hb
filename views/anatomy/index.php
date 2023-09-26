@@ -78,25 +78,25 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         $idade = $dataNascimentoObj->diff($dataAtual)->y;
                         $genero = $model->getStudents()->one()->gender == "male" ? "masculino" : "feminino";
                         
-                        if($idade <= 19) {
+                        if($idade <= 18) {
                             $situation = $anatomy->classificarIMCInfantil($anatomy->IMC(), $idade, $genero);
                         }else {
                             $situation = $anatomy->IMCSituation();
                         }
 
                         /*
-                        DESNUTRIDO    = -1;
-                        NORMAL        = 0;
-                        SOBREPESO     = 1;
-                        OBESIDADE     = 2;
-                        OBESIDADE_MORBIDA = 3;
+                        Desnutrição Grave    = -1;
+                        Desnutrição Moderada        = 0;
+                        Normal     = 1;
+                        Sobrepeso     = 2;
+                        Obesidade = 3;
                          */
                         $classname = '';
-                        if($situation == -1 || $situation == 2   || $situation == 3) {
+                        if($situation == -1 || $situation == 3 || $situation == 4) {
                             $classname = 'danger';
-                        }else if ($situation == 0) {
-                            $classname = 'info';
                         }else if ($situation == 1) {
+                            $classname = 'info';
+                        }else if ($situation == 2 || $situation == 0) {
                             $classname = 'warning';
                         }
                         return $anatomy->IMC() . "kg/m²<br>"
