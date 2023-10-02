@@ -94,7 +94,7 @@ $this->params['siteIndex'] = true;
                         'class'=>'updateCampaign campaign-box-edit',
                         'for'=>'#'
                     ]);?>
-                    <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
+                    <!-- <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Ferritin').': ',$ferritin ['Url'])?></div>
                         <div class="campaign-box-content">
                         <?= Html::a($ferritin['Done'].' '.Icon::show('check', ['class'=>'icon-sucess']),
@@ -102,7 +102,7 @@ $this->params['siteIndex'] = true;
                             <?= Html::a($ferritin['UnDone'].' '.Icon::show('remove', ['class'=>'icon-error']),
                                     $ferritin['Url'])?>
                         </div>
-                    </div><!-- end ferritin -->
+                    </div>end ferritin -->
                     <div id="campaing-box[<?= $campaing['Id'] ?>]-anatomies" class="campaign-box-container">
                         <div class="campaign-box-label"><?= Html::a(Yii::t('app', 'Anatomies').': ',$anatomies['Url'])?></div>
                         <div class="campaign-box-content">
