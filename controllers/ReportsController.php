@@ -21,10 +21,9 @@ class ReportsController extends \yii\web\Controller {
         return $this->render('index');
     }
 
-    public function actionConsultationLetter($sid = null) {
-        $options = $sid == null ? [] : ['student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one()];
-
-        return $this->render('consultationLetter', $options);
+    public function actionConsultationLetter($sid = null, $eid, $cid) {
+        $options = $sid == null ? [] : ['student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one(), 'eronllment'=>$eid, 'campaign' => $cid];
+        return $this->render('consultationLetter', $options );
     }
     
     public function actionMultiplePrescriptions($cid) {
@@ -72,7 +71,6 @@ class ReportsController extends \yii\web\Controller {
         }
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
     }
-
     public function actionPrescription($cid, $eid,$render=True) {
         /* @var $enrollment \app\models\enrollment */
         /* @var $student \app\models\student */
@@ -149,6 +147,38 @@ class ReportsController extends \yii\web\Controller {
             return $options;
         }
     }
+    public function actionAllPrescription($cid) {
+        $terms = \app\models\term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        
+        $sulfatoComprimidos = 0;
+        $sulfatoGota = 0;
+        $vermifugo = 0;
+        foreach($terms as $term){
+            $student = $term->getStudents()->one();
+            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+
+            if($anatomy != null) {
+                $peso = $anatomy->weight;
+    
+                $concentracaoPorML = 25;
+                $gotasPorML = 20;
+                $concentracaoPorGota = $concentracaoPorML / $gotasPorML;
+    
+                $posologia = ceil($peso / $concentracaoPorGota);
+    
+                if ($peso > 30) {
+                    $sulfatoComprimidos++;
+                } else {
+                    $sulfatoGota+= $posologia;
+                }
+                $vermifugo++;
+            }
+        }
+        var_dump("sulfato comprimidos: ".$sulfatoComprimidos . "<br>");
+        var_dump("sulfato gotas: ".$sulfatoGota. "<br>");
+        var_dump("vermifugo comprimidos: ".$vermifugo. "<br>");
+    }
+
 
     public function actionTerms() {
         return $this->render('terms');
@@ -482,23 +512,76 @@ class ReportsController extends \yii\web\Controller {
             return $this->render('buildTerm',['schools' => $schools]);
         }
     }
+    /**
+     * Summary of actionBuildLetters
+     * @return void
+     */
+    public function actionBuildLetters($cid, $isConsutationLetters){
+        if (isset($cid)) {
+            $schools = array();
+
+            $campaign = campaign::find()->where('id = :sid', ['sid' => $cid])->one();
+            $terms = $campaign->getTerms()->all();
+            foreach ($terms as $term):
+                $enrollment = $term->getEnrollments()->one();   
+                $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
+                $school = $classroom->getSchools()->orderBy('name')->one();
+                $student = $enrollment->getStudents()->orderBy('name')->one();
+                $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+                $rate = $hb1["rate"];
+                $sex = $student->gender == 'male' ? true : false;
+                $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+
+                $isAnemic = false;
+                    if (($ageStudent > 24) && ($ageStudent < 60)) {
+                        $isAnemic = !($rate >= 11);
+                    } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
+                        $isAnemic = !($rate >= 11.5);
+                    } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
+                        $isAnemic = !($rate >= 12);
+                    } else if ($ageStudent >= 180) {
+
+                        if ($student->gender == "male") {
+                            $isAnemic = !($rate >= 13);
+                        } else {
+                            //female
+                            $isAnemic = !($rate >= 12);
+                        }
+                    }
+                    if($isConsutationLetters ? $isAnemic : !$isAnemic) {
+                        $schools[$school->id]['name'] = $school->name;
+                        $schools[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['name'] = $student->name; 
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['sex'] = $sex; 
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['hb1'] = $rate; 
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
+                        $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
+                    }
+            endforeach;    
+        }
+        return $this->render('buildLetters', ['schools' => $schools, 'isConsutationLetters' => $isConsutationLetters]);
+    }
 
     public function actionGetConsultationLetter() {
         $letter = isset($_POST['consultation-letter-form']) ? $_POST['consultation-letter-form'] : null;
+        $eid = isset($letter['student-erollment']) && !empty($letter["student-erollment"]) ? $letter["student-erollment"] : null;
+        $cid = isset($letter['campaign']) && !empty($letter["campaign"]) ? $letter["campaign"] : null;
         $sid = isset($letter['campaign-student']) && !empty($letter['campaign-student']) ? $letter['campaign-student'] : null;
         $date = isset($letter['consult-date']) && !empty($letter['consult-date']) ? $letter['consult-date'] : "____/____/____";
         $time = isset($letter['consult-time']) && !empty($letter['consult-time']) ? $letter['consult-time'] : "____:____";
         $place = isset($letter['consult-location']) && !empty($letter['consult-location']) ? $letter['consult-location'] : "____________________________________";
-
+        $term = $eid != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid' => $cid])->one() : null;
+        $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
         $student = ($sid != null) ? \app\models\student::find()->where("id = :sid", ['sid' => $sid])->one() : null;
         /* @var $student \app\models\student */
         $name = $student != null ? $student->name : "____________________________________________________________________";
-        $gender = $student->gender;
-        $consultationLetter = $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place);
+        $gender = $student->gender;  
+        $consultationLetter = $this->actionGetConsultationLetterRaw($name, $gender, $date, $time, $place, $hb1["rate"]);
+      
         Yii::$app->response->content = $consultationLetter;
     }
-    
-    public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place){
+   
+    public function actionGetConsultationLetterRaw($name, $gender, $date, $time, $place, $hb1){
         $sex = $gender == null ? true : ($gender == "male" ? true : false); /* male or female */
 
         $html =  "Prezados Pais,"
@@ -509,7 +592,9 @@ class ReportsController extends \yii\web\Controller {
         . " <b><u>"
         . $name
         . "</u></b>, um exame que diagnostica a anemia.</p>"
-
+        ."<p>O nível de hemoglobina encontrada no exame foi "
+        .$hb1
+        ."</p>"
         . "<p>Ficamos preocupados, pois o resultado mostrou que "
         . ($sex ? "ele" : "ela")
         . " encontra-se com anemia. Vocês deverão levar "

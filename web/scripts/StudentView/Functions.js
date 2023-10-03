@@ -34,6 +34,11 @@ $(document).on("change", "#classroom_enrollment", function () {
 });
 
 
+$(document).on("change", "#classroom_enrollment", function () {
+    $(".campaign_select_container").show();
+});
+
+
 function submitAddressForm($form) {
     $.post(
         $form.attr("action"),

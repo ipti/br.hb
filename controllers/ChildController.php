@@ -11,6 +11,8 @@ use app\models\campaign;
 use app\models\term;
 use app\models\classroom;
 use app\models\school;
+use app\models\term;
+use app\models\campaign;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
@@ -58,6 +60,18 @@ class ChildController extends Controller
         ]);
     }
 
+    //verifica se a campanha tem um período que engloba a data atual do sistema
+    private function verifyCampaignInterval($begin, $end)
+    {
+        $dataAtual = date('Y-m-d');
+        // Verifica se a data atual está dentro do intervalo
+        if ($dataAtual >= $begin && $dataAtual <= $end) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function actionCreate()
     {
         $model = new student();
@@ -67,6 +81,11 @@ class ChildController extends Controller
         $modelEnrollment = new enrollment();
         $modelAddress = new address();
         $modelTerm = new term();
+        $year = date("Y");
+        $campaigns = campaign::find()->all();
+        $campaigns = array_filter($campaigns, function ($c) {
+            return $this->verifyCampaignInterval($c->begin, $c->end);
+        });
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
@@ -87,7 +106,6 @@ class ChildController extends Controller
                     if(Yii::$app->request->post()["classroom_enrollment"] != "") {
                         $modelEnrollment->student = $model->id;
                         $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
-
                         if($modelEnrollment->save()) {
                             $modelTerm->enrollment = $modelEnrollment->id;
                             $modelTerm->campaign = Yii::$app->request->post()["campaign"];
