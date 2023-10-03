@@ -92,7 +92,7 @@ class ChildController extends Controller
                             $modelTerm->enrollment = $modelEnrollment->id;
                             $modelTerm->campaign = Yii::$app->request->post()["campaign"];
                             $modelTerm->agreed = 0;
-                            $model->save();
+                            $modelTerm->save();
                         }
                     }
                     $this->setFlashMessage('success', 'Aluno cadastrado com sucesso');
@@ -193,6 +193,16 @@ class ChildController extends Controller
             echo "Matrícula deletada com sucesso";
         }else {
             throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao excluir a matrícula.');
+        }
+    }
+
+    public function actionRemoveCampaignOfTerm() {
+        $termId = $_POST["term"];
+        $term = term::findOne($termId);
+        if($term->delete()) {
+            echo "Termo desvinculado com sucesso";
+        }else {
+            throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao desvincular o termo.');
         }
     }
 

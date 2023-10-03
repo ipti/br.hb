@@ -128,8 +128,8 @@ $this->assetBundles['Child']->js = [
         <?php if($modelTerm->campaign) {
             $campaign = campaign::findOne($modelTerm->campaign);
         ?>
-        <hr><h4>Campanha Vinculada</h4><br>
-        <div class="row">
+        <div class="row show-campaign">
+            <hr><h4>Campanha Vinculada</h4><br>
             <div class="col-sm-12">
                 <div class="form-group">
                     <p>Campanha: <?= $campaign->name?></p>
@@ -161,9 +161,11 @@ $this->assetBundles['Child']->js = [
                 </div>
             </div>
         </div>
+    </div>
+    <div class="new-term-container" style="<?php echo $modelTerm->campaign ? 'display:none;' : ''?>">
         <div class="row">
             <div class="col-sm-12">
-                <div class="form-group campaign_select_container" style="display: none;">
+                <div class="form-group campaign_select_container">
                 <hr><h4>Vincular Campanha</h4><br>
                     <label for="campaign" class="form-label">Campanha</label>
                     <select name="campaign" id="campaign" class="form-control">
@@ -238,18 +240,34 @@ $this->assetBundles['Child']->js = [
 
 <script>
     $(document).on("click", "#delete-enrollment", function () {
-        $(".show-enrollment").hide();
-        $(".new-enrollment-container").show();
-        let {origin,pathname} = window.location;
-        $.ajax({
-            type: "POST",
-            url: `${origin}${pathname}?r=child%2Fdelete-enrollment`,
-            data: {
-                enrollment: $(this).attr('data')
-            },
-            success: function (response) {
-                console.log(response);
-            }
-        });
-    }); 
+    $(".show-enrollment").hide();
+    $(".new-enrollment-container").show();
+    let {origin,pathname} = window.location;
+    $.ajax({
+        type: "POST",
+        url: `${origin}${pathname}?r=child%2Fdelete-enrollment`,
+        data: {
+            enrollment: $(this).attr('data')
+        },
+        success: function (response) {
+            console.log(response);
+        }
+    });
+}); 
+
+$(document).on("click", "#delete-campaign", function () {
+    $(".show-campaign").hide();
+    $(".new-term-container").show();
+    let {origin,pathname} = window.location;
+    $.ajax({
+        type: "POST",
+        url: `${origin}${pathname}?r=child%2Fremove-campaign-of-term`,
+        data: {
+            term: $(this).attr('data')
+        },
+        success: function (response) {
+            console.log(response);
+        }
+    });
+});
 </script>
