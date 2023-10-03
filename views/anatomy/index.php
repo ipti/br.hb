@@ -78,7 +78,7 @@ $this->params['button'] = Html::button(Icon::show('plus',[], Icon::BSG).
                         $idade = $dataNascimentoObj->diff($dataAtual)->y;
                         $genero = $model->getStudents()->one()->gender == "male" ? "masculino" : "feminino";
                         
-                        if($idade <= 18) {
+                        if($idade <= 18 && $idade >= 5) {
                             $situation = $anatomy->classificarIMCInfantil($anatomy->IMC(), $idade, $genero);
                         }else {
                             $situation = $anatomy->IMCSituation();

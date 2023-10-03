@@ -4,6 +4,7 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use app\models\classroom;
 use app\models\school;
+use app\models\campaign;
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
 /* @var $form yii\bootstrap4\ActiveForm */
@@ -123,6 +124,20 @@ $this->assetBundles['Child']->js = [
             </div>
         </div>
         <?php }?>
+
+        <?php if($modelTerm->campaign) {
+            $campaign = campaign::findOne($modelTerm->campaign);
+        ?>
+        <hr><h4>Campanha Vinculada</h4><br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <p>Campanha: <?= $campaign->name?></p>
+                    <p><button type="button" class="btn btn-danger" id="delete-campaign" data="<?= $modelTerm->id ?>"><i class="fa fa-remove" style="margin-right:10px;"></i>Desvincular Campanha</button></p>
+                </div>
+            </div>
+        </div>
+        <?php }?>
     </div>
     <div class="new-enrollment-container" style="<?php echo $modelEnrollment->classroom ? 'display:none;' : ''?>">
         <div class="row">
@@ -143,6 +158,20 @@ $this->assetBundles['Child']->js = [
                 <div class="form-group classroom_select_container" style="display:none;">
                     <label class="form-label">Turma</label>
                     <select class="form-control" name="classroom_enrollment" id="classroom_enrollment"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group campaign_select_container" style="display: none;">
+                <hr><h4>Vincular Campanha</h4><br>
+                    <label for="campaign" class="form-label">Campanha</label>
+                    <select name="campaign" id="campaign" class="form-control">
+                        <option value="">Selecione uma campanha</option>
+                        <?php foreach ($campaigns as $c) {?>
+                            <option value="<?= $c->id ?>"><?= $c->name ?></option>
+                        <?php }?>
+                    </select>
                 </div>
             </div>
         </div>
