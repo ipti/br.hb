@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use kartik\icons\Icon;
+use yii\helpers\VarDumper;
 $this->title = yii::t('app', 'Health Report');
 ?>
 <div class="pull-right hidden-print">
@@ -68,12 +69,15 @@ $this->title = yii::t('app', 'Health Report');
 
         $hbAnemics['Total'][3] = 0;
 
-        $t = \app\models\term::find()->where("campaign = :c1 AND agreed = 1", ["c1" => $c->id])
+        $t = \app\models\term::find()
             ->innerJoin('enrollment as en', 'enrollment = en.id')
             ->innerJoin('student as s', 's.id = en.student')
             ->innerJoin('classroom as c', 'c.id = en.classroom')
+            ->where("campaign = :c1 AND agreed = 1", ["c1" => $c->id])
+            ->groupBy('term.id')
             ->orderBy('c.name ASC, s.name ASC')
             ->all();
+
         for ($i = 1; $i < 4; $i++) {
             foreach ($t AS $termAgreed):
                 // Somente possui uma hemoglobin por termo
@@ -114,7 +118,7 @@ $this->title = yii::t('app', 'Health Report');
                         $hbAnemics['Total'][$i]++;
                     }
                 }
-
+                
             endforeach;
         }
         ?>

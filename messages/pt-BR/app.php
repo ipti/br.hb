@@ -191,9 +191,10 @@ return [
     'Terminate day: {date}' => 'Dia de término: {date}',
     
     '{n, select, -1{Malnourished} 0{Normal} 1{Overweight} 2{Obesity} 3{Morbid Obesity}}' => '{n, select, -1{Desnutrido} 0{Normal} 1{Sobrepeso} 2{Obesidade} 3{Obesidade Mórbida}}',
-    '-1' => 'Desnutrido',
-    '0' => 'Normal',
-    '1' => 'Sobrepeso',
-    '2' => 'Obesidade',
-    '3' => 'Obesidade Morbida'
+    '-1' => 'Desnutrição Grave',
+    '0' => 'Desnutrição Moderada',
+    '1' => 'Normal',
+    '2' => 'Sobrepeso',
+    '3' => 'Obesidade',
+    '4' => 'Desnutrição'
 ];

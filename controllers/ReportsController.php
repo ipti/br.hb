@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\models\anatomy;
 use Yii;
 use app\models\campaign;
 use app\models\term;
@@ -600,7 +601,7 @@ class ReportsController extends \yii\web\Controller {
         . " <b><u>"
         . $name
         . "</u></b>, um exame que diagnostica a anemia.</p>"
-        ."<p>O nível de hemoglobina encontrada no exame foi "
+        ."<p>O nível de hemoglobina encontrado no exame foi "
         .$hb1
         ."</p>"
         . "<p>Ficamos preocupados, pois o resultado mostrou que "
@@ -651,11 +652,11 @@ class ReportsController extends \yii\web\Controller {
 
         foreach ($terms as $term):
 
-            $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $term->enrollment])->one();
-            $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
-            $classroom = \app\models\classroom::find()->where("id = :a", ["a" => $enrollment->classroom])->one();
-            $school = \app\models\school::find()->where("id = :a", ["a" => $classroom->school])->one();
-            $anatomy = \app\models\anatomy::find()->where("student = :a", ["a" => $student->id])->one();
+            $enrollment = enrollment::find()->where("id = :id", ["id" => $term->enrollment])->one();
+            $student = student::find()->where("id = :id", ["id" => $enrollment->student])->one();
+            $classroom = classroom::find()->where("id = :id", ["id" => $enrollment->classroom])->one();
+            $school = school::find()->where("id = :id", ["id" => $classroom->school])->one();
+            $anatomy = anatomy::find()->where("student = :id", ["id" => $student->id])->one();
 
             $students[$school->id]['name'] = $school->name;
             $students[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;

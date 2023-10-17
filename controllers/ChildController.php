@@ -7,13 +7,13 @@ use app\models\student;
 use app\models\studentSearch;
 use app\models\enrollment;
 use app\models\address;
-use app\models\enrollmentSearch;
+use app\models\campaign;
+use app\models\term;
 use app\models\classroom;
 use app\models\school;
 use app\models\term;
 use app\models\campaign;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 
@@ -77,8 +77,10 @@ class ChildController extends Controller
         $model = new student();
         $classrooms = classroom::find()->all();
         $schools = school::find()->all();
+        $campaigns = campaign::find()->all();
         $modelEnrollment = new enrollment();
         $modelAddress = new address();
+        $modelTerm = new term();
         $year = date("Y");
         $campaigns = campaign::find()->all();
         $campaigns = array_filter($campaigns, function ($c) {
@@ -105,7 +107,6 @@ class ChildController extends Controller
                         $modelEnrollment->student = $model->id;
                         $modelEnrollment->classroom = Yii::$app->request->post()["classroom_enrollment"];
                         if($modelEnrollment->save()) {
-                            $modelTerm = new term();
                             $modelTerm->enrollment = $modelEnrollment->id;
                             $modelTerm->campaign = Yii::$app->request->post()["campaign"];
                             $modelTerm->agreed = 0;
@@ -122,6 +123,7 @@ class ChildController extends Controller
             'model' => $model,
             'modelEnrollment' => $modelEnrollment,
             'modelAddress' => $modelAddress,
+            'modelTerm' => $modelTerm,
             'classrooms' => $classrooms,
             'schools' => $schools,
             'campaigns' => $campaigns
@@ -133,6 +135,7 @@ class ChildController extends Controller
         $model = $this->findModel($id);
         $modelAddress = $this->findAddrees($model->address);
         $modelEnrollment = $this->findEnrollment($model->id);
+        $modelTerm = $this->findTerm($modelEnrollment->id);
 
         if(!$modelEnrollment) {
             $modelEnrollment = new enrollment();
@@ -140,6 +143,7 @@ class ChildController extends Controller
 
         $classrooms = classroom::find()->all();
         $schools = school::find()->all();
+        $campaigns = campaign::find()->all();
         if ($model->load(Yii::$app->request->post())) {
             // convertendo o formato da data para o banco
             $model = $this->loadStudentUtil($model, Yii::$app->request->post());
@@ -161,6 +165,17 @@ class ChildController extends Controller
                         $modelEnrollment->save();
                     }
                 }
+
+                if(isset(Yii::$app->request->post()["campaign"])) {
+                    if(Yii::$app->request->post()["campaign"] != "") {
+                        $modelTerm = new term;
+                        $modelTerm->enrollment = $modelEnrollment->id;
+                        $modelTerm->campaign = Yii::$app->request->post()["campaign"];
+                        $modelTerm->agreed = 0;
+                        $modelTerm->save();
+                    }
+                }
+
                 $this->setFlashMessage('success', 'Aluno salvo com sucesso');
                 return $this->redirect(['index']);
             }
@@ -170,8 +185,10 @@ class ChildController extends Controller
             'model' => $model,
             'modelAddress' => $modelAddress,
             'modelEnrollment' => $modelEnrollment,
+            'modelTerm' => $modelTerm,
             'classrooms' => $classrooms,
-            'schools' => $schools
+            'schools' => $schools,
+            'campaigns' => $campaigns
         ]);
     }
 
@@ -194,6 +211,16 @@ class ChildController extends Controller
             echo "Matrícula deletada com sucesso";
         }else {
             throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao excluir a matrícula.');
+        }
+    }
+
+    public function actionRemoveCampaignOfTerm() {
+        $termId = $_POST["term"];
+        $term = term::findOne($termId);
+        if($term->delete()) {
+            echo "Termo desvinculado com sucesso";
+        }else {
+            throw new \yii\web\ServerErrorHttpException('Ocorreu um erro ao desvincular o termo.');
         }
     }
 
@@ -231,6 +258,15 @@ class ChildController extends Controller
         $model = enrollment::findOne(["student" => $id]);
         if (!$model) {
             return new enrollment();
+        }
+        return $model;
+    }
+
+    protected function findTerm($id)
+    {
+        $model = term::findOne(["enrollment" => $id]);
+        if (!$model) {
+            return new term();
         }
         return $model;
     }
