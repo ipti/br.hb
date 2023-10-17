@@ -11,8 +11,6 @@ use app\models\campaign;
 use app\models\term;
 use app\models\classroom;
 use app\models\school;
-use app\models\term;
-use app\models\campaign;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
