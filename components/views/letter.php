@@ -72,20 +72,20 @@ $truncate = function($str){
                4 – Lembrem-se também que leite faz muito bem, mas não junto das refeições. É melhor deixar passar duas horas após a refeição para dar leite às crianças.<br/></b><p/>
                Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.<br/><br/>
             </div>
-        </div>  
+        </div>
 
         <div class="report-row margin-top-10">
             <div class="col grid-12 report-text-left">
-                <p> 
+                <p>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                Com estas medidas podemos ajudar as nossas crianças a ficarem sempre saudáveis e alegres.
+                Muito obrigado pela atenção.
                 </p>
             </div>
-        </div>  
-        <!-- .report-row -->  
+        </div>
+        <!-- .report-row -->
 
     </div><!-- .report-body -->
-    <?php }else{ ?>
+    <?php } else { ?>
         <div class="report-body">
             <div class="report-row margin-top-15">
                 <div class="col grid-12">
