@@ -57,7 +57,7 @@ $truncate = function($str){
                     <br>
                     <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    O Nível de Hemoglobina encotrado no exame foi  <?= $data['sHb1'] ?>
+                    O nível de hemoglobina encontrado no exame foi  <?= $data['sHb1'] ?>
                 </p>
             </div>
         </div> 

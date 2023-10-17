@@ -592,7 +592,7 @@ class ReportsController extends \yii\web\Controller {
         . " <b><u>"
         . $name
         . "</u></b>, um exame que diagnostica a anemia.</p>"
-        ."<p>O nível de hemoglobina encontrada no exame foi "
+        ."<p>O nível de hemoglobina encontrado no exame foi "
         .$hb1
         ."</p>"
         . "<p>Ficamos preocupados, pois o resultado mostrou que "
