@@ -14,6 +14,7 @@ use app\components\AnamnesePdfWidget;
 use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
 use app\components\TermWidget;
+use yii\helpers\VarDumper;
 
 class ReportsController extends \yii\web\Controller {
 
@@ -148,16 +149,18 @@ class ReportsController extends \yii\web\Controller {
         }
     }
     public function actionAllPrescription($cid) {
-        $terms = \app\models\term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        $terms = term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        $campaing = campaign::findOne(['id' => $cid]);
         
         $sulfatoComprimidos = 0;
         $sulfatoGota = 0;
         $vermifugo = 0;
+
         foreach($terms as $term){
             $student = $term->getStudents()->one();
-            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;                                                            
 
-            if($anatomy != null) {
+            if($anatomy != null && $student->isAnemic($term->id)) {
                 $peso = $anatomy->weight;
     
                 $concentracaoPorML = 25;
@@ -173,10 +176,16 @@ class ReportsController extends \yii\web\Controller {
                 }
                 $vermifugo++;
             }
-        }
-        var_dump("sulfato comprimidos: ".$sulfatoComprimidos . "<br>");
-        var_dump("sulfato gotas: ".$sulfatoGota. "<br>");
-        var_dump("vermifugo comprimidos: ".$vermifugo. "<br>");
+        }        
+        
+        $result = [
+            "campanha" => $campaing->name,
+            "sulfato_comprimidos" => $sulfatoComprimidos * 12 * 7 * 2, // 12 semanas, 7 dias cada, 2 vezes o dia
+            "sulfato_gotas" => $sulfatoGota * 12 * 7 * 3, // 12 semanas, 7 dias cada, 3 vezes o dia
+            "vermifugo comprimidos" => $vermifugo
+        ];
+
+        VarDumper::dump($result, 2, true);
     }
 
 
