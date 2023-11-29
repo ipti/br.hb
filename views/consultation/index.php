@@ -32,6 +32,13 @@ $this->params['button'] =
 $this->params['campaign'] = $campaign;
 ?>
 
+<div style="display: flex;float: right;">
+    <?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Prescription"),Url::toRoute(['reports/just-prescription', 'cid' => $campaign, 'isConsutationLetters'=> false]),
+    ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
+    <?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Anamnese"),Url::toRoute(['reports/just-anamnese', 'cid' => $campaign, 'isConsutationLetters'=> false]),
+    ['target'=>"_blank", 'class' => 'btn btn-primary pull-right ml-10']) ?>
+</div>
+
 <div class="consultation-index">
 
     <?=Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app','All Prescriptions...'),['reports/multiple-prescriptions', 'cid'=>$campaign],

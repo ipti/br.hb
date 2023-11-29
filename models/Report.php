@@ -30,9 +30,9 @@ class Report extends Model{
         $today = $student != null ? new \DateTime(date("Y-m-d")) : "";
         $data['age'] = $student != null ? $today->diff(new \DateTime($b))->format("%y") . " " . \yii::t('app', 'years old') : "";
         $data['sex'] = $student != null ? \yii::t('app', $student->gender) : "";
-        $data['weight'] = $anatomy != null ? $anatomy->weight . "kg" : "";
-        $data['height'] = $anatomy != null ? $anatomy->height . "m" : "";
-        $data['imc'] = $anatomy != null ? number_format($data['weight'] / ($data['height'] * $data['height']), 2) : "";
+        $data['weight'] = $anatomy != null ? floatval($anatomy->weight) : "";
+        $data['height'] = $anatomy != null ? floatval($anatomy->height) : "";
+        $data['imc'] = $anatomy != null && $data['height'] > 0 ? number_format($data['weight'] / ($data['height'] * $data['height']), 2) : "";        
         $data['rate1'] = $hb1 != null ? $hb1->rate . "g/dL" : "";
 
         return $data;
