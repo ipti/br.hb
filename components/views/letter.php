@@ -100,6 +100,8 @@ $truncate = function($str){
                     Ficamos preocupados, pois o resultado mostrou que <?= $data['sSex'] ? "ele" : "ela" ?> <b>encontra-se com anemia.</b> Vocês deverão levar
                     <?= $data['sSex'] ? "seu filho" : "sua filha" ?> à consulta médica, para que ele receba o tratamento:
                 </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                O nível de hemoglobina encontrado no exame foi  <?= $data['sHb1'] ?>
                 </div>
             </div> 
             <div class="report-row margin-top-10">
