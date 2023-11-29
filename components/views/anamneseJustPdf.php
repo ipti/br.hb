@@ -3,11 +3,10 @@
 use yii\helpers\Html;
 use app\components\ReportHeaderWidget;
 
-
 $this->title = "Todas as cartas Anamnese";
 ?>
 
-<div class="report-content">
+<div class="report-content mpdf-page-number">
     <div class="report-head">
 
         <div class="row">
@@ -242,9 +241,9 @@ $this->title = "Todas as cartas Anamnese";
                 <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                 <p class="left">Dieta</p>
             </div>
-            <div class="col grid-3 report-text-left no-padding">
+            <div class="col grid-12 report-text-left no-padding">
                 <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
-                <p class="left">Outro:____________________</p>
+                <p class="left">Outro:___________________________________________________________________________________________________________</p>
             </div>
         </div>
 
@@ -294,9 +293,9 @@ $this->title = "Todas as cartas Anamnese";
                 <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                 <p class="left">Pai ou mão</p>
             </div>
-            <div class="col grid-3 report-text-left no-padding">
+            <div class="col grid-12 report-text-left no-padding">
                 <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
-                <p class="left">Outro:____________________</p>
+                <p class="left">Outro:___________________________________________________________________________________________________________</p>
             </div>
         </div>
 

@@ -15,8 +15,6 @@ use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
 use app\components\TermWidget;
 use app\components\PrescriptionJustPdfWidget;
-
-// require_once __DIR__ . '../vendor/autoload.php';
 use Mpdf\Mpdf;
 
 
@@ -138,7 +136,6 @@ class ReportsController extends \yii\web\Controller {
                 ->innerJoin("student s", "e.student = s.id")
                 ->orderBy("s.name ASC")
                 ->all();
-        
         $mpdf = new mPDF();
 
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
