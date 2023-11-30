@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'modelEnrollment' => $modelEnrollment,
         'modelAddress' => $modelAddress,
+        'modelTerm' => $modelTerm,
         'classrooms' => $classrooms,
         'schools' => $schools,
         'campaigns' => $campaigns

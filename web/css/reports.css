@@ -716,7 +716,11 @@ awnser{
 
 @media print{
     .report-body p, .report-footer p{
-        font-size: 16px;
+        font-size: 12px;
     }
+
+.footer-pdf{
+    margin-bottom: 12em;
+}
 }
 
