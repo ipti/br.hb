@@ -29,6 +29,10 @@ $(document).on("change", "#school_enrollment", function () {
     });
 });
 
+$(document).on("change", "#classroom_enrollment", function () {
+    $(".campaign_select_container").show();
+});
+
 
 $(document).on("change", "#classroom_enrollment", function () {
     $(".campaign_select_container").show();

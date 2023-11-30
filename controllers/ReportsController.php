@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\models\anatomy;
 use Yii;
 use app\models\campaign;
 use app\models\term;
@@ -14,10 +15,10 @@ use app\components\AnamneseJustPdfWidget;
 use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
 use app\components\TermWidget;
+
 use app\components\PrescriptionJustPdfWidget;
 use Mpdf\Mpdf;
-
-
+use yii\helpers\VarDumper;
 
 class ReportsController extends \yii\web\Controller {
 
@@ -244,16 +245,18 @@ class ReportsController extends \yii\web\Controller {
         }
     }
     public function actionAllPrescription($cid) {
-        $terms = \app\models\term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        $terms = term::find()->where("campaign = :cid", ['cid' => $cid])->all(); 
+        $campaing = campaign::findOne(['id' => $cid]);
         
         $sulfatoComprimidos = 0;
         $sulfatoGota = 0;
         $vermifugo = 0;
+
         foreach($terms as $term){
             $student = $term->getStudents()->one();
-            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;
+            $anatomy = $student != null ? $student->getAnatomies()->orderBy("date desc")->one() : null;                                                            
 
-            if($anatomy != null) {
+            if($anatomy != null && $student->isAnemic($term->id)) {
                 $peso = $anatomy->weight;
     
                 $concentracaoPorML = 25;
@@ -269,10 +272,16 @@ class ReportsController extends \yii\web\Controller {
                 }
                 $vermifugo++;
             }
-        }
-        var_dump("sulfato comprimidos: ".$sulfatoComprimidos . "<br>");
-        var_dump("sulfato gotas: ".$sulfatoGota. "<br>");
-        var_dump("vermifugo comprimidos: ".$vermifugo. "<br>");
+        }        
+        
+        $result = [
+            "campanha" => $campaing->name,
+            "sulfato_comprimidos" => $sulfatoComprimidos * 12 * 7 * 2, // 12 semanas, 7 dias cada, 2 vezes o dia
+            "sulfato_gotas" => $sulfatoGota * 12 * 7 * 3, // 12 semanas, 7 dias cada, 3 vezes o dia
+            "vermifugo comprimidos" => $vermifugo
+        ];
+
+        VarDumper::dump($result, 2, true);
     }
 
 
@@ -688,7 +697,7 @@ class ReportsController extends \yii\web\Controller {
         . " <b><u>"
         . $name
         . "</u></b>, um exame que diagnostica a anemia.</p>"
-        ."<p>O nível de hemoglobina encontrada no exame foi "
+        ."<p>O nível de hemoglobina encontrado no exame foi "
         .$hb1
         ."</p>"
         . "<p>Ficamos preocupados, pois o resultado mostrou que "
@@ -739,11 +748,11 @@ class ReportsController extends \yii\web\Controller {
 
         foreach ($terms as $term):
 
-            $enrollment = \app\models\enrollment::find()->where("id = :a", ["a" => $term->enrollment])->one();
-            $student = \app\models\student::find()->where("id = :a", ["a" => $enrollment->student])->one();
-            $classroom = \app\models\classroom::find()->where("id = :a", ["a" => $enrollment->classroom])->one();
-            $school = \app\models\school::find()->where("id = :a", ["a" => $classroom->school])->one();
-            $anatomy = \app\models\anatomy::find()->where("student = :a", ["a" => $student->id])->one();
+            $enrollment = enrollment::find()->where("id = :id", ["id" => $term->enrollment])->one();
+            $student = student::find()->where("id = :id", ["id" => $enrollment->student])->one();
+            $classroom = classroom::find()->where("id = :id", ["id" => $enrollment->classroom])->one();
+            $school = school::find()->where("id = :id", ["id" => $classroom->school])->one();
+            $anatomy = anatomy::find()->where("student = :id", ["id" => $student->id])->one();
 
             $students[$school->id]['name'] = $school->name;
             $students[$school->id]['classrooms'][$classroom->id]['name'] = $classroom->name;

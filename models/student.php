@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "student".
@@ -35,19 +36,21 @@ use Yii;
  * @property Address $address0
  * @property Term[] $terms
  */
-class student extends \yii\db\ActiveRecord {
-
+class student extends \yii\db\ActiveRecord
+{
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'student';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['name', 'birthday', 'gender'], 'required'],
             [['address', 'allergy', 'anemia', 'responsible_2_kinship', 'responsible_1_kinship'], 'integer'],
@@ -61,7 +64,8 @@ class student extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => Yii::t('app', 'ID'),
             'fid' => Yii::t('app', 'Fid'),
@@ -87,65 +91,109 @@ class student extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnatomies() {
+    public function getAnatomies()
+    {
         return $this->hasMany(anatomy::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getConsultations() {
+    public function getConsultations()
+    {
         return $this->hasMany(Consultation::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEnrollments() {
+    public function getEnrollments()
+    {
         return $this->hasMany(Enrollment::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClassrooms() {
+    public function getClassrooms()
+    {
         return $this->hasMany(Classroom::class, ['id' => 'classroom'])->viaTable('enrollment', ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKinships() {
+    public function getKinships()
+    {
         return $this->hasMany(Kinship::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResponsibles() {
+    public function getResponsibles()
+    {
         return $this->hasMany(PersonExternal::class, ['id' => 'responsible'])->viaTable('kinship', ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAddress0() {
+    public function getAddress0()
+    {
         return $this->hasOne(address::class, ['id' => 'address']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTerms() {
+    public function getTerms()
+    {
         return $this->hasMany(term::class, ['student' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCampaings() {
+    public function getCampaings()
+    {
         return $this->hasMany(campaign::class, ['id' => 'campaing'])
                         ->viaTable(term::class, ['student' => 'id']);
+    }
+
+
+    public function isAnemic($term_id)
+    {
+        $rate = (new \yii\db\Query())
+            ->select(['rate'])
+            ->from('hemoglobin')
+            ->where(['agreed_term' => $term_id, 'sample' => 1])
+            ->one();
+
+        $isAnemic = false;
+
+        if(isset($rate["rate"])) {
+            $rate = floatval($rate["rate"]);
+            
+            $genderStudent = $this->gender;
+            $ageStudent = (time() - strtotime($this->birthday)) / (60 * 60 * 24 * 30);
+            if (($ageStudent > 24) && ($ageStudent < 60)) {
+                $isAnemic = !($rate >= 11);
+            } elseif (($ageStudent >= 60) && ($ageStudent < 144)) {
+                $isAnemic = !($rate >= 11.5);
+            } elseif (($ageStudent >= 144) && ($ageStudent < 180)) {
+                $isAnemic = !($rate >= 12);
+            } elseif ($ageStudent >= 180) {
+
+                if ($genderStudent == "male") {
+                    $isAnemic = !($rate >= 13);
+                } else {
+                    //female
+                    $isAnemic = !($rate >= 12);
+                }
+            }
+        }
+        return $isAnemic;
     }
 
 }

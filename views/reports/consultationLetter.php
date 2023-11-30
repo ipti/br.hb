@@ -181,6 +181,9 @@ $this->assetBundles['Reports']->js = [
             <br/>
             <p>Como é do conhecimento de vocês, realizamos, a partir de uma gotinha de sangue tirada do dedo do seu filho(a) ____________________________________________________________________, um exame que diagnostica a
                 anemia.</p>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    O nível de hemoglobina encontrado no exame foi  <?= $data['sHb1'] ?>
             <p>Ficamos preocupados, pois o resultado mostrou que a sua criança encontra-se com anemia. Vocês deverão levar seu filho(a) à consulta médica, para que ele receba o tratamento:</p>
             <p>
             <b>Dia da Consulta:</b>____/____/____<br/>

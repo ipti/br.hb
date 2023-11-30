@@ -54,7 +54,8 @@ $this->params['campaign'] = $campaign;
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $column){
                     $c = $this->params['campaign'];
-                    return ['consultation-key'=>$model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->id];
+                    $consult =$model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one();
+                    return ['consultation-key'=> $consult == null ? "" : $consult->id];
                 },
         'columns' => [
             ['class'=> kartik\grid\DataColumn::class,
@@ -79,7 +80,8 @@ $this->params['campaign'] = $campaign;
                 'value' => function ($model, $key, $index, $column){
                 /* @var $model \app\models\enrollment */
                     $c = $this->params['campaign'];
-                    return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->attended;
+                    $consult = $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one();
+                    return $consult == null ? "" : $consult->attended;
                 },
                 'vAlign' => 'middle',
             ],
@@ -89,8 +91,9 @@ $this->params['campaign'] = $campaign;
                 'value' => function ($model, $key, $index, $column){
                 /* @var $model \app\models\enrollment */
                     $c = $this->params['campaign'];
-                    return $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one()->delivered;
-                },
+                    $consult = $model->getTerms()->where("campaign = :cid",["cid"=>$c])->one()->getConsults()->one();
+                    return $consult == null ? "" : $consult->delivered;
+                },  
                 'vAlign' => 'middle',
             ],
             [
@@ -101,14 +104,18 @@ $this->params['campaign'] = $campaign;
                     /* @var $model \app\models\enrollment */
                     $cid = $this->params['campaign'];
                     $hemoglobin = $model->getTerms()->where("campaign = :cid",["cid"=>$cid])->one()->getHemoglobins()->where("sample = 1")->one();
-                    $sid = $hemoglobin->agreedTerm->enrollments->student;
-                    $eid = $hemoglobin->agreedTerm->enrollment;
-                    $link = $hemoglobin->isAnemic() 
-                            ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'cid'=>$cid, 'eid' => $model->id]))
-                            ."<br>".Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid, 'eid' => $eid, 'cid'=> $cid]))
-                            ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
-                            : "----------";
-                    return $link;
+                    if($hemoglobin != null){
+
+                        $sid = $hemoglobin->agreedTerm->enrollments->student;
+                        $eid = $hemoglobin->agreedTerm->enrollment;
+                        $link = $hemoglobin->isAnemic() 
+                        ? Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t("app","Prescription"),Url::toRoute(['reports/prescription', 'cid'=>$cid, 'eid' => $model->id]))
+                        ."<br>".Html::a(Icon::show('envelope-o', [], Icon::FA).yii::t('app', 'Letter'), Url::toRoute(['reports/consultation-letter', 'sid' => $sid, 'eid' => $eid, 'cid'=> $cid]))
+                        ."<br>".Html::a(Icon::show('file-text-o', [], Icon::FA).yii::t('app', 'Anamnese'),Url::toRoute(['reports/anamnese','cid'=>$cid, 'eid' => $eid]))
+                        : "----------";
+                        return $link;
+                    }
+                    return "";
                 }
             ]
         ],
