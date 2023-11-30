@@ -718,5 +718,9 @@ awnser{
     .report-body p, .report-footer p{
         font-size: 12px;
     }
+
+.footer-pdf{
+    margin-bottom: 12em;
+}
 }
 

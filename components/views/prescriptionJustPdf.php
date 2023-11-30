@@ -45,6 +45,8 @@ use app\components\ReportHeaderWidget;
     </div>
 </div>
 
+<div class=footer-pdf></div>
+
 
 
 </div> <!-- .report-content -->

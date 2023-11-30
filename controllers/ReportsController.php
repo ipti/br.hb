@@ -81,27 +81,29 @@ class ReportsController extends \yii\web\Controller {
         /* @var $hemoglobin \app\models\hemoglobin */
         /* @var $term \app\models\term */
         /* @var $enrollment \app\models\enrollment */
-
+    
         $campaign = campaign::find()->where("id = :cid", ["cid" => $cid])->one();
         $hemoglobins = $campaign->getHemoglobins()
-                ->where("sample = 1")
-                ->innerJoin("term", "term.id = agreed_term")
-                ->innerJoin("enrollment e", "term.enrollment = e.id")
-                ->innerJoin("student s", "e.student = s.id")
-                ->orderBy("s.name ASC")
-                ->all();
-        
+            ->where("sample = 1")
+            ->innerJoin("term", "term.id = agreed_term")
+            ->innerJoin("enrollment e", "term.enrollment = e.id")
+            ->innerJoin("student s", "e.student = s.id")
+            ->orderBy("s.name ASC")
+            ->all();
+    
         $mpdf = new mPDF();
-
+    
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
-
+    
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
         $mpdf->WriteHTML($css2, 1);
+    
+        $itemCount = 0;
+        $totalItems = count($hemoglobins);
 
-        $i = 1;
-        foreach($hemoglobins as $hemoglobin){
-            if($hemoglobin->isAnemic()){
+        foreach ($hemoglobins as $index => $hemoglobin) {
+            if ($hemoglobin->isAnemic()) {
                 $term = $hemoglobin->getAgreedTerm()->one();
                 $enrollment = $term->getEnrollments()->one();
                 $prescription = $this->actionPrescription($cid, $enrollment->id, false);
@@ -112,15 +114,19 @@ class ReportsController extends \yii\web\Controller {
                 $report->cid = $cid;
                 $report->eid = $enrollment->id;
                 $data = $report->getAnamnese();
-                $mpdf->WriteHTML(PrescriptionJustPdfWidget::widget(['data' => $data ]));
-                $mpdf->WriteHTML('<div class="">'.$i.' </div>');
-                if($i % 3 == 0 )
-                    $mpdf->WriteHTML ("<pagebreak />");
-                $i++;
+                $mpdf->WriteHTML(PrescriptionJustPdfWidget::widget(['data' => $data]));
+    
+                $itemCount++;
+    
+                if ($itemCount % 2 == 0 && $itemCount < $totalItems) {
+                    $mpdf->WriteHTML("<pagebreak />");
+                }
             }
         }
+    
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
     }
+    
 
     public function actionJustAnamnese($cid) {
         /* @var $campaign \app\models\campaign */
@@ -144,7 +150,6 @@ class ReportsController extends \yii\web\Controller {
         $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
         $mpdf->WriteHTML($css2, 1);
 
-        $i = 1;
         foreach($hemoglobins as $hemoglobin){
             if($hemoglobin->isAnemic()){
                 $term = $hemoglobin->getAgreedTerm()->one();
@@ -158,10 +163,6 @@ class ReportsController extends \yii\web\Controller {
                 $report->eid = $enrollment->id;
                 $data = $report->getAnamnese();
                 $mpdf->WriteHTML(AnamneseJustPdfWidget::widget(['data' => $data ]));
-                $mpdf->WriteHTML('<div class="">'.$i.' </div>');
-                if($i % 3 == 0 )
-                    $mpdf->WriteHTML ("<pagebreak />");
-                $i++;
             }
         }
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
