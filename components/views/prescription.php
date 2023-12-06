@@ -1,7 +1,8 @@
 <?php
     use app\components\ReportHeaderWidget;
-?>
 
+    $this->title = "Todas as prescrições";
+?>
 
 <div class="report-content">
         <div class="report-head">

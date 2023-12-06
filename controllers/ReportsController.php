@@ -11,9 +11,13 @@ use app\models\school;
 use app\models\student;
 use app\models\Report;
 use app\components\AnamnesePdfWidget;
+use app\components\AnamneseJustPdfWidget;
 use app\components\AnamneseWidget;
 use app\components\TermPdfWidget;
 use app\components\TermWidget;
+
+use app\components\PrescriptionJustPdfWidget;
+use Mpdf\Mpdf;
 use yii\helpers\VarDumper;
 
 class ReportsController extends \yii\web\Controller {
@@ -42,7 +46,7 @@ class ReportsController extends \yii\web\Controller {
                 ->orderBy("s.name ASC")
                 ->all();
         
-        $mpdf = new \mPDF();
+        $mpdf = new mPDF();
 
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
@@ -56,7 +60,7 @@ class ReportsController extends \yii\web\Controller {
                 $term = $hemoglobin->getAgreedTerm()->one();
                 $enrollment = $term->getEnrollments()->one();
                 $prescription = $this->actionPrescription($cid, $enrollment->id, false);
-                $name = $prescription['name'];
+                $name = isset($prescription['name']) ? $prescription['name'] : null;
                 $sulfato = $prescription['sulfato'];
                 $vermifugo = $prescription['vermifugo'];
                 $report = new Report();
@@ -68,6 +72,98 @@ class ReportsController extends \yii\web\Controller {
                 if($i % 3 == 0 )
                     $mpdf->WriteHTML ("<pagebreak />");
                 $i++;
+            }
+        }
+        $mpdf->Output('MultiplePrescriptions.pdf', 'I');
+    }
+
+    public function actionJustPrescription($cid) {
+        /* @var $campaign \app\models\campaign */
+        /* @var $hemoglobin \app\models\hemoglobin */
+        /* @var $term \app\models\term */
+        /* @var $enrollment \app\models\enrollment */
+    
+        $campaign = campaign::find()->where("id = :cid", ["cid" => $cid])->one();
+        $hemoglobins = $campaign->getHemoglobins()
+            ->where("sample = 1")
+            ->innerJoin("term", "term.id = agreed_term")
+            ->innerJoin("enrollment e", "term.enrollment = e.id")
+            ->innerJoin("student s", "e.student = s.id")
+            ->orderBy("s.name ASC")
+            ->all();
+    
+        $mpdf = new mPDF();
+    
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+    
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+    
+        $itemCount = 0;
+        $totalItems = count($hemoglobins);
+
+        foreach ($hemoglobins as $index => $hemoglobin) {
+            if ($hemoglobin->isAnemic()) {
+                $term = $hemoglobin->getAgreedTerm()->one();
+                $enrollment = $term->getEnrollments()->one();
+                $prescription = $this->actionPrescription($cid, $enrollment->id, false);
+                $name = isset($prescription['name']) ? $prescription['name'] : null;
+                $sulfato = $prescription['sulfato'];
+                $vermifugo = $prescription['vermifugo'];
+                $report = new Report();
+                $report->cid = $cid;
+                $report->eid = $enrollment->id;
+                $data = $report->getAnamnese();
+                $mpdf->WriteHTML(PrescriptionJustPdfWidget::widget(['data' => $data]));
+    
+                $itemCount++;
+    
+                if ($itemCount % 2 == 0 && $itemCount < $totalItems) {
+                    $mpdf->WriteHTML("<pagebreak />");
+                }
+            }
+        }
+    
+        $mpdf->Output('MultiplePrescriptions.pdf', 'I');
+    }
+    
+
+    public function actionJustAnamnese($cid) {
+        /* @var $campaign \app\models\campaign */
+        /* @var $hemoglobin \app\models\hemoglobin */
+        /* @var $term \app\models\term */
+        /* @var $enrollment \app\models\enrollment */
+
+        $campaign = campaign::find()->where("id = :cid", ["cid" => $cid])->one();
+        $hemoglobins = $campaign->getHemoglobins()
+                ->where("sample = 1")
+                ->innerJoin("term", "term.id = agreed_term")
+                ->innerJoin("enrollment e", "term.enrollment = e.id")
+                ->innerJoin("student s", "e.student = s.id")
+                ->orderBy("s.name ASC")
+                ->all();
+        $mpdf = new mPDF();
+
+        $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
+        $mpdf->WriteHTML($css1, 1);
+
+        $css2 = file_get_contents(__DIR__ . '/../web/css/reports.css');
+        $mpdf->WriteHTML($css2, 1);
+
+        foreach($hemoglobins as $hemoglobin){
+            if($hemoglobin->isAnemic()){
+                $term = $hemoglobin->getAgreedTerm()->one();
+                $enrollment = $term->getEnrollments()->one();
+                $prescription = $this->actionPrescription($cid, $enrollment->id, false);
+                $name = isset($prescription['name']) ? $prescription['name'] : null;
+                $sulfato = $prescription['sulfato'];
+                $vermifugo = $prescription['vermifugo'];
+                $report = new Report();
+                $report->cid = $cid;
+                $report->eid = $enrollment->id;
+                $data = $report->getAnamnese();
+                $mpdf->WriteHTML(AnamneseJustPdfWidget::widget(['data' => $data ]));
             }
         }
         $mpdf->Output('MultiplePrescriptions.pdf', 'I');
