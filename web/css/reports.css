@@ -1,5 +1,5 @@
 /* Pesos e alturas */
-.weight-height-list{
+.weight-height-list {
     margin: auto;
     padding: 20px;
     width: 700px;
@@ -8,67 +8,67 @@
     border: 1px solid #DDDDDD;
 }
 
-.weight-height-list table{
+.weight-height-list table {
     width: 100%;
 }
 
-.weight-height-list table th{
+.weight-height-list table th {
     height: 25px;
     text-align: center;
     border: 1px solid #686868;
 }
 
-.weight-height-list table th.list-header{
+.weight-height-list table th.list-header {
     height: 25px;
     text-align: left;
     font-size: 16px;
     border: 0;
 }
 
-.weight-height-list table td{
+.weight-height-list table td {
     height: 25px;
     text-align: center;
     border: 1px solid #686868;
 }
 
-.weight-height-list table th.student{
+.weight-height-list table th.student {
     text-align: left;
     width: 400px;
     padding: 0 10px;
 }
 
-.weight-height-list table td.student{
+.weight-height-list table td.student {
     text-align: left;
     width: 400px;
     padding: 0 10px;
 }
 
-.weight-height-list table th.weight{
+.weight-height-list table th.weight {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
-.weight-height-list table td.weight{
+.weight-height-list table td.weight {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
-.weight-height-list table th.height{
+.weight-height-list table th.height {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
-.weight-height-list table td.height{
+.weight-height-list table td.height {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
 /* Lista de anêmicos */
-.anemics-list{
+.anemics-list {
     margin: auto;
     padding: 20px;
     width: 700px;
@@ -77,67 +77,67 @@
     border: 1px solid #DDDDDD;
 }
 
-.anemics-list table{
+.anemics-list table {
     width: 100%;
 }
 
-.anemics-list table th{
+.anemics-list table th {
     height: 25px;
     text-align: center;
     border: 1px solid #686868;
 }
 
-.anemics-list table th.list-header{
+.anemics-list table th.list-header {
     height: 25px;
     text-align: left;
     font-size: 16px;
     border: 0;
 }
 
-.anemics-list table td{
+.anemics-list table td {
     height: 25px;
     text-align: center;
     border: 1px solid #686868;
 }
 
-.anemics-list table th.student{
+.anemics-list table th.student {
     text-align: left;
     width: 400px;
     padding: 0 10px;
 }
 
-.anemics-list table td.student{
+.anemics-list table td.student {
     text-align: left;
     width: 400px;
     padding: 0 10px;
 }
 
-.anemics-list table th.gender{
+.anemics-list table th.gender {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
-.anemics-list table td.gender{
+.anemics-list table td.gender {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
-.anemics-list table th.rate{
+.anemics-list table th.rate {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
-.anemics-list table td.rate{
+.anemics-list table td.rate {
     text-align: center;
     width: 150px;
     padding: 0 10px;
 }
 
 /* Termos consentidos */
-.agreed-terms-list{
+.agreed-terms-list {
     margin: auto;
     padding: 20px;
     width: 700px;
@@ -146,54 +146,54 @@
     border: 1px solid #DDDDDD;
 }
 
-.agreed-terms-list table{
+.agreed-terms-list table {
     width: 100%;
 }
 
-.agreed-terms-list table th{
+.agreed-terms-list table th {
     height: 25px;
     text-align: center;
     border: 1px solid #686868;
 }
 
-.agreed-terms-list table th.list-header{
+.agreed-terms-list table th.list-header {
     height: 25px;
     text-align: left;
     font-size: 16px;
     border: 0;
 }
 
-.agreed-terms-list table td{
+.agreed-terms-list table td {
     height: 25px;
-    text-align: center;    
+    text-align: center;
     border: 1px solid #686868;
 }
 
-.agreed-terms-list table th.student{   
-    text-align: left;
-    width: 350px;     
-    padding: 0 10px;
-}
-
-.agreed-terms-list table th.birthday{
-    width: 125px;        
-}
-
-.agreed-terms-list table th.rate{   
-    width: 75px;        
-}
-
-.agreed-terms-list table td.student{    
+.agreed-terms-list table th.student {
     text-align: left;
     width: 350px;
     padding: 0 10px;
 }
 
-.agreed-terms-list table td.birthday{
+.agreed-terms-list table th.birthday {
     width: 125px;
 }
 
-.agreed-terms-list table td.rate{    
+.agreed-terms-list table th.rate {
+    width: 75px;
+}
+
+.agreed-terms-list table td.student {
+    text-align: left;
+    width: 350px;
+    padding: 0 10px;
+}
+
+.agreed-terms-list table td.birthday {
+    width: 125px;
+}
+
+.agreed-terms-list table td.rate {
     width: 75px;
 }
 
@@ -207,7 +207,7 @@
 
 
 /* Content */
-.report-content{
+.report-content {
     margin: auto;
     padding: 20px;
     width: 950px;
@@ -223,32 +223,35 @@
 
 /* Head */
 
-.report-head{
+.report-head {
     text-align: center;
 }
-.report-head-image{
+
+.report-head-image {
     margin: 0 auto;
     /*background-image: url('../images/reporters/boquim/prefeitura.jpg') !important;
     background-size: cover !important;
     height: 100px;
     width: 220px;*/
-    
+
 }
 
-.report-head hr{
+.report-head hr {
     border-color: black;
     margin: 5px 0;
     width: 100%;
 }
 
-.report-head table{
+.report-head table {
     margin: 0 5px;
     width: calc(100% - 10px);
 }
+
 .report-head th {
     width: 80px;
     padding: 0px 5px;
 }
+
 .report-head td {
     width: 90px;
 }
@@ -258,11 +261,11 @@
 
 /* Body */
 
-.report-body{
+.report-body {
     width: 100%;
 }
 
-.report-body pre{
+.report-body pre {
     display: block;
     padding: 0px;
     margin: 0;
@@ -280,40 +283,44 @@
     margin: 0 5px;
 }*/
 
-.report-body{
+.report-body {
     text-align: justify;
 }
 
-.report-body p{
+.report-body p {
     text-indent: 50px;
 }
-.report-body table{
+
+.report-body table {
     width: 100%;
 }
-.report-body hr.answer-line{
+
+.report-body hr.answer-line {
     border-color: black;
     width: calc(100% - 35px);
     margin-top: 0px;
     margin-left: 30px;
 }
-.report-body td.answer-line{
+
+.report-body td.answer-line {
     border-bottom: 1px solid black;
 }
-.report-body hr.answer-line-full{
+
+.report-body hr.answer-line-full {
     border-color: black;
     width: calc(100% - 10px);
     margin: 15px 5px;
     margin-bottom: 5px;
 }
 
-td.dedinho-term-report{
+td.dedinho-term-report {
     width: 124px;
     height: 155px;
 }
 
 
 /* Footer */
-.report-footer{
+.report-footer {
     text-align: center;
     width: 100%;
 }
@@ -325,51 +332,55 @@ td.dedinho-term-report{
     border: #000000 solid 3px;
 }
 
-.table-term{
+.table-term {
     width: 100%;
     text-align: center;
 }
 
-.table-term td{
-    border: #000000 solid 1px ;
+.table-term td {
+    border: #000000 solid 1px;
     text-align: left;
     width: 33%;
     font-weight: bold;
 }
+
 .page-white {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
 }
-.dashed{
-  border-bottom: 1px dashed lightgrey;
-  text-align: right;
+
+.dashed {
+    border-bottom: 1px dashed lightgrey;
+    text-align: right;
 }
-.none{
-  text-align: right;
+
+.none {
+    text-align: right;
 }
 
 /* Receituario */
 
-.divider-dashed{
+.divider-dashed {
     width: 100%;
     border-bottom: dashed 2px #686868;
 }
-.report-body .divider-dashed{
+
+.report-body .divider-dashed {
     margin: 20px 0 20px 0;
 }
 
-.report-body .no-indent{
+.report-body .no-indent {
     text-indent: 0;
 }
 
-#width-40{
+#width-40 {
     width: 40%;
 }
 
 @media print {
 
-    .report-title{
+    .report-title {
         margin-top: 10mm;
         margin-bottom: 10mm;
         font-weight: bold;
@@ -380,30 +391,30 @@ td.dedinho-term-report{
     }
 }
 
-#pdf{
+#pdf {
     border: none;
 }
 
 
 /* new version 03/2017 */
 
-#health-header{
+#health-header {
     display: none;
 }
 
-#health-title{
+#health-title {
     display: block;
     padding: 15px 0 0 60px;
 }
 
 @media print {
 
-    #health-header{
+    #health-header {
         display: block;
         margin-bottom: 10px;
     }
 
-    #health-title{
+    #health-title {
         display: block;
         margin-top: 0px;
     }
@@ -412,28 +423,31 @@ td.dedinho-term-report{
         width: 100%;
     }
 
-    .footer-print {page-break-after: always;}
+    .footer-print {
+        page-break-after: always;
+    }
 
 }
 
-.pdf{
+.pdf {
     margin-left: 0;
     margin-right: 0;
     padding-right: 0;
     padding-left: 0;
 }
-.report-row{
+
+.report-row {
     margin-left: -10px;
     margin-right: -10px;
     max-width: 99%;
     overflow: hidden;
 }
 
-.col{
+.col {
     float: left;
 }
 
-.grid-2{
+.grid-2 {
     width: 16.5%;
     position: relative;
     min-height: 1px;
@@ -441,14 +455,15 @@ td.dedinho-term-report{
     padding-left: 15px;
 }
 
-.grid-3{
+.grid-3 {
     width: 24.5%;
     position: relative;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
 }
-.grid-4{
+
+.grid-4 {
     width: 32.5%;
     position: relative;
     min-height: 1px;
@@ -456,28 +471,31 @@ td.dedinho-term-report{
     padding-left: 15px;
 }
 
-.grid-6{
+.grid-6 {
     width: 49.5%;
     position: relative;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
 }
-.grid-9{
+
+.grid-9 {
     width: 75%;
     position: relative;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
 }
-.grid-10{
+
+.grid-10 {
     width: 83.5%;
     position: relative;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
 }
-.grid-12{
+
+.grid-12 {
     width: 100%;
     position: relative;
     min-height: 1px;
@@ -485,161 +503,163 @@ td.dedinho-term-report{
     padding-left: 15px;
 }
 
-.report-title{
+.report-title {
     font-weight: bold;
 }
 
-.report-text-right{
+.report-text-right {
     text-align: right;
 }
 
-.report-text-left{
+.report-text-left {
     text-align: left;
 }
 
-.report-text-left p, .report-text-right p{
+.report-text-left p,
+.report-text-right p {
     text-indent: 0;
     margin: 0 0 3px;
 }
 
-.report-text-left p > span, .report-text-right p > span{
+.report-text-left p>span,
+.report-text-right p>span {
     font-weight: 800;
 }
 
-.report-body p{
+.report-body p {
     font-size: 12px;
 }
 
-.report-body .pdf p{
+.report-body .pdf p {
     font-size: 9px;
 }
 
-.report-footer p{
+.report-footer p {
     font-size: 12px;
 }
 
-.margin-top-25{
+.margin-top-25 {
     margin-top: 25px;
 }
 
-.margin-top-15{
+.margin-top-15 {
     margin-top: 25px;
 }
 
-.margin-top-10{
+.margin-top-10 {
     margin-top: 10px;
 }
 
-.margin-top-5{
+.margin-top-5 {
     margin-top: 5px;
 }
 
-.margin-bottom-25{
+.margin-bottom-25 {
     margin-bottom: 25px;
 }
 
-.margin-bottom-15{
+.margin-bottom-15 {
     margin-bottom: 15px;
 }
 
-.margin-bottom-10{
+.margin-bottom-10 {
     margin-bottom: 10px;
 }
 
-.margin-bottom-5{
+.margin-bottom-5 {
     margin-bottom: 5px;
 }
 
-.padding-left-5{
+.padding-left-5 {
     padding-left: 5px;
 }
 
-.padding-left-10{
+.padding-left-10 {
     padding-left: 10px;
 }
 
-.padding-top-5{
+.padding-top-5 {
     padding-top: 5px;
 }
 
-.padding-top-2{
+.padding-top-2 {
     padding-top: 2px;
 }
 
-.no-padding-left{
+.no-padding-left {
     padding-left: 0 !important;
 }
 
-.no-padding-right{
+.no-padding-right {
     padding-right: 0 !important;
 }
 
-.no-padding{
+.no-padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
 
-.bold{
+.bold {
     font-weight: 800;
 }
 
-.pdf .bold{
+.pdf .bold {
     font-weight: bold;
 }
 
-awnser{
+awnser {
     font-size: 11px !important;
 }
 
-.left{
+.left {
     float: left;
 }
 
-.right{
+.right {
     float: right;
 }
 
-.img-circle{
+.img-circle {
     position: relative;
     top: -4px;
 }
 
-.img-triple-circle{
+.img-triple-circle {
     position: absolute;
     top: 15px;
 }
 
-.foto-3-4{
+.foto-3-4 {
     width: 85px;
     height: 115px;
     border: 1.5px solid #000;
 }
 
-#term .report-body .pdf p{
+#term .report-body .pdf p {
     font-size: 12px;
 }
 
-.border-bottom{
+.border-bottom {
     border: 0;
     border-bottom: 1px solid #000;
 }
 
-.border-left{
+.border-left {
     border: 0;
     border-left: 1px solid #000;
 }
 
-.border-right{
+.border-right {
     border: 0;
     border-right: 1px solid #000;
 }
 
-.border-bottom-dashed{
+.border-bottom-dashed {
     border: 0;
     border-bottom: 1.5px dashed #dad8d8;
 }
 
-.border-bottom-dashed-right{
+.border-bottom-dashed-right {
     border: 0;
     border-bottom: 1.5 dashed #dad8d8;
     border-right: 1px solid #000;
@@ -653,13 +673,15 @@ awnser{
     padding: 6px 1px 0 1px;
 }
 
-#health .table{
-    border:none;
+#health .table {
+    border: none;
     -webkit-print-color-adjust: exact;
 }
 
-@media print{
-    #health .table td, #health .table th{
+@media print {
+
+    #health .table td,
+    #health .table th {
         -webkit-print-color-adjust: exact;
     }
 }
@@ -674,53 +696,61 @@ awnser{
 #health .table td {
     padding: 6px 3px 0 8px;
     text-align: center;
-    font-size:12px;
+    font-size: 12px;
 }
 
 #health .table td span {
-    font-size:9px;
+    font-size: 9px;
 }
 
-#health .border-bottom-dashed{
+#health .border-bottom-dashed {
     border: 0;
     border-bottom: 0.2em dashed #dad8d8;
 }
 
-#health .border-bottom-dashed-right{
+#health .border-bottom-dashed-right {
     border: 0;
     border-bottom: 0.2em dashed #dad8d8;
     border-right: 1px solid #000;
 }
 
-#health .color-grey{
+#health .color-grey {
     background-color: #eee;
 }
 
-.report-content .line{
+.report-content .line {
     border-color: black;
     width: 100%;
     margin-top: 25px;
 }
 
-.report-content .line-inline{
+.report-content .line-inline {
     border-color: black;
     width: 100%;
     margin-top: 15px;
 }
 
-.fixed-btn{
+.fixed-btn {
     position: fixed;
     /*bottom: 25px;*/
     right: 25px;
 }
 
-@media print{
-    .report-body p, .report-footer p{
+@media print {
+
+    .report-body p,
+    .report-footer p {
         font-size: 12px;
     }
 
-.footer-pdf{
-    margin-bottom: 12em;
-}
-}
+    .bold{
+        font-weight: bold;
+    }
 
+    .footer-pdf {
+        margin-bottom: 100px;
+    }
+    .footer-print p {
+        font-size: 9px;
+    }
+}

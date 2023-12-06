@@ -107,21 +107,19 @@ class ReportsController extends \yii\web\Controller {
             if ($hemoglobin->isAnemic()) {
                 $term = $hemoglobin->getAgreedTerm()->one();
                 $enrollment = $term->getEnrollments()->one();
-                $prescription = $this->actionPrescription($cid, $enrollment->id, false);
-                $name = isset($prescription['name']) ? $prescription['name'] : null;
-                $sulfato = $prescription['sulfato'];
-                $vermifugo = $prescription['vermifugo'];
                 $report = new Report();
                 $report->cid = $cid;
                 $report->eid = $enrollment->id;
                 $data = $report->getAnamnese();
                 $mpdf->WriteHTML(PrescriptionJustPdfWidget::widget(['data' => $data]));
-    
+                               
                 $itemCount++;
     
-                if ($itemCount % 2 == 0 && $itemCount < $totalItems) {
+                if ($itemCount % 3 == 0 && $itemCount < $totalItems) {
                     $mpdf->WriteHTML("<pagebreak />");
-                }
+                }else{
+                    $mpdf->WriteHTML('<div class="divider-dashed margin-top-25 margin-bottom-25"></div>');     
+                }                
             }
         }
     
@@ -154,11 +152,7 @@ class ReportsController extends \yii\web\Controller {
         foreach($hemoglobins as $hemoglobin){
             if($hemoglobin->isAnemic()){
                 $term = $hemoglobin->getAgreedTerm()->one();
-                $enrollment = $term->getEnrollments()->one();
-                $prescription = $this->actionPrescription($cid, $enrollment->id, false);
-                $name = isset($prescription['name']) ? $prescription['name'] : null;
-                $sulfato = $prescription['sulfato'];
-                $vermifugo = $prescription['vermifugo'];
+                $enrollment = $term->getEnrollments()->one();                                
                 $report = new Report();
                 $report->cid = $cid;
                 $report->eid = $enrollment->id;
