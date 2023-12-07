@@ -30,7 +30,7 @@ $this->title = "Todas as cartas Anamnese";
                 </div>
                 <div class="col grid-3">
                     <p><span>Peso:</span>
-                        <?= $data['height']; ?>
+                        <?= $data['weight']; ?>
                     </p>
                 </div>
                 <div class="col grid-3">
