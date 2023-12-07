@@ -31,7 +31,7 @@ $this->title = "Todas as cartas Anamnese";
                         <p><span>Nome:</span> <?= $data['name']; ?></p>
                     </div>
                     <div class="col grid-3">
-                        <p><span>Peso:</span> <?= $data['height']; ?></p>
+                        <p><span>Peso:</span> <?= $data['weight']; ?></p>
                     </div>
                     <div class="col grid-3">
                         <p><span>Idade:</span> <?= $data['age']; ?></p>
