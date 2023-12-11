@@ -753,4 +753,8 @@ awnser {
     .footer-print p {
         font-size: 9px;
     }
+
+    #response{
+        font-size: 9px;
+    }
 }

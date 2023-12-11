@@ -330,6 +330,16 @@ $this->title = "Todas as cartas Anamnese";
         </div>
 
         <div class="report-row margin-top-10">
+            <div id='par' class="col grid-12 report-text-left">
+                    <p class="bold">Já teve anemia anteriormente?</p>
+                    <pre class="response">(    ) Sim             (    ) Não</pre>
+                    <p class="bold">Quantas vezes?</p>
+                    <pre class="response">(    ) 1               (    ) 2            (    ) 3              (    ) 4 ou mais</pre>
+                    <p class="bold">Como foi tratada?</p>
+                </div>
+                <div class="col grid-12 padding-left-10 bold">
+                    <hr class="answer-line-full">
+                </div>
             <div class="col grid-12 report-text-left">
                 <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
             </div>
