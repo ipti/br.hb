@@ -10,8 +10,7 @@ $this->title = "Todas as cartas Anamnese";
 <div class="mpdf-page-number" id="pdf">
     <div class="row" id="health-header">
         <div class="col grid-3 pdf">
-            <img style="float:left;" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/hb.png" alt="HB"
-                width="40">
+            <img style="float:left;" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/hb.png" alt="HB" width="40">
         </div>
         <div class="col grid-6 pdf">
             <h4 id="health-title" class="report-title text-left">Questionario Anamnese</h4>
@@ -81,15 +80,11 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 no-padding-left">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png"
-                                alt="circle red">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
                             <p class="left">Sim</p>
                         </div>
                         <div class="col grid-2 no-padding-left">
-                            <img class="left  img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png"
-                                alt="circle red">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
                             <p class="left">Não</p>
                         </div>
                     </div>
@@ -99,7 +94,7 @@ $this->title = "Todas as cartas Anamnese";
 
         <div class="report-row" id='par'>
             <div class="col grid-12 report-text-left">
-                <p class="bold">Se SIM, qual foi o motivo? _________________________________________________________________________________
+                <p class="bold">Se SIM, qual foi o motivo? _____________________________________________________________________________________________________________________
                 </p>
             </div>
         </div>
@@ -112,15 +107,11 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 no-padding-left">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png"
-                                alt="circle red">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
                             <p class="left">Sim</p>
                         </div>
                         <div class="col grid-2 no-padding-left">
-                            <img class="left  img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png"
-                                alt="circle red">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
                             <p class="left">Não</p>
                         </div>
                     </div>
@@ -136,27 +127,19 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 no-padding-left">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png"
-                                alt="circle red">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
                             <p class="left">1</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left  img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png"
-                                alt="circle red">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
                             <p class="left">2</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png"
-                                alt="circle red">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png" alt="circle red">
                             <p class="left padding-left-5">3</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png"
-                                alt="circle red">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png" alt="circle red">
                             <p class="left padding-left-5">4</p>
                         </div>
                     </div>
@@ -172,13 +155,11 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 grid-2 padding-left-5">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
                             <p class="left padding-left-5">Sim</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                             <p class="left">Não</p>
                         </div>
 
@@ -190,7 +171,7 @@ $this->title = "Todas as cartas Anamnese";
         <div class="report-row margin-top-10">
             <div class="col grid-12 report-text-left">
                 <p class="bold">Qual?
-                    _____________________________________________________________________________________________________________________
+                    ___________________________________________________________________________________________________________________________________________
                 </p>
             </div>
 
@@ -204,13 +185,11 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 grid-2 padding-left-5">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
                             <p class="left padding-left-5">Sim</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                             <p class="left">Não</p>
                         </div>
 
@@ -227,13 +206,11 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 grid-2 padding-left-5">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
                             <p class="left padding-left-5">Sim</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                             <p class="left">Não</p>
                         </div>
 
@@ -250,27 +227,19 @@ $this->title = "Todas as cartas Anamnese";
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 no-padding-left">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png"
-                                alt="circle red">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
                             <p class="left">1</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left  img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png"
-                                alt="circle red">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
                             <p class="left">2</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png"
-                                alt="circle red">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png" alt="circle red">
                             <p class="left padding-left-5">3</p>
                         </div>
                         <div class="col grid-2">
-                            <img class="left"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png"
-                                alt="circle red">
+                            <img class="left" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png" alt="circle red">
                             <p class="left padding-left-5">4</p>
                         </div>
                     </div>
@@ -285,20 +254,17 @@ $this->title = "Todas as cartas Anamnese";
             <div class="col grid-12">
                 <div class="report-row">
                     <div class="col grid-3 report-text-left no-padding-left">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Sulfato ferroso</p>
                     </div>
                     <div class="col grid-2 report-text-left">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Dieta</p>
                     </div>
                     <div class="col grid-5 report-text-left no-padding">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">
-                            Outro:__________________________________________
+                            Outro:____________________________________________________________
                     </div>
                 </div>
             </div>
@@ -311,18 +277,15 @@ $this->title = "Todas as cartas Anamnese";
             <div class="col grid-12">
                 <div class="report-row">
                     <div class="col grid-2 report-text-left no-padding">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Sim</p>
                     </div>
                     <div class="col grid-2 report-text-left no-padding">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Não</p>
                     </div>
                     <div class="col grid-4 report-text-left no-padding">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Não complentou o tratamento</p>
                     </div>
                 </div>
@@ -330,65 +293,59 @@ $this->title = "Todas as cartas Anamnese";
         </div>
 
         <div class="report-row margin-top-10">
-                <div id='par' class="col grid-12 report-text-left">
-                    <p class="bold">Já teve anemia anteriormente?</p>
-                    <div class="report-row">
-                        <div class="report-text-left ">
-                            <div class="col grid-2 no-padding-left">
-                                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                                <p class="left">Sim</p>
-                            </div>
-                            <div class="col grid-2 no-padding-left">
-                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                                <p class="left">Não</p>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="bold">Quantas vezes?</p>
-                    <div class="report-row">
-                        <div class="report-text-left ">
-                            <div class="col grid-2 no-padding-left">
-                                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                                <p class="left">1</p>
-                            </div>
-                            <div class="col grid-2 no-padding-left">
-                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                                <p class="left">2</p>
-                            </div>
-                            <div class="col grid-2 no-padding-left">
-                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                                <p class="left">3</p>
-                            </div>
-                            <div class="col grid-2 no-padding-left">
-                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                                <p class="left">4 ou mais</p>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="bold">Como foi tratada?</p>
-                </div>
-                <div class="col grid-12 padding-left-10 bold">
-                    <hr class="answer-line-full bold">
-                </div>
-                <div class="col grid-12 report-text-left">
-                    <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
-                </div>
-            </div>
-            <div class="col grid-12">
+            <div id='par' class="col grid-12 report-text-left">
+                <p class="bold">Já teve anemia anteriormente?</p>
                 <div class="report-row">
                     <div class="report-text-left ">
                         <div class="col grid-2 no-padding-left">
-                            <img class="left img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png"
-                                alt="circle red">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
                             <p class="left">Sim</p>
                         </div>
                         <div class="col grid-2 no-padding-left">
-                            <img class="left  img-circle"
-                                src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png"
-                                alt="circle red">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
                             <p class="left">Não</p>
                         </div>
+                    </div>
+                </div>
+                <p class="bold">Quantas vezes?</p>
+                <div class="report-row">
+                    <div class="report-text-left ">
+                        <div class="col grid-2 no-padding-left">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                            <p class="left">1</p>
+                        </div>
+                        <div class="col grid-2 no-padding-left">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                            <p class="left">2</p>
+                        </div>
+                        <div class="col grid-2 no-padding-left">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                            <p class="left">3</p>
+                        </div>
+                        <div class="col grid-2 no-padding-left">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                            <p class="left">4 ou mais</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="bold">
+                    Como foi tratada? _______________________________________________________________________________________________________________________________
+                </p>
+            </div>
+            <div class="col grid-12 report-text-left">
+                <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
+            </div>
+        </div>
+        <div class="col grid-12">
+            <div class="report-row  no-padding">
+                <div class="report-text-left  no-padding">
+                    <div class="col grid-2 no-padding-left">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
+                        <p class="left">Sim</p>
+                    </div>
+                    <div class="col grid-2 no-padding-left">
+                        <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                        <p class="left">Não</p>
                     </div>
                 </div>
             </div>
@@ -401,44 +358,39 @@ $this->title = "Todas as cartas Anamnese";
             <div class="col grid-12">
                 <div class="report-row">
                     <div class="col grid-2 report-text-left no-padding-left">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Irmão(a)</p>
                     </div>
                     <div class="col grid-3 report-text-left">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">Pai ou mão</p>
                     </div>
                     <div class="col grid-5 report-text-left no-padding">
-                        <img class="left img-circle"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
                         <p class="left">
-                            Outro:______________________________________________
+                            Outro:________________________________________________________________
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <div class="footer-print">
-            <div class="report-row margin-top-10">
-                <div class="col grid-12 report-text-left">
-                    <p class="bold">Legenda:</p>
-                </div>
-                <div class="col grid-12 report-text-left">
-                    <p class="left">Caso seja marcado uma opção com <img width="20"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
-                        ou 3 com <img width="20"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">no formulário
-                        acima é
-                        necessário que o aluno seja encaminhado para
-                        exame clínico. Caso apareça uma ou duas opções <img width="20"
-                            src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">, temos um caso
-                        intermediário, em que o médico pode ou não examinar.
-                    </p>
-                </div>
+    <div class="footer-print">
+        <div class="report-row margin-top-10">
+            <div class="col grid-12 report-text-left">
+                <p class="bold">Legenda:</p>
+            </div>
+            <div class="col grid-12 report-text-left">
+                <p class="left">Caso seja marcado uma opção com <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
+                    ou 3 com <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">no formulário
+                    acima é
+                    necessário que o aluno seja encaminhado para
+                    exame clínico. Caso apareça uma ou duas opções <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">, temos um caso
+                    intermediário, em que o médico pode ou não examinar.
+                </p>
             </div>
         </div>
+    </div>
