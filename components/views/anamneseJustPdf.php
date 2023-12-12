@@ -335,15 +335,14 @@ $this->title = "Todas as cartas Anamnese";
             <div class="col grid-12 report-text-left">
                 <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
             </div>
-        </div>
-        <div class="col grid-12">
-            <div class="report-row  no-padding">
-                <div class="report-text-left  no-padding">
-                    <div class="col grid-2 no-padding-left">
+
+            <div class="col grid-12">
+                <div class="report-row">
+                    <div class="col grid-2 report-text-left no-padding">
                         <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
                         <p class="left">Sim</p>
                     </div>
-                    <div class="col grid-2 no-padding-left">
+                    <div class="col grid-2 report-text-left no-padding">
                         <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
                         <p class="left">Não</p>
                     </div>
