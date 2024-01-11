@@ -426,71 +426,72 @@ $this->assetBundles['Reports']->js = [
                             </div>
                         </div>
                     </div>
-                    <p class="bold">Como foi tratada?</p>
-                </div>
-                <div class="col grid-12 padding-left-10 bold">
-                    <hr class="answer-line-full bold">
+                    <p class="bold">
+                        Como foi tratada? _______________________________________________________________________________________________________________________________
+                    </p>
                 </div>
                 <div class="col grid-12 report-text-left">
                     <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
                 </div>
-            </div>
-            <div class="col grid-12">
-                <div class="report-row">
-                    <div class="report-text-left ">
-                        <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
-                        <p class="left">Sim</p>
-                        <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
-                        <p class="left">Não</p>
+
+                <div class="col grid-12">
+                    <div class="report-row">
+                        <div class="col grid-2 report-text-left no-padding">
+                            <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png" alt="circle red">
+                            <p class="left">Sim</p>
+                        </div>
+                        <div class="col grid-2 report-text-left no-padding">
+                            <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                            <p class="left">Não</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="report-row margin-top-10">
+                <div class="col grid-3 report-text-left">
+                    <p class="bold">Se SIM, quem?</p>
+                </div>
+                <div class="col grid-2 report-text-left">
+                    <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                    <p class="left">Irmão(a)</p>
+                </div>
+                <div class="col grid-3 report-text-left">
+                    <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                    <p class="left">Pai ou mão</p>
+                </div>
+                <div class="col grid-3 report-text-left no-padding">
+                    <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
+                    <p class="left">Outro:____________________</p>
+                </div>
+            </div>
+
+            <div class="report-row margin-top-10">
+                <div class="col grid-12 report-text-left">
+                    <p class="bold">Legenda:</p>
+                </div>
+                <div class="col grid-12 report-text-left">
+                    <p class="left">Caso seja marcado uma opção com <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
+                        ou 3 com <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">no formulário acima é necessário que o aluno seja encaminhado para
+                        exame clínico. Caso apareça uma opção ou 2 <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">, temos um caso intermediário, em que o médico pode ou não examinar.
+                    </p>
+                </div>
+            </div>
+
+        </div> <!-- .report-body -->
+        <div class="report-head">
+            <div class="divider-dashed margin-top-10"></div>
+            <div class="margin-top-10"></div>
+            <?= ReportHeaderWidget::widget(); ?>
+            <h5 class="report-title">Receituário</h5>
+            <div id="prescription">
+                <h2 class="report-title margin-bottom-15"></h2>
+                <p class="no-indent"></p>
+                <p class="no-indent"></p>
+            </div>
         </div>
 
-        <div class="report-row margin-top-10">
-            <div class="col grid-3 report-text-left">
-                <p class="bold">Se SIM, quem?</p>
-            </div>
-            <div class="col grid-2 report-text-left">
-                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
-                <p class="left">Irmão(a)</p>
-            </div>
-            <div class="col grid-3 report-text-left">
-                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
-                <p class="left">Pai ou mão</p>
-            </div>
-            <div class="col grid-3 report-text-left no-padding">
-                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png">
-                <p class="left">Outro:____________________</p>
-            </div>
-        </div>
-
-        <div class="report-row margin-top-10">
-            <div class="col grid-12 report-text-left">
-                <p class="bold">Legenda:</p>
-            </div>
-            <div class="col grid-12 report-text-left">
-                <p class="left">Caso seja marcado uma opção com <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/triple-circle.png">
-                    ou 3 com <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">no formulário acima é necessário que o aluno seja encaminhado para
-                    exame clínico. Caso apareça uma opção ou 2 <img width="20" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-red.png">, temos um caso intermediário, em que o médico pode ou não examinar.
-                </p>
-            </div>
-        </div>
-
-    </div> <!-- .report-body -->
-    <div class="report-head">
-        <div class="divider-dashed margin-top-10"></div>
-        <div class="margin-top-10"></div>
-        <?= ReportHeaderWidget::widget(); ?>
-        <h5 class="report-title">Receituário</h5>
-        <div id="prescription">
-            <h2 class="report-title margin-bottom-15"></h2>
-            <p class="no-indent"></p>
-            <p class="no-indent"></p>
-        </div>
-    </div>
 
 
-
-</div> <!-- .report-content -->
+    </div> <!-- .report-content -->
 </div>
