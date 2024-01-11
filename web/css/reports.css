@@ -269,7 +269,7 @@
     display: block;
     padding: 0px;
     margin: 0;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.42857143;
     color: #333;
     word-break: break-all;
@@ -751,6 +751,10 @@ awnser {
         margin-bottom: 100px;
     }
     .footer-print p {
+        font-size: 9px;
+    }
+
+    #response{
         font-size: 9px;
     }
 }

@@ -330,8 +330,49 @@ $this->title = "Todas as cartas Anamnese";
         </div>
 
         <div class="report-row margin-top-10">
-            <div class="col grid-12 report-text-left">
-                <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
+                <div id='par' class="col grid-12 report-text-left">
+                    <p class="bold">Já teve anemia anteriormente?</p>
+                    <div class="report-row">
+                        <div class="report-text-left ">
+                            <div class="col grid-2 no-padding-left">
+                                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                                <p class="left">Sim</p>
+                            </div>
+                            <div class="col grid-2 no-padding-left">
+                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                                <p class="left">Não</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="bold">Quantas vezes?</p>
+                    <div class="report-row">
+                        <div class="report-text-left ">
+                            <div class="col grid-2 no-padding-left">
+                                <img class="left img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                                <p class="left">1</p>
+                            </div>
+                            <div class="col grid-2 no-padding-left">
+                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                                <p class="left">2</p>
+                            </div>
+                            <div class="col grid-2 no-padding-left">
+                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                                <p class="left">3</p>
+                            </div>
+                            <div class="col grid-2 no-padding-left">
+                                <img class="left  img-circle" src="<?php echo Yii::getAlias('@web'); ?>/images/reporters/circle-stroke.png" alt="circle red">
+                                <p class="left">4 ou mais</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="bold">Como foi tratada?</p>
+                </div>
+                <div class="col grid-12 padding-left-10 bold">
+                    <hr class="answer-line-full bold">
+                </div>
+                <div class="col grid-12 report-text-left">
+                    <p class="bold">Existem outras pessoas na família que têm ou já tiveram anemia?</p>
+                </div>
             </div>
             <div class="col grid-12">
                 <div class="report-row">
