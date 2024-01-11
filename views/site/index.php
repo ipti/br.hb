@@ -33,7 +33,7 @@ $this->params['siteIndex'] = true;
 
         $today = date("j-n-Y");
         $count = 0;
-        $campaings = $campaing->find()->where('end > '.$today.' AND year(end) = year(CURRENT_DATE())')->orderBy('end, end desc')->all();
+        $campaings = $campaing->find()->where('year(end) >= '.$year)->orderBy('end, end desc')->all();
         foreach ($campaings as $c){
             /** @var $c \app\models\Campaign*/
             

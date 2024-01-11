@@ -101,7 +101,7 @@ class SiteController extends Controller
             $ferritin['UnDone'] = $ferritin['Total'] - $ferritin['Done'];
 
             array_push($campaigns, [
-                'campaing' => $campaing, 
+                'campaing' => $campaing,
                 'terms' =>  $terms,
                 'anatomies' => $anatomies,
                 'hb1' => $hb1,
@@ -112,7 +112,7 @@ class SiteController extends Controller
             ]);
         }
 
-        return $this->render('index', ['campaigns' => $campaigns]);
+        return $this->render('index', ['campaigns' => $campaigns, 'year' => $year]);
     }
 
     public function actionLogin()
