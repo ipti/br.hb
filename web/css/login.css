@@ -83,3 +83,17 @@ h2 {
     border: none;
     border-radius: 2px;
 }
+
+#year-select {
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(0, 0, 0, 0.27);
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: rgba(0, 0, 0, 0.27);
+    border-left: 3px solid rgba(0,0,0,0.37);
+    border-radius: 0px 2px 2px 0px;
+    box-shadow: none;
+    width: 262.5px;
+    height: 36px;
+}
