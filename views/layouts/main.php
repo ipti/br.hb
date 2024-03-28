@@ -52,7 +52,12 @@ AppAsset::register($this);
             echo '<h3 style="margin-bottom: 5px;">' . Html::encode($this->title) . '</h3>';
             ?>
 
-            <select name="years" id="years" placeholder="Selecione o ano" style="width:100%">
+            <select name="years" id="years" placeholder="Selecione o ano" 
+            style="
+            width:100%;
+            border: 0;
+            background-color: #F7F7F7;
+            ">
                 <?php
                 $years = range(date('Y'), 2014);
                 echo "<option value='' selected>Selecione o ano</option>";
