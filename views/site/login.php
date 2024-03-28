@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ])->passwordInput()->label(false) ?>
 
-    <select name="year" id="year-select">
+    <select name="LoginForm[year]" id="year-select">
         <?php
         $anoAtual = date('Y');
 
