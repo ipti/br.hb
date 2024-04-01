@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         $anoAtual = date('Y');
 
-        for ($ano = $anoAtual; $ano >= 2015; $ano--) {
+        for ($ano = $anoAtual; $ano >= 2014; $ano--) {
             echo "<option value='$ano'>$ano</option>";
         }
         ?>
