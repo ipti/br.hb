@@ -85,8 +85,8 @@ h2 {
 }
 
 #year-select {
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(0, 0, 0, 0.37);
+    color: #555555;
+    background-color: #E8F0FE;
     border: 1px solid rgba(0, 0, 0, 0.27);
         border-left-width: 1px;
         border-left-style: solid;
