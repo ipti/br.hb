@@ -28,7 +28,7 @@ class ReportsController extends \yii\web\Controller {
     }
 
     public function actionConsultationLetter($sid = null, $eid, $cid) {
-        $options = $sid == null ? [] : ['student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one(), 'eronllment' => $eid, 'campaign' => $cid];
+        $options = $sid == null ? [] : ['sHb1' => "", 'student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one(), 'eronllment' => $eid, 'campaign' => $cid];
         return $this->render('consultationLetter', $options);
     }
 
