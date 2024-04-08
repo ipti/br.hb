@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\helpers\VarDumper;
 
 class SiteController extends Controller
 {
@@ -48,8 +49,9 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex($year = null)
+    public function actionIndex()
     {
+        $year = Yii::$app->session->get('year');
         if(!isset($year)){
             $year = date("Y");
         }
@@ -117,13 +119,17 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+      
         $this->layout = "login";
 
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        
         $model = new LoginForm();
+        
+      
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -132,7 +138,6 @@ class SiteController extends Controller
             ]);
         }
     }
-
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -157,5 +162,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    
+    public function actionChangeYear()
+    {
+        Yii::$app->session->set("year", Yii::$app->request->post("year"));
+
+        return json_encode(array('success' => 0));
     }
 }

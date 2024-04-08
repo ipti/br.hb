@@ -776,7 +776,8 @@ class ReportsController extends \yii\web\Controller {
         exit;
     }
 
-    public function actionHealth($year = null) {
+    public function actionHealth() {
+        $year = Yii::$app->session->get('year');
         if(!isset($year)) {
             $year = date("Y");
         }

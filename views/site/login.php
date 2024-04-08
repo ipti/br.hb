@@ -35,6 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ])->passwordInput()->label(false) ?>
 
+    <select name="LoginForm[year]" id="year-select">
+        <?php
+        $anoAtual = date('Y');
+
+        for ($ano = $anoAtual; $ano >= 2014; $ano--) {
+            echo "<option value='$ano'>$ano</option>";
+        }
+        ?>
+    </select>
+
     <?= $form->field($model, 'rememberMe', [
         'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
     ])->checkbox() ?>
