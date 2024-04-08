@@ -188,11 +188,12 @@ class HemoglobinController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
         
             if($model->sample == 1){
                 $term = $model->agreed_term;
                 $rate = $model->rate;
+                $model->save();
 
                 //Se anêmica cadastrar a consulta
                 /* @var $objTerm \app\models\term */
@@ -237,7 +238,7 @@ class HemoglobinController extends Controller {
             return $this->redirect(['index', 'c' => $model->agreedTerm->campaigns->id, 's' => $model->sample]);
         } else {
             return $this->render('update', [
-                        'model' => $model,
+                'model' => $model,
             ]);
         }
     }
