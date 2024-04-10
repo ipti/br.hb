@@ -12,6 +12,7 @@ WHERE e.id IN (
     FROM hemoglobin h
     JOIN term t ON t.id = h.agreed_term
     JOIN enrollment e ON e.id = t.enrollment
+    WHERE h.sample = 1
     GROUP BY e.id
     HAVING COUNT(*) > 1
 )
@@ -25,6 +26,7 @@ AND (t.id, h.id) NOT IN (
         FROM hemoglobin h
         JOIN term t ON t.id = h.agreed_term
         JOIN enrollment e ON e.id = t.enrollment
+        WHERE h.sample = 1
         GROUP BY e.id
         HAVING COUNT(*) > 1
     )
