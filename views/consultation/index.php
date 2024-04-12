@@ -117,7 +117,33 @@ $this->params['campaign'] = $campaign;
                     }
                     return "";
                 }
-            ]
+            ],
+            [
+                'class' => kartik\grid\DataColumn::class,
+                'label' => yii::t('app', 'Delete'),
+                'options' => ['style' => 'width:10%'],
+                'content' => function($model, $key, $index, $column) {
+                    $cid = $this->params['campaign'];
+                    $consult = $model->getTerms()->where("campaign = :cid", ["cid" => $cid])->one()->getConsults()->one();
+
+                    $deleteUrl = Url::toRoute(['consultation/delete', 'id' => $consult->id]);
+
+                    $deleteButton = Html::a(
+                        Icon::show('trash-o', [], Icon::FA),
+                        $deleteUrl,
+                        [
+                            'class' => 'delete-consult',
+                            'data' => [
+                                'method' => 'post',
+                                'confirm' => 'Você tem certeza que deseja excluir este item?',
+                                'ajax' => '1'
+                            ],
+                        ]
+                    );
+
+                    return "<br>" . $deleteButton;
+                }
+            ],
         ],
         'pjax' => true,
         'pjaxSettings' => [
