@@ -1,0 +1,9 @@
+th {
+    text-align: center;
+}
+
+.delete-consult {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
