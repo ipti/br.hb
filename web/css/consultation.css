@@ -7,3 +7,7 @@ th {
     flex-direction: column;
     text-align: center;
 }
+
+.delete-consult > i {
+    color: #a94442
+}
