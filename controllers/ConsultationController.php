@@ -101,9 +101,9 @@ class ConsultationController extends Controller {
         $model = $this->findModel($id);
 
         if ($t == 1) {
-            $model->attended = 1;
-        } else if ($t == 2) {
-            $model->delivered = 1;
+            ($model->attended == 1) ? $model->attended = 0 : $model->attended = 1;
+        } elseif ($t == 2) {
+            ($model->delivered == 1) ? $model->delivered = 0 : $model->delivered = 1;
         }
 
         if (!$model->save()) {
