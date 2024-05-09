@@ -26,3 +26,25 @@ function submitUpdateAttended(cid){
     });
     
 }
+
+$(document).ready(function() {
+    $('.delete-consult').on('click', function(e) {
+        e.preventDefault();
+
+        var url = $(this).attr('href');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function(response) {
+                // Recarrega a página para a URL atual
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro na exclusão:', status, error);
+            }
+        });
+
+        return false;
+    });
+});
