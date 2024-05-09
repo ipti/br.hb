@@ -183,7 +183,7 @@ $this->assetBundles['Reports']->js = [
                 anemia.</p>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    O nível de hemoglobina encontrado no exame foi  <?= $data['sHb1'] ?>
+                    O nível de hemoglobina encontrado no exame foi  <?= $sHb1 ?>
             <p>Ficamos preocupados, pois o resultado mostrou que a sua criança encontra-se com anemia. Vocês deverão levar seu filho(a) à consulta médica, para que ele receba o tratamento:</p>
             <p>
             <b>Dia da Consulta:</b>____/____/____<br/>

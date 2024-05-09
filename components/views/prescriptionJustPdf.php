@@ -24,9 +24,10 @@ use app\components\ReportHeaderWidget;
     $gotasPorML = 20;
     $concentracaoPorGota = $concentracaoPorML / $gotasPorML;
 
-    $posologia = ceil($data['weight'] / $concentracaoPorGota);
+    $weight = floatval($data['weight']);
+    $posologia = ceil($weight / $concentracaoPorGota);
 
-    if ($data['weight'] > 30) {
+    if ($weight > 30) {
         $sulfato = "<b>Sulfato Ferroso</b> em comprimido, <b>1 Comprimido a cada 12h</b>.";
     } else {
         $sulfato = "<b>Sulfato Ferroso</b> em gotas, <b>$posologia gotas</b>, três vezes ao dia.";
