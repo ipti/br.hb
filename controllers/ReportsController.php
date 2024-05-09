@@ -29,6 +29,7 @@ class ReportsController extends \yii\web\Controller {
 
     public function actionConsultationLetter($sid = null, $eid, $cid) {
         $options = $sid == null ? [] : ['sHb1' => "", 'student' => \app\models\student::find()->where('id = :sid', ['sid' => $sid])->one(), 'eronllment' => $eid, 'campaign' => $cid];
+
         return $this->render('consultationLetter', $options);
     }
 
@@ -615,7 +616,7 @@ class ReportsController extends \yii\web\Controller {
      * Summary of actionBuildLetters
      * @return void
      */
-    public function actionBuildLetters($cid, $isConsutationLetters) {
+    public function actionBuildLetters($cid, $isConsutationLetters, $sample) {
         if(isset($cid)) {
             $schools = array();
 
@@ -626,10 +627,14 @@ class ReportsController extends \yii\web\Controller {
                 $classroom = $enrollment->getClassrooms()->orderBy('name')->one();
                 $school = $classroom->getSchools()->orderBy('name')->one();
                 $student = $enrollment->getStudents()->orderBy('name')->one();
-                $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+                $hb1 = $term != null ? $term->getHemoglobins()->where("sample = :sample", [":sample" => $sample])->one() : null;
                 $rate = $hb1["rate"];
                 $sex = $student->gender == 'male' ? true : false;
                 $ageStudent = (time() - strtotime($student->birthday)) / (60 * 60 * 24 * 30);
+
+                if (!isset($rate)) {
+                    continue;
+                }
 
                 $isAnemic = false;
                 if(($ageStudent > 24) && ($ageStudent < 60)) {
@@ -656,9 +661,10 @@ class ReportsController extends \yii\web\Controller {
                     $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameMother'] = $student->mother;
                     $schools[$school->id]['classrooms'][$classroom->id]['students'][$student->id]['nameFather'] = $student->father;
                 }
+
             endforeach;
         }
-        return $this->render('buildLetters', ['schools' => $schools, 'isConsutationLetters' => $isConsutationLetters]);
+        return $this->render('buildLetters', ['schools' => $schools, 'isConsutationLetters' => $isConsutationLetters, "sample"=> $sample]);
     }
 
     public function actionGetConsultationLetter() {
@@ -670,7 +676,7 @@ class ReportsController extends \yii\web\Controller {
         $time = isset($letter['consult-time']) && !empty($letter['consult-time']) ? $letter['consult-time'] : "____:____";
         $place = isset($letter['consult-location']) && !empty($letter['consult-location']) ? $letter['consult-location'] : "____________________________________";
         $term = $eid != null ? \app\models\term::find()->where("enrollment = :eid and campaign = :cid", ['eid' => $eid, 'cid' => $cid])->one() : null;
-        $hb1 = $term != null ? $term->getHemoglobins()->where("sample = 1")->one() : null;
+        $hb1 = $term != null ? $term->getHemoglobins()->where("sample = :sample", [":sample"=> $_POST['sample']])->one() : null;
         $student = ($sid != null) ? \app\models\student::find()->where("id = :sid", ['sid' => $sid])->one() : null;
         /* @var $student \app\models\student */
         $name = $student != null ? $student->name : "____________________________________________________________________";

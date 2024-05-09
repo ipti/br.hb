@@ -69,9 +69,9 @@ $columns = array_merge($columns, [[
     ]]);
 ?>
 <div style="display: flex;float: right;">
-<?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Notice Letters"),Url::toRoute(['reports/build-letters', 'cid' => $campaign->id, 'isConsutationLetters'=> false]),
+<?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Notice Letters"),Url::toRoute(['reports/build-letters', 'cid' => $campaign->id, 'isConsutationLetters'=> false, 'sample' => $sample]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right']) ?>
-<?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Consultation Notification Letters"),Url::toRoute(['reports/build-letters', 'cid' => $campaign->id, 'isConsutationLetters'=> true]),
+<?php echo Html::a(Icon::show('file-pdf-o', [], Icon::FA).yii::t('app',"Consultation Notification Letters"),Url::toRoute(['reports/build-letters', 'cid' => $campaign->id, 'isConsutationLetters'=> true, 'sample' => $sample]),
          ['target'=>"_blank", 'class' => 'btn btn-primary pull-right ml-10']) ?>
 </div>
 <div class="hemoglobin-index">

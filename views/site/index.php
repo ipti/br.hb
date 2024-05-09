@@ -28,7 +28,7 @@ $this->params['siteIndex'] = true;
     <div class="body-content">
 
         <div class="row">
-        <?php        
+        <?php
         $campaing = new app\models\campaign();
 
         $today = date("j-n-Y");
