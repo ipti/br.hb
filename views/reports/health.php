@@ -26,7 +26,7 @@ $this->title = yii::t('app', 'Health Report');
         <th class='border-right'>ALUNOS MATRICULADOS</th>
         <th class='border-right'>ANTROPOMETRIA</th>
         <th class='border-right'>TERMOS DE CONSENTIMENTO ASSINADOS</th>
-<!--        <th class='border-right color-grey'>FERRITINA</th>-->
+       <th class='border-right color-grey'>FERRITINA</th>
         <th class='border-right color-grey' style="-webkit-print-color-adjust: exact;">HB1</th>
         <th class='border-right'>ANÊMICO HB1</th>
         <th class='border-right'>RECEBERAM MEDICAMENTO</th>
@@ -135,15 +135,15 @@ $this->title = yii::t('app', 'Health Report');
                     ?>%)
                 </span>
             </td>
-<!--            <td class="border-bottom-dashed-right color-grey">-->
-<!--                --><?php //= $ferritin['Done'] ?>
-<!--                <span class="health-report-percent">-->
-<!--                    (--><?php //=
-//                    $ferritin['Done'] == 0 ? ($terms['Agreed'] == 0 ? 100 : 0) :
-//                        round(($ferritin['Done'] / $terms['Agreed']) * 100, 2)
-//                    ?><!--%)-->
-<!--                </span>-->
-<!--            </td>-->
+           <td class="border-bottom-dashed-right color-grey">
+              <?= $ferritin['Done'] ?>
+               <span class="health-report-percent">
+                   (<?=
+                   $ferritin['Done'] == 0 ? ($terms['Agreed'] == 0 ? 100 : 0) :
+                       round(($ferritin['Done'] / $terms['Agreed']) * 100, 2)
+                   ?>)%
+                </span>
+           </td>
             <td class="border-bottom-dashed-right color-grey">
                 <?= $hb1['Total'] ?>
                 <span class="health-report-percent">

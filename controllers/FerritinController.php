@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Mpdf\Mpdf;
 use app\models\consultation;
 
 /**
@@ -261,19 +262,21 @@ class FerritinController extends Controller
 
 
                 $isAnemic = false;
-                if (($ageStudent > 24) && ($ageStudent < 60)) {
-                    $isAnemic = !($rate >= 11);
-                } else if (($ageStudent >= 60) && ($ageStudent < 144)) {
-                    $isAnemic = !($rate >= 11.5);
-                } else if (($ageStudent >= 144) && ($ageStudent < 180)) {
-                    $isAnemic = !($rate >= 12);
-                } else if ($ageStudent >= 180) {
+                if (($ageStudent < 1)) {
+                    $isAnemic = $rate < 25;
+                } elseif (($ageStudent >= 1) && ($ageStudent < 2)) {
+                    $isAnemic = $rate < 200;
+                } elseif (($ageStudent >= 2) && ($ageStudent <= 5)) {
+                    $isAnemic = $rate < 50;
+                } elseif (($ageStudent >= 6) && ($ageStudent <= 180)) {
+                    $isAnemic = $rate < 10;
+                } elseif ($ageStudent > 180) {
 
                     if ($genderStudent == "male") {
-                        $isAnemic = !($rate >= 13);
+                        $isAnemic = $rate < 26;
                     } else {
                         //female
-                        $isAnemic = !($rate >= 12);
+                        $isAnemic = $rate < 15;
                     }
                 }
 
@@ -295,7 +298,7 @@ class FerritinController extends Controller
         ]]);
 
 
-        $mpdf = new \mPDF();
+        $mpdf = new mPDF();
         $css1 = file_get_contents(__DIR__ . '/../vendor/bower-asset/bootstrap/dist/css/bootstrap.css');
         $mpdf->WriteHTML($css1, 1);
 
